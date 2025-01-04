@@ -1,0 +1,18 @@
+<Project Sdk="Godot.NET.Sdk/4.3.0">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="script_templates\BehaviorTask\BaseBehaviorTask.cs" />
+    <Compile Remove="script_templates\CompoundState\BaseCompoundStateTemplate.cs" />
+    <Compile Remove="script_templates\State\BaseStateTemplate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="script_templates\BehaviorTask\BaseBehaviorTask.cs" />
+    <None Include="script_templates\CompoundState\BaseCompoundStateTemplate.cs" />
+    <None Include="script_templates\State\BaseStateTemplate.cs" />
+  </ItemGroup>
+</Project>

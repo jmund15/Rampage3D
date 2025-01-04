@@ -1,0 +1,76 @@
+[gd_scene load_steps=14 format=3 uid="uid://b8ykeo37sw7gg"]
+
+[ext_resource type="Texture2D" uid="uid://eb18o200wqva" path="res://Textures/32x/brick01/32x_brick01_top.png" id="1_x3pdi"]
+[ext_resource type="ArrayMesh" uid="uid://cr7ka0otfrjo0" path="res://Models/building_32x.obj" id="2_o8a10"]
+[ext_resource type="Texture2D" uid="uid://cwham6cs71fgq" path="res://Textures/32x/brick01/32x_brick01_bot.png" id="3_27uqd"]
+[ext_resource type="Texture2D" uid="uid://bidafxyqk1e3v" path="res://Textures/32x/brick01/32x_brick01_mid.png" id="4_f5q7c"]
+[ext_resource type="PackedScene" uid="uid://cbct72jw70cm4" path="res://BaseComponents/climbable_component.tscn" id="5_73sg8"]
+[ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="6_sgwty"]
+[ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="7_m8ym8"]
+[ext_resource type="PackedScene" uid="uid://cymylojsj6itv" path="res://BaseComponents/destroyable_structure_component.tscn" id="8_uto6d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2w3cm"]
+albedo_texture = ExtResource("1_x3pdi")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0qaer"]
+albedo_texture = ExtResource("3_27uqd")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y5nxo"]
+albedo_texture = ExtResource("4_f5q7c")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_outsx"]
+size = Vector3(1, 1.87866, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7rco6"]
+size = Vector3(1, 1.88513, 1)
+
+[node name="Building" type="StaticBody3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.61449, 0)
+collision_layer = 2
+collision_mask = 3
+
+[node name="FullBuildingModels" type="Node3D" parent="."]
+
+[node name="BuildingTop" type="MeshInstance3D" parent="FullBuildingModels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.443546, 0)
+material_override = SubResource("StandardMaterial3D_2w3cm")
+mesh = ExtResource("2_o8a10")
+skeleton = NodePath("../..")
+
+[node name="BuildingBot" type="MeshInstance3D" parent="FullBuildingModels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.807, 0)
+material_override = SubResource("StandardMaterial3D_0qaer")
+mesh = ExtResource("2_o8a10")
+skeleton = NodePath("../..")
+
+[node name="BuildingMid" type="MeshInstance3D" parent="FullBuildingModels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.181945, 0)
+material_override = SubResource("StandardMaterial3D_y5nxo")
+mesh = ExtResource("2_o8a10")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.130737, 0)
+shape = SubResource("BoxShape3D_outsx")
+
+[node name="DestroyableStructureComponent" parent="." node_paths=PackedStringArray("_healthComp", "_structure") instance=ExtResource("8_uto6d")]
+_healthComp = NodePath("../HealthComponent")
+_structure = NodePath("../FullBuildingModels")
+
+[node name="ClimbableComponent" parent="." node_paths=PackedStringArray("_healthComp", "_collShape") instance=ExtResource("5_73sg8")]
+_healthComp = NodePath("../HealthComponent")
+_collShape = NodePath("../CollisionShape3D")
+ClimbOnLedgeDist = 1.0
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("6_sgwty")
+MaxHealth = 5.0
+
+[node name="HurtboxComponent3D" type="Area3D" parent="." node_paths=PackedStringArray("HealthComponent")]
+collision_layer = 2
+script = ExtResource("7_m8ym8")
+HealthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.129578, 0)
+shape = SubResource("BoxShape3D_7rco6")

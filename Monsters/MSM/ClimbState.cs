@@ -1,0 +1,141 @@
+using Godot;
+using Godot.Collections;
+
+[Tool]
+public partial class ClimbState : AnimState
+{
+	#region STATE_VARIABLES
+	private CharacterBody3D _body;
+    private float _bodyHeight;
+
+    [Export(PropertyHint.NodeType, "State")]
+    private State _climbIdleState;
+    [Export(PropertyHint.NodeType, "State")]
+	private State _landState;
+    [Export(PropertyHint.NodeType, "State")]
+    private State _descendState;
+    [Export(PropertyHint.NodeType, "State")]
+    private State _jumpState;
+
+    private SpriteOrthogComponent _bodySprite;
+    private float _topBodyDistFromPos;
+
+	private ClimbableComponent _climbComp;
+    private Vector2 _inputDir;
+    private AnimDirection _climbDir;
+	#endregion
+	#region STATE_UPDATES
+	public override void Init(Node agent, IBlackboard bb)
+	{
+		base.Init(agent, bb);
+        _body = Agent as CharacterBody3D;
+        _bodySprite = BB.GetVar<SpriteOrthogComponent>(BBDataSig.Sprite);
+    }
+	public override void Enter(Dictionary<State, bool> parallelStates)
+	{
+		base.Enter(parallelStates);
+		_climbComp = BB.GetVar<ClimbableComponent>(BBDataSig.CurrClimbComp);
+        _climbDir = MoveComp.GetAnimDirection();
+        //GD.Print("on climb enter anim: ", AnimPlayer.CurrentAnimation);
+        //GD.Print("on climb enter anim direction: ", _climbDir);
+        //GD.Print("climbable max climb height: ", _climbComp.MaxClimbHeight);
+        
+        BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(AnimName +
+            IMovementComponent.GetFaceDirectionString(_climbDir));
+
+        _body.Velocity = Vector3.Zero;
+
+        _topBodyDistFromPos = _bodySprite.SpriteHeight;
+        GD.Print("_topBodyDistFromPos: ", _topBodyDistFromPos);
+    }
+	public override void Exit()
+	{
+        _body.Velocity = Vector3.Zero;
+        _body.MoveAndSlide();
+		//base.Exit();
+	}
+	public override void ProcessFrame(float delta)
+	{
+		base.ProcessFrame(delta);
+        _inputDir = MoveComp.GetDesiredDirection();
+
+        if (_inputDir.Y == 0)
+        {
+            EmitSignal(SignalName.TransitionState, this, _climbIdleState);
+        }
+        else if (MoveComp.WantsJump())
+        {
+            EmitSignal(SignalName.TransitionState, this, _jumpState);
+        }
+    }
+	public override void ProcessPhysics(float delta)
+	{
+		base.ProcessPhysics(delta);
+        var desiredAnimDirection = IMovementComponent.GetAnimDirectionFromVector(_inputDir);
+        if (_climbDir != desiredAnimDirection && _inputDir.Y != 0)
+        {
+            EmitSignal(SignalName.TransitionState, this, _descendState);
+            return;
+        }
+
+        //GD.Print("body pos: ", _body.Position.Y, "\ncurr top of body: ", _body.Position.Y + _topBodyDistFromPos,
+        //    "\nTop of building height:", _climbComp.MaxClimbHeight);
+        if (_body.Position.Y + (_topBodyDistFromPos / 2) >= _climbComp.MaxClimbHeight && _climbComp.CanClimbOnTop)
+        {
+            float climbOnPush = 0.5f;
+            Vector2 pushDir = IMovementComponent.GetVectorFromDirection(MoveComp.GetFaceDirection())
+                * climbOnPush;
+            //_body.Position = new Vector3
+            //    (_body.Position.X + pushDir.X,
+            //    _climbComp.MaxClimbHeight,
+            //    _body.Position.Z + pushDir.Y);
+            GD.Print("CURRENT BODY POS: ", _body.Position);
+            var climbPos = _climbComp.ClimbOnPosMap[MoveComp.GetFaceDirection()];
+            _body.Position = new Vector3(
+                climbPos.X,
+                /*_body.Position.Y + _topBodyDistFromPos,//*/climbPos.Y - _topBodyDistFromPos / 2,
+                climbPos.Z
+                );
+
+            GD.Print("SETTING BODY POS: ", _body.Position);    
+
+            EmitSignal(SignalName.TransitionState, this, _landState);
+            return;
+        }
+
+        HandleClimbVelocity();
+    }
+	public override void HandleInput(InputEvent @event)
+	{
+		base.HandleInput(@event);
+	}
+    #endregion
+    #region STATE_HELPER
+    protected override void AnimStateStart()
+    {
+        
+    }
+    private void HandleClimbVelocity()
+    {
+        Vector3 velocity = _body.Velocity;
+        velocity.X = 0; velocity.Z = 0;
+
+        var climbInput = Mathf.Abs(_inputDir.Y);
+        //GD.Print("climb input: ", climbInput);
+
+        if (_body.Position.Y + (_topBodyDistFromPos / 2) < _climbComp.MaxClimbHeight) 
+        {
+            velocity.Y = climbInput * Monster.ClimbSpeed;
+        }
+        else { 
+            GD.Print("climb max height: ",  _climbComp.MaxClimbHeight, 
+                "\nbody curr height: ", _body.Position.Y);
+            velocity.Y = 0; }
+
+        _body.Velocity = velocity;
+        _body.MoveAndSlide();
+    }
+
+	
+	#endregion
+}

@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://nrt61isqasf7"]
+
+[ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_oumf5"]
+[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Buildings/base_building.tscn" id="2_qqtiw"]
+[ext_resource type="ArrayMesh" uid="uid://coutw4aq12fdb" path="res://addons/kaykit_city_builder_bits/Assets/obj/base.obj" id="3_ek6wh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o4jck"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eb500"]
+
+[sub_resource type="Sky" id="Sky_5a5uy"]
+sky_material = SubResource("ProceduralSkyMaterial_eb500")
+
+[sub_resource type="Environment" id="Environment_s2y8y"]
+background_mode = 2
+sky = SubResource("Sky_5a5uy")
+
+[node name="MainScene" type="Node3D"]
+
+[node name="monster" parent="." instance=ExtResource("1_oumf5")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, -0.869202, 2)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, -0.40558, 0.579228, 0, 0.819152, 0.573577, -0.707107, -0.40558, 0.579228, 4.35035, 5.62989, 0.307039)
+projection = 1
+fov = 37.8493
+size = 12.0
+
+[node name="Fllor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.17778, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Fllor"]
+shape = SubResource("BoxShape3D_o4jck")
+
+[node name="Building" parent="." instance=ExtResource("2_qqtiw")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.77319, 0.80702, -4.61987)
+
+[node name="Building2" parent="." instance=ExtResource("2_qqtiw")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -1.27853, 0.80702, -9.26733)
+
+[node name="Building3" parent="." instance=ExtResource("2_qqtiw")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -3.81708, 0.80702, -2.41827)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.984787, 0.0629068, -0.161982, 0, 0.932172, 0.362015, 0.173768, -0.356508, 0.917991, 0, 4.83154, 6.14081)
+light_color = Color(1, 0.968627, 0.866667, 1)
+
+[node name="Base" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 20, 0.112427, -1.07904, -1.65918)
+mesh = ExtResource("3_ek6wh")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_s2y8y")

@@ -1,0 +1,1345 @@
+[gd_scene load_steps=51 format=4 uid="uid://bet4sr6qiuddb"]
+
+[ext_resource type="Script" path="res://BaseComponents/SpriteOrthogComponent.cs" id="1_tmixd"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_qr5mb"]
+_data = PackedByteArray("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")
+size_override = Vector2(1952, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecyqw"]
+resource_local_to_scene = true
+atlas = SubResource("PortableCompressedTexture2D_qr5mb")
+region = Rect2(1376, 64, 32, 32)
+
+[sub_resource type="Animation" id="Animation_iwlfl"]
+length = 0.481
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.24, 0.36),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(544, 32, 32, 32), Rect2(576, 32, 32, 32), Rect2(608, 32, 32, 32), Rect2(640, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_mg08s"]
+length = 0.481
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.24, 0.36),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(544, 64, 32, 32), Rect2(576, 64, 32, 32), Rect2(608, 64, 32, 32), Rect2(640, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_lhavu"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(672, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_oaw4r"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(672, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_nbd0f"]
+length = 0.401
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.26),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(1280, 32, 32, 32), Rect2(1312, 32, 32, 32), Rect2(1344, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_uurf4"]
+length = 0.401
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.26),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(1280, 64, 32, 32), Rect2(1312, 64, 32, 32), Rect2(1344, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_4bphp"]
+length = 1.161
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.24, 0.38, 0.52, 0.64, 0.76),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(1056, 32, 32, 32), Rect2(1088, 32, 32, 32), Rect2(1120, 32, 32, 32), Rect2(1152, 32, 32, 32), Rect2(1184, 32, 32, 32), Rect2(1216, 32, 32, 32), Rect2(1248, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_12u13"]
+length = 1.161
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.24, 0.38, 0.52, 0.64, 0.76),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(1056, 64, 32, 32), Rect2(1088, 64, 32, 32), Rect2(1120, 64, 32, 32), Rect2(1152, 64, 32, 32), Rect2(1184, 64, 32, 32), Rect2(1216, 64, 32, 32), Rect2(1248, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_f4qkf"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(1856, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_x8d3k"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(1856, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_ybgw3"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(1824, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_fosjf"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(1824, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_77gbc"]
+length = 0.641
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.16, 0.32, 0.48),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(64, 32, 32, 32), Rect2(96, 32, 32, 32), Rect2(128, 32, 32, 32), Rect2(160, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_4g7tb"]
+length = 0.641
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.16, 0.32, 0.48),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(64, 64, 32, 32), Rect2(96, 64, 32, 32), Rect2(128, 64, 32, 32), Rect2(160, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_rkvo6"]
+length = 0.201
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(704, 32, 32, 32), Rect2(736, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_3vqhp"]
+length = 0.201
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(704, 64, 32, 32), Rect2(736, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_s1tsq"]
+length = 0.221
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(1888, 32, 32, 32), Rect2(1920, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_c4vjx"]
+length = 0.221
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(1888, 64, 32, 32), Rect2(1920, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_8760t"]
+length = 0.121
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(768, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_3qfkv"]
+length = 0.121
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(768, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_pwhly"]
+length = 0.321
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.22),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(320, 32, 32, 32), Rect2(352, 32, 32, 32), Rect2(384, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_p6uud"]
+length = 0.321
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.22),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(320, 64, 32, 32), Rect2(352, 64, 32, 32), Rect2(384, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_so6bi"]
+length = 0.281
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(864, 32, 32, 32), Rect2(896, 32, 32, 32), Rect2(928, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_o3h5u"]
+length = 0.281
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(864, 64, 32, 32), Rect2(896, 64, 32, 32), Rect2(928, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_6otxa"]
+length = 0.281
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(960, 32, 32, 32), Rect2(992, 32, 32, 32), Rect2(1024, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_fx35t"]
+length = 0.281
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(960, 64, 32, 32), Rect2(992, 64, 32, 32), Rect2(1024, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_lic0w"]
+length = 0.121
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(832, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_fw0l1"]
+length = 0.121
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(832, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_0k07a"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_8e75h"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_vp6ly"]
+length = 0.481
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.24, 0.36),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(416, 32, 32, 32), Rect2(448, 32, 32, 32), Rect2(480, 32, 32, 32), Rect2(512, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_nkj36"]
+length = 0.481
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.24, 0.36),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(416, 64, 32, 32), Rect2(448, 64, 32, 32), Rect2(480, 64, 32, 32), Rect2(512, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_dx6s8"]
+length = 0.601
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(1728, 32, 32, 32), Rect2(1760, 32, 32, 32), Rect2(1792, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_thf0i"]
+length = 0.601
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(1728, 64, 32, 32), Rect2(1760, 64, 32, 32), Rect2(1792, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_fvg1y"]
+length = 1.061
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.46, 0.66, 0.86),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(1600, 32, 32, 32), Rect2(1632, 32, 32, 32), Rect2(32, 32, 32, 32), Rect2(1664, 32, 32, 32), Rect2(1696, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_csjol"]
+length = 1.061
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.46, 0.66, 0.86),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(1600, 64, 32, 32), Rect2(1632, 64, 32, 32), Rect2(32, 64, 32, 32), Rect2(1664, 64, 32, 32), Rect2(1696, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_3hb6l"]
+length = 0.801
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(192, 32, 32, 32), Rect2(224, 32, 32, 32), Rect2(256, 32, 32, 32), Rect2(288, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_8grwm"]
+length = 0.801
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(192, 64, 32, 32), Rect2(224, 64, 32, 32), Rect2(256, 64, 32, 32), Rect2(288, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_7n87o"]
+length = 0.471
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.11, 0.25, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(1472, 32, 32, 32), Rect2(1504, 32, 32, 32), Rect2(1536, 32, 32, 32), Rect2(1568, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_4gux8"]
+length = 0.471
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.11, 0.25, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(1472, 64, 32, 32), Rect2(1504, 64, 32, 32), Rect2(1536, 64, 32, 32), Rect2(1568, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_fij5b"]
+length = 0.121
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(800, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_7qy32"]
+length = 0.121
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(800, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_e8iiw"]
+length = 0.361
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.22),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(1376, 32, 32, 32), Rect2(1408, 32, 32, 32), Rect2(1440, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_lvocc"]
+length = 0.361
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.22),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(1376, 64, 32, 32), Rect2(1408, 64, 32, 32), Rect2(1440, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_35hv3"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(32, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_x3cuj"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(32, 64, 32, 32)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b7oak"]
+_data = {
+"climbDown": SubResource("Animation_iwlfl"),
+"climbUp": SubResource("Animation_mg08s"),
+"desendDown": SubResource("Animation_lhavu"),
+"desendUp": SubResource("Animation_oaw4r"),
+"eatDown": SubResource("Animation_nbd0f"),
+"eatUp": SubResource("Animation_uurf4"),
+"grabDown": SubResource("Animation_4bphp"),
+"grabUp": SubResource("Animation_12u13"),
+"hurt2Down": SubResource("Animation_f4qkf"),
+"hurt2Up": SubResource("Animation_x8d3k"),
+"hurtDown": SubResource("Animation_ybgw3"),
+"hurtUp": SubResource("Animation_fosjf"),
+"idleDown": SubResource("Animation_77gbc"),
+"idleUp": SubResource("Animation_4g7tb"),
+"jumpDown": SubResource("Animation_rkvo6"),
+"jumpUp": SubResource("Animation_3vqhp"),
+"land2Down": SubResource("Animation_s1tsq"),
+"land2Up": SubResource("Animation_c4vjx"),
+"landDown": SubResource("Animation_8760t"),
+"landUp": SubResource("Animation_3qfkv"),
+"liftDown": SubResource("Animation_pwhly"),
+"liftUp": SubResource("Animation_p6uud"),
+"punch1Down": SubResource("Animation_so6bi"),
+"punch1Up": SubResource("Animation_o3h5u"),
+"punch2Down": SubResource("Animation_6otxa"),
+"punch2Up": SubResource("Animation_fx35t"),
+"punchStartupDown": SubResource("Animation_lic0w"),
+"punchStartupUp": SubResource("Animation_fw0l1"),
+"referenceDown": SubResource("Animation_0k07a"),
+"referenceUp": SubResource("Animation_8e75h"),
+"walkDown": SubResource("Animation_vp6ly"),
+"walkUp": SubResource("Animation_nkj36"),
+"wallEatDown": SubResource("Animation_dx6s8"),
+"wallEatUp": SubResource("Animation_thf0i"),
+"wallGrabDown": SubResource("Animation_fvg1y"),
+"wallGrabUp": SubResource("Animation_csjol"),
+"wallIdleDown": SubResource("Animation_3hb6l"),
+"wallIdleUp": SubResource("Animation_8grwm"),
+"wallKickDown": SubResource("Animation_7n87o"),
+"wallKickUp": SubResource("Animation_4gux8"),
+"wallLandDown": SubResource("Animation_fij5b"),
+"wallLandUp": SubResource("Animation_7qy32"),
+"wallPunchDown": SubResource("Animation_e8iiw"),
+"wallPunchUp": SubResource("Animation_lvocc"),
+"wallReferenceDown": SubResource("Animation_35hv3"),
+"wallReferenceUp": SubResource("Animation_x3cuj")
+}
+
+[node name="grizzle" type="Sprite3D"]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
+centered = false
+offset = Vector2(-16, 0)
+texture_filter = 0
+texture = SubResource("AtlasTexture_ecyqw")
+script = ExtResource("1_tmixd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_b7oak")
+}
