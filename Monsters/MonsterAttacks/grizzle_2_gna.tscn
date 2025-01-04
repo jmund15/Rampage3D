@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://ckjqfkhvrt3vr"]
+
+[ext_resource type="Script" path="res://JmoAI/BT/BehaviorTree.cs" id="1_2h7ol"]
+[ext_resource type="Script" path="res://JmoAI/BT/Composites/Sequence.cs" id="2_rlhq0"]
+[ext_resource type="Script" path="res://JmoAI/BT/Actions/PlayAnim.cs" id="3_fddn4"]
+[ext_resource type="Script" path="res://Monsters/MSM/AttackMelee.cs" id="3_om6sd"]
+[ext_resource type="Resource" uid="uid://psjkht04ne2u" path="res://Monsters/MonsterAttacks/grizzle_2_GNA_P1.tres" id="5_h1ia1"]
+[ext_resource type="Resource" uid="uid://csb1vfb0jj03e" path="res://Monsters/MonsterAttacks/grizzle_2_GNA_P2.tres" id="6_cjnja"]
+
+[node name="Grizzle_2_GNA" type="Node"]
+script = ExtResource("1_2h7ol")
+
+[node name="gna_seq" type="Node" parent="."]
+script = ExtResource("2_rlhq0")
+
+[node name="PunchStartup" type="Node" parent="gna_seq"]
+script = ExtResource("3_fddn4")
+AnimName = "punchStartup"
+AnimDirStrategy = 1
+SelfInteruptible = 1
+
+[node name="Punch1" type="Node" parent="gna_seq"]
+script = ExtResource("3_om6sd")
+AttackInfo = ExtResource("5_h1ia1")
+SelfInteruptible = 0
+
+[node name="Punch2" type="Node" parent="gna_seq"]
+script = ExtResource("3_om6sd")
+AttackInfo = ExtResource("6_cjnja")
+SelfInteruptible = 0

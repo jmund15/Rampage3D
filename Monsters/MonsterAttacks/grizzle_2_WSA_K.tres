@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MeleeAttackInfo" load_steps=2 format=3 uid="uid://dt2at0vidq432"]
+
+[ext_resource type="Script" path="res://BaseResources/MeleeAttackInfo.cs" id="1_vc2n2"]
+
+[resource]
+script = ExtResource("1_vc2n2")
+AnimName = "wallKick"
+Velocity = 1.0
+Damage = 1.0
+Knockback = 1.0

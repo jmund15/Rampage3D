@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MeleeAttackInfo" load_steps=2 format=3 uid="uid://psjkht04ne2u"]
+
+[ext_resource type="Script" path="res://BaseResources/MeleeAttackInfo.cs" id="1_rbn0a"]
+
+[resource]
+script = ExtResource("1_rbn0a")
+AnimName = "punch1"
+Velocity = 1.0
+Damage = 1.0
+Knockback = 1.0
