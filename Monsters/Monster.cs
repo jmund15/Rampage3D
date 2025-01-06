@@ -35,6 +35,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     public HealthComponent HealthComp { get; protected set; }
     public HurtboxComponent3D HurtboxComp { get; protected set; }
     public HitboxComponent3D HitboxComp { get; protected set; }
+    public EaterComponent EaterComponent { get; protected set; }
 
     private CompoundState _stateMachine;
     private Dictionary<State, bool> _parallelStateMachines = new Dictionary<State, bool>();
@@ -75,8 +76,6 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         BB.SetVar(BBDataSig.MoveComp, this); //since we implement "IMovementComponent" within this class we just send this object
         HealthComp = this.GetFirstChildOfType<HealthComponent>();
         BB.SetVar(BBDataSig.HealthComp, HealthComp);
-        //BB.SetVar(BBDataSig.HurtboxComp, HurtboxComp);
-        //BB.SetVar(BBDataSig.HitboxComp, HitboxComp);
 
         GD.Print("Before set sprite.");
 
@@ -90,13 +89,18 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         BB.SetVar(BBDataSig.Anim, AnimPlayer);
 
         HitboxComp = this.GetFirstChildOfType<HitboxComponent3D>();
+        EaterComponent = HitboxComp.GetFirstChildOfType<EaterComponent>();
         BB.SetVar(BBDataSig.HitboxComp, HitboxComp);
+        BB.SetVar(BBDataSig.EaterComp, EaterComponent);
+
+        HurtboxComp = this.GetFirstChildOfType<HurtboxComponent3D>();
+        BB.SetVar(BBDataSig.HurtboxComp, HurtboxComp);
 
         SetMonsterAttacks();
 
         //Shadow.Scale = BagStateComponent.CurrentRobberShadowScale;
 
-        _stateMachine = GetNode<CompoundState>("StateMachine");
+        _stateMachine = GetNode<CompoundState>("MSM");
         _stateMachine.Init(this, BB);
         PrimaryState = _stateMachine.InitialSubState;
         ParallelStates = _stateMachine.ParallelSubStates;
@@ -222,11 +226,6 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     }
 
     public float GetRunSpeedMult()
-    {
-        throw new NotImplementedException();
-    }
-
-    public float GetTurnSpeed()
     {
         throw new NotImplementedException();
     }

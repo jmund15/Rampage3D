@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class HurtboxComponent3D : Area3D
 {
     #region CLASS_VARIABLES

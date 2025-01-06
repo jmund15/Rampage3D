@@ -57,18 +57,20 @@ public partial class AAA : EditorScript
         { "land", Animation.LoopModeEnum.None },
         { "land2", Animation.LoopModeEnum.None },
         { "jump", Animation.LoopModeEnum.None },
+        { "punchStartup", Animation.LoopModeEnum.None },
         { "punch1", Animation.LoopModeEnum.None },
         { "punch2", Animation.LoopModeEnum.None },
         { "wallPunch", Animation.LoopModeEnum.None },
         { "wallKick", Animation.LoopModeEnum.None },
         { "lift", Animation.LoopModeEnum.None },
-
+        { "grab", Animation.LoopModeEnum.None },
+        { "eat", Animation.LoopModeEnum.None },
 
     };
 
-    private const int initOffset = 32;
-	private const int frameHeight = 32;
-
+    private const int initOffset = 32;//10
+    private const int frameHeight = 32;
+        
     public static Dictionary<Direction, int> DirectionOffset = new Dictionary<Direction, int>()
     {
         //{ Direction.RIGHT, initOffset },

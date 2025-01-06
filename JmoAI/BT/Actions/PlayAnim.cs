@@ -34,6 +34,7 @@ public partial class PlayAnim : BehaviorAction
 	{
         AnimPlayer.AnimationFinished += OnAnimationFinished; // so we guarentee signal connect and disconnect
         base.Enter();
+		GD.Print("entered play anim");
         AnimPlayer.SpeedScale = AnimSpeed;
 
 		AnimDirection animDir = AnimDirection.Down;
@@ -48,7 +49,6 @@ public partial class PlayAnim : BehaviorAction
 		}
 		var dirName = IMovementComponent.GetFaceDirectionString(animDir);
         AnimPlayer.Play(AnimName + dirName);
-
     }
 	public override void Exit()
 	{

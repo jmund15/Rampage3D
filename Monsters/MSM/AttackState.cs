@@ -28,10 +28,12 @@ public partial class AttackState : BTState
     protected CharacterBody3D Body;
     protected IMovementComponent MoveComp;
 	protected AnimationPlayer AnimPlayer;
+    protected EaterComponent EaterComp;
 
 	[Export(PropertyHint.NodeType, "State")]
     protected State PostAttackState;
-
+    [Export(PropertyHint.NodeType, "State")]
+    protected State OnEatableHitState;
 
     protected Vector2 InputDir;
     protected AnimDirection AttackAnimDir;
@@ -43,11 +45,13 @@ public partial class AttackState : BTState
         Body = Agent as CharacterBody3D;
 		MoveComp = BB.GetVar<IMovementComponent>(BBDataSig.MoveComp);
         AnimPlayer = BB.GetVar<AnimationPlayer>(BBDataSig.Anim);
-
+        EaterComp = BB.GetVar<EaterComponent>(BBDataSig.EaterComp);
 
     }
 	public override void Enter(Dictionary<State, bool> parallelStates)
 	{
+        EaterComp.EatableHit += OnEatableHit;
+
         AttackType = BB.GetPrimVar<AttackType>(BBDataSig.CurrentAttackType).Value;
         //GD.Print("ATTACK STATE TYPE: ", AttackType);
         AttackSig = AttackToBBMap[AttackType];
@@ -71,6 +75,7 @@ public partial class AttackState : BTState
 		base.Exit();
         //AnimPlayer.AnimationFinished -= OnAnimationFinished;
         Tree.TreeFinishedLoop -= OnTreeFinishLoop;
+        EaterComp.EatableHit -= OnEatableHit;
     }
     public override void ProcessFrame(float delta)
 	{
@@ -93,6 +98,24 @@ public partial class AttackState : BTState
 	}
     #endregion
     #region STATE_HELPER
+    private void OnEatableHit(object sender, EatableComponent e)
+    {
+        EmitSignal(SignalName.TransitionState, this, OnEatableHitState);
+    }
+    protected override void OnTreeFinishLoop(TaskStatus treeStatus)
+    {
+        base.OnTreeFinishLoop(treeStatus);
+        switch (treeStatus)
+        {
+            case TaskStatus.FAILURE:
+                GD.Print("BTState BehaviorTree Finished on status FAILURE");
+                EmitSignal(SignalName.TransitionState, this, OnTreeFailureState); break;
+            case TaskStatus.SUCCESS:
+                EmitSignal(SignalName.TransitionState, this, OnTreeSuccessState); break;
+            case TaskStatus.RUNNING or TaskStatus.FRESH:
+                Global.LogError("HOW DID TREE FINISH LOOP ON NON SUCCeSS OR FAILURE STATUS?"); break;
+        }
+    }
     private void OnAnimationFinished(StringName animName)
     {
     }

@@ -52,12 +52,13 @@ public partial class BehaviorTask : Node
     public virtual void Enter()
     {
         //Status = TaskStatus.FRESH;
+        Status = TaskStatus.RUNNING;
         foreach (var condition in Conditions)
         {
             condition.ExitTaskEvent += OnConditionExit;
             condition.Enter();
+            GD.Print("entered condition: ", condition.ResourceName);
         }
-        Status = TaskStatus.RUNNING;
         //GD.Print($"Task {TaskName} entered");
     }
     public virtual void Exit()
@@ -101,6 +102,7 @@ public partial class BehaviorTask : Node
         {
             Status = TaskStatus.FAILURE;
         }
+        GD.Print("EXITED TASK DUE TO CONDITION");
     }
 
     public override string[] _GetConfigurationWarnings()

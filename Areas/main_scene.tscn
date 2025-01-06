@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://nrt61isqasf7"]
+[gd_scene load_steps=9 format=3 uid="uid://nrt61isqasf7"]
 
 [ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_oumf5"]
 [ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Buildings/base_building.tscn" id="2_qqtiw"]
 [ext_resource type="ArrayMesh" uid="uid://coutw4aq12fdb" path="res://addons/kaykit_city_builder_bits/Assets/obj/base.obj" id="3_ek6wh"]
+[ext_resource type="PackedScene" uid="uid://u01pn5rjsba0" path="res://Critters/critter.tscn" id="4_nsmow"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o4jck"]
 size = Vector3(100, 1, 100)
@@ -25,7 +26,7 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 transform = Transform3D(0.707107, -0.40558, 0.579228, 0, 0.819152, 0.573577, -0.707107, -0.40558, 0.579228, 4.35035, 5.62989, 0.307039)
 projection = 1
 fov = 37.8493
-size = 12.0
+size = 10.0
 
 [node name="Fllor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.17778, 0)
@@ -52,3 +53,6 @@ mesh = ExtResource("3_ek6wh")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s2y8y")
+
+[node name="Critter" parent="." instance=ExtResource("4_nsmow")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, -1.99308)
