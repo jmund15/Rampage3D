@@ -137,7 +137,7 @@ public partial class AttackMelee : BehaviorAction
     #region TASK_HELPER
     private void OnAnimationFinished(StringName animName)
     {
-        GD.Print("FINISHED ATTACK ANIM");
+        //GD.Print("FINISHED ATTACK ANIM");
         Status = TaskStatus.SUCCESS;
     }
 

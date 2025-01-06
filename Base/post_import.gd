@@ -44,7 +44,8 @@ static func modify_context(
 	var result = packed_scene.pack(sprite)
 	print(result)
 	if result == OK:
-		var error = ResourceSaver.save(packed_scene, "res://Monsters/grizzler.tscn")  # Or "user://..."
+		var scene_name = "res://" + sprite.name + ".tscn"
+		var error = ResourceSaver.save(packed_scene, scene_name)#"res://Monsters/grizzler.tscn")  # Or "user://..."
 		if error != OK:
 			push_error("An error occurred while saving the scene to disk.")
 	

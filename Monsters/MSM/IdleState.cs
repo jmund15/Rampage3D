@@ -16,8 +16,6 @@ public partial class IdleState : State
     [Export(PropertyHint.NodeType, "State")]
     private State _jumpState;
     [Export(PropertyHint.NodeType, "State")]
-    private State _attackState;
-    [Export(PropertyHint.NodeType, "State")]
     private State _fallState;
 
     private Vector2 _inputDirection = new Vector2();

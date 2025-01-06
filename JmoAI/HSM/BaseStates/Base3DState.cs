@@ -1,22 +1,21 @@
-﻿using _BINDINGS_NAMESPACE_;
+using Godot;
 using Godot.Collections;
 
-// meta-name: Base Compound State
-// meta-description: Basic Compound State Template
-// meta-default: true
-// meta-space-indent: 4
-[Tool]
-public partial class _CLASS_ : _BASE_
+[GlobalClass, Tool]
+public partial class Base3DState : State
 {
-    //TEMPLATE FOR COMPOUND STATES
     #region STATE_VARIABLES
-    [Export(PropertyHint.NodeType, "State")]
-    private State _transitionState;
+    protected CharacterBody3D Body;
+    protected IMovementComponent MoveComp;
+    protected AnimationPlayer AnimPlayer;
     #endregion
     #region STATE_UPDATES
     public override void Init(Node agent, IBlackboard bb)
     {
         base.Init(agent, bb);
+        Body = Agent as CharacterBody3D;
+        MoveComp = BB.GetVar<IMovementComponent>(BBDataSig.MoveComp);
+        AnimPlayer = BB.GetVar<AnimationPlayer>(BBDataSig.Anim);
     }
     public override void Enter(Dictionary<State, bool> parallelStates)
     {
@@ -40,17 +39,7 @@ public partial class _CLASS_ : _BASE_
     }
     #endregion
     #region STATE_HELPER
-    public override void TransitionFiniteSubState(State oldSubState, State newSubState)
-    {
-        base.TransitionFiniteSubState(oldSubState, newSubState);
-    }
-    public override void AddParallelSubState(State state)
-    {
-        base.AddParallelSubState(state);
-    }
-    public override void RemoveParallelSubState(State state)
-    {
-        base.RemoveParallelSubState(state);
-    }
+
+
     #endregion
 }

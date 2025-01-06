@@ -1,0 +1,69 @@
+[gd_scene load_steps=14 format=4 uid="uid://u01pn5rjsba0"]
+
+[ext_resource type="Script" path="res://Critters/Critter.cs" id="1_3qmhf"]
+[ext_resource type="PackedScene" uid="uid://6qu40cqm10xy" path="res://BaseComponents/eatable_component.tscn" id="1_bpk5a"]
+[ext_resource type="PackedScene" uid="uid://hteo12rvoyxr" path="res://Critters/critters_sprite.tscn" id="1_xskn4"]
+[ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="2_gk1dj"]
+[ext_resource type="Script" path="res://Critters/CSM/CSM.cs" id="5_6eakq"]
+[ext_resource type="Script" path="res://JmoAI/HSM/BaseStates/Idle3DState.cs" id="5_mw0si"]
+[ext_resource type="Script" path="res://Critters/CSM/GrabbedState.cs" id="7_h5qxy"]
+[ext_resource type="Script" path="res://Critters/CSM/AteState.cs" id="8_ahkon"]
+[ext_resource type="Script" path="res://JmoAI/Blackboard/Blackboard.cs" id="9_oyacy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sn03u"]
+size = Vector3(0.75, 0.75, 0.1)
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_t2ka1"]
+_data = PackedByteArray("AAADAAUAAAABAAAAjAAAAB4AAAAoAwAAUklGRiADAABXRUJQVlA4TBMDAAAvi0AHEHegJgAIxgyggqoyySCGiwR+NdRGktowFGUj+q+DAoykyCoKAMIxSymnjhKeYqggwM35DwAAAP9/t03lkjGmjvbgpPSUXW3Q5QVmJjJBrqxta9w8S2b/Exm7nZGuwBBmZk5+jSu2FE7rNrizVZgrZsaaqfMVZLSTWUdJsRehH9aUPqL/Dty2jSQHc+1qACWYfMKZJeV6ntfielXKotFiNXBaXI3TXKpz0xi3pUXjZj6uxk02juckVo7ntjiWOG5ikri0mAbaWy065zgtrqHrtCjOVaxqTHvPdnINkRbDwDM7t87UdU0DT+vUMeLaTp4Rw8BRrOpX+9W1nbQ+LCdtHI7tZEywxWrgabgm2eKZukmU2LQh1pNmWp1zZkkxlSqlMGqMaahSSjO1R5RSgvGNGVOoM2+R7J90NEnDVOeO9W/8XUd/KCu6kDw9FxgXsDMu5WDOXFiVqZKdYc7kLH34YUDUJ2WdJhQdle+aiUolCOYWBDsLcUxRgHXQUkqTC6XRx6DMAbIGpGLrlEFl40k4fTQHZ4JAEMqyMOKXUhTlBFZOSt9gLz6uz1BUBpcSA723SGlM+F1E/bKAnnNyY4bocT1Wrvj4L6AMvjRtBaEMPiuDnfI68Ph6lsc3srD/xo2lXJKBSOIDP+fauUgzWIRWdoPB65sznGtaysqfADzJZLv6y5W4605wTNCVheoccy2Za0lysDIDXU1aVjYR7S/MBc7wH9R4nmndmbzGVcmvfAQv46wp9CdlpiKM8eaz1aJJGqYGF8dnqMiwLHShnXIdRAJY2VeGSrlEfywmvzNGH/rOHPNlwRAKyu+bOZMXsFMGKKPKoPVrZ0wJSZOz7ozGoe9M1HcGCIqxZZmCOlRvRmQeIj+2czt9Cfg1cOfGUogLAm4qAxmaQoPhfMW9aQZ5RpmWs/BYYOWix7FlZzaB+NcAd5o2GWO6+bhBcZuBxz8z7A8T9tyBHHR9qa/GCWBtEsAwyILKfVj5eRPcNT531jx6XBBdj+tj4MPcyXBdaLEbDPpzAZbCZ5tUVon2MlsKAA==")
+size_override = Vector2(140, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hl0sg"]
+resource_local_to_scene = true
+atlas = SubResource("PortableCompressedTexture2D_t2ka1")
+region = Rect2(10, 10, 10, 10)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6for4"]
+
+[node name="Critter" type="CharacterBody3D"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+script = ExtResource("1_3qmhf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, -0.063)
+shape = SubResource("BoxShape3D_sn03u")
+
+[node name="critters_sprite" parent="." instance=ExtResource("1_xskn4")]
+texture = SubResource("AtlasTexture_hl0sg")
+
+[node name="HurtboxComponent3D" type="Area3D" parent="."]
+script = ExtResource("2_gk1dj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_6for4")
+
+[node name="EatableComponent" parent="HurtboxComponent3D" node_paths=PackedStringArray("_hurtboxComp") instance=ExtResource("1_bpk5a")]
+_hurtboxComp = NodePath("..")
+
+[node name="CSM" type="Node" parent="." node_paths=PackedStringArray("_onGrabbedState", "InitialSubState")]
+script = ExtResource("5_6eakq")
+_onGrabbedState = NodePath("Grabbed")
+InitialSubState = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="CSM"]
+script = ExtResource("5_mw0si")
+AnimName = "idle"
+
+[node name="Run" type="Node" parent="CSM"]
+
+[node name="Cower" type="Node" parent="CSM"]
+
+[node name="Grabbed" type="Node" parent="CSM" node_paths=PackedStringArray("_onEatenState")]
+script = ExtResource("7_h5qxy")
+_onEatenState = NodePath("../Ate")
+
+[node name="Ate" type="Node" parent="CSM"]
+script = ExtResource("8_ahkon")
+
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource("9_oyacy")

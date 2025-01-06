@@ -2,13 +2,13 @@
 
 importer="Aseprite Sprite3D with AnimationPlayer"
 type="PackedScene"
-uid="uid://xhbusbcx0gmc"
-path="res://.godot/imported/monster_spritesheet.aseprite-1a604c372a58f09cee6d2a291865e02d.scn"
+uid="uid://mcta2lb8bf4h"
+path="res://.godot/imported/critters_master_spritesheet.aseprite-9bfa15992f451aa94e97d9842224e755.scn"
 
 [deps]
 
-source_file="res://Monsters/monster_spritesheet.aseprite"
-dest_files=["res://.godot/imported/monster_spritesheet.aseprite-1a604c372a58f09cee6d2a291865e02d.scn"]
+source_file="res://Critters/critters_master_spritesheet.aseprite"
+dest_files=["res://.godot/imported/critters_master_spritesheet.aseprite-9bfa15992f451aa94e97d9842224e755.scn"]
 
 [params]
 
@@ -19,7 +19,7 @@ animation/autoplay_name=""
 atlas_textures/region_filter_clip_enabled=false
 sprite/animation_strategy=1
 sprite/centered=false
-root_node_name="grizzler"
+root_node_name="critters_sprite"
 middle_import_script=""
 post_import_script="res://Base/post_import.gd"
 sprite_sheet/edges_artifacts_avoidance_method=0

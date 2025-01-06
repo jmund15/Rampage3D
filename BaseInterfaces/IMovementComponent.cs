@@ -14,7 +14,6 @@ public interface IMovementComponent
     public float TimeSinceAttackRequest(); // for buffering Attack
     public bool WantsStrafe();
     public float GetRunSpeedMult();
-    public float GetTurnSpeed();
     //public Vector2 GetVelocity();
     public static AnimDirection GetAnimPlayerDirection(AnimationPlayer animPlayer)
     {

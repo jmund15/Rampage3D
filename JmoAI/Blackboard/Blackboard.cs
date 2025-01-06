@@ -38,6 +38,8 @@ public enum BBDataSig
     GroundSpecialAttack,
     WallNormalAttack,
     WallSpecialAttack,
+    EaterComp,
+    EatableComp
     #endregion
 }
 [GlobalClass, Tool]
