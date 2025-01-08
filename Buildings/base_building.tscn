@@ -1,13 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://b8ykeo37sw7gg"]
+[gd_scene load_steps=16 format=3 uid="uid://b8ykeo37sw7gg"]
 
 [ext_resource type="Texture2D" uid="uid://eb18o200wqva" path="res://Textures/32x/brick01/32x_brick01_top.png" id="1_x3pdi"]
 [ext_resource type="ArrayMesh" uid="uid://cr7ka0otfrjo0" path="res://Models/building_32x.obj" id="2_o8a10"]
 [ext_resource type="Texture2D" uid="uid://cwham6cs71fgq" path="res://Textures/32x/brick01/32x_brick01_bot.png" id="3_27uqd"]
+[ext_resource type="Script" path="res://BaseComponents/BuildingFloorComponent.cs" id="3_gstaf"]
 [ext_resource type="Texture2D" uid="uid://bidafxyqk1e3v" path="res://Textures/32x/brick01/32x_brick01_mid.png" id="4_f5q7c"]
 [ext_resource type="PackedScene" uid="uid://cbct72jw70cm4" path="res://BaseComponents/climbable_component.tscn" id="5_73sg8"]
 [ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="6_sgwty"]
 [ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="7_m8ym8"]
 [ext_resource type="PackedScene" uid="uid://cymylojsj6itv" path="res://BaseComponents/destroyable_structure_component.tscn" id="8_uto6d"]
+[ext_resource type="Script" path="res://BaseComponents/BuildingDmgManager.cs" id="10_06bxh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2w3cm"]
 albedo_texture = ExtResource("1_x3pdi")
@@ -36,6 +38,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.443546, 0)
 material_override = SubResource("StandardMaterial3D_2w3cm")
 mesh = ExtResource("2_o8a10")
 skeleton = NodePath("../..")
+
+[node name="BuildingFloorComponent" type="Node" parent="FullBuildingModels/BuildingTop"]
+script = ExtResource("3_gstaf")
+
+[node name="HealthComponent" type="Node" parent="FullBuildingModels/BuildingTop"]
+script = ExtResource("6_sgwty")
 
 [node name="BuildingBot" type="MeshInstance3D" parent="FullBuildingModels"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.807, 0)
@@ -66,11 +74,13 @@ ClimbOnLedgeDist = 1.0
 script = ExtResource("6_sgwty")
 MaxHealth = 5.0
 
-[node name="HurtboxComponent3D" type="Area3D" parent="." node_paths=PackedStringArray("HealthComponent")]
+[node name="HurtboxComponent3D" type="Area3D" parent="."]
 collision_layer = 2
 script = ExtResource("7_m8ym8")
-HealthComponent = NodePath("../HealthComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.129578, 0)
 shape = SubResource("BoxShape3D_7rco6")
+
+[node name="BuildingDmgManager" type="Node" parent="."]
+script = ExtResource("10_06bxh")

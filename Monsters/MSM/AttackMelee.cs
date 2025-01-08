@@ -74,7 +74,8 @@ public partial class AttackMelee : BehaviorAction
 
         HitboxComp.SetCurrentAttack(AttackInfo.Damage,
                 AttackInfo.Knockback,
-                AttackDirection.Normalized()
+                AttackDirection.Normalized(),
+                AttackInfo.BuildingEffect
         );
 
         //TODO: REPLACE WITH ANIM

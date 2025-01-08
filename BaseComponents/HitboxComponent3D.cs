@@ -87,9 +87,14 @@ public partial class HitboxComponent3D : Area3D
     #endregion
 
     #region COMPONENT_FUNCTIONS
-    public void SetCurrentAttack(float damage, float force, Vector3 direction)
+    public void SetCurrentAttack(float damage, float force, Vector3 direction, AttackBuildingEffect buildingEffect)
     {
-        CurrentAttack = new RampageHitboxAttack(damage, force, direction);
+        CurrentAttack = new RampageHitboxAttack(damage, force, direction, buildingEffect);
+        _velocityAttackActive = false;
+    }
+    public void SetCurrentAttack(RampageHitboxAttack hitboxAttack)
+    {
+        CurrentAttack = hitboxAttack;
         _velocityAttackActive = false;
     }
     public void SetVelocityAttack(PhysicsBody3D velBody, float baseDamage, float baseForce, float velDamageMult, float velForceMult)

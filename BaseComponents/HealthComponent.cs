@@ -38,6 +38,7 @@ public partial class HealthComponent : Node
         get { return _health; }
         private set 
         {
+            if (_health == value) { return; }
             if (!_healthInitialized)
             {
                 //_health = Mathf.Clamp(value, 0f, MaxHealth);
@@ -45,9 +46,22 @@ public partial class HealthComponent : Node
                 return;
             }
             var prevHealth = _health;
-            _health = Mathf.Clamp(value, 0f, MaxHealth);
+            if (AllowHealthBelowZero)
+            {
+                _health = Mathf.Min(value, MaxHealth);
+            }
+            else
+            {
+                _health = Mathf.Clamp(value, 0f, MaxHealth);
+            }
             LastHealthUpdate = new HealthUpdate(prevHealth, _health, MaxHealth, _damageAttack);
             EmitSignal(SignalName.HealthChanged, LastHealthUpdate);
+
+            if (LastHealthUpdate.HealthChange < 0) 
+            { Damaged?.Invoke(this, LastHealthUpdate); }
+            else 
+            { Healed?.Invoke(this, LastHealthUpdate); }
+
             if (_health == 0f)
             {
                 if (!IsDead)
@@ -66,6 +80,8 @@ public partial class HealthComponent : Node
 
     [Export]
     public bool ChangeHealthOnMaxChange { get; private set; } = true;
+    [Export]
+    public bool AllowHealthBelowZero { get; private set; } = false;
 
     public bool IsDead
     {
@@ -86,10 +102,13 @@ public partial class HealthComponent : Node
     private bool _isDead = false;
     private bool _healthInitialized = false;
 
-    [Signal]
-    public delegate void MaxHealthChangedEventHandler(float newMax);
+
+    public event EventHandler<HealthUpdate> Damaged;
+    public event EventHandler<HealthUpdate> Healed;
     [Signal]
     public delegate void HealthChangedEventHandler(HealthUpdate healthUpdate);
+    [Signal]
+    public delegate void MaxHealthChangedEventHandler(float newMax);
     [Signal]
     public delegate void DestroyedEventHandler(HealthUpdate destroyUpdate);
     [Signal]
