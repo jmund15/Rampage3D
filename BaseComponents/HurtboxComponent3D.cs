@@ -15,7 +15,7 @@ public partial class HurtboxComponent3D : Area3D
     public bool HasHealthComponent { get; private set; }
     public CollisionShape3D CollisionShape { get; private set; }
     public RampageHitboxAttack LatestAttackBase { get; set; }
-    public RampageHitboxAttack LatestAttackModified { get; set; }
+    public RampageHitboxAttack LatestAttack { get; set; }
     public Node3D LatestAttacker { get; set; }
     public List<HitboxComponent3D> HitboxesInHurtbox { get; private set; } = new List<HitboxComponent3D>();
     //public List<DamageBodyComponent> DamageBodiesInHurtbox { get; private set; } = new List<DamageBodyComponent>();
@@ -82,17 +82,17 @@ public partial class HurtboxComponent3D : Area3D
             HitboxesInHurtbox.Add(hitboxComponent);
 
             LatestAttackBase = hitboxComponent.CurrentAttack;
-            LatestAttackModified = LatestAttackBase;// _attackReceiveStrat == null ? LatestAttackBase :
+            LatestAttack = LatestAttackBase;// _attackReceiveStrat == null ? LatestAttackBase :
                 //_attackReceiveStrat.ReceiveAttack(LatestAttackBase);
 
             //GD.Print("ATTACK BASE DMG: ", LatestAttackBase.Damage);
             //GD.Print("ATTACK MOD DMG: ", LatestAttackModified.Damage);
 
-            HealthComponent?.DamageWithAttack(LatestAttackModified);
+            HealthComponent?.DamageWithAttack(LatestAttack);
 
             LatestAttacker = hitboxComponent.GetOwner<Node3D>();
 
-            EmitSignal(SignalName.Attacked, LatestAttackModified);
+            EmitSignal(SignalName.Attacked, LatestAttack);
             EmitSignal(SignalName.HitboxEntered, hitboxComponent);
         }
     }

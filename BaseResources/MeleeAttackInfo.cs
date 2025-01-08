@@ -1,6 +1,12 @@
 using Godot;
 using System;
 using Godot.Collections;
+
+public enum AttackModifiers
+{
+
+}
+
 // MAKE SURE ALL RESOURCES HAVE THE "GlobalClass" and "Tool" conditions!
 [GlobalClass, Tool] 
 public partial class MeleeAttackInfo : Resource
@@ -15,6 +21,10 @@ public partial class MeleeAttackInfo : Resource
     public float Damage { get; private set; }
     [Export]
     public float Knockback { get; private set; }
+    [Export]
+    public AttackBuildingEffect BuildingEffect { get; private set; }
+    //[Export] // 1 spillover rate means 100% of damage goes to each 
+    //public float SpilloverRate { get; private set; } 
     ////[Export]
     ////public Shape2D HitboxShape { get; private set; }
     ////[Export]
@@ -29,12 +39,13 @@ public partial class MeleeAttackInfo : Resource
     ////public Vector2 HitboxLocationDown { get; private set; }
     //[Export]
     //public Vector2 HitboxActiveTime { get; private set; }
-
     public MeleeAttackInfo()
     {
         AnimName = "";
         Velocity = 0f;// Vector2.Zero;
         Damage = 0f;
         Knockback = 0f;
+        BuildingEffect = new AttackBuildingEffect();
+        //SpilloverRate = 0f;
     }
 }

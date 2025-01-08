@@ -14,6 +14,8 @@ public partial class RampageHitboxAttack : Resource
     public Vector3 Direction { get; private set; }
     [Export]
     public OrthogDirection FaceDirection { get; private set; }
+    [Export]
+    public AttackBuildingEffect BuildingEffect { get; private set; }
 
     public RampageHitboxAttack()
     {
@@ -21,13 +23,16 @@ public partial class RampageHitboxAttack : Resource
         Force = 0.0f;
         Direction = Vector3.Zero;
         FaceDirection = OrthogDirection.DownRight;
+        BuildingEffect = new AttackBuildingEffect();
     }
-    public RampageHitboxAttack(float damage, float force, Vector3 direction)//, Array<AttackEffect>? attackEffects = null)
+    public RampageHitboxAttack(float damage, float force, Vector3 direction, 
+        AttackBuildingEffect buildingEffect)//, Array<AttackEffect>? attackEffects = null)
     {
         Damage = damage;
         Force = force;
         Direction = direction;
-        //FaceDirection = IMovementComponent.GetDirectionFromVector(direction);
+        BuildingEffect = buildingEffect;
+        FaceDirection = IMovementComponent.GetDirectionFromVector(direction);
 
     }
     //public void SetNormForce(float minForce, float maxForce)
