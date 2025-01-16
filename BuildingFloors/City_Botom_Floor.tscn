@@ -1,0 +1,18 @@
+[gd_scene load_steps=6 format=3 uid="uid://14ljcdlvodab"]
+
+[ext_resource type="ArrayMesh" uid="uid://cr7ka0otfrjo0" path="res://Models/building_32x.obj" id="1_27n3x"]
+[ext_resource type="Texture2D" uid="uid://cwham6cs71fgq" path="res://Textures/32x/brick01/32x_brick01_bot.png" id="1_vxftb"]
+[ext_resource type="Script" path="res://BaseComponents/BuildingFloorComponent.cs" id="2_4snnh"]
+[ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="3_a4chd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aljn4"]
+albedo_texture = ExtResource("1_vxftb")
+texture_filter = 0
+
+[node name="BaseMeshFloor" type="MeshInstance3D"]
+material_override = SubResource("StandardMaterial3D_aljn4")
+mesh = ExtResource("1_27n3x")
+script = ExtResource("2_4snnh")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_a4chd")

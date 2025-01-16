@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://hukks8001cmk"]
+
+[ext_resource type="Script" path="res://BaseComponents/BuildingFloorComponent.cs" id="3_sc4q0"]
+[ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="4_1s0h5"]
+
+[node name="BuildingFloor" type="MeshInstance3D"]
+script = ExtResource("3_sc4q0")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_1s0h5")
+MaxHealth = 2.0

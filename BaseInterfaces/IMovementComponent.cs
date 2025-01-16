@@ -245,7 +245,7 @@ public interface IMovementComponent
             //case OrthogDirection.DownLeft:
             //case OrthogDirection.DownRight:
             default:
-                GD.Print("not any face direction?? vector = " + dir.ToString());
+                //GD.Print("not any face direction?? vector = " + dir.ToString());
                 return OrthogDirection.UpLeft ;
         }
     }
