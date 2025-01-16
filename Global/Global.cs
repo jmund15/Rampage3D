@@ -23,6 +23,19 @@ public partial class Global : Node
         var rndEight = Rnd.Next(0, 4);
         return (OrthogDirection)rndEight;
     }
+    public static Vector2 GetRndVector2()
+    {
+        var x = GetRndInRange(-1.0f, 1.0f);
+        var y = GetRndInRange(-1.0f, 1.0f);
+        return (new Vector2(x, y)).Normalized();
+    }
+    public static Vector3 GetRndVector3()
+    {
+        var x = GetRndInRange(-1.0f, 1.0f);
+        var y = GetRndInRange(-1.0f, 1.0f);
+        var z = GetRndInRange(-1.0f, 1.0f);
+        return (new Vector3(x, y, z)).Normalized();
+    }
     public static Vector3 QuadraticBezier3D(Vector3 p0, Vector3 p1, Vector3 p2, float t)
     {
         Vector3 q0 = p0.Lerp(p1, t);

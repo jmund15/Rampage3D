@@ -2,11 +2,12 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+[GlobalClass, Tool]
 public partial class ClimbableComponent : Node
 {
     private Node3D _structure;
     [Export]
-    private HealthComponent _healthComp;
+    private BuildingDmgManager _buildingComp;
     [Export]
 	private CollisionShape3D _collShape;
 	private BoxShape3D _boxShape;
@@ -66,13 +67,13 @@ public partial class ClimbableComponent : Node
             ClimbOnPosMap.Add(OrthogDirection.DownRight, dRClimbPos);
         }
 
-        _healthComp.Destroyed += OnClimbableDestroyed;
+        _buildingComp.BuildingDestroyed += OnClimbableDestroyed;
     }
 
     public override void _Process(double delta)
 	{
 	}
-    private void OnClimbableDestroyed(HealthUpdate destroyUpdate)
+    private void OnClimbableDestroyed(object sender, EventArgs e)
     {
         EjectClimbers?.Invoke(this, EventArgs.Empty);
     }

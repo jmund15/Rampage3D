@@ -21,7 +21,7 @@ public partial class Sequence : CompositeTask
         RunningChildIdx = 0;
         RunningChild = ChildTasks[RunningChildIdx];
         RunningChild.Enter();
-        GD.Print($"{TaskName} & child {RunningChild.TaskName} entered");
+        //GD.Print($"{TaskName} & child {RunningChild.TaskName} entered");
     }
     public override void Exit()
 	{

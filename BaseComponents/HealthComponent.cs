@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class HealthComponent : Node
 {
     #region CLASS_VARIABLES
@@ -54,7 +54,7 @@ public partial class HealthComponent : Node
             {
                 _health = Mathf.Clamp(value, 0f, MaxHealth);
             }
-            LastHealthUpdate = new HealthUpdate(prevHealth, _health, MaxHealth, _damageAttack);
+            LastHealthUpdate = new HealthUpdate(_health, prevHealth, MaxHealth, _damageAttack);
             EmitSignal(SignalName.HealthChanged, LastHealthUpdate);
 
             if (LastHealthUpdate.HealthChange < 0) 
@@ -145,7 +145,6 @@ public partial class HealthComponent : Node
     {
         _damageAttack = attack;
         Health -= attack.Damage;
-        GD.Print("Health remaining: ", Health);
     }
     public virtual void Heal(float healAmt)
     {

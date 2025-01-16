@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddwgqmx18e240"]
+
+[ext_resource type="Script" path="res://BaseComponents/BuildingDmgManager.cs" id="1_p2svc"]
+
+[node name="BuildingDmgManager" type="Node"]
+script = ExtResource("1_p2svc")
+
+[node name="CollapseTicker" type="Timer" parent="."]

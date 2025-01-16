@@ -1,7 +1,7 @@
 using Godot;
 using System;
-using static System.Net.Mime.MediaTypeNames;
 
+[GlobalClass, Tool]
 public partial class DestroyableStructureComponent : Node
 {
     #region COMPONENT_VARIABLES
@@ -11,7 +11,6 @@ public partial class DestroyableStructureComponent : Node
     private HealthComponent _healthComp;
     [Export]
     private Node3D _structure;
-
     
     #endregion
     #region COMPONENT_UPDATES
