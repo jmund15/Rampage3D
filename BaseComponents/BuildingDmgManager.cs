@@ -52,7 +52,7 @@ public partial class BuildingDmgManager : Node
 
         var floors = _structure.GetChildrenOfType<BuildingFloorComponent>().ToList();
         _numFloors = floors.Count;
-        GD.Print("num floors: ", _numFloors);
+        //GD.Print("num floors: ", _numFloors);
 
         // Step 1: Sort the heights in ascending order
         _sortedFloors = floors.OrderBy(f => f.YCenter).ToList();

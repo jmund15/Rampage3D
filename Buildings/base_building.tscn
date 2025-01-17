@@ -1,24 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://b8ykeo37sw7gg"]
+[gd_scene load_steps=9 format=3 uid="uid://b8ykeo37sw7gg"]
 
-[ext_resource type="Texture2D" uid="uid://eb18o200wqva" path="res://Textures/32x/brick01/32x_brick01_top.png" id="1_x3pdi"]
-[ext_resource type="ArrayMesh" uid="uid://cr7ka0otfrjo0" path="res://Models/building_32x.obj" id="2_o8a10"]
-[ext_resource type="Texture2D" uid="uid://cwham6cs71fgq" path="res://Textures/32x/brick01/32x_brick01_bot.png" id="3_27uqd"]
-[ext_resource type="Script" path="res://BaseComponents/BuildingFloorComponent.cs" id="3_gstaf"]
-[ext_resource type="Texture2D" uid="uid://bidafxyqk1e3v" path="res://Textures/32x/brick01/32x_brick01_mid.png" id="4_f5q7c"]
+[ext_resource type="PackedScene" uid="uid://berc8452vvm6t" path="res://BuildingFloors/City_Base.tscn" id="1_spsej"]
+[ext_resource type="PackedScene" uid="uid://bb7j7l81wkn7i" path="res://BuildingFloors/City_Mid.tscn" id="2_j28d3"]
+[ext_resource type="PackedScene" uid="uid://u3prhgiwriau" path="res://BuildingFloors/City_Roof.tscn" id="3_67mrm"]
 [ext_resource type="PackedScene" uid="uid://cbct72jw70cm4" path="res://BaseComponents/climbable_component.tscn" id="5_73sg8"]
-[ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://BaseComponents/building_floor_component.tscn" id="5_mhtgx"]
-[ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="6_sgwty"]
 [ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="7_m8ym8"]
 [ext_resource type="PackedScene" uid="uid://ddwgqmx18e240" path="res://BaseComponents/building_dmg_manager.tscn" id="8_a368r"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2w3cm"]
-albedo_texture = ExtResource("1_x3pdi")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y5nxo"]
-albedo_texture = ExtResource("4_f5q7c")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0qaer"]
-albedo_texture = ExtResource("3_27uqd")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_outsx"]
 size = Vector3(1, 1.87866, 1)
@@ -33,28 +20,14 @@ collision_mask = 3
 
 [node name="FullBuildingModels" type="Node3D" parent="."]
 
-[node name="BuildingTop" type="MeshInstance3D" parent="FullBuildingModels"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.443546, 0)
-material_override = SubResource("StandardMaterial3D_2w3cm")
-mesh = ExtResource("2_o8a10")
-skeleton = NodePath("../..")
-script = ExtResource("3_gstaf")
-FloorMaxHealth = 5.0
+[node name="CityBase" parent="FullBuildingModels" instance=ExtResource("1_spsej")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.811637, 0)
 
-[node name="HealthComponent" type="Node" parent="FullBuildingModels/BuildingTop"]
-script = ExtResource("6_sgwty")
+[node name="CityMid" parent="FullBuildingModels" instance=ExtResource("2_j28d3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.189737, 0)
 
-[node name="BuildingMid" parent="FullBuildingModels" instance=ExtResource("5_mhtgx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.17831, 0)
-material_override = SubResource("StandardMaterial3D_y5nxo")
-mesh = ExtResource("2_o8a10")
-FloorMaxHealth = 5.0
-
-[node name="BuildingBot" parent="FullBuildingModels" instance=ExtResource("5_mhtgx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.804691, 0)
-material_override = SubResource("StandardMaterial3D_0qaer")
-mesh = ExtResource("2_o8a10")
-FloorMaxHealth = 5.0
+[node name="CityRoof" parent="FullBuildingModels" instance=ExtResource("3_67mrm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.435006, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.130737, 0)
@@ -62,8 +35,8 @@ shape = SubResource("BoxShape3D_outsx")
 
 [node name="BuildingDmgManager" parent="." node_paths=PackedStringArray("_hurtboxComp", "_structure") instance=ExtResource("8_a368r")]
 MinimumFloorsToCollapse = 1
-PercentageDamageToCollapse = 50.0
-_collapseTickDamagePercentage = 10.0
+PercentageDamageToCollapse = 5e-27
+_collapseTickDamagePercentage = 1e-27
 _hurtboxComp = NodePath("../HurtboxComponent3D")
 _structure = NodePath("..")
 

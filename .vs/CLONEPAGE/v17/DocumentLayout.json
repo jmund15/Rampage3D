@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\basecomponents\\buildingdmgmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\buildingdmgmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\basecomponents\\buildingfloorcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\buildingfloorcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\basecomponents\\healthcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\healthcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\basecomponents\\buildingdmgmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\buildingdmgmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\monsters\\msm\\msm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:monsters\\msm\\msm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\baseresources\\attackbuildingeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:baseresources\\attackbuildingeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\baseresources\\meleeattackinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:baseresources\\meleeattackinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\baseresources\\rampagehitboxattack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\critters\\critter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:critters\\critter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\baseresources\\meleeattackinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:baseresources\\meleeattackinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\jmoai\\bt\\behaviortask.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -94,7 +98,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "Monster.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\Monster.cs",
               "RelativeDocumentMoniker": "Monsters\\Monster.cs",
@@ -103,12 +107,11 @@
               "ViewState": "AQIAADsAAAAAAAAAAAAxwEgAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-06T19:28:02.941Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "Critter.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\Critter.cs",
               "RelativeDocumentMoniker": "Critters\\Critter.cs",
@@ -117,25 +120,37 @@
               "ViewState": "AQIAACQAAAAAAAAAAAAAAC0AAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-06T19:21:05.167Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "HealthComponent.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\HealthComponent.cs",
-              "RelativeDocumentMoniker": "BaseComponents\\HealthComponent.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\HealthComponent.cs",
-              "RelativeToolTip": "BaseComponents\\HealthComponent.cs",
-              "ViewState": "AQIAAG8AAAAAAAAAAAAlwHkAAAAUAAAA",
+              "Title": "MSM.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\MSM.cs",
+              "RelativeDocumentMoniker": "Monsters\\MSM\\MSM.cs",
+              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\MSM.cs",
+              "RelativeToolTip": "Monsters\\MSM\\MSM.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAAAswDgAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T23:53:37.941Z",
+              "WhenOpened": "2025-01-17T01:55:15.684Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
+              "Title": "AttackBuildingEffect.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseResources\\AttackBuildingEffect.cs",
+              "RelativeDocumentMoniker": "BaseResources\\AttackBuildingEffect.cs",
+              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseResources\\AttackBuildingEffect.cs",
+              "RelativeToolTip": "BaseResources\\AttackBuildingEffect.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAxwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-17T01:24:53.405Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "ClimbableComponent.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\ClimbableComponent.cs",
               "RelativeDocumentMoniker": "BaseComponents\\ClimbableComponent.cs",
@@ -143,12 +158,11 @@
               "RelativeToolTip": "BaseComponents\\ClimbableComponent.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T22:12:20.192Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-15T22:12:20.192Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "RampageHitboxAttack.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseResources\\RampageHitboxAttack.cs",
               "RelativeDocumentMoniker": "BaseResources\\RampageHitboxAttack.cs",
@@ -156,51 +170,50 @@
               "RelativeToolTip": "BaseResources\\RampageHitboxAttack.cs",
               "ViewState": "AQIAABgAAAAAAAAAAAAAwCIAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-08T02:14:55.244Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-08T02:14:55.244Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "BuildingFloorComponent.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\BuildingFloorComponent.cs",
               "RelativeDocumentMoniker": "BaseComponents\\BuildingFloorComponent.cs",
               "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\BuildingFloorComponent.cs",
               "RelativeToolTip": "BaseComponents\\BuildingFloorComponent.cs",
-              "ViewState": "AQIAADcAAAAAAAAAAAAgwEkAAAAzAAAA",
+              "ViewState": "AQIAAEkAAAAAAAAAAAAwwFsAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-08T02:13:26.812Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "BuildingDmgManager.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\BuildingDmgManager.cs",
               "RelativeDocumentMoniker": "BaseComponents\\BuildingDmgManager.cs",
               "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\BuildingDmgManager.cs",
               "RelativeToolTip": "BaseComponents\\BuildingDmgManager.cs",
-              "ViewState": "AQIAAKIAAAAAAAAAAAAmwLAAAABGAAAA",
+              "ViewState": "AQIAACsAAAAAAAAAAAApwDcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-08T02:12:55.814Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 4,
               "Title": "MeleeAttackInfo.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseResources\\MeleeAttackInfo.cs",
               "RelativeDocumentMoniker": "BaseResources\\MeleeAttackInfo.cs",
               "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseResources\\MeleeAttackInfo.cs",
               "RelativeToolTip": "BaseResources\\MeleeAttackInfo.cs",
-              "ViewState": "AQIAACcAAAAAAAAAAAAuwCwAAAAmAAAA",
+              "ViewState": "AQIAADMAAAAAAAAAAAAAACwAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-08T00:15:06.677Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "BehaviorTask.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\JmoAI\\BT\\BehaviorTask.cs",
               "RelativeDocumentMoniker": "JmoAI\\BT\\BehaviorTask.cs",
@@ -208,12 +221,11 @@
               "RelativeToolTip": "JmoAI\\BT\\BehaviorTask.cs",
               "ViewState": "AQIAAC4AAAAAAAAAAAAwwDYAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-06T20:59:52.164Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T20:59:52.164Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "LastAnimName.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\JmoAI\\BT\\Decorators\\LastAnimName.cs",
               "RelativeDocumentMoniker": "JmoAI\\BT\\Decorators\\LastAnimName.cs",
@@ -221,12 +233,11 @@
               "RelativeToolTip": "JmoAI\\BT\\Decorators\\LastAnimName.cs",
               "ViewState": "AQIAABUAAAAAAAAAAAAYwCQAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-06T20:58:58.376Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T20:58:58.376Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "BTCondition.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\JmoAI\\BT\\Decorators\\BTCondition.cs",
               "RelativeDocumentMoniker": "JmoAI\\BT\\Decorators\\BTCondition.cs",
@@ -234,12 +245,11 @@
               "RelativeToolTip": "JmoAI\\BT\\Decorators\\BTCondition.cs",
               "ViewState": "AQIAACAAAAAAAAAAAADgv0AAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-06T20:55:06.76Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T20:55:06.76Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "AttackState.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\AttackState.cs",
               "RelativeDocumentMoniker": "Monsters\\MSM\\AttackState.cs",
@@ -247,12 +257,11 @@
               "RelativeToolTip": "Monsters\\MSM\\AttackState.cs",
               "ViewState": "AQIAAGUAAAAAAAAAAAAIwGoAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-06T20:49:52.712Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T20:49:52.712Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "PlayAnim.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\JmoAI\\BT\\Actions\\PlayAnim.cs",
               "RelativeDocumentMoniker": "JmoAI\\BT\\Actions\\PlayAnim.cs",
@@ -260,12 +269,11 @@
               "RelativeToolTip": "JmoAI\\BT\\Actions\\PlayAnim.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-06T20:49:10.464Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T20:49:10.464Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "BehaviorTree.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\JmoAI\\BT\\BehaviorTree.cs",
               "RelativeDocumentMoniker": "JmoAI\\BT\\BehaviorTree.cs",
@@ -273,12 +281,11 @@
               "RelativeToolTip": "JmoAI\\BT\\BehaviorTree.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-06T20:45:30.639Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T20:45:30.639Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Sequence.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\JmoAI\\BT\\Composites\\Sequence.cs",
               "RelativeDocumentMoniker": "JmoAI\\BT\\Composites\\Sequence.cs",
@@ -286,12 +293,11 @@
               "RelativeToolTip": "JmoAI\\BT\\Composites\\Sequence.cs",
               "ViewState": "AQIAABcAAAAAAAAAAAAAABcAAAAKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-06T20:42:57.817Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T20:42:57.817Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "EatState.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\EatState.cs",
               "RelativeDocumentMoniker": "Monsters\\MSM\\EatState.cs",
@@ -299,12 +305,11 @@
               "RelativeToolTip": "Monsters\\MSM\\EatState.cs",
               "ViewState": "AQIAACUAAAAAAAAAAAAIwDcAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-06T20:28:43.37Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T20:28:43.37Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "EatableComponent.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\EatableComponent.cs",
               "RelativeDocumentMoniker": "BaseComponents\\EatableComponent.cs",
@@ -312,12 +317,11 @@
               "RelativeToolTip": "BaseComponents\\EatableComponent.cs",
               "ViewState": "AQIAAB4AAAAAAAAAAADgvyUAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-06T20:27:54.128Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T20:27:54.128Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "EaterComponent.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\EaterComponent.cs",
               "RelativeDocumentMoniker": "BaseComponents\\EaterComponent.cs",
@@ -325,12 +329,11 @@
               "RelativeToolTip": "BaseComponents\\EaterComponent.cs",
               "ViewState": "AQIAACsAAAAAAAAAAAAkwDUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-06T19:38:26.856Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T19:38:26.856Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "CSM.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\CSM\\CSM.cs",
               "RelativeDocumentMoniker": "Critters\\CSM\\CSM.cs",
@@ -338,12 +341,11 @@
               "RelativeToolTip": "Critters\\CSM\\CSM.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAqwBAAAAAKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-06T19:13:34.719Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T19:13:34.719Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "AAA.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Base\\AAA.cs",
               "RelativeDocumentMoniker": "Base\\AAA.cs",
@@ -351,8 +353,7 @@
               "RelativeToolTip": "Base\\AAA.cs",
               "ViewState": "AQIAADIAAAAAAAAAAAAgwDsAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T19:29:59.713Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-04T19:29:59.713Z"
             }
           ]
         }

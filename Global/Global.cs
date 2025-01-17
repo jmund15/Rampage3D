@@ -6,6 +6,7 @@ public partial class Global : Node
 {
     public static readonly Random Rnd = new Random(Guid.NewGuid().GetHashCode());
     public const float MovementTransitionBufferTime = 0.1f;
+    public const float MINIMUM_PIXEL_SIZE = 0.01f;
 
     public override void _Ready()
 	{
