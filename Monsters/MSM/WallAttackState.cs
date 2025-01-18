@@ -6,10 +6,7 @@ using System;
 public partial class WallAttackState : AttackState
 {
 	#region STATE_VARIABLES
-	[Export(PropertyHint.NodeType, "State")]
-	private State _onClimbableEjectState;
-
-	private ClimbableComponent _climbableComp;
+	private ClimberComponent _climberComp;
 	#endregion
 	#region STATE_UPDATES
 	public override void Init(Node agent, IBlackboard bb)
@@ -19,13 +16,11 @@ public partial class WallAttackState : AttackState
 	public override void Enter(Dictionary<State, bool> parallelStates)
 	{
 		base.Enter(parallelStates);
-		_climbableComp = BB.GetVar<ClimbableComponent>(BBDataSig.CurrClimbComp);
-		_climbableComp.EjectClimbers += OnEjectClimbers;
+		_climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
     }
     public override void Exit()
 	{
 		base.Exit();
-        _climbableComp.EjectClimbers -= OnEjectClimbers;
     }
     public override void ProcessFrame(float delta)
 	{
@@ -41,10 +36,5 @@ public partial class WallAttackState : AttackState
 	}
     #endregion
     #region STATE_HELPER
-    private void OnEjectClimbers(object sender, EventArgs e)
-    {
-		GD.Print("EJECTING CLIMBER");
-		EmitSignal(SignalName.TransitionState, this, _onClimbableEjectState);
-    }
     #endregion
 }

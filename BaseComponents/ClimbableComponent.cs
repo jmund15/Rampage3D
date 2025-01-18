@@ -7,10 +7,10 @@ public partial class ClimbableComponent : Node
 {
     private Node3D _structure;
     [Export]
-    private BuildingDmgManager _buildingComp;
-    [Export]
-	private CollisionShape3D _collShape;
-	private BoxShape3D _boxShape;
+    private BuildingComponent _buildingComp;
+ //   [Export]
+	//private CollisionShape3D _collShape;
+	//private BoxShape3D _boxShape;
     [Export]
     public bool CanClimbOnTop { get; private set; } = true;
     [Export]
@@ -26,23 +26,20 @@ public partial class ClimbableComponent : Node
     public override void _Ready()
 	{
         _structure = GetOwner<Node3D>();
-        _boxShape = _collShape.Shape as BoxShape3D;
 
         var structPos = _structure.GlobalPosition;
 
-		var sizeX = _boxShape.Size.X * _structure.Scale.X;
-		var sizeZ = _boxShape.Size.Z * _structure.Scale.Z;
 
-		var uLPos = new Vector2(structPos.X + sizeX, structPos.Z);
-        var uRPos = new Vector2(structPos.X, structPos.Z + sizeZ );
-        var dLPos = new Vector2(structPos.X, structPos.Z - sizeZ );
-        var dRPos = new Vector2(structPos.X - sizeX, structPos.Z); 
+		var uLPos = new Vector2(structPos.X + _buildingComp.Dimensions.X, structPos.Z);
+        var uRPos = new Vector2(structPos.X, structPos.Z + _buildingComp.Dimensions.Z);
+        var dLPos = new Vector2(structPos.X, structPos.Z - _buildingComp.Dimensions.Z);
+        var dRPos = new Vector2(structPos.X - _buildingComp.Dimensions.X, structPos.Z); 
 		XZPositionMap.Add(OrthogDirection.UpLeft, uLPos);
         XZPositionMap.Add(OrthogDirection.UpRight, uRPos);
         XZPositionMap.Add(OrthogDirection.DownLeft, dLPos);
         XZPositionMap.Add(OrthogDirection.DownRight, dRPos);
 
-        MaxClimbHeight = (_boxShape.Size.Y) * _structure.Scale.Y; //+ structPos.Y 
+        MaxClimbHeight = _buildingComp.Dimensions.Y; //+ structPos.Y 
 
         
         if (CanClimbOnTop)
@@ -55,10 +52,10 @@ public partial class ClimbableComponent : Node
                 );
 
 
-            var uLClimbPos = new Vector3(structPos.X + sizeX - ClimbOnLedgeDist, MaxClimbHeight, structPos.Z);
-            var uRClimbPos = new Vector3(structPos.X, MaxClimbHeight, structPos.Z + sizeZ - ClimbOnLedgeDist);
-            var dLClimbPos = new Vector3(structPos.X, MaxClimbHeight, structPos.Z - sizeZ + ClimbOnLedgeDist);
-            var dRClimbPos = new Vector3(structPos.X - sizeX + ClimbOnLedgeDist, MaxClimbHeight, structPos.Z);
+            var uLClimbPos = new Vector3(structPos.X + _buildingComp.Dimensions.X - ClimbOnLedgeDist, MaxClimbHeight, structPos.Z);
+            var uRClimbPos = new Vector3(structPos.X, MaxClimbHeight, structPos.Z + _buildingComp.Dimensions.Z - ClimbOnLedgeDist);
+            var dLClimbPos = new Vector3(structPos.X, MaxClimbHeight, structPos.Z - _buildingComp.Dimensions.Z + ClimbOnLedgeDist);
+            var dRClimbPos = new Vector3(structPos.X - _buildingComp.Dimensions.X + ClimbOnLedgeDist, MaxClimbHeight, structPos.Z);
 
             //GD.Print("cener p: ", centerTopPoint, "\nUl climb pos: ", uLPos, "\nUL climb on p: ", uLClimbPos);
             ClimbOnPosMap.Add(OrthogDirection.UpLeft, uLClimbPos);
@@ -76,5 +73,6 @@ public partial class ClimbableComponent : Node
     private void OnClimbableDestroyed(object sender, EventArgs e)
     {
         EjectClimbers?.Invoke(this, EventArgs.Empty);
+        GD.Print("EJECT CLIMBERS INVOKED");
     }
 }

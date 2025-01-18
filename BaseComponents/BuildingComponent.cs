@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [GlobalClass, Tool]
-public partial class BuildingDmgManager : Node
+public partial class BuildingComponent : Node
 {
     #region COMPONENT_VARIABLES
     [Export]
@@ -21,19 +21,31 @@ public partial class BuildingDmgManager : Node
     private float _currentBuildingHealth = 0f;
     private int _floorsDestroyed = 0;
 
+    public Vector2 XRange { get; private set; } = new Vector2();
+    public Vector2 YRange { get; private set; } = new Vector2();
+    public Vector2 ZRange { get; private set; } = new Vector2();
+    public Vector3 Dimensions { get; private set; } = new Vector3(); // X width, z length, and y height
+
     [Export]
     private HurtboxComponent3D _hurtboxComp;
+    private CollisionShape3D _hurtboxCollShape;
     [Export]
     private Node3D _structure;
-    
+    private CollisionShape3D _structureCollShape;
+
     private Timer _collapseTicker;
 
     private int _numFloors;
     private List<BuildingFloorComponent> _sortedFloors = new List<BuildingFloorComponent>();
     private Dictionary<int, BuildingFloorComponent> _floors = new Dictionary<int, BuildingFloorComponent>();
 
+    private AnimatedSprite3D _destructionCenterSmoke;
+    private AnimatedSprite3D _destructionDirectionalSmoke;
+    private List<AnimatedSprite3D> _smokeSprites = new List<AnimatedSprite3D>();
     public bool IsBuildingCollapsing { get; private set; } = false;
     public bool IsBuildingDestroyed { get; private set; } = false;
+
+
     public event EventHandler BuildingCollapse;
     public event EventHandler BuildingDestroyed;
     #endregion
@@ -57,8 +69,44 @@ public partial class BuildingDmgManager : Node
         // Step 1: Sort the heights in ascending order
         _sortedFloors = floors.OrderBy(f => f.YCenter).ToList();
 
+        // Step 2: Set collision shapes of building based on floor meshes
+        _structureCollShape = _structure.GetFirstChildOfType<CollisionShape3D>();
+        _hurtboxCollShape = _hurtboxComp.GetFirstChildOfType<CollisionShape3D>();
+        _structureCollShape.MakeConvexFromSiblings();
+        _hurtboxCollShape.Shape = _structureCollShape.Shape;
+        var convexShape = _structureCollShape.Shape as ConvexPolygonShape3D;
+        float xMin = float.MaxValue; float xMax = float.MinValue;
+        float yMin = float.MaxValue; float yMax = float.MinValue;
+        float zMin = float.MaxValue; float zMax = float.MinValue;
+        
+        // Step 3: Using collision shape, calculate building dimensions
+        foreach (var p in convexShape.Points)
+        {
+            if (p.X < xMin) { xMin = p.X; }
+            if (p.X > xMax) { xMax = p.X; }
+            if (p.Y < yMin) { yMin = p.Y; }
+            if (p.Y > yMax) { yMax = p.Y; }
+            if (p.Z < zMin) { zMin = p.Z; }
+            if (p.Z > zMax) { zMax = p.Z; }
+        }
+        XRange = new Vector2(xMin, xMax);
+        YRange = new Vector2(yMin, yMax);
+        ZRange = new Vector2(zMin, zMax);
+        Dimensions = new Vector3(
+            (xMax - xMin) * _structure.Scale.X,
+            (yMax - yMin) * _structure.Scale.Y,
+            (zMax - zMin) * _structure.Scale.Z
+            );
 
+        GD.Print($"Building {_structure.Name}'s dimensions: {Dimensions}.");
+
+        // Step 4: initialize the floors health and calc full building health
         CallDeferred(MethodName.InitializeFloorHealthConnections);
+
+        // Step 5: setup destruction smoke
+        _destructionCenterSmoke = _structure.GetNode<AnimatedSprite3D>("buildingDestructionSmokeCenter");
+        _destructionDirectionalSmoke = _structure.GetNode<AnimatedSprite3D>("buildingDestructionSmokeDirectional");
+        CallDeferred(MethodName.InitializeBaseSmoke);
     }
     public override void _Process(double delta)
     {
@@ -121,7 +169,6 @@ public partial class BuildingDmgManager : Node
     {
         _currentBuildingHealth += update.HealthChange;
         CheckCollapseStatus();
-        GD.Print($"building health at {_currentBuildingHealth} out of {_maxBuildingHealth}");
     }
 
     private void OnFloorDestroyed(BuildingFloorComponent floorComp, int floorNum, HealthUpdate destroyUpdate)
@@ -147,9 +194,15 @@ public partial class BuildingDmgManager : Node
     }
     private void OnCollapseTick()
     {
+        if (IsBuildingDestroyed)
+        {
+            _collapseTicker.Stop();
+            return;
+        }
+        //GD.Print("COLLAPSE TICK! DAMAGE: ", _maxBuildingHealth * _collapseTickDamagePercentage);
         foreach (var floor in _floors.Values)
         {
-            if (floor.HealthComp.IsDead) { return; }
+            if (floor.HealthComp.IsDead) { continue; }
 
             floor.HealthComp.Damage(_maxBuildingHealth * _collapseTickDamagePercentage);
         }
@@ -169,13 +222,62 @@ public partial class BuildingDmgManager : Node
             floor.HealthComp.HealthChanged += OnFloorDamaged;
         }
     }
+    private void InitializeBaseSmoke()
+    {
+        var smokeOffset = 0.1f;
+        _destructionCenterSmoke.Position = new Vector3(
+            XRange.Y,
+            YRange.X,
+            ZRange.Y
+            );
+        _destructionCenterSmoke.RotationDegrees = new Vector3(0,45,0);
+
+        var baseFloor = _floors[1]; // get bottom floor
+        foreach (var xFacePos in baseFloor.XFacePoses)
+        {
+            var smoke = _destructionDirectionalSmoke.Duplicate() as AnimatedSprite3D;
+            _structure.AddChild(smoke);
+            smoke.FlipH = true;
+            smoke.GlobalPosition = new Vector3(
+                XRange.X - smokeOffset + _structure.GlobalPosition.X,
+                YRange.X + _structure.GlobalPosition.Y,
+                ZRange.Y + smokeOffset + _structure.GlobalPosition.Z
+            );
+            _smokeSprites.Add(smoke);
+        }
+        foreach (var zFacePos in baseFloor.ZFacePoses)
+        {
+            var smoke = _destructionDirectionalSmoke.Duplicate() as AnimatedSprite3D;
+            _structure.AddChild(smoke);
+            smoke.RotationDegrees = new Vector3(0, 90, 0);
+            smoke.GlobalPosition = new Vector3(
+                XRange.Y + smokeOffset + _structure.GlobalPosition.X,
+                YRange.X + _structure.GlobalPosition.Y,
+                ZRange.X - smokeOffset + _structure.GlobalPosition.Z
+            );
+            _smokeSprites.Add(smoke);
+        }
+
+        //_destructionCenterSmoke.Play("idle");
+        _destructionCenterSmoke.Hide();
+        _destructionCenterSmoke.TopLevel = true;
+        foreach (var smokeSprite in _smokeSprites)
+        {
+            smokeSprite.TopLevel = true;
+            //GD.Print("smoke dir sprite pos: ", smokeSprite.GlobalPosition);
+            //smokeSprite.Play("idle");
+            smokeSprite.Hide();
+        }
+        //GD.Print("smoke center sprite pos: ", _destructionCenterSmoke.GlobalPosition);
+    }
     private void CheckCollapseStatus()
     {
         if (IsBuildingCollapsing) { return; }
         var collapseHealth = _maxBuildingHealth * (1 - PercentageDamageToCollapse);
 
-        GD.Print($"curr building health: {_currentBuildingHealth}, " +
-            $"\nhealth to collapse: {collapseHealth}");
+        GD.Print($"building health at {_currentBuildingHealth} out of {_maxBuildingHealth}");
+        GD.Print($"health to collapse: {collapseHealth}");
+
         if (_currentBuildingHealth <= collapseHealth)
         {
             if (_floorsDestroyed < MinimumFloorsToCollapse)
@@ -203,6 +305,15 @@ public partial class BuildingDmgManager : Node
     {
         _hurtboxComp.DeactivateHurtbox();
 
+        _destructionCenterSmoke.Show();
+        _destructionCenterSmoke.Play("idle");
+        foreach (var smokeSprite in _smokeSprites)
+        {
+            smokeSprite.Show();
+            smokeSprite.Play("idle");
+        }
+
+
         int numShakePoses = Global.Rnd.Next(4, 8);
         float timeToCollapse = Global.GetRndInRange(2.0f, 5.0f);
 
@@ -214,7 +325,7 @@ public partial class BuildingDmgManager : Node
         }
         var destroyTween = GetTree().CreateTween();
         destroyTween.TweenProperty(_structure, "position:y",
-                _structure.Position.Y - 5.0f, timeToCollapse).SetEase(Tween.EaseType.InOut);
+                _structure.Position.Y - Dimensions.Y - 0.1f, timeToCollapse).SetEase(Tween.EaseType.InOut);
         var shakeTween = GetTree().CreateTween();
         while (timeToCollapse > 0f)
         {
@@ -227,7 +338,16 @@ public partial class BuildingDmgManager : Node
                 timeToCollapse -= 0.2f;
             }
         }
-        destroyTween.TweenCallback(Callable.From(QueueFree));
+        shakeTween.TweenProperty(_structure, "position:x",
+             _structure.Position.X, 0.1f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+        shakeTween.Parallel().TweenProperty(_structure, "position:z",
+            _structure.Position.Z, 0.1f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+        destroyTween.TweenCallback(Callable.From(_structure.QueueFree));
+        destroyTween.TweenCallback(Callable.From(_destructionCenterSmoke.QueueFree));
+        foreach (var smokeSprite in _smokeSprites)
+        {
+            destroyTween.TweenCallback(Callable.From(smokeSprite.QueueFree));
+        }
     }
     #endregion
 }

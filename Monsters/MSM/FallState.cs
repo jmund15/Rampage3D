@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using System;
 
 [Tool]
 public partial class FallState : State
@@ -19,6 +20,7 @@ public partial class FallState : State
     private State _landFallState;
 
     private AnimationPlayer _animPlayer;
+    private ClimberComponent _climberComp;
     private Vector2 _inputDir = new Vector2();
     private AnimDirection _currAnimDir;
 
@@ -31,6 +33,7 @@ public partial class FallState : State
         _body = Agent as Monster;
         _moveComp = BB.GetVar<IMovementComponent>(BBDataSig.MoveComp);
         _animPlayer = BB.GetVar<AnimationPlayer>(BBDataSig.Anim);
+        _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
     }
     public override void Enter(Dictionary<State, bool> parallelStates)
     {
@@ -46,6 +49,8 @@ public partial class FallState : State
         _animPlayer.Pause();
 
         _fallHeight = _body.Position.Y;
+
+        _climberComp.FoundClimbable += OnFoundClimbable;
     }
     public override void Exit()
     {
@@ -75,17 +80,6 @@ public partial class FallState : State
             {
                 EmitSignal(SignalName.TransitionState, this, _landFloorState);
             }
-        }
-        else if (_body.IsOnWall())
-        {
-            //TODO: ADD SKIDDING IF FALLEN FROM LARGE HEIGHT ONTO WALL!!
-
-            var wallCollider = _body.GetLastSlideCollision().GetCollider() as Node3D;
-            //GD.Print("wall collider: ", wallCollider.Name);
-            var climbComp = wallCollider.GetFirstChildOfType<ClimbableComponent>();
-            if (climbComp == null) { return; }
-            BB.SetVar(BBDataSig.CurrClimbComp, climbComp);
-            EmitSignal(SignalName.TransitionState, this, _landWallState);
         }
 
         Vector3 velocity = _body.Velocity;
@@ -117,5 +111,10 @@ public partial class FallState : State
     }
     #endregion
     #region STATE_HELPER
+    private void OnFoundClimbable(object sender, ClimbableComponent e)
+    {
+        EmitSignal(SignalName.TransitionState, this, _landWallState);
+    }
+
     #endregion
 }

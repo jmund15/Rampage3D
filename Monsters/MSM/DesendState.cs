@@ -2,9 +2,11 @@ using Godot;
 using Godot.Collections;
 
 [Tool]
-public partial class DesendState : AnimState
+public partial class DesendState : Base3DState
 {
     #region STATE_VARIABLES
+    [Export]
+    private string _animName = "desend";
     private CharacterBody3D _body;
 
     [Export(PropertyHint.NodeType, "State")]
@@ -13,10 +15,8 @@ public partial class DesendState : AnimState
     private State _landState;
     [Export(PropertyHint.NodeType, "State")]
     private State _climbState;
-    [Export(PropertyHint.NodeType, "State")]
-    private State _jumpState;
 
-    private ClimbableComponent _climbComp;
+    private ClimberComponent _climberComp;
     private Vector2 _inputDir;
     private AnimDirection _descendDir;
     #endregion
@@ -29,11 +29,11 @@ public partial class DesendState : AnimState
     public override void Enter(Dictionary<State, bool> parallelStates)
     {
         base.Enter(parallelStates);
-        _climbComp = BB.GetVar<ClimbableComponent>(BBDataSig.CurrClimbComp);
+        _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
         //GD.Print("on descend enter curr anim: ", AnimPlayer.CurrentAnimation);
-        _descendDir = MoveComp.GetAnimDirection();
+        _descendDir = IMovementComponent.GetAnimDirFromOrthog(_climberComp.ClimbingDir);
         //GD.Print("DESCEND ANIM DIRECTION: ",  _descendDir);
-        BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(AnimName +
+        BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(_animName +
             IMovementComponent.GetFaceDirectionString(_descendDir));
 
         _body.Velocity = Vector3.Zero;
@@ -53,13 +53,14 @@ public partial class DesendState : AnimState
         }
         else if (MoveComp.WantsJump())
         {
-            EmitSignal(SignalName.TransitionState, this, _jumpState);
+            _climberComp.EjectRequested = true;
         }
     }
     public override void ProcessPhysics(float delta)
     {
         base.ProcessPhysics(delta);
         var desiredAnimDirection = IMovementComponent.GetAnimDirectionFromVector(_inputDir);
+        //GD.Print($"desiredAnimDir: {desiredAnimDirection}; descend dir: {_descendDir}");
         if (_descendDir == desiredAnimDirection && _inputDir.Y != 0)
         {
             EmitSignal(SignalName.TransitionState, this, _climbState);
@@ -67,6 +68,7 @@ public partial class DesendState : AnimState
         }
         if (_body.IsOnFloor())
         {
+            _climberComp.StopClimb();
             EmitSignal(SignalName.TransitionState, this, _landState);
             return;
         }
@@ -88,9 +90,5 @@ public partial class DesendState : AnimState
     }
     #endregion
     #region STATE_HELPER
-    protected override void AnimStateStart()
-    {
-        
-    }
     #endregion
 }

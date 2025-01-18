@@ -35,13 +35,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.17778, 0)
 shape = SubResource("BoxShape3D_o4jck")
 
 [node name="Building" parent="." instance=ExtResource("2_qqtiw")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.77319, 0.80702, -4.61987)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77319, 0.80702, -4.61987)
 
 [node name="Building2" parent="." instance=ExtResource("2_qqtiw")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -1.27853, 0.80702, -9.26733)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.27853, 0.80702, -9.26733)
 
 [node name="Building3" parent="." instance=ExtResource("2_qqtiw")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -3.81708, 0.80702, -2.41827)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.81708, 0.80702, -2.41827)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.984787, 0.0629068, -0.161982, 0, 0.932172, 0.362015, 0.173768, -0.356508, 0.917991, 0, 4.83154, 6.14081)

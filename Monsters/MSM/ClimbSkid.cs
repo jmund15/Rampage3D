@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,10 +11,8 @@ public partial class ClimbSkid : BehaviorAction
     private string _skidAnimName;
 
     private CharacterBody3D _body;
-    private ClimbableComponent _climbComp;
+    private ClimberComponent _climberComp;
     private AnimationPlayer _animPlayer;
-
-    private bool _lockingOn = true;
     #endregion
     #region TASK_UPDATES
     public override void Init(Node agent, IBlackboard bb)
@@ -25,9 +24,13 @@ public partial class ClimbSkid : BehaviorAction
     public override void Enter()
     {
         base.Enter();
-        _climbComp = BB.GetVar<ClimbableComponent>(BBDataSig.CurrClimbComp);
-        LockOntoBuildingPosition();
+        _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
+        _climberComp.StartClimb();
+        //_climberComp.FinishedClimbableAttach += OnFinishAttach;
+        PlayAnim.AnimWithOrthog(BB, _skidAnimName, _climberComp.ClimbingDir);
+
     }
+
     public override void Exit()
 	{
 		base.Exit();
@@ -39,7 +42,7 @@ public partial class ClimbSkid : BehaviorAction
 	public override void ProcessPhysics(float delta)
 	{
 		base.ProcessPhysics(delta);
-        if (!_lockingOn && _body.Velocity.Y >= 0) // if we've stopped skidding and locked on
+        if (!_climberComp.LockingOn && _body.Velocity.Y >= 0) // if we've stopped skidding and locked on
         {
             Status = TaskStatus.SUCCESS;
             return;
@@ -60,36 +63,10 @@ public partial class ClimbSkid : BehaviorAction
         _body.MoveAndSlide();
     }
     #endregion
-    #region TASK_HELPER
-    private void LockOntoBuildingPosition()
+    #region TASK_HELPER   
+    private void OnFinishAttach(object sender, EventArgs e)
     {
-        //BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = IMovementComponent.GetDesiredFlipH(_inputDir);
-        _lockingOn = true;
-
-        var closestDist = float.MaxValue;
-        Vector2 clampPos = Vector2.Zero;
-        OrthogDirection clampDir = OrthogDirection.DownRight;
-        var xzBodyPos = new Vector2(_body.GlobalPosition.X, _body.GlobalPosition.Z);
-        foreach (var clampPair in _climbComp.XZPositionMap)
-        {
-            var pos = clampPair.Value;
-            var dist = xzBodyPos.DistanceTo(pos);
-            if (dist <= closestDist)
-            {
-                closestDist = dist;
-                clampPos = pos;
-                clampDir = clampPair.Key;
-            }
-        }
-
-        PlayAnim.AnimWithOrthog(BB, _skidAnimName, clampDir);
-
-        var lockTween = GetTree().CreateTween();
-        var finalX = clampPos.X;
-        var finalZ = clampPos.Y;
-        lockTween.TweenProperty(_body, "position:x", finalX, 0.05);
-        lockTween.Parallel().TweenProperty(_body, "position:z", finalZ, 0.05);
-        lockTween.TweenProperty(this, PropertyName._lockingOn.ToString(), false, 0);
+        throw new NotImplementedException();
     }
     public override string[] _GetConfigurationWarnings()
 	{

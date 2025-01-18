@@ -12,20 +12,27 @@ public partial class MSM : CompoundState
     protected State AttackState;
     [Export(PropertyHint.NodeType, "State")]
     protected State WallAttackState;
+    [Export(PropertyHint.NodeType, "State")]
+    protected State OnEjectClimberState;
+
+    private ClimberComponent _climberComp;
     #endregion
     #region STATE_UPDATES
     public override void Init(Node agent, IBlackboard bb)
     {
         base.Init(agent, bb);
         _body = Agent as CharacterBody3D;
+        _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
     }
     public override void Enter(Dictionary<State, bool> parallelStates)
     {
         base.Enter(parallelStates);
+        _climberComp.EjectRequestSent += OnRequestEjectClimber;
     }
     public override void Exit()
     {
         base.Exit();
+        _climberComp.EjectRequestSent -= OnRequestEjectClimber;
     }
     public override void ProcessFrame(float delta)
     {
@@ -82,6 +89,12 @@ public partial class MSM : CompoundState
     }
     #endregion
     #region STATE_HELPER
+    private void OnRequestEjectClimber(object sender, EventArgs e)
+    {
+        GD.Print("EJECTING CLIMBER");
+        _climberComp.StopClimb();
+        TransitionFiniteSubState(PrimarySubState, OnEjectClimberState);
+    }
     public override void TransitionFiniteSubState(State oldSubState, State newSubState)
     {
         base.TransitionFiniteSubState(oldSubState, newSubState);
