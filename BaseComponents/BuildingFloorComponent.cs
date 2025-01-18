@@ -20,9 +20,11 @@ public partial class BuildingFloorComponent : MeshInstance3D
     public float FloorMaxHealth { get; private set; } = 0f;
     public HealthComponent HealthComp { get; private set; }
     private AnimatedSprite3D WallCrack;
-    private List<AnimatedSprite3D> WallCracks = new List<AnimatedSprite3D>();
+    private List<AnimatedSprite3D> _wallCracks = new List<AnimatedSprite3D>();
     private float _crackOffset = 0.025f;
     public float YCenter { get; private set; }
+    public List<Vector2> XFacePoses { get; private set; } = new List<Vector2>();
+    public List<Vector2> ZFacePoses { get; private set; } = new List<Vector2>();
     public FloorHealthState HealthState { get; private set; }
 
     private float _healthStateChangeAmt;
@@ -50,49 +52,60 @@ public partial class BuildingFloorComponent : MeshInstance3D
 
 
         //define ycenter
-        YCenter = Mesh.GetAabb().GetCenter().Y + GlobalPosition.Y;
+        YCenter = (Mesh.GetAabb().GetCenter().Y * Scale.Y) + GlobalPosition.Y;
         //GD.Print($"floor {Name} YCENTER: {YCenter}.");
-        int baseSize = 1;
-        int xFaces = (int)Mesh.GetAabb().Size.X / baseSize;
-        int zFaces = (int)Mesh.GetAabb().Size.Z / baseSize;
+        float baseSizeX = 1 * Scale.X;
+        float baseSizeZ = 1 * Scale.Z;
+        int xFaces = Mathf.FloorToInt(Mesh.GetAabb().Size.X * Scale.X / baseSizeX);
+        int zFaces = Mathf.FloorToInt(Mesh.GetAabb().Size.Z * Scale.Z / baseSizeZ);
 
         for (int i = 0; i < xFaces; i++)
         {
+            var xFacePos = new Vector2(
+                (Mesh.GetAabb().Position.X * Scale.X) + GlobalPosition.X + (baseSizeX * i) + (baseSizeX / 2f),
+                (Mesh.GetAabb().End.Z * Scale.Z) + GlobalPosition.Z
+                );
+            XFacePoses.Add(xFacePos);
             Vector3 wallCrackDLPosition = new Vector3(
-                (Mesh.GetAabb().Position.X * Scale.X) + GlobalPosition.X + (baseSize * i) + (baseSize / 2f),
+                xFacePos.X,
                 YCenter,
-                (Mesh.GetAabb().End.Z * Scale.Z) + GlobalPosition.Z + _crackOffset
+                xFacePos.Y + _crackOffset
             );
             var wallCrackDL = WallCrack.Duplicate() as AnimatedSprite3D;
             AddChild(wallCrackDL);
             wallCrackDL.GlobalPosition = wallCrackDLPosition;
-            WallCracks.Add(wallCrackDL);
+            _wallCracks.Add(wallCrackDL);
 
             
             //GD.Print($"x face {i} is at position {wallCrackDLPosition}");
         }
         for (int i = 0; i < zFaces; i++)
         {
+            var zFacePos = new Vector2(
+                (Mesh.GetAabb().End.X * Scale.X) + GlobalPosition.X,
+                (Mesh.GetAabb().Position.Z * Scale.Z) + GlobalPosition.Z + (baseSizeZ * i) + (baseSizeZ / 2f)
+                );
+            ZFacePoses.Add(zFacePos);
             Vector3 wallCrackDRPosition = new Vector3(
-                (Mesh.GetAabb().End.X * Scale.X) + GlobalPosition.X + _crackOffset,
+                zFacePos.X + _crackOffset,
                 YCenter,
-                (Mesh.GetAabb().Position.Z * Scale.Z) + GlobalPosition.Z + (baseSize * i) + (baseSize / 2f)
+                zFacePos.Y
             );
             var wallCrackDR = WallCrack.Duplicate() as AnimatedSprite3D;
             AddChild(wallCrackDR);
             wallCrackDR.GlobalPosition = wallCrackDRPosition;
             wallCrackDR.RotateY(Mathf.Pi / 2f);
-            WallCracks.Add(wallCrackDR);
+            _wallCracks.Add(wallCrackDR);
             //GD.Print($"z face {i} is at position {wallCrackDRPosition}");
         }
-        foreach (var crack in WallCracks)
+        foreach (var crack in _wallCracks)
         {
             crack.Play(FloorModelMappings.FloorMaterialAnimationMap[Material]);
             crack.Pause();
             crack.Hide();
         }
         //WallCrack.QueueFree();
-        GD.Print("number of wallCracks: ", this.GetChildrenOfType<AnimatedSprite3D>().Count);
+        //GD.Print("number of wallCracks: ", this.GetChildrenOfType<AnimatedSprite3D>().Count);
         //GD.Print("Normal size x floor: ",  xFaces);
         
         
@@ -106,7 +119,7 @@ public partial class BuildingFloorComponent : MeshInstance3D
     #region SIGNAL_LISTENERS
     private void OnDamaged(object sender, HealthUpdate healthUpdate)
     {
-        GD.Print($"FLOOR DAMAGED TO HEALTH {healthUpdate.NewHealth} out of {healthUpdate.MaxHealth}");
+        //GD.Print($"FLOOR DAMAGED TO HEALTH {healthUpdate.NewHealth} out of {healthUpdate.MaxHealth}");
         CheckHealthState();
 
         var hitDirection = Vector3.Zero;
@@ -130,7 +143,7 @@ public partial class BuildingFloorComponent : MeshInstance3D
 
         //var scaleShift = scaleMult * hitDirection;
         var posShift = posMult * hitDirection;
-        GD.Print("POS SHIFTING: ", posShift);
+        //GD.Print("POS SHIFTING: ", posShift);
         //WIGGLE
         var scaleTween = CreateTween();
         scaleTween.TweenProperty(this, "position", Position + posShift, 0.1f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
@@ -148,7 +161,7 @@ public partial class BuildingFloorComponent : MeshInstance3D
                 if (HealthState != FloorHealthState.Stable)
                 {
                     HealthState = FloorHealthState.Stable;
-                    foreach (var crack in WallCracks)
+                    foreach (var crack in _wallCracks)
                     {
                         crack.Hide();
                     }
@@ -158,7 +171,7 @@ public partial class BuildingFloorComponent : MeshInstance3D
                 if (HealthState != FloorHealthState.Cracked)
                 {
                     HealthState = FloorHealthState.Cracked;
-                    foreach (var crack in WallCracks)
+                    foreach (var crack in _wallCracks)
                     {
                         crack.Show();
                         crack.Frame = 0;
@@ -169,7 +182,7 @@ public partial class BuildingFloorComponent : MeshInstance3D
                 if (HealthState != FloorHealthState.Crumbling)
                 {
                     HealthState = FloorHealthState.Crumbling;
-                    foreach (var crack in WallCracks)
+                    foreach (var crack in _wallCracks)
                     {
                         crack.Show();
                         crack.Frame = 1;
@@ -180,7 +193,7 @@ public partial class BuildingFloorComponent : MeshInstance3D
                 if (HealthState != FloorHealthState.Destroyed)
                 {
                     HealthState = FloorHealthState.Destroyed;
-                    foreach (var crack in WallCracks)
+                    foreach (var crack in _wallCracks)
                     {
                         crack.Show();
                         crack.Frame = 2;
@@ -188,7 +201,7 @@ public partial class BuildingFloorComponent : MeshInstance3D
                 }
                 break;
         }
-        GD.Print($"current anim: {WallCracks[0].Animation}, \nshown: {WallCracks[0].Visible}, \nframe: {WallCracks[0].Frame}");
+        //GD.Print($"current anim: {WallCracks[0].Animation}, \nshown: {WallCracks[0].Visible}, \nframe: {WallCracks[0].Frame}");
     }
     #endregion
 }

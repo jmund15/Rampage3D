@@ -12,12 +12,10 @@ public partial class ClimbIdleState : State
 	private State _climbState;
     [Export(PropertyHint.NodeType, "State")]
     private State _descendState;
-    [Export(PropertyHint.NodeType, "State")]
-    private State _jumpState;
 
     private Monster _body;
     private IMovementComponent _moveComp;
-    private ClimbableComponent _climbableComp;
+    private ClimberComponent _climberComp;
 
 
     private Vector2 _inputDirection = new Vector2();
@@ -33,10 +31,9 @@ public partial class ClimbIdleState : State
     {
         base.Enter(parallelStates);
 
-        var climbComp = BB.GetVar<ClimbableComponent>(BBDataSig.CurrClimbComp);
-        if (climbComp == null)
-        {
-            EmitSignal(SignalName.TransitionState, this, _jumpState);
+        _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
+        if (!_climberComp.IsClimbing) {
+            _climberComp.EjectRequested = true;
         }
 
         BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(_animName +
@@ -53,11 +50,12 @@ public partial class ClimbIdleState : State
     {
         base.ProcessFrame(delta);
         _inputDirection = _moveComp.GetDesiredDirection();
+        
         if (_inputDirection.Y != 0)
         {
             if (_moveComp.GetAnimDirection() == AnimDirection.Up)
             {
-                if (_inputDirection.Y > 0)
+                if (_inputDirection.Y < 0) // in 2d input, negative is up
                 {
                     EmitSignal(SignalName.TransitionState, this, _climbState);
                 }
@@ -68,7 +66,7 @@ public partial class ClimbIdleState : State
             }
             else
             {
-                if (_inputDirection.Y > 0)
+                if (_inputDirection.Y < 0) // when facing down, actions are reversed
                 {
                     EmitSignal(SignalName.TransitionState, this, _descendState);
                 }
@@ -80,7 +78,7 @@ public partial class ClimbIdleState : State
         }
         else if (_moveComp.WantsJump())
         {
-            EmitSignal(SignalName.TransitionState, this, _jumpState);
+            _climberComp.EjectRequested = true;
         }
     }
     public override void ProcessPhysics(float delta)

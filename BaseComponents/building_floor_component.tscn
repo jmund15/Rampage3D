@@ -6,11 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://7rxr0u3eirrr" path="res://Buildings/Effects/floorDestruction32x.tscn" id="4_ily1n"]
 
 [node name="BuildingFloor" type="MeshInstance3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 mesh = ExtResource("1_mfnyg")
 script = ExtResource("3_sc4q0")
+FloorMaxHealth = 5.0
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_1s0h5")
+MaxHealth = 5.0
 
 [node name="floorDestruction32x" parent="." instance=ExtResource("4_ily1n")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)

@@ -1,18 +1,7 @@
 using Godot;
 using System;
 using Godot.Collections;
-public enum OrthogDirection
-{
-    DownRight,
-    DownLeft,
-    UpRight,
-    UpLeft
-}
-public enum AnimDirection
-{
-    Down,
-    Up
-}
+
 public partial class Monster : CharacterBody3D, IMovementComponent
 {
     public int PlayerNumber { get; set; }
@@ -35,7 +24,8 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     public HealthComponent HealthComp { get; protected set; }
     public HurtboxComponent3D HurtboxComp { get; protected set; }
     public HitboxComponent3D HitboxComp { get; protected set; }
-    public EaterComponent EaterComponent { get; protected set; }
+    public EaterComponent EaterComp { get; protected set; }
+    public ClimberComponent ClimberComp { get; protected set; }
 
     private CompoundState _stateMachine;
     private Dictionary<State, bool> _parallelStateMachines = new Dictionary<State, bool>();
@@ -89,9 +79,11 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         BB.SetVar(BBDataSig.Anim, AnimPlayer);
 
         HitboxComp = this.GetFirstChildOfType<HitboxComponent3D>();
-        EaterComponent = HitboxComp.GetFirstChildOfType<EaterComponent>();
+        EaterComp = HitboxComp.GetFirstChildOfType<EaterComponent>();
+        ClimberComp = this.GetFirstChildOfType<ClimberComponent>();
         BB.SetVar(BBDataSig.HitboxComp, HitboxComp);
-        BB.SetVar(BBDataSig.EaterComp, EaterComponent);
+        BB.SetVar(BBDataSig.EaterComp, EaterComp);
+        BB.SetVar(BBDataSig.ClimberComp, ClimberComp);
 
         HurtboxComp = this.GetFirstChildOfType<HurtboxComponent3D>();
         BB.SetVar(BBDataSig.HurtboxComp, HurtboxComp);

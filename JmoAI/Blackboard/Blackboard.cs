@@ -32,7 +32,7 @@ public enum BBDataSig
     QueuedNextAttack,
     #endregion
     #region RAMPAGE_SIGS
-    CurrClimbComp,
+    ClimberComp,
     CurrentAttackType,
     GroundNormalAttack,
     GroundSpecialAttack,

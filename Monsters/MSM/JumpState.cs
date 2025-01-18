@@ -19,6 +19,7 @@ public partial class JumpState : State
     private State _landWallState;
 
     private AnimationPlayer _animPlayer;
+    private ClimberComponent _climberComp;
     private Vector2 _inputDir = new Vector2();
     private AnimDirection _currAnimDir;
 
@@ -32,23 +33,26 @@ public partial class JumpState : State
         _body = Agent as Monster;
         _moveComp = BB.GetVar<IMovementComponent>(BBDataSig.MoveComp);
         _animPlayer = BB.GetVar<AnimationPlayer>(BBDataSig.Anim);
+        _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
     }
     public override void Enter(Dictionary<State, bool> parallelStates)
     {
         base.Enter(parallelStates);
+        _climberComp.FoundClimbable += OnFoundClimbable;
 
         _inputDir = _moveComp.GetDesiredDirection();
         var velocity = _body.Velocity;
 
-        if (!_body.IsOnFloor())
+        if (_climberComp.EjectRequested)
         {
-            if (_moveComp.GetAnimDirection() == AnimDirection.Down) { _currAnimDir = AnimDirection.Up; }
-            else { _currAnimDir = AnimDirection.Down; }
-            BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = !BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH;
+            var orthogDir = _climberComp.EjectDir;
+            _currAnimDir = IMovementComponent.GetAnimDirFromOrthog(orthogDir);
+            BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = IMovementComponent.GetFlipHFromOrthog(orthogDir);
 
-            var orthogDir = IMovementComponent.GetOrthogDirection(_currAnimDir, BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH);
             velocity.X += Monster.ClimbJumpPushOff * IMovementComponent.GetVectorFromDirection(orthogDir).X;
             velocity.Z += Monster.ClimbJumpPushOff * IMovementComponent.GetVectorFromDirection(orthogDir).Y;
+
+            _climberComp.EjectRequested = false;
         }
         else if (_inputDir.Y > 0)
         {
@@ -71,6 +75,7 @@ public partial class JumpState : State
     public override void Exit()
     {
         base.Exit();
+        _climberComp.FoundClimbable -= OnFoundClimbable;
     }
     public override void ProcessFrame(float delta)
     {
@@ -86,15 +91,6 @@ public partial class JumpState : State
         {
             EmitSignal(SignalName.TransitionState, this, _landFloorState);
             return;
-        }
-        else if (_body.IsOnWall())
-        {
-            var wallCollider = _body.GetLastSlideCollision().GetCollider() as Node3D;
-            //GD.Print("wall collider: ", wallCollider.Name);
-            var climbComp = wallCollider.GetFirstChildOfType<ClimbableComponent>();
-            if (climbComp == null) { return; }
-            BB.SetVar(BBDataSig.CurrClimbComp, climbComp);
-            EmitSignal(SignalName.TransitionState, this, _landWallState);
         }
 
         Vector3 velocity = _body.Velocity;
@@ -132,5 +128,9 @@ public partial class JumpState : State
     }
     #endregion
     #region STATE_HELPER
+    private void OnFoundClimbable(object sender, ClimbableComponent e)
+    {
+        EmitSignal(SignalName.TransitionState, this, _landWallState);
+    }
     #endregion
 }

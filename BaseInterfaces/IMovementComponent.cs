@@ -1,6 +1,17 @@
 ﻿using Godot;
 using System;
-
+public enum OrthogDirection
+{
+    DownRight,
+    DownLeft,
+    UpRight,
+    UpLeft
+}
+public enum AnimDirection
+{
+    Down,
+    Up
+}
 public interface IMovementComponent
 {
     public AnimDirection GetAnimDirection();
@@ -103,7 +114,14 @@ public interface IMovementComponent
     {
         switch (direction)
         {
-           
+            case OrthogDirection.UpLeft:
+                return OrthogDirection.DownRight;
+            case OrthogDirection.UpRight:
+                return OrthogDirection.DownLeft;
+            case OrthogDirection.DownRight:
+                return OrthogDirection.UpLeft;
+            case OrthogDirection.DownLeft:
+                return OrthogDirection.UpRight;
             default:
                 GD.Print("not any face direction?? facedir = " + direction.ToString());
                 return OrthogDirection.DownLeft;

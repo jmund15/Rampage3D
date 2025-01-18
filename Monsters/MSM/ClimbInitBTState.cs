@@ -7,7 +7,7 @@ public partial class ClimbInitBTState : BTState
 {
     #region STATE_VARIABLES
     private CharacterBody3D _body;
-    private ClimbableComponent _climbComp;
+    private ClimberComponent _climberComp;
     private AnimationPlayer _animPlayer;
     #endregion
     #region STATE_UPDATES
@@ -20,7 +20,7 @@ public partial class ClimbInitBTState : BTState
     public override void Enter(Dictionary<State, bool> parallelStates)
 	{
 		base.Enter(parallelStates);
-        _climbComp = BB.GetVar<ClimbableComponent>(BBDataSig.CurrClimbComp);
+        _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
     }
     public override void Exit()
 	{
