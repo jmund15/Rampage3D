@@ -12,7 +12,7 @@ public partial class BuildingComponent : Node
     public int MinimumFloorsToCollapse { get; private set; } = 0;
     [Export(PropertyHint.Range, "0,100,0.1")]
     public float PercentageDamageToCollapse { get; private set; } = 100f;
-    [Export] //TODO: TICK FASTER AS LESS HEALTH
+    [Export] //TODO?: TICK FASTER AS LESS HEALTH
     private float _collapseTickInterval = 1.0f;
     [Export(PropertyHint.Range, "0,100,0.1")]
     private float _collapseTickDamagePercentage = 1.0f;
@@ -139,7 +139,7 @@ public partial class BuildingComponent : Node
                 closestFloor = floor;
             }
         }
-        GD.Print("determined closest floor number: ", closestFloorNum, ", named: ", closestFloor.Name);
+        //GD.Print("determined closest floor number: ", closestFloorNum, ", named: ", closestFloor.Name);
         List<BuildingFloorComponent> floorsAffected = new List<BuildingFloorComponent>
         { closestFloor };
 
@@ -224,39 +224,35 @@ public partial class BuildingComponent : Node
     }
     private void InitializeBaseSmoke()
     {
-        var smokeOffset = 0.1f;
+        var smokeOffset = 0.2f;
         _destructionCenterSmoke.Position = new Vector3(
-            XRange.Y,
-            YRange.X,
-            ZRange.Y
+            XRange.Y + smokeOffset + _structure.GlobalPosition.X,
+            YRange.X + _structure.GlobalPosition.Y,
+            ZRange.Y + smokeOffset + _structure.GlobalPosition.Z
             );
         _destructionCenterSmoke.RotationDegrees = new Vector3(0,45,0);
 
-        var baseFloor = _floors[1]; // get bottom floor
-        foreach (var xFacePos in baseFloor.XFacePoses)
-        {
-            var smoke = _destructionDirectionalSmoke.Duplicate() as AnimatedSprite3D;
-            _structure.AddChild(smoke);
-            smoke.FlipH = true;
-            smoke.GlobalPosition = new Vector3(
-                XRange.X - smokeOffset + _structure.GlobalPosition.X,
-                YRange.X + _structure.GlobalPosition.Y,
-                ZRange.Y + smokeOffset + _structure.GlobalPosition.Z
-            );
-            _smokeSprites.Add(smoke);
-        }
-        foreach (var zFacePos in baseFloor.ZFacePoses)
-        {
-            var smoke = _destructionDirectionalSmoke.Duplicate() as AnimatedSprite3D;
-            _structure.AddChild(smoke);
-            smoke.RotationDegrees = new Vector3(0, 90, 0);
-            smoke.GlobalPosition = new Vector3(
-                XRange.Y + smokeOffset + _structure.GlobalPosition.X,
-                YRange.X + _structure.GlobalPosition.Y,
-                ZRange.X - smokeOffset + _structure.GlobalPosition.Z
-            );
-            _smokeSprites.Add(smoke);
-        }
+        //var baseFloor = _floors[1]; // get bottom floor
+
+        var smokeX = _destructionDirectionalSmoke.Duplicate() as AnimatedSprite3D;
+        _structure.AddChild(smokeX);
+        smokeX.FlipH = true;
+        smokeX.GlobalPosition = new Vector3(
+            XRange.X - smokeOffset + _structure.GlobalPosition.X,
+            YRange.X + _structure.GlobalPosition.Y,
+            ZRange.Y + smokeOffset + _structure.GlobalPosition.Z
+        );
+        _smokeSprites.Add(smokeX);
+
+        var smokeZ = _destructionDirectionalSmoke.Duplicate() as AnimatedSprite3D;
+        _structure.AddChild(smokeZ);
+        smokeZ.RotationDegrees = new Vector3(0, 90, 0);
+        smokeZ.GlobalPosition = new Vector3(
+            XRange.Y + smokeOffset + _structure.GlobalPosition.X,
+            YRange.X + _structure.GlobalPosition.Y,
+            ZRange.X - smokeOffset + _structure.GlobalPosition.Z
+        );
+        _smokeSprites.Add(smokeZ);
 
         //_destructionCenterSmoke.Play("idle");
         _destructionCenterSmoke.Hide();

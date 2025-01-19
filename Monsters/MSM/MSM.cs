@@ -61,7 +61,7 @@ public partial class MSM : CompoundState
                 BB.SetPrimVar(BBDataSig.CurrentAttackType, AttackType.GroundNormal);
                 TransitionFiniteSubState(PrimarySubState, AttackState);
             }
-            else //TODO: FIX!!!!!!
+            else if (_climberComp.IsClimbing)
             {
                 BB.SetPrimVar(BBDataSig.CurrentAttackType, AttackType.WallNormal);
                 TransitionFiniteSubState(PrimarySubState, WallAttackState);
@@ -76,7 +76,7 @@ public partial class MSM : CompoundState
                 BB.SetPrimVar(BBDataSig.CurrentAttackType, AttackType.GroundSpecial);
                 TransitionFiniteSubState(PrimarySubState, AttackState);
             }
-            else 
+            else if (_climberComp.IsClimbing)
             {
                 BB.SetPrimVar(BBDataSig.CurrentAttackType, AttackType.WallSpecial);
                 TransitionFiniteSubState(PrimarySubState, WallAttackState);

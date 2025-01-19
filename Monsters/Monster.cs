@@ -48,6 +48,8 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     public MonsterForm MonsterF { get; private set; }
     [Export]
     public MonsterForm MonsterFormStart { get; private set; } = MonsterForm.F2;
+    [Export]
+    private Dictionary<MonsterForm, Sprite3D> _monsterFormMapping = new Dictionary<MonsterForm, Sprite3D>();
 
     private MonsterAttackIdentifier _gna;
     private MonsterAttackIdentifier _gsa;
