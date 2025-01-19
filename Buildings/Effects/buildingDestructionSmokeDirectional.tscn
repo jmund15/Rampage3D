@@ -171,7 +171,7 @@ animations = [{
 }]
 
 [node name="buildingDestructionSmokeDirectional" type="AnimatedSprite3D"]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
 centered = false
 offset = Vector2(-24, 0)
 texture_filter = 0

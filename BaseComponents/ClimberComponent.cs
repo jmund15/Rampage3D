@@ -7,6 +7,25 @@ public partial class ClimberComponent : Node
     [Export]
     private CharacterBody3D _body;
 
+    private bool _availableClimbable = false;
+    public bool AvailableClimbable
+    {
+        get => _availableClimbable;
+        private set
+        {
+            if (_availableClimbable == value) { return; }
+            _availableClimbable = value;
+            if (_availableClimbable)
+            {
+                FoundClimbable?.Invoke(this, ClimbableComp);
+            }
+            else
+            {
+                //LostClimbable?.Invoke(this, ClimbableComp);
+            }
+        }
+    }
+
     private bool _isClimbing = false;
     public bool IsClimbing
     {
@@ -71,6 +90,7 @@ public partial class ClimberComponent : Node
     public event EventHandler<ClimbableComponent> ConcludedClimb;
 
 	public event EventHandler<ClimbableComponent> FoundClimbable;
+    //public event EventHandler<ClimbableComponent> LostClimbable; // Not needed?
 
     public event EventHandler EjectRequestSent;
     public event EventHandler EjectRequestResponded;
@@ -95,7 +115,11 @@ public partial class ClimberComponent : Node
             var climbComp = wallCollider.GetFirstChildOfType<ClimbableComponent>();
             if (climbComp == null) { return; }
             ClimbableComp = climbComp;
-            FoundClimbable?.Invoke(this, ClimbableComp);
+            AvailableClimbable = true;
+        }
+        else if (!_body.IsOnWall())
+        {
+            AvailableClimbable = false;
         }
     }
     private void OnClimbableRequestEject(object sender, EventArgs e)
@@ -106,6 +130,7 @@ public partial class ClimberComponent : Node
     {
         ClimbableComp.EjectClimbers += OnClimbableRequestEject;
         IsClimbing = true;
+        AvailableClimbable = false;
 
         //BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = IMovementComponent.GetDesiredFlipH(_inputDir);
         LockingOn = true;
@@ -139,6 +164,11 @@ public partial class ClimberComponent : Node
     {
         ClimbableComp.EjectClimbers -= OnClimbableRequestEject;
         IsClimbing = false;
+    }
+
+    public void ClimbTick(float yVal)
+    {
+
     }
     
 }

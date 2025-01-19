@@ -8,10 +8,7 @@ using System.Threading;
 [Tool]
 public partial class AAA : EditorScript
 {
-    public static IEnumerable<T> GetEnumValues<T>()
-    {
-        return Enum.GetValues(typeof(T)).Cast<T>();
-    }
+  
     public enum Direction
     {
         DOWN = 0,
@@ -135,7 +132,7 @@ public partial class AAA : EditorScript
 
             int trackNum = 1;
 
-            foreach (var dir in GetEnumValues<Direction>())
+            foreach (var dir in Global.GetEnumValues<Direction>())
             {
                 var dirAnim = anim.Duplicate(true) as Animation;
             

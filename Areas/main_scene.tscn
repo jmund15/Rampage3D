@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://nrt61isqasf7"]
+[gd_scene load_steps=11 format=3 uid="uid://nrt61isqasf7"]
 
 [ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_oumf5"]
 [ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Buildings/base_building.tscn" id="2_qqtiw"]
 [ext_resource type="ArrayMesh" uid="uid://coutw4aq12fdb" path="res://addons/kaykit_city_builder_bits/Assets/obj/base.obj" id="3_ek6wh"]
 [ext_resource type="PackedScene" uid="uid://u01pn5rjsba0" path="res://Critters/critter.tscn" id="4_nsmow"]
+[ext_resource type="PackedScene" uid="uid://dahmcs8u2k547" path="res://BaseComponents/ai_nav_3d_component.tscn" id="5_as1yj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o4jck"]
 size = Vector3(100, 1, 100)
@@ -16,6 +17,13 @@ sky_material = SubResource("ProceduralSkyMaterial_eb500")
 [sub_resource type="Environment" id="Environment_s2y8y"]
 background_mode = 2
 sky = SubResource("Sky_5a5uy")
+
+[sub_resource type="Curve3D" id="Curve3D_hgt0f"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2.261, 0, -4.315, 0, 0, 0, 0, 0, 0, -4.502, 0, -12.581, 0, 0, 0, 0, 0, 0, 2.915, 0, -11.213, 0, 0, 0, 0, 0, 0, 5.516, 0, -1.269, 0, 0, 0, 0, 0, 0, 0.77, 0, -0.936),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+}
+point_count = 6
 
 [node name="MainScene" type="Node3D"]
 
@@ -55,4 +63,9 @@ mesh = ExtResource("3_ek6wh")
 environment = SubResource("Environment_s2y8y")
 
 [node name="Critter" parent="." instance=ExtResource("4_nsmow")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, -1.99308)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, -1.73613)
+
+[node name="AINav3DComponent" parent="Critter" instance=ExtResource("5_as1yj")]
+
+[node name="Path3D" type="Path3D" parent="Critter/AINav3DComponent"]
+curve = SubResource("Curve3D_hgt0f")

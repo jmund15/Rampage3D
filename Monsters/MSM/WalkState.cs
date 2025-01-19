@@ -10,17 +10,20 @@ public partial class WalkState : State
     public string AnimName { get; protected set; }
     private Monster _body;
     private IMovementComponent _moveComp;
+    private ClimberComponent _climberComp;
 
     [Export(PropertyHint.NodeType, "State")]
     private State _idleState;
     [Export(PropertyHint.NodeType, "State")]
     private State _jumpState;
     [Export(PropertyHint.NodeType, "State")]
-    private State _attackState;
-    [Export(PropertyHint.NodeType, "State")]
     private State _fallState;
+    [Export(PropertyHint.NodeType, "State")]
+    private State _startClimbState;
 
-    private bool _bufferingMovementTransition = false;
+
+    private bool _bufferingClimbingTransition = false;
+    private float _climbBufferTime = 0.1f;
 
     private Vector2 _inputDir;
     private AnimDirection _currAnimDir;
@@ -31,10 +34,12 @@ public partial class WalkState : State
         base.Init(agent, bb);
         _body = Agent as Monster;
         _moveComp = BB.GetVar<IMovementComponent>(BBDataSig.MoveComp);
+        _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
     }
     public override void Enter(Dictionary<State, bool> parallelStates)
     {
         base.Enter(parallelStates);
+        _climberComp.FoundClimbable += OnFoundClimbable;
         _inputDir = _moveComp.GetDesiredDirection();
         if (_inputDir.Y > 0)
         {
@@ -47,11 +52,13 @@ public partial class WalkState : State
 
         BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(AnimName + 
             IMovementComponent.GetFaceDirectionString(_currAnimDir));
-        _bufferingMovementTransition = false;
+        _bufferingClimbingTransition = false;
     }
     public override void Exit()
     {
         base.Exit();
+        _bufferingClimbingTransition = false;
+        _climberComp.FoundClimbable -= OnFoundClimbable;
     }
     public override void ProcessFrame(float delta)
     {
@@ -122,10 +129,19 @@ public partial class WalkState : State
     }
     #endregion
     #region STATE_HELPER
+    private void OnFoundClimbable(object sender, ClimbableComponent e)
+    {
+        GetTree().CreateTimer(_climbBufferTime).Timeout += ChangeMovementState;
+        _bufferingClimbingTransition = true;
+    }
     private void ChangeMovementState()
     {
-        
-        _bufferingMovementTransition = false;
+        if (!_bufferingClimbingTransition) { return; }
+        if (_climberComp.AvailableClimbable)
+        {
+            EmitSignal(SignalName.TransitionState, this, _startClimbState);
+        }
+        _bufferingClimbingTransition = false;
     }
     
 

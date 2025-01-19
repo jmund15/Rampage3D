@@ -1,5 +1,17 @@
 ﻿using Godot;
 using System;
+
+public enum EightDirection
+{
+    Right,
+    DownRight,
+    Down,
+    DownLeft,
+    Left,
+    UpLeft,
+    Up,
+    UpRight
+}
 public enum OrthogDirection
 {
     DownRight,
@@ -253,7 +265,31 @@ public interface IMovementComponent
                 return Vector2.Zero;
         }
     }
-    //TODO: FINISH
+    public static Vector2 GetVectorFromDirection(EightDirection dir)
+    {
+        switch (dir) //RETURN NORMALIZED VECTOR
+        {
+            case EightDirection.Down:
+                return new Vector2(0, 1);
+            case EightDirection.Up:
+                return new Vector2(0, -1);
+            case EightDirection.Left:
+                return new Vector2(-1, 0);
+            case EightDirection.Right:
+                return new Vector2(1, 0);
+            case EightDirection.DownLeft:
+                return new Vector2(-0.707f, 0.707f);
+            case EightDirection.DownRight:
+                return new Vector2(0.707f, 0.707f);
+            case EightDirection.UpLeft:
+                return new Vector2(-0.707f, -0.707f);
+            case EightDirection.UpRight:
+                return new Vector2(0.707f, -0.707f);
+            default:
+                GD.Print("not any face direction?? facedir = " + dir.ToString());
+                return Vector2.Zero;
+        }
+    }
     public static OrthogDirection GetDirectionFromVector(Vector3 dir)
     {
         switch (dir)

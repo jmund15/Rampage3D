@@ -1,6 +1,8 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 public partial class Global : Node
 {
@@ -43,6 +45,10 @@ public partial class Global : Node
         Vector3 q1 = p1.Lerp(p2, t);
         Vector3 r = q0.Lerp(q1, t);
         return r;
+    }
+    public static IEnumerable<T> GetEnumValues<T>()
+    {
+        return Enum.GetValues(typeof(T)).Cast<T>();
     }
     public static void LogError(string message)
     {
