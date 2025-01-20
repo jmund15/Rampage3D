@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://hukks8001cmk"]
 
 [ext_resource type="ArrayMesh" uid="uid://cr7ka0otfrjo0" path="res://Models/building_32x.obj" id="1_mfnyg"]
-[ext_resource type="Script" path="res://BaseComponents/BuildingFloorComponent.cs" id="3_sc4q0"]
+[ext_resource type="Script" path="res://Buildings/BuildingFloors/BuildingFloorComponent.cs" id="3_sc4q0"]
 [ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="4_1s0h5"]
 [ext_resource type="PackedScene" uid="uid://7rxr0u3eirrr" path="res://Buildings/Effects/floorDestruction32x.tscn" id="4_ily1n"]
 

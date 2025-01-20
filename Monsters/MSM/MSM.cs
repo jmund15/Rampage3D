@@ -56,31 +56,34 @@ public partial class MSM : CompoundState
         //GD.Print("handling input: ", @event.IsAction("attack_test"));
         if (Input.IsActionJustPressed("attack_test"))
         {
-            if (_body.IsOnFloor())
-            {
-                BB.SetPrimVar(BBDataSig.CurrentAttackType, AttackType.GroundNormal);
-                TransitionFiniteSubState(PrimarySubState, AttackState);
-            }
-            else if (_climberComp.IsClimbing)
+            if (_climberComp.IsClimbing)
             {
                 BB.SetPrimVar(BBDataSig.CurrentAttackType, AttackType.WallNormal);
                 TransitionFiniteSubState(PrimarySubState, WallAttackState);
             }
+            else if (_body.IsOnFloor()) 
+            {
+                BB.SetPrimVar(BBDataSig.CurrentAttackType, AttackType.GroundNormal);
+                TransitionFiniteSubState(PrimarySubState, AttackState);
+            }
+            //TODO: ALLOW ONE ATTACK IN THE AIR?
+
             GD.Print("TRANSITIONED TO AtTACK STATE: ", BB.GetPrimVar<AttackType>(BBDataSig.CurrentAttackType));
 
         }
         if (Input.IsActionJustPressed("sattack_test"))
         {
-            if (_body.IsOnFloor())
-            {
-                BB.SetPrimVar(BBDataSig.CurrentAttackType, AttackType.GroundSpecial);
-                TransitionFiniteSubState(PrimarySubState, AttackState);
-            }
-            else if (_climberComp.IsClimbing)
+            if (_climberComp.IsClimbing)
             {
                 BB.SetPrimVar(BBDataSig.CurrentAttackType, AttackType.WallSpecial);
                 TransitionFiniteSubState(PrimarySubState, WallAttackState);
             }
+            else if (_body.IsOnFloor())
+            {
+                BB.SetPrimVar(BBDataSig.CurrentAttackType, AttackType.GroundSpecial);
+                TransitionFiniteSubState(PrimarySubState, AttackState);
+            }
+            
 
             
             GD.Print("TRANSITIONED TO AtTACK STATE: ", BB.GetPrimVar<AttackType>(BBDataSig.CurrentAttackType));
