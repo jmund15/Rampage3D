@@ -5,19 +5,19 @@
 [ext_resource type="PackedScene" uid="uid://bb7j7l81wkn7i" path="res://Buildings/BuildingFloors/City_Mid.tscn" id="3_illj3"]
 [ext_resource type="PackedScene" uid="uid://u3prhgiwriau" path="res://Buildings/BuildingFloors/City_Roof.tscn" id="4_tuf67"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2ves4"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_uqjic"]
 points = PackedVector3Array(-1, 0, -1, 1, 0, -1, -1, 1.25, -1, 1, 1.25, -1, 1, 0, -1, 1, 0, 1, 1, 1.25, -1, 1, 1.25, 1, 1, 0, 1, -1, 0, 1, 1, 1.25, 1, -1, 1.25, 1, -1, 0, 1, -1, 0, -1, -1, 1.25, 1, -1, 1.25, -1, 1, 1.25, 1, -1, 1.25, 1, 1, 1.25, -1, -1, 1.25, -1, 1, 0, -1, -1, 0, -1, 1, 0, 1, -1, 0, 1, -1, 1.25, -1, 1, 1.25, -1, -1, 2.5, -1, 1, 2.5, -1, 1, 1.25, -1, 1, 1.25, 1, 1, 2.5, -1, 1, 2.5, 1, 1, 1.25, 1, -1, 1.25, 1, 1, 2.5, 1, -1, 2.5, 1, -1, 1.25, 1, -1, 1.25, -1, -1, 2.5, 1, -1, 2.5, -1, 1, 2.5, 1, -1, 2.5, 1, 1, 2.5, -1, -1, 2.5, -1, 1, 1.25, -1, -1, 1.25, -1, 1, 1.25, 1, -1, 1.25, 1, -1, 2.5, -1, 1, 2.5, -1, -1, 3.75, -1, 1, 3.75, -1, 1, 2.5, -1, 1, 2.5, 1, 1, 3.75, -1, 1, 3.75, 1, 1, 2.5, 1, -1, 2.5, 1, 1, 3.75, 1, -1, 3.75, 1, -1, 2.5, 1, -1, 2.5, -1, -1, 3.75, 1, -1, 3.75, -1, 1, 3.75, 1, -1, 3.75, 1, 1, 3.75, -1, -1, 3.75, -1, 1, 2.5, -1, -1, 2.5, -1, 1, 2.5, 1, -1, 2.5, 1)
 
 [node name="Building" instance=ExtResource("1_4sias")]
 
 [node name="CollisionShape3D" parent="." index="0"]
-shape = SubResource("ConvexPolygonShape3D_2ves4")
+shape = SubResource("ConvexPolygonShape3D_uqjic")
 
 [node name="BuildingComponent" parent="." index="1"]
 MinimumFloorsToCollapse = 1
 
 [node name="CollisionShape3D" parent="HurtboxComponent3D" index="0"]
-shape = SubResource("ConvexPolygonShape3D_2ves4")
+shape = SubResource("ConvexPolygonShape3D_uqjic")
 
 [node name="buildingDestructionSmokeCenter" parent="." index="5"]
 transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, 1.5, 0, 1.5)

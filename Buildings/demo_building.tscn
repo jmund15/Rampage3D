@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://dpsb3bj0nfpc7"]
+
+[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Buildings/base_building.tscn" id="1_r101b"]
+[ext_resource type="PackedScene" uid="uid://berc8452vvm6t" path="res://Buildings/BuildingFloors/City_Base.tscn" id="2_ukyw0"]
+[ext_resource type="PackedScene" uid="uid://bb7j7l81wkn7i" path="res://Buildings/BuildingFloors/City_Mid.tscn" id="3_4gwk4"]
+[ext_resource type="PackedScene" uid="uid://u3prhgiwriau" path="res://Buildings/BuildingFloors/City_Roof.tscn" id="4_w4w1j"]
+[ext_resource type="PackedScene" uid="uid://w54wq4yl7xbu" path="res://Buildings/BuildingFloors/snow_roof.tscn" id="5_gg7ex"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rkvm0"]
+points = PackedVector3Array(-1, 0, -1, 1, 0, -1, -1, 1.25, -1, 1, 1.25, -1, 1, 0, -1, 1, 0, 1, 1, 1.25, -1, 1, 1.25, 1, 1, 0, 1, -1, 0, 1, 1, 1.25, 1, -1, 1.25, 1, -1, 0, 1, -1, 0, -1, -1, 1.25, 1, -1, 1.25, -1, 1, 1.25, 1, -1, 1.25, 1, 1, 1.25, -1, -1, 1.25, -1, 1, 0, -1, -1, 0, -1, 1, 0, 1, -1, 0, 1, -1, 1.25, -1, 1, 1.25, -1, -1, 2.5, -1, 1, 2.5, -1, 1, 1.25, -1, 1, 1.25, 1, 1, 2.5, -1, 1, 2.5, 1, 1, 1.25, 1, -1, 1.25, 1, 1, 2.5, 1, -1, 2.5, 1, -1, 1.25, 1, -1, 1.25, -1, -1, 2.5, 1, -1, 2.5, -1, 1, 2.5, 1, -1, 2.5, 1, 1, 2.5, -1, -1, 2.5, -1, 1, 1.25, -1, -1, 1.25, -1, 1, 1.25, 1, -1, 1.25, 1, -1, 2.5, -1, 1, 2.5, -1, -1, 3.75, -1, 1, 3.75, -1, 1, 2.5, -1, 1, 2.5, 1, 1, 3.75, -1, 1, 3.75, 1, 1, 2.5, 1, -1, 2.5, 1, 1, 3.75, 1, -1, 3.75, 1, -1, 2.5, 1, -1, 2.5, -1, -1, 3.75, 1, -1, 3.75, -1, 1, 3.75, 1, -1, 3.75, 1, 1, 3.75, -1, -1, 3.75, -1, 1, 2.5, -1, -1, 2.5, -1, 1, 2.5, 1, -1, 2.5, 1)
+
+[node name="Building" instance=ExtResource("1_r101b")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("ConvexPolygonShape3D_rkvm0")
+
+[node name="BuildingComponent" parent="." index="1"]
+MinimumFloorsToCollapse = 2
+PercentageDamageToCollapse = 50.0
+_collapseTickDamagePercentage = 15.0
+
+[node name="CollisionShape3D" parent="HurtboxComponent3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_rkvm0")
+
+[node name="buildingDestructionSmokeCenter" parent="." index="5"]
+transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, 1.5, 0, 1.5)
+
+[node name="CityBase" parent="." index="6" instance=ExtResource("2_ukyw0")]
+
+[node name="CityMid" parent="." index="7" instance=ExtResource("3_4gwk4")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.25, 0)
+
+[node name="CityRoof" parent="." index="8" instance=ExtResource("4_w4w1j")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.5, 0)
+
+[node name="SnowRoof" parent="." index="11" instance=ExtResource("5_gg7ex")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 3.75, 0)

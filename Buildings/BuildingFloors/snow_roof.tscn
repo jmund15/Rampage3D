@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://w54wq4yl7xbu"]
+
+[ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://Buildings/BuildingFloors/building_floor_component.tscn" id="1_3x6bu"]
+[ext_resource type="Texture2D" uid="uid://bsbuoua5ecexv" path="res://addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png" id="2_87y24"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_myq8l"]
+albedo_texture = ExtResource("2_87y24")
+texture_filter = 0
+
+[node name="SnowRoof" instance=ExtResource("1_3x6bu")]
+material_override = SubResource("StandardMaterial3D_myq8l")
