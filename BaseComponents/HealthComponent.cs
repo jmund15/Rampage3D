@@ -102,7 +102,7 @@ public partial class HealthComponent : Node
     private bool _isDead = false;
     private bool _healthInitialized = false;
 
-
+    public event EventHandler HealthInitialized;
     public event EventHandler<HealthUpdate> Damaged;
     public event EventHandler<HealthUpdate> Healed;
     [Signal]
@@ -135,6 +135,7 @@ public partial class HealthComponent : Node
         Health = MaxHealth;
         IsDead = false;
         _healthInitialized = true;
+        HealthInitialized?.Invoke(this, EventArgs.Empty);
     }
     public virtual void Damage(float damage)
     {

@@ -9,7 +9,7 @@ public partial class BuildingComponent : Node
 {
     #region COMPONENT_VARIABLES
     [Export]
-    public int MinimumFloorsToCollapse { get; private set; } = 0;
+    public int MinimumFloorsToCollapse { get; private set; } = 1;
     [Export(PropertyHint.Range, "0,100,0.1")]
     public float PercentageDamageToCollapse { get; private set; } = 100f;
     [Export] //TODO?: TICK FASTER AS LESS HEALTH
@@ -53,9 +53,12 @@ public partial class BuildingComponent : Node
     public override void _Ready()
     {
         base._Ready();
-        //convert to percentages
-        PercentageDamageToCollapse = PercentageDamageToCollapse / 100f; 
-        _collapseTickDamagePercentage = _collapseTickDamagePercentage / 100f;
+        if (!Engine.IsEditorHint())
+        {
+            //convert to percentages
+            PercentageDamageToCollapse = PercentageDamageToCollapse / 100f;
+            _collapseTickDamagePercentage = _collapseTickDamagePercentage / 100f;
+        }
 
         _collapseTicker = GetNode<Timer>("CollapseTicker");
         _collapseTicker.Timeout += OnCollapseTick;
@@ -102,6 +105,7 @@ public partial class BuildingComponent : Node
 
         // Step 4: initialize the floors health and calc full building health
         CallDeferred(MethodName.InitializeFloorHealthConnections);
+        
 
         // Step 5: setup destruction smoke
         _destructionCenterSmoke = _structure.GetNode<AnimatedSprite3D>("buildingDestructionSmokeCenter");
@@ -216,15 +220,19 @@ public partial class BuildingComponent : Node
         {
             var floor = _sortedFloors[i - 1];
             _floors.Add(i, floor);
-            _maxBuildingHealth += floor.HealthComp.MaxHealth;
-            _currentBuildingHealth += floor.HealthComp.Health;
+            floor.HealthComp.HealthInitialized += (sender, args) =>
+            {
+                _maxBuildingHealth += floor.HealthComp.MaxHealth;
+                _currentBuildingHealth += floor.HealthComp.Health;
+            };
+
             floor.HealthComp.Destroyed += (update) => OnFloorDestroyed(floor, i, update);
             floor.HealthComp.HealthChanged += OnFloorDamaged;
         }
     }
     private void InitializeBaseSmoke()
     {
-        var smokeOffset = 0.2f;
+        var smokeOffset = 0.5f;
         _destructionCenterSmoke.Position = new Vector3(
             XRange.Y + smokeOffset + _structure.GlobalPosition.X,
             YRange.X + _structure.GlobalPosition.Y,
@@ -237,8 +245,9 @@ public partial class BuildingComponent : Node
         var smokeX = _destructionDirectionalSmoke.Duplicate() as AnimatedSprite3D;
         _structure.AddChild(smokeX);
         smokeX.FlipH = true;
+        smokeX.RotationDegrees = new Vector3(0, 45, 0);
         smokeX.GlobalPosition = new Vector3(
-            XRange.X - smokeOffset + _structure.GlobalPosition.X,
+            XRange.X + smokeOffset + _structure.GlobalPosition.X,
             YRange.X + _structure.GlobalPosition.Y,
             ZRange.Y + smokeOffset + _structure.GlobalPosition.Z
         );
@@ -246,11 +255,11 @@ public partial class BuildingComponent : Node
 
         var smokeZ = _destructionDirectionalSmoke.Duplicate() as AnimatedSprite3D;
         _structure.AddChild(smokeZ);
-        smokeZ.RotationDegrees = new Vector3(0, 90, 0);
+        smokeZ.RotationDegrees = new Vector3(0, 45, 0);
         smokeZ.GlobalPosition = new Vector3(
             XRange.Y + smokeOffset + _structure.GlobalPosition.X,
             YRange.X + _structure.GlobalPosition.Y,
-            ZRange.X - smokeOffset + _structure.GlobalPosition.Z
+            ZRange.X + smokeOffset + _structure.GlobalPosition.Z
         );
         _smokeSprites.Add(smokeZ);
 
@@ -302,48 +311,73 @@ public partial class BuildingComponent : Node
         _hurtboxComp.DeactivateHurtbox();
 
         _destructionCenterSmoke.Show();
-        _destructionCenterSmoke.Play("idle");
+        _destructionCenterSmoke.Play("emit");
+        _destructionCenterSmoke.AnimationFinished += ChangeSmokeAnimsToIdle;
         foreach (var smokeSprite in _smokeSprites)
         {
             smokeSprite.Show();
-            smokeSprite.Play("idle");
+            smokeSprite.Play("emit");
         }
 
 
-        int numShakePoses = Global.Rnd.Next(4, 8);
-        float timeToCollapse = Global.GetRndInRange(2.0f, 5.0f);
+        int numShakePoses = Global.Rnd.Next(6, 12);
+        float timeToCollapse = Global.GetRndInRange(2.0f, 3.0f);
 
         var shakePoses = new List<Vector3>();
         for (int i = 0; i < numShakePoses; i++)
         {
-            var shakePos = new Vector3(Global.GetRndInRange(-0.5f, 0.5f), 0f, Global.GetRndInRange(-0.5f, 0.5f));
+            var shakePos = new Vector3
+                (Global.GetRndInRange(-0.25f, 0.25f), 0f, Global.GetRndInRange(-0.25f, 0.25f));
             shakePoses.Add(_structure.GlobalPosition + shakePos);
         }
         var destroyTween = GetTree().CreateTween();
         destroyTween.TweenProperty(_structure, "position:y",
-                _structure.Position.Y - Dimensions.Y - 0.1f, timeToCollapse).SetEase(Tween.EaseType.InOut);
+                _structure.Position.Y - Dimensions.Y - 0.5f, timeToCollapse).SetEase(Tween.EaseType.InOut);
         var shakeTween = GetTree().CreateTween();
         while (timeToCollapse > 0f)
         {
             foreach (var pos in shakePoses)
             {
                 shakeTween.TweenProperty(_structure, "position:x",
-                    pos.X, 0.1f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+                    pos.X, 0.05f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
                 shakeTween.Parallel().TweenProperty(_structure, "position:z",
-                    pos.Z, 0.1f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
-                timeToCollapse -= 0.2f;
+                    pos.Z, 0.05f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+                timeToCollapse -= 0.05f;
             }
         }
         shakeTween.TweenProperty(_structure, "position:x",
-             _structure.Position.X, 0.1f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+             _structure.Position.X, 0.05f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
         shakeTween.Parallel().TweenProperty(_structure, "position:z",
-            _structure.Position.Z, 0.1f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
-        destroyTween.TweenCallback(Callable.From(_structure.QueueFree));
-        destroyTween.TweenCallback(Callable.From(_destructionCenterSmoke.QueueFree));
+            _structure.Position.Z, 0.05f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+        
+        destroyTween.TweenCallback(Callable.From(ChangeSmokeAnimsToDispurseAndFree));
+        
+    }
+    private void ChangeSmokeAnimsToIdle()
+    {
+        _destructionCenterSmoke.Play("idle");
         foreach (var smokeSprite in _smokeSprites)
         {
-            destroyTween.TweenCallback(Callable.From(smokeSprite.QueueFree));
+            smokeSprite.Play("idle");
         }
+    }
+    private void ChangeSmokeAnimsToDispurseAndFree()
+    {
+        _destructionCenterSmoke.AnimationFinished -= ChangeSmokeAnimsToIdle;
+        _destructionCenterSmoke.Play("dispurse");
+        foreach (var smokeSprite in _smokeSprites)
+        {
+            smokeSprite.Play("dispurse");
+        }
+        _destructionCenterSmoke.AnimationFinished += () =>
+        {
+            //_destructionCenterSmoke.QueueFree();
+            //foreach (var smokeSprite in _smokeSprites)
+            //{
+            //    smokeSprite.QueueFree();
+            //}
+            _structure.QueueFree();
+        };
     }
     #endregion
 }

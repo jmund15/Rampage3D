@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bb7j7l81wkn7i"]
 
-[ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://BaseComponents/building_floor_component.tscn" id="1_g8ujp"]
+[ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://Buildings/BuildingFloors/building_floor_component.tscn" id="1_g8ujp"]
 [ext_resource type="Texture2D" uid="uid://bidafxyqk1e3v" path="res://Textures/32x/brick01/32x_brick01_mid.png" id="2_vy374"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_owbsp"]

@@ -4,6 +4,7 @@
 
 [node name="BuildingComponent" type="Node"]
 script = ExtResource("1_fsvjr")
+MinimumFloorsToCollapse = 0
 PercentageDamageToCollapse = 0.01
 _collapseTickDamagePercentage = 0.0001
 

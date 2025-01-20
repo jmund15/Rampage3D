@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://cfbl7624t2gmj"]
+
+[ext_resource type="PackedScene" uid="uid://berc8452vvm6t" path="res://Buildings/BuildingFloors/City_Base.tscn" id="1_x1c8u"]
+[ext_resource type="PackedScene" uid="uid://bb7j7l81wkn7i" path="res://Buildings/BuildingFloors/City_Mid.tscn" id="2_qc0y5"]
+[ext_resource type="PackedScene" uid="uid://u3prhgiwriau" path="res://Buildings/BuildingFloors/City_Roof.tscn" id="3_gn348"]
+[ext_resource type="PackedScene" uid="uid://cba4dynklj4fw" path="res://BaseComponents/building_component.tscn" id="4_ouxaq"]
+[ext_resource type="PackedScene" uid="uid://cbct72jw70cm4" path="res://BaseComponents/climbable_component.tscn" id="5_ha0um"]
+[ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="6_djj3q"]
+[ext_resource type="PackedScene" uid="uid://bt85nwj2gb1b3" path="res://Buildings/Effects/buildingDestructionSmokeDirectional.tscn" id="7_fq0it"]
+[ext_resource type="PackedScene" uid="uid://denn1dumyw2kq" path="res://Buildings/Effects/buildingDestructionSmokeCenter.tscn" id="8_ofplp"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_axw1w"]
+points = PackedVector3Array(-1, -1.64544, -1, 1, -1.64544, -1, -1, -0.39544, -1, 1, -0.39544, -1, 1, -1.64544, -1, 1, -1.64544, 1, 1, -0.39544, -1, 1, -0.39544, 1, 1, -1.64544, 1, -1, -1.64544, 1, 1, -0.39544, 1, -1, -0.39544, 1, -1, -1.64544, 1, -1, -1.64544, -1, -1, -0.39544, 1, -1, -0.39544, -1, 1, -0.39544, 1, -1, -0.39544, 1, 1, -0.39544, -1, -1, -0.39544, -1, 1, -1.64544, -1, -1, -1.64544, -1, 1, -1.64544, 1, -1, -1.64544, 1, -1, -0.388391, -1, 1, -0.388391, -1, -1, 0.861609, -1, 1, 0.861609, -1, 1, -0.388391, -1, 1, -0.388391, 1, 1, 0.861609, -1, 1, 0.861609, 1, 1, -0.388391, 1, -1, -0.388391, 1, 1, 0.861609, 1, -1, 0.861609, 1, -1, -0.388391, 1, -1, -0.388391, -1, -1, 0.861609, 1, -1, 0.861609, -1, 1, 0.861609, 1, -1, 0.861609, 1, 1, 0.861609, -1, -1, 0.861609, -1, 1, -0.388391, -1, -1, -0.388391, -1, 1, -0.388391, 1, -1, -0.388391, 1, -1, 0.862772, -1, 1, 0.862772, -1, -1, 2.11277, -1, 1, 2.11277, -1, 1, 0.862772, -1, 1, 0.862772, 1, 1, 2.11277, -1, 1, 2.11277, 1, 1, 0.862772, 1, -1, 0.862772, 1, 1, 2.11277, 1, -1, 2.11277, 1, -1, 0.862772, 1, -1, 0.862772, -1, -1, 2.11277, 1, -1, 2.11277, -1, 1, 2.11277, 1, -1, 2.11277, 1, 1, 2.11277, -1, -1, 2.11277, -1, 1, 0.862772, -1, -1, 0.862772, -1, 1, 0.862772, 1, -1, 0.862772, 1)
+
+[node name="Building" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 3
+sleeping = true
+freeze = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.130737, 0)
+shape = SubResource("ConvexPolygonShape3D_axw1w")
+
+[node name="CityBase" parent="." instance=ExtResource("1_x1c8u")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -1.64544, 0)
+skeleton = NodePath("")
+
+[node name="CityMid" parent="." instance=ExtResource("2_qc0y5")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.388391, 0)
+skeleton = NodePath("")
+
+[node name="CityRoof" parent="." instance=ExtResource("3_gn348")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.862772, 0)
+skeleton = NodePath("")
+
+[node name="BuildingComponent" parent="." node_paths=PackedStringArray("_hurtboxComp", "_structure") instance=ExtResource("4_ouxaq")]
+MinimumFloorsToCollapse = 1
+PercentageDamageToCollapse = 59.0
+_collapseTickDamagePercentage = 10.0
+_hurtboxComp = NodePath("../HurtboxComponent3D")
+_structure = NodePath("..")
+
+[node name="ClimbableComponent" parent="." node_paths=PackedStringArray("_buildingComp") instance=ExtResource("5_ha0um")]
+_buildingComp = NodePath("../BuildingComponent")
+ClimbOnLedgeDist = 1.0
+
+[node name="HurtboxComponent3D" type="Area3D" parent="."]
+collision_layer = 2
+script = ExtResource("6_djj3q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.129578, 0)
+shape = SubResource("ConvexPolygonShape3D_axw1w")
+
+[node name="buildingDestructionSmokeDirectional" parent="." instance=ExtResource("7_fq0it")]
+visible = false
+
+[node name="buildingDestructionSmokeCenter" parent="." instance=ExtResource("8_ofplp")]
+transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, 1.2, -1.64544, 1.2)
+top_level = true
+visible = false
+frame_progress = 0.364956

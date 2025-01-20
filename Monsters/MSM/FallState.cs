@@ -71,7 +71,7 @@ public partial class FallState : State
         {
             var landHeight = _body.Position.Y;
             var fallDist = _fallHeight - landHeight;
-            GD.Print("jump fall dist: ", fallDist);
+            //GD.Print("jump fall dist: ", fallDist);
             if (fallDist > Monster.FallHeight)
             {
                 EmitSignal(SignalName.TransitionState, this, _landFallState);
