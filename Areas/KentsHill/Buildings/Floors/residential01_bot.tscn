@@ -1,0 +1,25 @@
+[gd_scene load_steps=7 format=3 uid="uid://cb8qbgvdlfa33"]
+
+[ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://Areas/All/Buildings/Floors/building_floor_component.tscn" id="1_2shk7"]
+[ext_resource type="Texture2D" uid="uid://cdiu20v8ujmrw" path="res://Areas/KentsHill/Buildings/Textures/32x_residential01/32x_base_residential01_snowy.png" id="2_1nhpy"]
+[ext_resource type="Texture2D" uid="uid://cwayux5uqnujm" path="res://Areas/KentsHill/Buildings/Textures/32x_residential01/32x_roof_residential01_snowy.png" id="3_gjvqy"]
+[ext_resource type="ArrayMesh" uid="uid://dv54t2i6s3yun" path="res://Areas/All/Buildings/Models/roof_32x.obj" id="4_27hsw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l35ma"]
+albedo_texture = ExtResource("2_1nhpy")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5dieo"]
+albedo_texture = ExtResource("3_gjvqy")
+texture_filter = 0
+
+[node name="BuildingFloor" instance=ExtResource("1_2shk7")]
+material_override = SubResource("StandardMaterial3D_l35ma")
+
+[node name="floorDestruction32x" parent="." index="1"]
+frame_progress = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
+material_override = SubResource("StandardMaterial3D_5dieo")
+mesh = ExtResource("4_27hsw")
