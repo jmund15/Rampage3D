@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://nrt61isqasf7"]
+
+[ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_oumf5"]
+[ext_resource type="ArrayMesh" uid="uid://coutw4aq12fdb" path="res://addons/kaykit_city_builder_bits/Assets/obj/base.obj" id="3_ek6wh"]
+[ext_resource type="PackedScene" uid="uid://u01pn5rjsba0" path="res://Critters/critter.tscn" id="4_nsmow"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eb500"]
+
+[sub_resource type="Sky" id="Sky_k632d"]
+sky_material = SubResource("ProceduralSkyMaterial_eb500")
+
+[sub_resource type="Environment" id="Environment_s2y8y"]
+background_mode = 2
+sky = SubResource("Sky_k632d")
+volumetric_fog_density = 0.5365
+volumetric_fog_emission_energy = 240.86
+volumetric_fog_gi_inject = 3.4
+volumetric_fog_anisotropy = 0.77
+volumetric_fog_length = 497.58
+volumetric_fog_ambient_inject = 9.95
+volumetric_fog_sky_affect = 0.973
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o4jck"]
+size = Vector3(100, 1, 100)
+
+[node name="MainScene" type="Node3D"]
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="monster" parent="Players" instance=ExtResource("1_oumf5")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 2)
+
+[node name="Buildings" type="Node3D" parent="."]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_s2y8y")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.984787, 0.0629067, -0.161982, 0, 0.932172, 0.362016, 0.173768, -0.356508, 0.917991, 0, 4.83154, 6.14081)
+light_color = Color(1, 0.968627, 0.866667, 1)
+
+[node name="Camera3D" type="Camera3D" parent="Environment"]
+transform = Transform3D(0.707107, -0.40558, 0.579228, 0, 0.819152, 0.573577, -0.707107, -0.40558, 0.579228, 4.35035, 5.62989, 0.307039)
+projection = 1
+fov = 37.8493
+size = 10.0
+
+[node name="Fllor" type="StaticBody3D" parent="Environment"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Fllor"]
+shape = SubResource("BoxShape3D_o4jck")
+
+[node name="Base" type="MeshInstance3D" parent="Environment/Fllor"]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 20, 0.112, 0, -1.659)
+mesh = ExtResource("3_ek6wh")
+skeleton = NodePath("../../..")
+
+[node name="NPCs" type="Node3D" parent="."]
+
+[node name="Critter" parent="NPCs" instance=ExtResource("4_nsmow")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, -1.73613)

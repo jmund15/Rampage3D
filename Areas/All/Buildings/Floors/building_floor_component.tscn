@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://hukks8001cmk"]
+
+[ext_resource type="ArrayMesh" uid="uid://cr7ka0otfrjo0" path="res://Areas/All/Buildings/Models/building_32x.obj" id="1_mfnyg"]
+[ext_resource type="Script" path="res://Areas/All/Buildings/Floors/BuildingFloorComponent.cs" id="3_sc4q0"]
+[ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="4_1s0h5"]
+[ext_resource type="PackedScene" uid="uid://7rxr0u3eirrr" path="res://Areas/All/Buildings/Effects/floorDestruction32x.tscn" id="4_ily1n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ou7l4"]
+texture_filter = 0
+
+[node name="BuildingFloor" type="MeshInstance3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_ou7l4")
+mesh = ExtResource("1_mfnyg")
+script = ExtResource("3_sc4q0")
+FloorMaxHealth = 5.0
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_1s0h5")
+MaxHealth = 5.0
+
+[node name="floorDestruction32x" parent="." instance=ExtResource("4_ily1n")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+animation = &"brick"
+frame_progress = 0.00470438
