@@ -1,16 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://duebivgmmoo4i"]
+[gd_scene load_steps=4 format=3 uid="uid://duebivgmmoo4i"]
 
 [ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://Areas/All/Buildings/Floors/building_floor_component.tscn" id="1_apjl0"]
-[ext_resource type="Texture2D" uid="uid://dl02gcgru8p1j" path="res://Areas/KentsHill/Buildings/Textures/32x_garage01/32x_roof_garage01_snowy.png" id="2_302jr"]
 [ext_resource type="Texture2D" uid="uid://d2hgv8jbhx1l7" path="res://Areas/KentsHill/Buildings/Textures/32x_garage01/32x_base_garage01_snowy.png" id="2_q6dif"]
-[ext_resource type="ArrayMesh" uid="uid://dv54t2i6s3yun" path="res://Areas/All/Buildings/Models/roof_32x.obj" id="3_wojuv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yckai"]
 albedo_texture = ExtResource("2_q6dif")
-texture_filter = 0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_npxit"]
-albedo_texture = ExtResource("2_302jr")
 texture_filter = 0
 
 [node name="BuildingFloor" instance=ExtResource("1_apjl0")]
@@ -20,8 +14,3 @@ FloorMaxHealth = 6.0
 
 [node name="HealthComponent" parent="." index="0"]
 MaxHealth = 6.0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
-material_override = SubResource("StandardMaterial3D_npxit")
-mesh = ExtResource("3_wojuv")

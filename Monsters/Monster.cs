@@ -33,8 +33,8 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     public Dictionary<State, bool> ParallelStates { get; protected set; } =
         new Dictionary<State, bool>();
 
-    public static float Speed { get; private set; } = 7.5f;
-    public static float AirSpeed { get; private set; } = 2.0f;
+    public static float Speed { get; private set; } = 7.0f;
+    public static float AirSpeed { get; private set; } = 2.5f;
     public static float AirHorizontalFriction { get; private set; } = 0.2f;
     public static float ClimbSpeed { get; private set; } = 5.0f;
     public static float JumpVelocity { get; private set; } = 7.5f;
