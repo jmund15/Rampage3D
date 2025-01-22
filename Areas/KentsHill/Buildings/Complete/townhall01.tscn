@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1kscej50yrvh"]
+
+[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Areas/All/Buildings/Complete/base_building.tscn" id="1_pd2r4"]
+[ext_resource type="PackedScene" uid="uid://dmbipgv33ejot" path="res://Areas/KentsHill/Buildings/Floors/townhall01_bot.tscn" id="2_1dhp7"]
+[ext_resource type="PackedScene" uid="uid://5t33gb788rjn" path="res://Areas/KentsHill/Buildings/Floors/townhall01_top.tscn" id="3_qtjom"]
+[ext_resource type="Texture2D" uid="uid://dpuhfip2wpo47" path="res://Areas/KentsHill/Buildings/Textures/32x_townhall01/32x_base_townhall01_top_snowy.png" id="4_2xeub"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vgomb"]
+points = PackedVector3Array(-1, 0, -1, 1, 0, -1, -1, 1.25, -1, 1, 1.25, -1, 1, 0, -1, 1, 0, 1, 1, 1.25, -1, 1, 1.25, 1, 1, 0, 1, -1, 0, 1, 1, 1.25, 1, -1, 1.25, 1, -1, 0, 1, -1, 0, -1, -1, 1.25, 1, -1, 1.25, -1, 1, 1.25, 1, -1, 1.25, 1, 1, 1.25, -1, -1, 1.25, -1, 1, 0, -1, -1, 0, -1, 1, 0, 1, -1, 0, 1, -1, 1.25, -1, 1, 1.25, -1, -1, 2.5, -1, 1, 2.5, -1, 1, 1.25, -1, 1, 1.25, 1, 1, 2.5, -1, 1, 2.5, 1, 1, 1.25, 1, -1, 1.25, 1, 1, 2.5, 1, -1, 2.5, 1, -1, 1.25, 1, -1, 1.25, -1, -1, 2.5, 1, -1, 2.5, -1, 1, 2.5, 1, -1, 2.5, 1, 1, 2.5, -1, -1, 2.5, -1, 1, 1.25, -1, -1, 1.25, -1, 1, 1.25, 1, -1, 1.25, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ou7l4"]
+albedo_texture = ExtResource("4_2xeub")
+texture_filter = 0
+
+[node name="Building" instance=ExtResource("1_pd2r4")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("ConvexPolygonShape3D_vgomb")
+
+[node name="CollisionShape3D" parent="HurtboxComponent3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_vgomb")
+
+[node name="buildingDestructionSmokeCenter" parent="." index="5"]
+transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, 1.5, 0, 1.5)
+
+[node name="BuildingFloor" parent="." index="6" instance=ExtResource("2_1dhp7")]
+
+[node name="BuildingFloor2" parent="." index="7" instance=ExtResource("3_qtjom")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.25, 0)
+material_override = SubResource("StandardMaterial3D_ou7l4")

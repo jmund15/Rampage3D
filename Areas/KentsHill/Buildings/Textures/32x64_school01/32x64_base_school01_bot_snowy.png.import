@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpdtqdfyte5ll"
-path.s3tc="res://.godot/imported/32x_roof_bakery01_snowy.png-cf5ec86c18cb16a768d507977adf5cc8.s3tc.ctex"
+uid="uid://b54n3psq55nlx"
+path.s3tc="res://.godot/imported/32x64_base_school01_bot_snowy.png-0f189a1d1b1378c8826b5e9e31b34a22.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Areas/KentsHill/Buildings/Textures/32x_bakery01/32x_roof_bakery01_snowy.png"
-dest_files=["res://.godot/imported/32x_roof_bakery01_snowy.png-cf5ec86c18cb16a768d507977adf5cc8.s3tc.ctex"]
+source_file="res://Areas/KentsHill/Buildings/Textures/32x64_school01/32x64_base_school01_bot_snowy.png"
+dest_files=["res://.godot/imported/32x64_base_school01_bot_snowy.png-0f189a1d1b1378c8826b5e9e31b34a22.s3tc.ctex"]
 
 [params]
 
