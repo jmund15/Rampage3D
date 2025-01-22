@@ -160,10 +160,10 @@ _climbState = NodePath("../Climbing")
 _descendState = NodePath("../Desending")
 SelfInteruptible = 0
 
-[node name="Climbing" type="Node" parent="MSM" node_paths=PackedStringArray("_climbIdleState", "_landState", "_descendState")]
+[node name="Climbing" type="Node" parent="MSM" node_paths=PackedStringArray("_climbIdleState", "_jumpState", "_descendState")]
 script = ExtResource("8_21b5u")
 _climbIdleState = NodePath("../ClimbIdle")
-_landState = NodePath("../LandFloor")
+_jumpState = NodePath("../Jump")
 _descendState = NodePath("../Desending")
 SelfInteruptible = 0
 
