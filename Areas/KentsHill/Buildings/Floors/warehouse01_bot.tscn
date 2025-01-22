@@ -1,0 +1,29 @@
+[gd_scene load_steps=8 format=3 uid="uid://dnss8mxooe60y"]
+
+[ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://Areas/All/Buildings/Floors/building_floor_component.tscn" id="1_bxd71"]
+[ext_resource type="ArrayMesh" uid="uid://bohmkj2gnujdk" path="res://Areas/All/Buildings/Models/base_32x64.obj" id="2_bi763"]
+[ext_resource type="Texture2D" uid="uid://3y5tuu4ukfix" path="res://Areas/KentsHill/Buildings/Textures/32x64_warehouse01/32x64_base_warehouse01_snowy.png" id="2_kwokt"]
+[ext_resource type="Texture2D" uid="uid://dcrbxv611jaj7" path="res://Areas/KentsHill/Buildings/Textures/32x64_warehouse01/32x64_roof_warehouse01_snowy.png" id="3_g7c5r"]
+[ext_resource type="ArrayMesh" uid="uid://dlneixjkhyket" path="res://Areas/All/Buildings/Models/roof_32x64.obj" id="4_dk2uh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sknyr"]
+albedo_texture = ExtResource("2_kwokt")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ptwr"]
+albedo_texture = ExtResource("3_g7c5r")
+texture_filter = 0
+
+[node name="BuildingFloor" instance=ExtResource("1_bxd71")]
+material_override = SubResource("StandardMaterial3D_sknyr")
+mesh = ExtResource("2_bi763")
+Material = 2
+FloorMaxHealth = 12.0
+
+[node name="HealthComponent" parent="." index="0"]
+MaxHealth = 12.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.063, 0.625, 0)
+material_override = SubResource("StandardMaterial3D_3ptwr")
+mesh = ExtResource("4_dk2uh")

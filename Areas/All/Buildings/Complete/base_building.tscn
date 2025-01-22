@@ -6,9 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://bt85nwj2gb1b3" path="res://Areas/All/Buildings/Effects/buildingDestructionSmokeDirectional.tscn" id="7_thv12"]
 [ext_resource type="PackedScene" uid="uid://denn1dumyw2kq" path="res://Areas/All/Buildings/Effects/buildingDestructionSmokeCenter.tscn" id="8_132w6"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4uaqj"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rkorv"]
 
 [node name="Building" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 collision_layer = 2
 collision_mask = 3
 sleeping = true
@@ -16,7 +17,7 @@ freeze = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.130737, 0)
-shape = SubResource("ConvexPolygonShape3D_4uaqj")
+shape = SubResource("ConvexPolygonShape3D_rkorv")
 
 [node name="BuildingComponent" parent="." node_paths=PackedStringArray("_hurtboxComp", "_structure") instance=ExtResource("4_csccd")]
 PercentageDamageToCollapse = 100.0
@@ -34,7 +35,7 @@ script = ExtResource("7_m8ym8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.129578, 0)
-shape = SubResource("ConvexPolygonShape3D_4uaqj")
+shape = SubResource("ConvexPolygonShape3D_rkorv")
 
 [node name="buildingDestructionSmokeDirectional" parent="." instance=ExtResource("7_thv12")]
 visible = false

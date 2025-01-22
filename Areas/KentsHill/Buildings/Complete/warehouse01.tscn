@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cls6s2vc5ipuk"]
+
+[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Areas/All/Buildings/Complete/base_building.tscn" id="1_6ucgs"]
+[ext_resource type="PackedScene" uid="uid://dnss8mxooe60y" path="res://Areas/KentsHill/Buildings/Floors/warehouse01_bot.tscn" id="2_i3qbn"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vw18l"]
+
+[node name="Building" instance=ExtResource("1_6ucgs")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("ConvexPolygonShape3D_vw18l")
+
+[node name="CollisionShape3D" parent="HurtboxComponent3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_vw18l")
+
+[node name="buildingDestructionSmokeCenter" parent="." index="5"]
+transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, -3.40282e+38, 3.40282e+38, -3.40282e+38)
+
+[node name="BuildingFloor" parent="." index="8" instance=ExtResource("2_i3qbn")]

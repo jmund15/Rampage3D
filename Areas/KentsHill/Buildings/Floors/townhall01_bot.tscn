@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmbipgv33ejot"]
+
+[ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://Areas/All/Buildings/Floors/building_floor_component.tscn" id="1_fqkhw"]
+[ext_resource type="Texture2D" uid="uid://dusnptbo5t121" path="res://Areas/KentsHill/Buildings/Textures/32x_townhall01/32x_base_townhall01_bot_snowy.png" id="2_3uch8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3jbct"]
+albedo_texture = ExtResource("2_3uch8")
+texture_filter = 0
+
+[node name="BuildingFloor" instance=ExtResource("1_fqkhw")]
+material_override = SubResource("StandardMaterial3D_3jbct")
+Material = 1
+FloorMaxHealth = 6.0
