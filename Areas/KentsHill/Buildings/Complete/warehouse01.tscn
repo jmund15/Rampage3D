@@ -1,19 +1,34 @@
-[gd_scene load_steps=4 format=3 uid="uid://cls6s2vc5ipuk"]
+[gd_scene load_steps=7 format=3 uid="uid://cls6s2vc5ipuk"]
 
 [ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Areas/All/Buildings/Complete/base_building.tscn" id="1_6ucgs"]
 [ext_resource type="PackedScene" uid="uid://dnss8mxooe60y" path="res://Areas/KentsHill/Buildings/Floors/warehouse01_bot.tscn" id="2_i3qbn"]
+[ext_resource type="Texture2D" uid="uid://dcrbxv611jaj7" path="res://Areas/KentsHill/Buildings/Textures/32x64_warehouse01/32x64_roof_warehouse01_snowy.png" id="3_pl88q"]
+[ext_resource type="ArrayMesh" uid="uid://dlneixjkhyket" path="res://Areas/All/Buildings/Models/roof_32x64.obj" id="4_5wayp"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vw18l"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_uo7ub"]
+points = PackedVector3Array(-2.125, 0, -1, 1.875, 0, -1, -2.125, 1.25, -1, 1.875, 1.25, -1, 1.875, 0, -1, 1.875, 0, 1, 1.875, 1.25, -1, 1.875, 1.25, 1, 1.875, 0, 1, -2.125, 0, 1, 1.875, 1.25, 1, -2.125, 1.25, 1, -2.125, 0, 1, -2.125, 0, -1, -2.125, 1.25, 1, -2.125, 1.25, -1, 1.875, 1.25, 1, -2.125, 1.25, 1, 1.875, 1.25, -1, -2.125, 1.25, -1, 1.875, 0, -1, -2.125, 0, -1, 1.875, 0, 1, -2.125, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6qsok"]
+albedo_texture = ExtResource("3_pl88q")
+texture_filter = 0
 
 [node name="Building" instance=ExtResource("1_6ucgs")]
 
 [node name="CollisionShape3D" parent="." index="0"]
-shape = SubResource("ConvexPolygonShape3D_vw18l")
+shape = SubResource("ConvexPolygonShape3D_uo7ub")
+
+[node name="RoofComponent" parent="." index="3" node_paths=PackedStringArray("_roofMesh")]
+_roofMesh = NodePath("../Roof")
 
 [node name="CollisionShape3D" parent="HurtboxComponent3D" index="0"]
-shape = SubResource("ConvexPolygonShape3D_vw18l")
+shape = SubResource("ConvexPolygonShape3D_uo7ub")
 
-[node name="buildingDestructionSmokeCenter" parent="." index="5"]
-transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, -3.40282e+38, 3.40282e+38, -3.40282e+38)
+[node name="buildingDestructionSmokeCenter" parent="." index="6"]
+transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, 2.375, 0, 1.5)
 
-[node name="BuildingFloor" parent="." index="8" instance=ExtResource("2_i3qbn")]
+[node name="BuildingFloor" parent="." index="7" instance=ExtResource("2_i3qbn")]
+
+[node name="Roof" type="MeshInstance3D" parent="." index="10"]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, -0.063, 1.25, 0)
+material_override = SubResource("StandardMaterial3D_6qsok")
+mesh = ExtResource("4_5wayp")

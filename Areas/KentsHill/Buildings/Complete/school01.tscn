@@ -4,21 +4,24 @@
 [ext_resource type="PackedScene" uid="uid://bkndh6ycpysta" path="res://Areas/KentsHill/Buildings/Floors/school01_bot.tscn" id="2_p4ob1"]
 [ext_resource type="PackedScene" uid="uid://b8c2ba16dgbiv" path="res://Areas/KentsHill/Buildings/Floors/school01_top.tscn" id="3_31sav"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nn6b5"]
-points = PackedVector3Array(-2.125, 1.25, -1, 1.875, 1.25, -1, -2.125, 2.5, -1, 1.875, 2.5, -1, 1.875, 1.25, -1, 1.875, 1.25, 1, 1.875, 2.5, -1, 1.875, 2.5, 1, 1.875, 1.25, 1, -2.125, 1.25, 1, 1.875, 2.5, 1, -2.125, 2.5, 1, -2.125, 1.25, 1, -2.125, 1.25, -1, -2.125, 2.5, 1, -2.125, 2.5, -1, 1.875, 2.5, 1, -2.125, 2.5, 1, 1.875, 2.5, -1, -2.125, 2.5, -1, 1.875, 1.25, -1, -2.125, 1.25, -1, 1.875, 1.25, 1, -2.125, 1.25, 1, -2.125, 0, -1, 1.875, 0, -1, -2.125, 1.25, -1, 1.875, 1.25, -1, 1.875, 0, -1, 1.875, 0, 1, 1.875, 1.25, -1, 1.875, 1.25, 1, 1.875, 0, 1, -2.125, 0, 1, 1.875, 1.25, 1, -2.125, 1.25, 1, -2.125, 0, 1, -2.125, 0, -1, -2.125, 1.25, 1, -2.125, 1.25, -1, 1.875, 1.25, 1, -2.125, 1.25, 1, 1.875, 1.25, -1, -2.125, 1.25, -1, 1.875, 0, -1, -2.125, 0, -1, 1.875, 0, 1, -2.125, 0, 1)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_i45tn"]
+points = PackedVector3Array(-2.125, 0, -1, 1.875, 0, -1, -2.125, 1.25, -1, 1.875, 1.25, -1, 1.875, 0, -1, 1.875, 0, 1, 1.875, 1.25, -1, 1.875, 1.25, 1, 1.875, 0, 1, -2.125, 0, 1, 1.875, 1.25, 1, -2.125, 1.25, 1, -2.125, 0, 1, -2.125, 0, -1, -2.125, 1.25, 1, -2.125, 1.25, -1, 1.875, 1.25, 1, -2.125, 1.25, 1, 1.875, 1.25, -1, -2.125, 1.25, -1, 1.875, 0, -1, -2.125, 0, -1, 1.875, 0, 1, -2.125, 0, 1, -2.125, 1.25, -1, 1.875, 1.25, -1, -2.125, 2.5, -1, 1.875, 2.5, -1, 1.875, 1.25, -1, 1.875, 1.25, 1, 1.875, 2.5, -1, 1.875, 2.5, 1, 1.875, 1.25, 1, -2.125, 1.25, 1, 1.875, 2.5, 1, -2.125, 2.5, 1, -2.125, 1.25, 1, -2.125, 1.25, -1, -2.125, 2.5, 1, -2.125, 2.5, -1, 1.875, 2.5, 1, -2.125, 2.5, 1, 1.875, 2.5, -1, -2.125, 2.5, -1, 1.875, 1.25, -1, -2.125, 1.25, -1, 1.875, 1.25, 1, -2.125, 1.25, 1)
 
 [node name="Building" instance=ExtResource("1_hcnpe")]
 
 [node name="CollisionShape3D" parent="." index="0"]
-shape = SubResource("ConvexPolygonShape3D_nn6b5")
+shape = SubResource("ConvexPolygonShape3D_i45tn")
+
+[node name="RoofComponent" parent="." index="3" node_paths=PackedStringArray("_roofMesh")]
+_roofMesh = NodePath("../BuildingFloor2")
 
 [node name="CollisionShape3D" parent="HurtboxComponent3D" index="0"]
-shape = SubResource("ConvexPolygonShape3D_nn6b5")
+shape = SubResource("ConvexPolygonShape3D_i45tn")
 
-[node name="buildingDestructionSmokeCenter" parent="." index="5"]
+[node name="buildingDestructionSmokeCenter" parent="." index="6"]
 transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, 2.375, 0, 1.5)
 
-[node name="BuildingFloor" parent="." index="8" instance=ExtResource("2_p4ob1")]
+[node name="BuildingFloor" parent="." index="7" instance=ExtResource("2_p4ob1")]
 
-[node name="BuildingFloor2" parent="." index="9" instance=ExtResource("3_31sav")]
+[node name="BuildingFloor2" parent="." index="8" instance=ExtResource("3_31sav")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.25, 0)

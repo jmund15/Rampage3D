@@ -13,7 +13,7 @@ public partial class ClimbState : Base3DState
     [Export(PropertyHint.NodeType, "State")]
     private State _climbIdleState;
     [Export(PropertyHint.NodeType, "State")]
-	private State _landState;
+	private State _jumpState;
     [Export(PropertyHint.NodeType, "State")]
     private State _descendState;
 
@@ -22,7 +22,7 @@ public partial class ClimbState : Base3DState
 
 	private ClimberComponent _climberComp;
     private Vector2 _inputDir;
-    private AnimDirection _climbDir;
+    private AnimDirection _climbAnimDir;
 	#endregion
 	#region STATE_UPDATES
 	public override void Init(Node agent, IBlackboard bb)
@@ -35,13 +35,13 @@ public partial class ClimbState : Base3DState
 	{
 		base.Enter(parallelStates);
 		_climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
-        _climbDir = IMovementComponent.GetAnimDirFromOrthog(_climberComp.ClimbingDir);
+        _climbAnimDir = IMovementComponent.GetAnimDirFromOrthog(_climberComp.ClimbingDir);
         //GD.Print("on climb enter anim: ", AnimPlayer.CurrentAnimation);
         //GD.Print("on climb enter anim direction: ", _climbDir);
         //GD.Print("climbable max climb height: ", _climbComp.MaxClimbHeight);
 
         BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(_animName +
-            IMovementComponent.GetFaceDirectionString(_climbDir));
+            IMovementComponent.GetFaceDirectionString(_climbAnimDir));
 
         _body.Velocity = Vector3.Zero;
 
@@ -72,36 +72,13 @@ public partial class ClimbState : Base3DState
 	{
 		base.ProcessPhysics(delta);
         var desiredAnimDirection = IMovementComponent.GetAnimDirectionFromVector(_inputDir);
-        if (_climbDir != desiredAnimDirection && _inputDir.Y != 0)
+        if (_climbAnimDir != desiredAnimDirection && _inputDir.Y != 0)
         {
             EmitSignal(SignalName.TransitionState, this, _descendState);
             return;
         }
 
-        //GD.Print("body pos: ", _body.Position.Y, "\ncurr top of body: ", _body.Position.Y + _topBodyDistFromPos,
-        //    "\nTop of building height:", _climbComp.MaxClimbHeight);
-        if (_body.Position.Y + (_topBodyDistFromPos / 2) >= _climberComp.ClimbableComp.MaxClimbHeight && _climberComp.ClimbableComp.CanClimbOnTop)
-        {
-            float climbOnPush = 0.5f;
-            Vector2 pushDir = IMovementComponent.GetVectorFromDirection(MoveComp.GetFaceDirection())
-                * climbOnPush;
-            //_body.Position = new Vector3
-            //    (_body.Position.X + pushDir.X,
-            //    _climbComp.MaxClimbHeight,
-            //    _body.Position.Z + pushDir.Y);
-            GD.Print("CURRENT BODY POS: ", _body.Position);
-            var climbPos = _climberComp.ClimbableComp.ClimbOnPosMap[MoveComp.GetFaceDirection()];
-            _body.Position = new Vector3(
-                climbPos.X,
-                /*_body.Position.Y + _topBodyDistFromPos,//*/climbPos.Y - _topBodyDistFromPos / 2,
-                climbPos.Z
-                );
-
-            GD.Print("SETTING BODY POS: ", _body.Position);
-            _climberComp.StopClimb();
-            EmitSignal(SignalName.TransitionState, this, _landState);
-            return;
-        }
+        CheckIfOnRoof();
 
         HandleClimbVelocity();
     }
@@ -132,6 +109,35 @@ public partial class ClimbState : Base3DState
         _body.MoveAndSlide();
     }
 
+    private void CheckIfOnRoof()
+    {
+        //GD.Print("body pos: ", _body.Position.Y, "\ncurr top of body: ", _body.Position.Y + _topBodyDistFromPos,
+        //    "\nTop of building height:", _climbComp.MaxClimbHeight);
+        float maxClimbHeight = _climberComp.ClimbableComp.MaxClimbHeight +  _climberComp.ClimbableComp.RoofComp.RoofRelHeightMap[_climberComp.ClimbingDir];
+        
+        if (_body.Position.Y + (_topBodyDistFromPos / 2) >= maxClimbHeight && _climberComp.ClimbableComp.CanClimbOnTop)
+        {
+            //float climbOnPush = 0.5f;
+            //Vector2 pushDir = IMovementComponent.GetVectorFromDirection(MoveComp.GetFaceDirection())
+            //    * climbOnPush;
+            ////_body.Position = new Vector3
+            ////    (_body.Position.X + pushDir.X,
+            ////    _climbComp.MaxClimbHeight,
+            ////    _body.Position.Z + pushDir.Y);
+            //GD.Print("CURRENT BODY POS: ", _body.Position);
+            //var climbPos = _climberComp.ClimbableComp.ClimbOnPosMap[MoveComp.GetFaceDirection()];
+            //_body.Position = new Vector3(
+            //    climbPos.X,
+            //    /*_body.Position.Y + _topBodyDistFromPos,//*/climbPos.Y - _topBodyDistFromPos / 2,
+            //    climbPos.Z
+            //    );
+
+            //GD.Print("SETTING BODY POS: ", _body.Position);
+            _climberComp.StopClimb();
+            EmitSignal(SignalName.TransitionState, this, _jumpState);
+            return;
+        }
+    }
 	
 	#endregion
 }

@@ -6,6 +6,9 @@ using System;
 public partial class JumpState : State
 {
     #region STATE_VARIABLES
+    private const float _jumpUninteruptibleTime = 0.25f;
+    private bool _jumpCanInterupt = false;
+
     [Export]
     public string AnimName { get; protected set; }
     private Monster _body;
@@ -69,8 +72,16 @@ public partial class JumpState : State
 
         velocity.Y = Monster.JumpVelocity;
         _body.Velocity = velocity;
+        GD.Print("body velocity: ", _body.Velocity);
         _body.MoveAndSlide();
+        GD.Print("body velocity: ", _body.Velocity);
         _startedDescent = false;
+
+        _jumpCanInterupt = false;
+        GetTree().CreateTimer(_jumpUninteruptibleTime).Timeout += () =>
+        {
+            _jumpCanInterupt = true;
+        };
     }
     public override void Exit()
     {
@@ -85,18 +96,27 @@ public partial class JumpState : State
     public override void ProcessPhysics(float delta)
     {   
         base.ProcessPhysics(delta);
-        //GD.Print("curr jump vel: ", _body.Velocity);
-        // Add the gravity.
-        if (_body.IsOnFloor())
+
+        if (_jumpCanInterupt && _climberComp.AvailableClimbable)
         {
-            EmitSignal(SignalName.TransitionState, this, _landFloorState);
+            EmitSignal(SignalName.TransitionState, this, _landWallState);
             return;
         }
 
+        //GD.Print("curr jump vel: ", _body.Velocity);
+        // Add the gravity.
+        //if (_body.IsOnFloor())
+        //{
+        //    EmitSignal(SignalName.TransitionState, this, _landFloorState);
+        //    return;
+        //}
         Vector3 velocity = _body.Velocity;
         Vector3 direction = (_body.Transform.Basis * new Vector3(_inputDir.X, 0, _inputDir.Y)).Normalized();
 
+        GD.Print("body velocity before gravity: ", velocity);
         velocity += _body.GetGravity() * delta;
+        GD.Print("body velocity after gravity: ", velocity);
+
         if (!_startedDescent && velocity.Y < 0)
         {
             EmitSignal(SignalName.TransitionState, this, _jumpFallState);
@@ -130,7 +150,10 @@ public partial class JumpState : State
     #region STATE_HELPER
     private void OnFoundClimbable(object sender, ClimbableComponent e)
     {
-        EmitSignal(SignalName.TransitionState, this, _landWallState);
+        if (_jumpCanInterupt)
+        {
+            EmitSignal(SignalName.TransitionState, this, _landWallState);
+        }
     }
     #endregion
 }
