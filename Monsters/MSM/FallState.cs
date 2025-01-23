@@ -85,7 +85,8 @@ public partial class FallState : State
         Vector3 velocity = _body.Velocity;
         Vector3 direction = (_body.Transform.Basis * new Vector3(_inputDir.X, 0, _inputDir.Y)).Normalized();
 
-        velocity += _body.GetGravity() * delta;
+        velocity += _body.GetWeightedGravity() * delta;
+        GD.Print("body velocity after gravity: ", velocity);
 
         if (direction != Vector3.Zero)
         {

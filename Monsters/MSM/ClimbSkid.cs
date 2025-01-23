@@ -28,7 +28,6 @@ public partial class ClimbSkid : BehaviorAction
         _climberComp.StartClimb();
         //_climberComp.FinishedClimbableAttach += OnFinishAttach;
         PlayAnim.AnimWithOrthog(BB, _skidAnimName, _climberComp.ClimbingDir);
-
     }
 
     public override void Exit()
@@ -56,7 +55,7 @@ public partial class ClimbSkid : BehaviorAction
         }
         else if (velocity.Y > 0)
         {
-            velocity += _body.GetGravity() * delta;
+            velocity += _body.GetWeightedGravity() * delta;
             velocity.Y = Mathf.Max(velocity.Y, 0);
         }
         _body.Velocity = velocity;

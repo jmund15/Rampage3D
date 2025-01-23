@@ -33,7 +33,8 @@ public partial class ClimbInitBTState : BTState
 	public override void ProcessPhysics(float delta)
 	{
 		base.ProcessPhysics(delta);
-        
+        //GD.Print("Body pos during climb init: ", _body.Position);
+        //GD.Print("sprite pos during climb init: ", _body.GetFirstChildOfType<Sprite3D>().Position);
     }
 	public override void HandleInput(InputEvent @event)
 	{

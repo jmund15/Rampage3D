@@ -5,6 +5,21 @@ using System;
 public static partial class NodeExts
 {
     #region EXTENSIONS
+    public static Vector3 GetWeightedGravity(this CharacterBody3D body)
+    {
+        const float WEIGHT_PERCENTAGE = 0.06f;
+        Vector3 weightedGrav;
+        if (body.Velocity.Y < 0)
+        {
+            weightedGrav = body.GetGravity() - (body.Velocity * body.GetGravity() * WEIGHT_PERCENTAGE);
+        }
+        else
+        {
+            weightedGrav = body.GetGravity();
+        }
+        //GD.Print("weighted grav: ", weightedGrav);
+        return weightedGrav;
+    }
     public static bool IsValid<T>(this T node) where T : GodotObject
     {
         return (node is not null)

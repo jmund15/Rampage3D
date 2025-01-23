@@ -9,7 +9,7 @@ size_override = Vector2(1984, 96)
 [sub_resource type="AtlasTexture" id="AtlasTexture_20wi0"]
 resource_local_to_scene = true
 atlas = SubResource("PortableCompressedTexture2D_7vf6w")
-region = Rect2(1056, 32, 32, 32)
+region = Rect2(192, 64, 32, 32)
 
 [sub_resource type="Animation" id="Animation_v0arr"]
 length = 0.481

@@ -50,11 +50,11 @@ public partial class ClimbState : Base3DState
     }
 	public override void Exit()
 	{
-        _body.Velocity = Vector3.Zero;
-        _body.MoveAndSlide();
-		//base.Exit();
-	}
-	public override void ProcessFrame(float delta)
+        base.Exit();
+        //_body.Velocity = Vector3.Zero;
+        //_body.MoveAndSlide();
+    }
+    public override void ProcessFrame(float delta)
 	{
 		base.ProcessFrame(delta);
         _inputDir = MoveComp.GetDesiredDirection();
