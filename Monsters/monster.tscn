@@ -57,7 +57,7 @@ _data = {
 "wallPunch": SubResource("Animation_ranyj")
 }
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ucf13"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_rcqgq"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gfrke"]
 radius = 1.5
@@ -78,8 +78,8 @@ libraries = {
 }
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("BoxShape3D_ucf13")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -0.5)
+shape = SubResource("BoxShape3D_rcqgq")
 
 [node name="MSM" type="Node" parent="." node_paths=PackedStringArray("AttackState", "WallAttackState", "OnEjectClimberState", "InitialSubState")]
 script = ExtResource("3_cgum4")

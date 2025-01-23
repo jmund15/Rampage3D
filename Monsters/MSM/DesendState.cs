@@ -40,7 +40,7 @@ public partial class DesendState : Base3DState
     }
     public override void Exit()
     {
-        //base.Exit();
+        base.Exit();
     }
     public override void ProcessFrame(float delta)
     {

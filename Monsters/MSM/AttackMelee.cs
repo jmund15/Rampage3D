@@ -108,7 +108,7 @@ public partial class AttackMelee : BehaviorAction
         //    Vector3 velocity = Body.Velocity;
         //    Vector3 direction = (Body.Transform.Basis * new Vector3(InputDir.X, 0, InputDir.Y)).Normalized();
 
-        //    velocity += Body.GetGravity() * delta;
+        //    velocity += Body.GetWeightedGravity() * delta;
 
         //    if (direction != Vector3.Zero)
         //    {

@@ -28,6 +28,7 @@ public partial class JumpState : State
 
     private bool _startedDescent;
     private float _jumpFullHeight;
+    private bool _velocitySet;
     #endregion
     #region STATE_UPDATES
     public override void Init(Node agent, IBlackboard bb)
@@ -70,11 +71,8 @@ public partial class JumpState : State
         _animPlayer.Seek(0f, true);
         _animPlayer.Pause();
 
-        velocity.Y = Monster.JumpVelocity;
-        _body.Velocity = velocity;
-        GD.Print("body velocity: ", _body.Velocity);
-        _body.MoveAndSlide();
-        GD.Print("body velocity: ", _body.Velocity);
+        _velocitySet = false;
+        CallDeferred(MethodName.SetJumpVelocity);
         _startedDescent = false;
 
         _jumpCanInterupt = false;
@@ -110,11 +108,13 @@ public partial class JumpState : State
         //    EmitSignal(SignalName.TransitionState, this, _landFloorState);
         //    return;
         //}
+
+        if (!_velocitySet) { return; }
         Vector3 velocity = _body.Velocity;
         Vector3 direction = (_body.Transform.Basis * new Vector3(_inputDir.X, 0, _inputDir.Y)).Normalized();
 
         GD.Print("body velocity before gravity: ", velocity);
-        velocity += _body.GetGravity() * delta;
+        velocity += _body.GetWeightedGravity() * delta;
         GD.Print("body velocity after gravity: ", velocity);
 
         if (!_startedDescent && velocity.Y < 0)
@@ -148,6 +148,15 @@ public partial class JumpState : State
     }
     #endregion
     #region STATE_HELPER
+    private void SetJumpVelocity()
+    {
+        var velocity = _body.Velocity;
+        velocity.Y = Monster.JumpVelocity;
+        _body.Velocity = velocity;
+        //GD.Print("body velocity: ", _body.Velocity);
+        _body.MoveAndSlide();
+        _velocitySet = true;
+    }
     private void OnFoundClimbable(object sender, ClimbableComponent e)
     {
         if (_jumpCanInterupt)

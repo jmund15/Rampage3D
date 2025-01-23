@@ -7,6 +7,8 @@ public partial class ClimberComponent : Node
     [Export]
     private CharacterBody3D _body;
 
+    private Vector3 _origSpritePos = new Vector3();
+
     private bool _availableClimbable = false;
     public bool AvailableClimbable
     {
@@ -132,6 +134,10 @@ public partial class ClimberComponent : Node
         IsClimbing = true;
         AvailableClimbable = false;
 
+        //TODO: CHOOSE SPRITE CORRECTLY
+        var sprite = _body.GetFirstChildOfType<Sprite3D>();
+        _origSpritePos = sprite.GlobalPosition;
+
         //BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = IMovementComponent.GetDesiredFlipH(_inputDir);
         LockingOn = true;
 
@@ -153,9 +159,19 @@ public partial class ClimberComponent : Node
 
         var lockTween = GetTree().CreateTween();
         var finalX = clampPos.X;
+        var finalY = 0f;
+        const float DOWNANIM_LOWERY = -10f;
         var finalZ = clampPos.Y;
-        lockTween.TweenProperty(_body, "position:x", finalX, 0.05);
-        lockTween.Parallel().TweenProperty(_body, "position:z", finalZ, 0.05);
+        if (IMovementComponent.GetAnimDirFromOrthog(ClimbingDir) == AnimDirection.Down)
+        {
+            finalY = DOWNANIM_LOWERY;
+        }
+
+
+        
+        lockTween.TweenProperty(_body, "global_position:x", finalX, 0.05);
+        lockTween.Parallel().TweenProperty(sprite, "offset:y", finalY, 0.05);
+        lockTween.Parallel().TweenProperty(_body, "global_position:z", finalZ, 0.05);
         lockTween.TweenProperty(this, PropertyName.LockingOn.ToString(), false, 0);
         //lockTween.TweenProperty(this, PropertyName.IsClimbing.ToString(), true, 0);
     }
@@ -164,6 +180,17 @@ public partial class ClimberComponent : Node
     {
         ClimbableComp.EjectClimbers -= OnClimbableRequestEject;
         IsClimbing = false;
+        LockingOn = true;
+
+        //TODO: CHOOSE SPRITE CORRECTLY
+        var sprite = _body.GetFirstChildOfType<Sprite3D>();
+
+        var lockTween = GetTree().CreateTween();
+
+        //lockTween.TweenProperty(sprite, "global_position:x", _origSpritePos.X, 0.05);
+        lockTween/*.Parallel()*/.TweenProperty(sprite, "offset:y", 0, 0.05);
+        //lockTween.Parallel().TweenProperty(sprite, "global_position:z", _origSpritePos.Z, 0.05);
+        lockTween.TweenProperty(this, PropertyName.LockingOn.ToString(), false, 0);
     }
 
     public void ClimbTick(float yVal)
