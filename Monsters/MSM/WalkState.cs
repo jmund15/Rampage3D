@@ -26,6 +26,7 @@ public partial class WalkState : State
     private float _climbBufferTime = 0.1f;
 
     private Vector2 _inputDir;
+    private OrthogDirection _orthogDir;
     private AnimDirection _currAnimDir;
     #endregion
     #region STATE_UPDATES
@@ -41,14 +42,17 @@ public partial class WalkState : State
         base.Enter(parallelStates);
         _climberComp.FoundClimbable += OnFoundClimbable;
         _inputDir = _moveComp.GetDesiredDirection();
-        if (_inputDir.Y > 0)
-        {
-            _currAnimDir = IMovementComponent.GetAnimDirectionFromVector(_moveComp.GetDesiredDirection());
-        }
-        else
-        {
-            _currAnimDir = _moveComp.GetAnimDirection();
-        }
+        _orthogDir = _inputDir.GetOrthogDirection();
+        _currAnimDir = IMovementComponent.GetAnimDirFromOrthog(_orthogDir);
+
+        //if (_inputDir.Y > 0)
+        //{
+        //    _currAnimDir = IMovementComponent.GetAnimDirectionFromVector(_moveComp.GetDesiredDirection());
+        //}
+        //else
+        //{
+        //    _currAnimDir = _moveComp.GetAnimDirection();
+        //}
 
         BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(AnimName + 
             IMovementComponent.GetFaceDirectionString(_currAnimDir));
@@ -64,7 +68,7 @@ public partial class WalkState : State
     {
         base.ProcessFrame(delta);
         _inputDir = _moveComp.GetDesiredDirection();
-
+        _orthogDir = _inputDir.GetOrthogDirection();
         
 
         if (_inputDir.IsZeroApprox())
@@ -80,22 +84,31 @@ public partial class WalkState : State
             return;
         }
 
-        var animDir = IMovementComponent.GetAnimDirectionFromVector(_inputDir);
+        var animDir = IMovementComponent.GetAnimDirFromOrthog(_orthogDir);
         if (_currAnimDir != animDir && _inputDir.Y != 0)
         {
             _currAnimDir = animDir;
             BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(AnimName +
                 IMovementComponent.GetFaceDirectionString(_currAnimDir));
         }
-        BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = IMovementComponent.GetDesiredFlipH(_inputDir);
+        BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = IMovementComponent.GetFlipHFromOrthog(_orthogDir);
     }
     public override void ProcessPhysics(float delta)
     {   
         base.ProcessPhysics(delta);
         Vector3 velocity = _body.Velocity;
 
-        Vector3 direction = (_body.Transform.Basis * new Vector3(_inputDir.X, 0, _inputDir.Y)).Normalized();
+        //_inputDir = _inputDir.Rotated(-Mathf.Pi / 2);
 
+        //Vector3 direction = //_inputDir.ClampInputToIsometric();
+        //    //new Vector3(_inputDir.X, 0, _inputDir.Y);
+        //    (_body.Transform.Basis * new Vector3(_inputDir.X, 0, _inputDir.Y)).Normalized();
+        //direction = direction.ClampIsometric();
+
+        var orthogDir = _inputDir.GetOrthogDirection();
+        Vector3 direction = orthogDir.GetVector3();
+
+        GD.Print("monster desired direction: ", direction);
         // Add the gravity.
         if (!_body.IsOnFloor())
         {
@@ -115,6 +128,7 @@ public partial class WalkState : State
 
         _body.Velocity = velocity;
         _body.MoveAndSlide();
+        GD.Print("curr mosnter vel: ", _body.Velocity);
     }
     public override void HandleInput(InputEvent @event)
     {

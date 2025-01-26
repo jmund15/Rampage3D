@@ -176,7 +176,8 @@ public partial class Monster : CharacterBody3D, IMovementComponent
 
     public Vector2 GetDesiredDirection()
     {
-        return Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");//Input.GetVector(LeftInput, RightInput, UpInput, DownInput);
+        var input = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+        return new Vector2(input.X, -input.Y); //Input.GetVector(LeftInput, RightInput, UpInput, DownInput);
     }
 
     public Vector2 GetDesiredDirectionNormalized()

@@ -49,7 +49,8 @@ public partial class AteState : Base3DState
     private void OnEaten(object sender, EaterComponent e)
     {
         _eatableComp.Eaten -= OnEaten;
-        Body.CallDeferred(MethodName.QueueFree);
+		Agent.QueueFree();
+		GD.Print("QUEUED EATABLE FOR DELETEION");
     }
     #endregion
 }

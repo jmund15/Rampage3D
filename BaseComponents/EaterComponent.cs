@@ -1,69 +1,185 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 [GlobalClass, Tool]
 public partial class EaterComponent : Node
 {
-    private Node3D _eaterBody;
-	[Export]
-	private HitboxComponent3D _hitboxComp;
+    public enum EatStatus
+    {
+        Restricted,
+        Idle,
+        Grabbing,
+        EatAnticipation,
+        Eating
+    }
     [Export]
+    public Node3D Body { get; private set; }
+    [Export]
+    private string _grabAnimName = "grab";
+    [Export]
+    private string _eatAnimName = "eat";
+
+    private IBlackboard _bb;
+
+	private HitboxComponent3D _hitboxComp;
     private SpriteOrthogComponent _orthogSprite;
+    private AnimationPlayer _animPlayer;
 
-	public EatableComponent CurrEatable { get; private set; }
-    private Node3D _eatableBody;
+    private EatStatus _status = EatStatus.Restricted;
+    public EatStatus Status
+    {
+        get => _status; 
+        private set
+        {
+            if (_status == value) { return; }
+            switch (value)
+            {
+                case EatStatus.Restricted:
+                    break;
+                case EatStatus.Idle:
+                    break;
+                case EatStatus.Grabbing:
+                    break;
+                case EatStatus.EatAnticipation:
+                    break;
+                case EatStatus.Eating:
+                    break;
+                default:
+                    break;
+            }
+            _status = value;
+        }
+    }
+    public EatableComponent MostRecentEatableDetected { get; private set; }
+    public Queue<EatableComponent> EatQueue { get; private set; } = new Queue<EatableComponent>();
+    public List<EatableComponent> GettingEaten { get; private set; } = new List<EatableComponent>();
+    private bool _allowEating = false;
+    public bool AllowEating { 
+        get => _allowEating; 
+        set
+        {
+            if (_allowEating == value) { return; }
+            _allowEating = value;
 
-	public event EventHandler<EatableComponent> EatableHit;
-    public event EventHandler<EatableComponent> ThrowPathFinished;
-    public event EventHandler<EatableComponent> StartedEating;
-    public event EventHandler<EatableComponent> FinishedEating;
+            if (_allowEating) { 
+                Status = EatStatus.Idle; 
+                //if (EatQueue.Count > 0)
+                //{
+                //    StartEatCycle();
+                //}
+                //else
+                //{
+                //    //notify nothing to eat?
+                //}
+            }
+            else { Status = EatStatus.Restricted; }
+        } 
+    }
 
-    private bool _isEating = false;
+    private float _currThrowTime = 0f;
+    //TODO: BASE ON MONSTER MASS/FORM ATTRIBUTES
+    private Vector2 _throwTimeRange = new Vector2(1.25f, 1.5f);
+
+    //TODO: ADD FUNCTIONALITY FOR EAT INTERUPTION (npcs land safely instead of getting eaten)
+
+    public event EventHandler<EatableComponent> EatableHit;
+
+    public event EventHandler<EatableComponent> GrabbedEatable;
+    public event EventHandler<EatableComponent> EatingEatable;
+    public event EventHandler<EatableComponent> AteEatable;
+
+    public event EventHandler StartedEatingCycle;
+    public event EventHandler FinishedEatingCycle;
 
     // 1 = max height; 0.25 = 25% of max height, etc.
-    protected List<float> YCurvePercentage = 
+    private List<float> _yCurvePercentage = 
         new List<float>() { 0.4f, 1f, 0f };
 
     public override void _Ready()
 	{
 		base._Ready();
-        _eaterBody = GetOwner<Node3D>();
-        _hitboxComp.HurtboxEntered += OnHurtboxEntered;
+        _bb = Body.GetFirstChildOfType<Blackboard>();
+        CallDeferred(MethodName.InitEaterVariables);
 	}
-
-    public override void _Process(double delta)
-	{
-	}
-    public void ThrowEatable()
+    private void InitEaterVariables()
     {
-        if (!_isEating) { return; } //ERROR
+        _hitboxComp = _bb.GetVar<HitboxComponent3D>(BBDataSig.HitboxComp);
+        _orthogSprite = _bb.GetVar<SpriteOrthogComponent>(BBDataSig.Sprite);
+        _animPlayer = _bb.GetVar<AnimationPlayer>(BBDataSig.Anim);
+
+        _hitboxComp.HurtboxEntered += OnHurtboxEntered;
+        _hitboxComp.AttackFinished += OnAttackFinished;
+    }
+    public override void _Process(double delta)
+	{        
+        if (Status == EatStatus.Idle && EatQueue.Count > 0)
+        {
+            StartEatCycle();
+        }
+
+        if (Status == EatStatus.Grabbing)
+        {
+            // don't need to subtract after grabbing since nothing can be grabbed
+            // plus a scene tree timer is used for continuing eating anyway
+            _currThrowTime -= (float)delta;
+
+            while (EatQueue.Count > 0)
+            {
+                var eatable = EatQueue.Dequeue();
+
+                ThrowEatable(eatable);
+                GrabbedEatable?.Invoke(this, eatable);
+            }
+        }
+    }
+    private void StartEatCycle()
+    {
+        Status = EatStatus.Grabbing;
+        _orthogSprite = _bb.GetVar<SpriteOrthogComponent>(BBDataSig.Sprite);
+        _animPlayer = _bb.GetVar<AnimationPlayer>(BBDataSig.Anim);
+        _animPlayer.AnimationFinished += OnAnimationFinished;
+
+        _animPlayer.Play(_grabAnimName + IMovementComponent.GetAnimPlayerDirection(_animPlayer));
+        _hitboxComp.HitboxActivate();
+
+        _currThrowTime = Global.GetRndInRange(_throwTimeRange.X, _throwTimeRange.Y);
+        GetTree().CreateTimer(_currThrowTime).Timeout += OnThrowFinished;
+
+        StartedEatingCycle?.Invoke(this, EventArgs.Empty);
+        GD.Print("Starting eating cycle!");
+    }
+    private void ThrowEatable(EatableComponent eatable)
+    {
+        GettingEaten.Add(eatable);
 
         // Get the current position of the throw object and player
-        Vector3 startPosition = _eatableBody.GlobalPosition;
+        Vector3 startPosition = eatable.Body.GlobalPosition;
         //startPosition.Y += _orthogSprite.SpriteHeight;
-        Vector3 endPosition = _eaterBody.GlobalPosition;
-        endPosition.Y += _orthogSprite.SpriteHeight;
+        Vector3 endPosition = Body.GlobalPosition;
+        endPosition.X += Global.GetRndInRange(-0.1f, 0.1f);
+        endPosition.Y += _orthogSprite.SpriteHeight / 2;
+        endPosition.Z += Global.GetRndInRange(-0.1f, 0.1f);
 
         // Create a Tween node to animate the object
         var tween = CreateTween();
 
-        // Duration of the throw (in seconds)
-        float throwDuration = Global.GetRndInRange(1f, 2f); // TODO: MAKE BASED ON MONSTER FORM AND STRENGTH
-        float throwHeight = throwDuration * 4f; // TODO: CALC HEIGHT BETTER
-
+        // Height of the throw (in seconds)
+        float throwHeight = Global.GetRndInRange(_currThrowTime * 4f, _currThrowTime * 5f); 
 
         var midXZ = GetTransitionPoint(startPosition, endPosition, .4f);
+        var xOffsetRnd = Global.GetRndInRange(-0.25f, 0.25f);
+        var zOffsetRnd = Global.GetRndInRange(-0.25f, 0.25f);
         Vector3 topThrowP = new Vector3(
-            midXZ.X,
+            midXZ.X + xOffsetRnd,
             midXZ.Y + throwHeight,
-            midXZ.Z
+            midXZ.Z + zOffsetRnd
             );
         //// Start position, end position, and the apex of the throw
         //Vector3 midPoint = new Vector3((startPosition.X + endPosition.X) / 2,
         //                               Mathf.Max(startPosition.Y, endPosition.Y) + 5, // Higher apex
         //                               (startPosition.Z + endPosition.Z) / 2);
-
 
         List<Vector3> throwCurve = new List<Vector3>
         {
@@ -72,9 +188,7 @@ public partial class EaterComponent : Node
             endPosition
         };
 
-        tween.TweenMethod(Callable.From<float>((weight) => CalcThrowCurve(throwCurve, weight)), 0f, 1f, throwDuration).SetEase(Tween.EaseType.OutIn);//.SetTrans(Tween.TransitionType.Circ);
-        tween.TweenCallback(Callable.From(() => ThrowPathFinished?.Invoke(this, CurrEatable)));
-        //ThrowPathFinished?.Invoke(this, CurrEatable);
+        tween.TweenMethod(Callable.From<float>((weight) => CalcThrowCurve(eatable.Body, throwCurve, weight)), 0f, 1f, _currThrowTime).SetEase(Tween.EaseType.OutIn);//.SetTrans(Tween.TransitionType.Circ);
     }
     public Vector3 GetTransitionPoint(Vector3 pointA, Vector3 pointB, float t) // where t is that % between
     {
@@ -84,33 +198,68 @@ public partial class EaterComponent : Node
         // Linear interpolation formula
         return pointA + (pointB - pointA) * t;
     }
-    public virtual void CalcThrowCurve(List<Vector3> throwCurve, float weight)
+    public virtual void CalcThrowCurve(Node3D thrownBody, List<Vector3> throwCurve, float weight)
     {
-        _eatableBody.GlobalPosition = 
+        thrownBody.GlobalPosition = 
             Global.QuadraticBezier3D(throwCurve[0], throwCurve[1], throwCurve[2], weight);
-    }
-    public void CommenceConsumption()
-    {
-        //TODO: more? control eatable?
-        StartedEating?.Invoke(this, CurrEatable);
-    }
-    public void CompletedConsumption()
-    {
-        FinishedEating?.Invoke(this, CurrEatable);
-        _isEating = false;
     }
     private void OnHurtboxEntered(HurtboxComponent3D hurtbox)
     {
-        if (_isEating) { return; }
         var eatableComp = hurtbox.GetFirstChildOfType<EatableComponent>();
         if (eatableComp == null)
         {
 			return;
         }
-        CurrEatable = eatableComp;
-        _eatableBody = CurrEatable.GetOwner<Node3D>();
-        EatableHit?.Invoke(this, CurrEatable);
-        _isEating = true;
+        MostRecentEatableDetected = eatableComp;
+        if (EatQueue.Contains(eatableComp)) { return; } //TODO: shouldn't happen? find out why
+        EatQueue.Enqueue(eatableComp);
+        EatableHit?.Invoke(this, MostRecentEatableDetected);
     }
+    private void OnAttackFinished()
+    {
+        //EatQueue.Clear();
+    }
+    private void OnThrowFinished()
+    {
+        if (Status == EatStatus.Grabbing)
+        {
+            _hitboxComp.HitboxDeactivate();
+        }
+        // eating was interupted? TODO: HANDLE INTERUPTION HERE AS WELL?
+        else if (Status != EatStatus.EatAnticipation) { return; }
 
+        GD.Print("finished throw for ", GettingEaten.Count, " eatables!");
+
+        foreach (var chomp in GettingEaten)
+        {
+            EatingEatable?.Invoke(this, chomp);
+        }
+        _animPlayer.Play(_eatAnimName + IMovementComponent.GetAnimPlayerDirection(_animPlayer));
+        Status = EatStatus.Eating;
+    }
+    private void OnAnimationFinished(StringName animName)
+    {
+        //TODO: HANDLE INTERUPTION HERE
+        if (Status == EatStatus.Restricted) { return; }
+        if (animName.ToString().Contains(_grabAnimName))
+        {
+            GD.Print("finished grab anim!");
+            Status = EatStatus.EatAnticipation;
+            _hitboxComp.HitboxDeactivate();
+        }
+        else if (animName.ToString().Contains(_eatAnimName))
+        {
+            foreach (var chomped in GettingEaten)
+            {
+                AteEatable?.Invoke(this, chomped);
+            }
+            Status = EatStatus.Idle;
+            EatQueue.Clear(); GettingEaten.Clear();
+            FinishedEatingCycle?.Invoke(this, EventArgs.Empty);
+
+            _animPlayer.AnimationFinished -= OnAnimationFinished;
+            GD.Print("finished eating cycle!");
+
+        }
+    }
 }

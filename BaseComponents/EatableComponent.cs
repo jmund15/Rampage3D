@@ -4,12 +4,15 @@ using System;
 [GlobalClass, Tool]
 public partial class EatableComponent : Node
 {
+    [Export]
+    public Node3D Body;
+    [Export]
+    public float HungerSatiationValue { get; private set; } = 1f;
 	[Export]
 	private HurtboxComponent3D _hurtboxComp;
     public EaterComponent Eater { get; private set; }
 
-	public event EventHandler<EaterComponent> EaterAttack;
-    public event EventHandler<EaterComponent> Grabbed;
+	public event EventHandler<EaterComponent> Grabbed;
     public event EventHandler<EaterComponent> InMouth;
     public event EventHandler<EaterComponent> Eaten;
 	public override void _Ready()
@@ -21,11 +24,6 @@ public partial class EatableComponent : Node
     public override void _Process(double delta)
 	{
 	}
-
-    public void GrabbedByEater()
-    {
-        Grabbed?.Invoke(this, Eater);
-    }
     private void OnHitboxEntered(HitboxComponent3D hitbox)
     {
         var eaterComp = hitbox.GetFirstChildOfType<EaterComponent>();
@@ -34,9 +32,14 @@ public partial class EatableComponent : Node
             return;
         }
         Eater = eaterComp;
-        EaterAttack?.Invoke(this, Eater);
-        Eater.StartedEating += OnInMouth;
-        Eater.FinishedEating += OnEaten;
+        Eater.GrabbedEatable += OnGrabbed;
+        Eater.EatingEatable += OnInMouth;
+        Eater.AteEatable += OnEaten;
+    }
+
+    private void OnGrabbed(object sender, EatableComponent e)
+    {
+        Grabbed?.Invoke(this, Eater);
     }
     private void OnInMouth(object sender, EatableComponent e)
     {
@@ -45,5 +48,6 @@ public partial class EatableComponent : Node
     private void OnEaten(object sender, EatableComponent e)
     {
         Eaten?.Invoke(this, Eater);
+        Body.CallDeferred(MethodName.QueueFree);
     }
 }
