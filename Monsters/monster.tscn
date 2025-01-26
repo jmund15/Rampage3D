@@ -23,8 +23,8 @@
 [ext_resource type="Script" path="res://BaseComponents/HitboxComponent3D.cs" id="14_kkv0a"]
 [ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="15_hjofb"]
 [ext_resource type="Script" path="res://Monsters/MSM/WallAttackState.cs" id="19_118ri"]
-[ext_resource type="Script" path="res://Monsters/MSM/GrabState.cs" id="20_abck7"]
 [ext_resource type="Script" path="res://Monsters/MSM/EatState.cs" id="21_ptqpd"]
+[ext_resource type="PackedScene" uid="uid://b5ldfx76gk45" path="res://BaseComponents/hunger_bar_component.tscn" id="22_2ivfc"]
 [ext_resource type="Script" path="res://BaseComponents/EaterComponent.cs" id="23_q6qob"]
 [ext_resource type="Script" path="res://BaseComponents/ClimberComponent.cs" id="27_exg0i"]
 
@@ -176,27 +176,31 @@ SelfInteruptible = 0
 [node name="Attack" type="Node" parent="MSM" node_paths=PackedStringArray("PostAttackState", "OnEatableHitState", "OnTreeSuccessState", "OnTreeFailureState")]
 script = ExtResource("11_eaoea")
 PostAttackState = NodePath("../Idle")
-OnEatableHitState = NodePath("../Grab")
+OnEatableHitState = NodePath("../Eat")
 OnTreeSuccessState = NodePath(".")
 OnTreeFailureState = NodePath("../Idle")
 
 [node name="BehaviorTree" parent="MSM/Attack" instance=ExtResource("12_s8ya2")]
 
-[node name="WallAttack" type="Node" parent="MSM" node_paths=PackedStringArray("PostAttackState", "OnTreeSuccessState", "OnTreeFailureState")]
+[node name="WallAttack" type="Node" parent="MSM" node_paths=PackedStringArray("PostAttackState", "OnEatableHitState", "OnTreeSuccessState", "OnTreeFailureState")]
 script = ExtResource("19_118ri")
 PostAttackState = NodePath("../ClimbIdle")
+OnEatableHitState = NodePath("../Eat")
 OnTreeSuccessState = NodePath(".")
 OnTreeFailureState = NodePath("../ClimbIdle")
 
 [node name="BehaviorTree" parent="MSM/WallAttack" instance=ExtResource("12_s8ya2")]
 
-[node name="Grab" type="Node" parent="MSM" node_paths=PackedStringArray("_transitionState")]
-script = ExtResource("20_abck7")
-_transitionState = NodePath("../Eat")
+[node name="Grab" type="Node" parent="MSM"]
 
 [node name="Eat" type="Node" parent="MSM" node_paths=PackedStringArray("_onFinishedEatingState")]
 script = ExtResource("21_ptqpd")
 _onFinishedEatingState = NodePath("../Idle")
+
+[node name="HungerBarComponent" parent="." node_paths=PackedStringArray("_followTarget", "_eaterComp") instance=ExtResource("22_2ivfc")]
+_followTarget = NodePath("..")
+_eaterComp = NodePath("../HitboxComponent/EaterComponent")
+HungerSatiationIndex = [10.0, 500.0]
 
 [node name="ClimberComponent" type="Node" parent="." node_paths=PackedStringArray("_body")]
 script = ExtResource("27_exg0i")
@@ -215,10 +219,9 @@ script = ExtResource("14_kkv0a")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("SphereShape3D_gfrke")
 
-[node name="EaterComponent" type="Node" parent="HitboxComponent" node_paths=PackedStringArray("_hitboxComp", "_orthogSprite")]
+[node name="EaterComponent" type="Node" parent="HitboxComponent" node_paths=PackedStringArray("Body")]
 script = ExtResource("23_q6qob")
-_hitboxComp = NodePath("..")
-_orthogSprite = NodePath("../../grizzle")
+Body = NodePath("../..")
 
 [node name="HurtboxComponent" type="Area3D" parent="."]
 monitoring = false

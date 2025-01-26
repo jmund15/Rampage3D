@@ -42,7 +42,8 @@ script = ExtResource("2_gk1dj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_6for4")
 
-[node name="EatableComponent" parent="HurtboxComponent3D" node_paths=PackedStringArray("_hurtboxComp") instance=ExtResource("1_bpk5a")]
+[node name="EatableComponent" parent="HurtboxComponent3D" node_paths=PackedStringArray("Body", "_hurtboxComp") instance=ExtResource("1_bpk5a")]
+Body = NodePath("../..")
 _hurtboxComp = NodePath("..")
 
 [node name="CSM" type="Node" parent="." node_paths=PackedStringArray("_onGrabbedState", "InitialSubState")]

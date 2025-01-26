@@ -1,18 +1,16 @@
 using Godot;
 using Godot.Collections;
+using System;
 
 [Tool]
 public partial class EatState : Base3DState
 {
     #region STATE_VARIABLES
-    [Export]
-    private string _animName = "eat";
 
     [Export(PropertyHint.NodeType, "State")]
     private State _onFinishedEatingState;
 
     private EaterComponent _eaterComp;
-    private EatableComponent _eatableGrabbed;
     #endregion
     #region STATE_UPDATES
     public override void Init(Node agent, IBlackboard bb)
@@ -23,19 +21,13 @@ public partial class EatState : Base3DState
     public override void Enter(Dictionary<State, bool> parallelStates)
     {
         base.Enter(parallelStates);
-        _eatableGrabbed = _eaterComp.CurrEatable;
-
-        AnimDirection animDir = MoveComp.GetAnimDirection();
-
-        AnimPlayer.Play(_animName + IMovementComponent.GetFaceDirectionString(animDir));
-        AnimPlayer.AnimationFinished += OnAnimationFinished;
-
-        _eaterComp.CommenceConsumption();
+        _eaterComp.AllowEating = true;
+        _eaterComp.FinishedEatingCycle += OnFinishedEatingCycle;
     }
     public override void Exit()
     {
         base.Exit();
-        AnimPlayer.AnimationFinished -= OnAnimationFinished;
+        _eaterComp.FinishedEatingCycle -= OnFinishedEatingCycle;
     }
     public override void ProcessFrame(float delta)
     {
@@ -51,10 +43,10 @@ public partial class EatState : Base3DState
     }
     #endregion
     #region STATE_HELPER
-    private void OnAnimationFinished(StringName animName)
+    private void OnFinishedEatingCycle(object sender, EventArgs e)
     {
-        _eaterComp.CompletedConsumption();
         EmitSignal(SignalName.TransitionState, this, _onFinishedEatingState);
     }
+
     #endregion
 }

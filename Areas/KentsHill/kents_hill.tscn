@@ -33,7 +33,7 @@ size = Vector3(100, 1, 100)
 [node name="Players" type="Node3D" parent="."]
 
 [node name="monster" parent="Players" instance=ExtResource("1_iq4pq")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 2)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.432429, 0, 2.25905)
 
 [node name="Buildings" type="Node3D" parent="."]
 
@@ -81,3 +81,9 @@ skeleton = NodePath("../../..")
 
 [node name="Critter" parent="NPCs" instance=ExtResource("4_lgu3m")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, -1.73613)
+
+[node name="Critter2" parent="NPCs" instance=ExtResource("4_lgu3m")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.663054, 0, -0.69357)
+
+[node name="Critter3" parent="NPCs" instance=ExtResource("4_lgu3m")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.983038, 0, -1.42033)

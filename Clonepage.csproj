@@ -8,11 +8,13 @@
   <ItemGroup>
     <Compile Remove="script_templates\BehaviorTask\BaseBehaviorTask.cs" />
     <Compile Remove="script_templates\CompoundState\BaseCompoundStateTemplate.cs" />
+    <Compile Remove="script_templates\Node\BaseComonentTemplate.cs" />
     <Compile Remove="script_templates\State\BaseStateTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="script_templates\BehaviorTask\BaseBehaviorTask.cs" />
     <None Include="script_templates\CompoundState\BaseCompoundStateTemplate.cs" />
+    <None Include="script_templates\Node\BaseComonentTemplate.cs" />
     <None Include="script_templates\State\BaseStateTemplate.cs" />
   </ItemGroup>
 </Project>

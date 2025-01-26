@@ -292,29 +292,56 @@ public interface IMovementComponent
     }
     public static OrthogDirection GetDirectionFromVector(Vector3 dir)
     {
-        switch (dir)
+        if (dir.X < 0 && dir.Z >= 0)
         {
-            //case OrthogDirection.UpLeft:
-            //case OrthogDirection.UpRight:
-            //case OrthogDirection.DownLeft:
-            //case OrthogDirection.DownRight:
-            default:
-                //GD.Print("not any face direction?? vector = " + dir.ToString());
-                return OrthogDirection.UpLeft ;
+            // IMPORTANT: Straight Left = UpLeft
+            return OrthogDirection.UpLeft;
         }
+        else if (dir.X >= 0 && dir.Z > 0)
+        {
+            // IMPORTANT: Straight Up = UpRight
+            return OrthogDirection.UpRight;
+        }
+        else if (dir.X <= 0 && dir.Z < 0)
+        {
+            // IMPORTANT: Straight Down = DownLeft
+            return OrthogDirection.DownLeft;
+        }
+        else if (dir.X > 0 && dir.Z <= 0)
+        {
+            // IMPORTANT: Straight Right = DownRight
+            return OrthogDirection.DownRight;
+        }
+        //Should be impossible
+        else { throw new Exception("VECTOR GAVE NO ORTHOG DIRECTION??"); }
     }
+    // Formula for isometric/orthographic movement:
+    // x = horizontalInput - verticalInput
+    // y = horizontalInput + verticalInput
     public static OrthogDirection GetDirectionFromVector(Vector2 dir)
     {
-        switch (dir)
+        if (dir.X < 0 && dir.Y >= 0)
         {
-            //case OrthogDirection.UpLeft:
-            //case OrthogDirection.UpRight:
-            //case OrthogDirection.DownLeft:
-            //case OrthogDirection.DownRight:
-            default:
-                GD.Print("not any face direction?? vector = " + dir.ToString());
-                return OrthogDirection.UpLeft;
+            // IMPORTANT: Straight Left = UpLeft
+            return OrthogDirection.UpLeft;
         }
+        else if (dir.X >= 0 && dir.Y > 0)
+        {
+            // IMPORTANT: Straight Up = UpRight
+            return OrthogDirection.UpRight;
+        }
+        else if (dir.X <= 0 && dir.Y < 0)
+        {
+            // IMPORTANT: Straight Down = DownLeft
+            return OrthogDirection.DownLeft;
+        }
+        else if (dir.X > 0 && dir.Y <= 0)
+        {
+            // IMPORTANT: Straight Right = DownRight
+            return OrthogDirection.DownRight;
+        }
+        //Should be impossible
+        else { throw new Exception("VECTOR GAVE NO ORTHOG DIRECTION??"); }
     }
 
 }
