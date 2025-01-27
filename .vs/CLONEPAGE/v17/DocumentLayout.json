@@ -3,72 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\monsters\\msm\\walkstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:monsters\\msm\\walkstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\critters\\csm\\atestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:critters\\csm\\atestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\jmoai\\util\\nodeexts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmoai\\util\\nodeexts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\basecomponents\\eatercomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\eatercomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\monsters\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:monsters\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\baseinterfaces\\imovementcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:baseinterfaces\\imovementcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\critters\\csm\\atestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:critters\\csm\\atestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\monsters\\msm\\eatstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:monsters\\msm\\eatstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\basecomponents\\eatablecomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\eatablecomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\critters\\csm\\grabbedstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:critters\\csm\\grabbedstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\basecomponents\\hungerbarcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\hungerbarcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\monsters\\msm\\attackmelee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:monsters\\msm\\attackmelee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\monsters\\msm\\climbinitbtstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:monsters\\msm\\climbinitbtstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\monsters\\msm\\climbskid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:monsters\\msm\\climbskid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\monsters\\msm\\fallstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:monsters\\msm\\fallstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\monsters\\msm\\jumpstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:monsters\\msm\\jumpstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\monsters\\msm\\walkstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:monsters\\msm\\walkstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\basecomponents\\climbercomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\climbercomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\jmoai\\util\\nodeexts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmoai\\util\\nodeexts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\basecomponents\\climbablecomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\climbablecomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\monsters\\msm\\climbstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:monsters\\msm\\climbstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\monsters\\msm\\msm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:monsters\\msm\\msm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\critters\\critter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:critters\\critter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\monsters\\msm\\climbinitbtstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:monsters\\msm\\climbinitbtstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -78,7 +54,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
@@ -88,7 +64,7 @@
               "RelativeDocumentMoniker": "Monsters\\Monster.cs",
               "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\Monster.cs",
               "RelativeToolTip": "Monsters\\Monster.cs",
-              "ViewState": "AQIAAKgAAAAAAAAAAADwv7QAAAAFAAAA",
+              "ViewState": "AQIAAFsAAAAAAAAAAAAswGoAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-06T19:28:02.941Z",
               "IsPinned": true,
@@ -96,132 +72,119 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Critter.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\Critter.cs",
-              "RelativeDocumentMoniker": "Critters\\Critter.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\Critter.cs",
-              "RelativeToolTip": "Critters\\Critter.cs",
-              "ViewState": "AQIAACQAAAAAAAAAAAAuwC0AAAAyAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-06T19:21:05.167Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "IMovementComponent.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseInterfaces\\IMovementComponent.cs",
-              "RelativeDocumentMoniker": "BaseInterfaces\\IMovementComponent.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseInterfaces\\IMovementComponent.cs",
-              "RelativeToolTip": "BaseInterfaces\\IMovementComponent.cs",
-              "ViewState": "AQIAABkAAAAAAAAAAAAwwB8AAAAmAAAA",
+              "Title": "EatState.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\EatState.cs",
+              "RelativeDocumentMoniker": "Monsters\\MSM\\EatState.cs",
+              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\EatState.cs",
+              "RelativeToolTip": "Monsters\\MSM\\EatState.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAAwBcAAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-26T19:41:26.013Z",
+              "WhenOpened": "2025-01-27T04:04:22.824Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "AteState.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\CSM\\AteState.cs",
+              "RelativeDocumentMoniker": "Critters\\CSM\\AteState.cs",
+              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\CSM\\AteState.cs",
+              "RelativeToolTip": "Critters\\CSM\\AteState.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAAAUwDQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T03:57:54.524Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "JumpState.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\JumpState.cs",
+              "RelativeDocumentMoniker": "Monsters\\MSM\\JumpState.cs",
+              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\JumpState.cs",
+              "RelativeToolTip": "Monsters\\MSM\\JumpState.cs",
+              "ViewState": "AQIAAHIAAAAAAAAAAAAowIIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T03:51:34.755Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EaterComponent.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\EaterComponent.cs",
+              "RelativeDocumentMoniker": "BaseComponents\\EaterComponent.cs",
+              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\EaterComponent.cs",
+              "RelativeToolTip": "BaseComponents\\EaterComponent.cs",
+              "ViewState": "AQIAANEAAAAAAAAAAAAhwNsAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T03:42:59.909Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ClimberComponent.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\ClimberComponent.cs",
+              "RelativeDocumentMoniker": "BaseComponents\\ClimberComponent.cs",
+              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\ClimberComponent.cs",
+              "RelativeToolTip": "BaseComponents\\ClimberComponent.cs",
+              "ViewState": "AQIAAIMAAAAAAAAAAIAwwJIAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T02:09:29.028Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ClimbableComponent.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\ClimbableComponent.cs",
+              "RelativeDocumentMoniker": "BaseComponents\\ClimbableComponent.cs",
+              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\ClimbableComponent.cs",
+              "RelativeToolTip": "BaseComponents\\ClimbableComponent.cs",
+              "ViewState": "AQIAAEEAAAAAAAAAAAAswE4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T02:07:20.018Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "WalkState.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\WalkState.cs",
               "RelativeDocumentMoniker": "Monsters\\MSM\\WalkState.cs",
               "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\WalkState.cs",
               "RelativeToolTip": "Monsters\\MSM\\WalkState.cs",
-              "ViewState": "AQIAAFYAAAAAAAAAAAAAAGIAAAAqAAAA",
+              "ViewState": "AQIAAFsAAAAAAAAAAAAvwGgAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-26T19:40:08.71Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "NodeExts.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\JmoAI\\Util\\NodeExts.cs",
               "RelativeDocumentMoniker": "JmoAI\\Util\\NodeExts.cs",
               "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\JmoAI\\Util\\NodeExts.cs",
               "RelativeToolTip": "JmoAI\\Util\\NodeExts.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAAwwAgAAAAkAAAA",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAvwCwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-26T19:37:45.865Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "GrabbedState.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\CSM\\GrabbedState.cs",
-              "RelativeDocumentMoniker": "Critters\\CSM\\GrabbedState.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\CSM\\GrabbedState.cs",
-              "RelativeToolTip": "Critters\\CSM\\GrabbedState.cs",
-              "ViewState": "AQIAACwAAAAAAAAAAAAUwDQAAAAaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T03:50:50.56Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "AttackMelee.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\AttackMelee.cs",
-              "RelativeDocumentMoniker": "Monsters\\MSM\\AttackMelee.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\AttackMelee.cs",
-              "RelativeToolTip": "Monsters\\MSM\\AttackMelee.cs",
-              "ViewState": "AQIAAE0AAAAAAAAAAAAYwFkAAAAjAAAA",
+              "Title": "ClimbState.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\ClimbState.cs",
+              "RelativeDocumentMoniker": "Monsters\\MSM\\ClimbState.cs",
+              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\ClimbState.cs",
+              "RelativeToolTip": "Monsters\\MSM\\ClimbState.cs",
+              "ViewState": "AQIAAD8AAAAAAAAAAAAcwEoAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T03:20:38.078Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "EatState.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\EatState.cs",
-              "RelativeDocumentMoniker": "Monsters\\MSM\\EatState.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\EatState.cs",
-              "RelativeToolTip": "Monsters\\MSM\\EatState.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAbAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T01:03:07.892Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AteState.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\CSM\\AteState.cs",
-              "RelativeDocumentMoniker": "Critters\\CSM\\AteState.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\CSM\\AteState.cs",
-              "RelativeToolTip": "Critters\\CSM\\AteState.cs",
-              "ViewState": "AQIAACcAAAAAAAAAAAAowDMAAAAHAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T01:01:47.001Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "EatableComponent.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\EatableComponent.cs",
-              "RelativeDocumentMoniker": "BaseComponents\\EatableComponent.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\EatableComponent.cs",
-              "RelativeToolTip": "BaseComponents\\EatableComponent.cs",
-              "ViewState": "AQIAABUAAAAAAAAAAAAowBAAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T01:01:26.768Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "HungerBarComponent.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\HungerBarComponent.cs",
-              "RelativeDocumentMoniker": "BaseComponents\\HungerBarComponent.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\HungerBarComponent.cs",
-              "RelativeToolTip": "BaseComponents\\HungerBarComponent.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T00:54:14.188Z",
+              "WhenOpened": "2025-01-22T01:28:30.701Z",
               "EditorCaption": ""
             },
             {
@@ -234,67 +197,8 @@
               "RelativeToolTip": "Monsters\\MSM\\ClimbInitBTState.cs",
               "ViewState": "AQIAABUAAAAAAAAAAAAYwCAAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-23T01:50:52.922Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ClimbSkid.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\ClimbSkid.cs",
-              "RelativeDocumentMoniker": "Monsters\\MSM\\ClimbSkid.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\ClimbSkid.cs",
-              "RelativeToolTip": "Monsters\\MSM\\ClimbSkid.cs",
-              "ViewState": "AQIAADEAAAAAAAAAAAAowEAAAAAKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-23T01:49:18.437Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "FallState.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\FallState.cs",
-              "RelativeDocumentMoniker": "Monsters\\MSM\\FallState.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\FallState.cs",
-              "RelativeToolTip": "Monsters\\MSM\\FallState.cs",
-              "ViewState": "AQIAAFAAAAAAAAAAAAAowFcAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-20T18:10:03.106Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "JumpState.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\JumpState.cs",
-              "RelativeDocumentMoniker": "Monsters\\MSM\\JumpState.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\JumpState.cs",
-              "RelativeToolTip": "Monsters\\MSM\\JumpState.cs",
-              "ViewState": "AQIAAG0AAAAAAAAAAAAmwHUAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-22T01:33:40.043Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "ClimbState.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\ClimbState.cs",
-              "RelativeDocumentMoniker": "Monsters\\MSM\\ClimbState.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\ClimbState.cs",
-              "RelativeToolTip": "Monsters\\MSM\\ClimbState.cs",
-              "ViewState": "AQIAACUAAAAAAAAAAIAwwDQAAAAUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-22T01:28:30.701Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "MSM.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\MSM.cs",
-              "RelativeDocumentMoniker": "Monsters\\MSM\\MSM.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Monsters\\MSM\\MSM.cs",
-              "RelativeToolTip": "Monsters\\MSM\\MSM.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAowBMAAAAEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-19T19:43:49.661Z"
+              "WhenOpened": "2025-01-23T01:50:52.922Z",
+              "EditorCaption": ""
             }
           ]
         }

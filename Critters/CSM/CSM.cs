@@ -24,7 +24,8 @@ public partial class CSM : CompoundState
     public override void Exit()
 	{
 		base.Exit();
-	}
+        _eatableComp.Grabbed -= OnGrabbedByEater;
+    }
 	public override void ProcessFrame(float delta)
 	{
 		base.ProcessFrame(delta);

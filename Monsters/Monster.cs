@@ -99,6 +99,17 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         PrimaryState = _stateMachine.InitialSubState;
         ParallelStates = _stateMachine.ParallelSubStates;
         _stateMachine.Enter(_parallelStateMachines);
+
+
+        //AnimPlayer.AnimationStarted += (name) =>
+        //{
+        //    GD.Print($"Animation Started: {name}");
+        //};
+    }
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+        _stateMachine.Exit();
     }
     public override void _Process(double delta)
     {
@@ -162,11 +173,11 @@ public partial class Monster : CharacterBody3D, IMovementComponent
 
     public AnimDirection GetAnimDirection()
     {
-        return IMovementComponent.GetAnimPlayerDirection(AnimPlayer);
+        return AnimPlayer.GetAnimDirection();
     }
     public OrthogDirection GetFaceDirection()
     {
-        return IMovementComponent.GetSpriteOrthogDirection(Sprite, AnimPlayer);
+        return IMovementComponent.GetOrthogDirection(AnimPlayer.GetAnimDirection(), Sprite.FlipH);
     }
 
     public OrthogDirection GetDesiredFaceDirection()
@@ -177,12 +188,12 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     public Vector2 GetDesiredDirection()
     {
         var input = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-        return new Vector2(input.X, -input.Y); //Input.GetVector(LeftInput, RightInput, UpInput, DownInput);
+        return new Vector2(input.X, input.Y); //Input.GetVector(LeftInput, RightInput, UpInput, DownInput);
     }
 
     public Vector2 GetDesiredDirectionNormalized()
     {
-        throw new NotImplementedException();
+        return GetDesiredDirection().Normalized();
     }
 
     public bool WantsJump()

@@ -22,7 +22,6 @@ public partial class ClimbableComponent : Node
     public Dictionary<OrthogDirection, Vector3> ClimbOnPosMap { get; private set; } 
         = new Dictionary<OrthogDirection, Vector3>();
 
-
     public event EventHandler EjectClimbers;
     public override void _Ready()
 	{

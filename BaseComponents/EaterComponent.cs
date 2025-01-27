@@ -100,6 +100,7 @@ public partial class EaterComponent : Node
     public override void _Ready()
 	{
 		base._Ready();
+        if (Engine.IsEditorHint()) { return; }
         _bb = Body.GetFirstChildOfType<Blackboard>();
         CallDeferred(MethodName.InitEaterVariables);
 	}
@@ -131,6 +132,7 @@ public partial class EaterComponent : Node
 
                 ThrowEatable(eatable);
                 GrabbedEatable?.Invoke(this, eatable);
+                GD.Print($"Grabbed eatable '{eatable.Body.Name}'");
             }
         }
     }
@@ -141,14 +143,13 @@ public partial class EaterComponent : Node
         _animPlayer = _bb.GetVar<AnimationPlayer>(BBDataSig.Anim);
         _animPlayer.AnimationFinished += OnAnimationFinished;
 
-        _animPlayer.Play(_grabAnimName + IMovementComponent.GetAnimPlayerDirection(_animPlayer));
+        _animPlayer.Play(_grabAnimName + _animPlayer.GetAnimDirection());
         _hitboxComp.HitboxActivate();
 
         _currThrowTime = Global.GetRndInRange(_throwTimeRange.X, _throwTimeRange.Y);
         GetTree().CreateTimer(_currThrowTime).Timeout += OnThrowFinished;
 
         StartedEatingCycle?.Invoke(this, EventArgs.Empty);
-        GD.Print("Starting eating cycle!");
     }
     private void ThrowEatable(EatableComponent eatable)
     {
@@ -211,9 +212,11 @@ public partial class EaterComponent : Node
 			return;
         }
         MostRecentEatableDetected = eatableComp;
-        if (EatQueue.Contains(eatableComp)) { return; } //TODO: shouldn't happen? find out why
+        if (EatQueue.Contains(eatableComp) ||
+            GettingEaten.Contains(eatableComp)) { return; } 
         EatQueue.Enqueue(eatableComp);
         EatableHit?.Invoke(this, MostRecentEatableDetected);
+        //GD.Print("EATABLE HIT: ",  MostRecentEatableDetected.Body.Name);
     }
     private void OnAttackFinished()
     {
@@ -234,7 +237,7 @@ public partial class EaterComponent : Node
         {
             EatingEatable?.Invoke(this, chomp);
         }
-        _animPlayer.Play(_eatAnimName + IMovementComponent.GetAnimPlayerDirection(_animPlayer));
+        _animPlayer.Play(_eatAnimName + _animPlayer.GetAnimDirection());
         Status = EatStatus.Eating;
     }
     private void OnAnimationFinished(StringName animName)

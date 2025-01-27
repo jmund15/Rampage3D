@@ -58,13 +58,13 @@ public partial class AnimState : State
         var inputDir = MoveComp.GetDesiredDirection();
         if (inputDir.Y > 0)
         {
-            animDir = IMovementComponent.GetAnimDirectionFromVector(MoveComp.GetDesiredDirection());
+            animDir = MoveComp.GetDesiredDirection().GetAnimDir();
         }
         else
         {
             animDir = MoveComp.GetAnimDirection();
         }
-        AnimPlayer.Play(AnimName + IMovementComponent.GetFaceDirectionString(animDir));
+        AnimPlayer.Play(AnimName + animDir.GetAnimationString());
         AnimPlayer.Seek(AnimStartTime, true);
 
         AnimPlayer.AnimationFinished += OnAnimationFinished;

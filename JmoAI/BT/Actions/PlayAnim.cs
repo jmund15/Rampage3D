@@ -47,7 +47,7 @@ public partial class PlayAnim : BehaviorAction
 				animDir = InputDirectionStrat(BB);
 				break;
 		}
-		var dirName = IMovementComponent.GetFaceDirectionString(animDir);
+		var dirName = animDir.GetAnimationString();
         AnimPlayer.Play(AnimName + dirName);
     }
 	public override void Exit()
@@ -78,19 +78,19 @@ public partial class PlayAnim : BehaviorAction
         //Attack = BB.GetVar<MeleeAttackInfo>(AttackSig);
 		if (inputDir.X > 0)
 		{
-            bb.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = IMovementComponent.GetDesiredFlipH(inputDir);
+            bb.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = inputDir.GetFlipH();
         }
         if (inputDir.Y > 0)
         {
-            return IMovementComponent.GetAnimDirectionFromVector(inputDir);
+            return inputDir.GetAnimDir();
         }
         return moveComp.GetAnimDirection();
     }
 	public static void AnimWithOrthog(IBlackboard bb, string animName, OrthogDirection orthogDir)
 	{
-		var animDir = IMovementComponent.GetAnimDirFromOrthog(orthogDir);
-		var dirName = IMovementComponent.GetFaceDirectionString(animDir);
-		bb.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = IMovementComponent.GetFlipHFromOrthog(orthogDir);
+		var animDir = orthogDir.GetAnimDir();
+		var dirName = animDir.GetAnimationString();
+		bb.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = orthogDir.GetFlipH();
         bb.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(animName + dirName);
     }
     private void OnAnimationFinished(StringName animName)

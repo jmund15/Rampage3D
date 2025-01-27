@@ -31,10 +31,9 @@ public partial class DesendState : Base3DState
         base.Enter(parallelStates);
         _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
         //GD.Print("on descend enter curr anim: ", AnimPlayer.CurrentAnimation);
-        _descendDir = IMovementComponent.GetAnimDirFromOrthog(_climberComp.ClimbingDir);
+        _descendDir = _climberComp.ClimbingDir.GetAnimDir();
         //GD.Print("DESCEND ANIM DIRECTION: ",  _descendDir);
-        BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(_animName +
-            IMovementComponent.GetFaceDirectionString(_descendDir));
+        BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(_animName + _descendDir.GetAnimationString());
 
         _body.Velocity = Vector3.Zero;
     }
@@ -59,7 +58,7 @@ public partial class DesendState : Base3DState
     public override void ProcessPhysics(float delta)
     {
         base.ProcessPhysics(delta);
-        var desiredAnimDirection = IMovementComponent.GetAnimDirectionFromVector(_inputDir);
+        var desiredAnimDirection = _inputDir.GetAnimDir();
         //GD.Print($"desiredAnimDir: {desiredAnimDirection}; descend dir: {_descendDir}");
         if (_descendDir == desiredAnimDirection && _inputDir.Y != 0)
         {

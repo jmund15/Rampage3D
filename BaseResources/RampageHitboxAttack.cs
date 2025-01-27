@@ -32,8 +32,7 @@ public partial class RampageHitboxAttack : Resource
         Force = force;
         Direction = direction;
         BuildingEffect = buildingEffect;
-        FaceDirection = IMovementComponent.GetDirectionFromVector(direction);
-
+        FaceDirection = direction.GetOrthogDirection();
     }
     //public void SetNormForce(float minForce, float maxForce)
     //{

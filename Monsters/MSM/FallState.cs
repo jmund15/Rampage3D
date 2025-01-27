@@ -43,8 +43,7 @@ public partial class FallState : State
         //GD.Print("on fall enter anim: ", _animPlayer.CurrentAnimation);
         //GD.Print("on fall enter anim direction: ", _currAnimDir);
         //GD.Print("FALL ANIM DIR: ", _currAnimDir);
-        _animPlayer.Play(_animName +
-            IMovementComponent.GetFaceDirectionString(_currAnimDir));
+        _animPlayer.Play(_animName + _currAnimDir.GetAnimationString());
         _animPlayer.Seek(_animStartTime, true);
         _animPlayer.Pause();
 
@@ -83,10 +82,17 @@ public partial class FallState : State
         }
 
         Vector3 velocity = _body.Velocity;
-        Vector3 direction = (_body.Transform.Basis * new Vector3(_inputDir.X, 0, _inputDir.Y)).Normalized();
+        
 
         velocity += _body.GetWeightedGravity() * delta;
-        GD.Print("body velocity after gravity: ", velocity);
+        //GD.Print("body velocity after gravity: ", velocity);
+
+        if (_inputDir.IsZeroApprox()) {
+            _body.Velocity = velocity;
+            _body.MoveAndSlide();
+            return; }
+        var orthogDir = _inputDir.GetOrthogDirection();
+        Vector3 direction = orthogDir.GetVector3();
 
         if (direction != Vector3.Zero)
         {

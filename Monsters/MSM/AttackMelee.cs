@@ -44,8 +44,7 @@ public partial class AttackMelee : BehaviorAction
                 AttackAnimDir = PlayAnim.CurrDirectionStrat(BB);
                 var orthogDir = IMovementComponent.GetOrthogDirection(AttackAnimDir,
                     BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH);
-                var flatatkdir = IMovementComponent.GetVectorFromDirection(orthogDir);
-                AttackDirection = new Vector3(flatatkdir.X, 0, flatatkdir.Y);
+                AttackDirection = orthogDir.GetVector3();
                 break;
             case AnimDirectionStrategy.InputDirection:
                 AttackAnimDir = PlayAnim.InputDirectionStrat(BB);
@@ -58,15 +57,13 @@ public partial class AttackMelee : BehaviorAction
                 {
                     orthogDir = IMovementComponent.GetOrthogDirection(AttackAnimDir,
                     BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH);
-                    flatatkdir = IMovementComponent.GetVectorFromDirection(orthogDir);
-                    AttackDirection = new Vector3(flatatkdir.X, 0, flatatkdir.Y);
+                    AttackDirection = orthogDir.GetVector3();
                 }
                 break;
         }
         //GD.Print("attack direction: ", AttackDirection);
 
-        AnimPlayer.Play(AttackInfo.AnimName +
-            IMovementComponent.GetFaceDirectionString(AttackAnimDir));
+        AnimPlayer.Play(AttackInfo.AnimName + AttackAnimDir.GetAnimationString());
         AnimPlayer.AnimationFinished += OnAnimationFinished;
 
         PrevHitboxShape = HitboxComp.CollisionShape.Shape;
