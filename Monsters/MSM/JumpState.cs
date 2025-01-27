@@ -50,24 +50,25 @@ public partial class JumpState : State
         if (_climberComp.EjectRequested)
         {
             var orthogDir = _climberComp.EjectDir;
-            _currAnimDir = IMovementComponent.GetAnimDirFromOrthog(orthogDir);
-            BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = IMovementComponent.GetFlipHFromOrthog(orthogDir);
+            _currAnimDir = orthogDir.GetAnimDir();
+            BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = orthogDir.GetFlipH();
 
-            velocity.X += Monster.ClimbJumpPushOff * IMovementComponent.GetVectorFromDirection(orthogDir).X;
-            velocity.Z += Monster.ClimbJumpPushOff * IMovementComponent.GetVectorFromDirection(orthogDir).Y;
+            var orthogVec = orthogDir.GetVector2();
+            velocity.X += Monster.ClimbJumpPushOff * orthogVec.X;
+            velocity.Z += Monster.ClimbJumpPushOff * orthogVec.Y;
 
             _climberComp.EjectRequested = false;
         }
         else if (_inputDir.Y > 0)
         {
-            _currAnimDir = IMovementComponent.GetAnimDirectionFromVector(_moveComp.GetDesiredDirection());
+            _currAnimDir = _moveComp.GetDesiredDirection().GetAnimDir();
         }
         else
         {
             _currAnimDir = _moveComp.GetAnimDirection();
         }
         _animPlayer.Play(AnimName +
-            IMovementComponent.GetFaceDirectionString(_currAnimDir));
+            _currAnimDir.GetAnimationString());
         _animPlayer.Seek(0f, true);
         _animPlayer.Pause();
 
@@ -111,11 +112,9 @@ public partial class JumpState : State
 
         if (!_velocitySet) { return; }
         Vector3 velocity = _body.Velocity;
-        Vector3 direction = (_body.Transform.Basis * new Vector3(_inputDir.X, 0, _inputDir.Y)).Normalized();
+        
 
-        GD.Print("body velocity before gravity: ", velocity);
         velocity += _body.GetWeightedGravity() * delta;
-        GD.Print("body velocity after gravity: ", velocity);
 
         if (!_startedDescent && velocity.Y < 0)
         {
@@ -123,6 +122,15 @@ public partial class JumpState : State
             return;
         }
 
+        if (_inputDir.IsZeroApprox())
+        {
+            _body.Velocity = velocity;
+            _body.MoveAndSlide();
+            return;
+        }
+
+        var orthogDir = _inputDir.GetOrthogDirection();
+        Vector3 direction = orthogDir.GetVector3();
         if (direction != Vector3.Zero)
         {
             velocity.X = direction.X * Monster.AirSpeed;

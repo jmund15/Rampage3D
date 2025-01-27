@@ -59,6 +59,11 @@ public partial class Critter : CharacterBody3D, IMovementComponent
         ParallelStates = _stateMachine.ParallelSubStates;
         _stateMachine.Enter(_parallelStateMachines);
     }
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+        _stateMachine.Exit();
+    }
     public override void _Process(double delta)
     {
         base._Process(delta);
@@ -73,11 +78,11 @@ public partial class Critter : CharacterBody3D, IMovementComponent
 
     public AnimDirection GetAnimDirection()
     {
-        return IMovementComponent.GetAnimPlayerDirection(AnimPlayer);
+        return AnimPlayer.GetAnimDirection();
     }
     public OrthogDirection GetFaceDirection()
     {
-        return IMovementComponent.GetSpriteOrthogDirection(Sprite, AnimPlayer);
+        return IMovementComponent.GetOrthogDirection(AnimPlayer.GetAnimDirection(), Sprite.FlipH);
     }
 
     public OrthogDirection GetDesiredFaceDirection()

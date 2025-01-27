@@ -37,7 +37,7 @@ public partial class ClimbIdleState : State
         }
 
         BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(_animName +
-            IMovementComponent.GetFaceDirectionString(_moveComp.GetAnimDirection()));
+            _moveComp.GetAnimDirection().GetAnimationString());
 
         _body.Velocity = Vector3.Zero;
         _body.MoveAndSlide();

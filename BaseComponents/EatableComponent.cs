@@ -48,6 +48,9 @@ public partial class EatableComponent : Node
     private void OnEaten(object sender, EatableComponent e)
     {
         Eaten?.Invoke(this, Eater);
+        Eater.GrabbedEatable -= OnGrabbed;
+        Eater.EatingEatable -= OnInMouth;
+        Eater.AteEatable -= OnEaten;
         Body.CallDeferred(MethodName.QueueFree);
     }
 }

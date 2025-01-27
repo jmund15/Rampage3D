@@ -33,7 +33,7 @@ public partial class GrabbedState : Base3DState
     public override void Exit()
 	{
 		base.Exit();
-        _eatableComp.Eaten -= OnInMouth;
+        _eatableComp.InMouth -= OnInMouth;
     }
 	public override void ProcessFrame(float delta)
 	{

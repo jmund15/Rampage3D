@@ -35,13 +35,12 @@ public partial class ClimbState : Base3DState
 	{
 		base.Enter(parallelStates);
 		_climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
-        _climbAnimDir = IMovementComponent.GetAnimDirFromOrthog(_climberComp.ClimbingDir);
+        _climbAnimDir = _climberComp.ClimbingDir.GetAnimDir();
         //GD.Print("on climb enter anim: ", AnimPlayer.CurrentAnimation);
         //GD.Print("on climb enter anim direction: ", _climbDir);
         //GD.Print("climbable max climb height: ", _climbComp.MaxClimbHeight);
 
-        BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(_animName +
-            IMovementComponent.GetFaceDirectionString(_climbAnimDir));
+        BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(_animName + _climbAnimDir.GetAnimationString());
 
         _body.Velocity = Vector3.Zero;
 
@@ -71,7 +70,7 @@ public partial class ClimbState : Base3DState
 	public override void ProcessPhysics(float delta)
 	{
 		base.ProcessPhysics(delta);
-        var desiredAnimDirection = IMovementComponent.GetAnimDirectionFromVector(_inputDir);
+        var desiredAnimDirection = _inputDir.GetAnimDir();
         if (_climbAnimDir != desiredAnimDirection && _inputDir.Y != 0)
         {
             EmitSignal(SignalName.TransitionState, this, _descendState);

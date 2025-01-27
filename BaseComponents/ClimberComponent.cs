@@ -6,6 +6,7 @@ public partial class ClimberComponent : Node
 	public ClimbableComponent ClimbableComp { get; private set; }
     [Export]
     private CharacterBody3D _body;
+    private IMovementComponent _moveComp;
 
     private Vector3 _origSpritePos = new Vector3();
 
@@ -85,7 +86,7 @@ public partial class ClimberComponent : Node
     public OrthogDirection ClimbingDir { get; private set; }
     public OrthogDirection EjectDir
     {
-        get => IMovementComponent.GetOppositeDirection(ClimbingDir);
+        get => ClimbingDir.GetOppositeDir();
     }
 
     public event EventHandler<ClimbableComponent> StartedClimb;
@@ -103,7 +104,12 @@ public partial class ClimberComponent : Node
 
     public override void _Ready()
 	{
-	}
+        _moveComp = _body as IMovementComponent;
+        if (_moveComp == null)
+        {
+            throw new Exception("CLIMBER COMP ERROR || CLIMBER'S BODY MUST IMPLEMENT 'IMovementComponent'");
+        }
+    }
 	public override void _Process(double delta)
 	{
 	}
@@ -112,12 +118,34 @@ public partial class ClimberComponent : Node
         base._PhysicsProcess(delta);
         if (_body.IsOnWall() && !IsClimbing)
         {
-            var wallCollider = _body.GetLastSlideCollision().GetCollider() as Node3D;
+            var coll = _body.GetLastSlideCollision();
+            var wallCollider = coll.GetCollider() as Node3D;
             //GD.Print("wall collider: ", wallCollider.Name);
             var climbComp = wallCollider.GetFirstChildOfType<ClimbableComponent>();
-            if (climbComp == null) { return; }
-            ClimbableComp = climbComp;
-            AvailableClimbable = true;
+            if (climbComp == null) 
+            {
+                AvailableClimbable = false;
+                return; 
+            }
+
+            //Make sure body is facing climable directly
+            var desVec = _moveComp.GetDesiredDirectionNormalized();
+            if (desVec.IsZeroApprox())
+            {
+                AvailableClimbable = false;
+                return;
+            }
+            var collVec = new Vector3(desVec.X, 0f, desVec.Y);
+            var collAngle = coll.GetAngle(upDirection: collVec);
+
+            GD.Print("just collided @ normal: ", coll.GetNormal(), 
+                " at direction: ", collVec,
+                " and angle: ", collAngle);
+            if (collAngle > (3 * Mathf.Pi) / 4)
+            {
+                ClimbableComp = climbComp;
+                AvailableClimbable = true;
+            }
         }
         else if (!_body.IsOnWall())
         {
@@ -162,7 +190,7 @@ public partial class ClimberComponent : Node
         var finalY = 0f;
         const float DOWNANIM_LOWERY = -10f;
         var finalZ = clampPos.Y;
-        if (IMovementComponent.GetAnimDirFromOrthog(ClimbingDir) == AnimDirection.Down)
+        if (ClimbingDir.GetAnimDir() == AnimDirection.Down)
         {
             finalY = DOWNANIM_LOWERY;
         }

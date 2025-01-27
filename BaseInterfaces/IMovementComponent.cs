@@ -38,7 +38,28 @@ public interface IMovementComponent
     public bool WantsStrafe();
     public float GetRunSpeedMult();
     //public Vector2 GetVelocity();
-    public static AnimDirection GetAnimPlayerDirection(AnimationPlayer animPlayer)
+    public static OrthogDirection GetOrthogDirection(AnimDirection animDir, bool flippedH)
+    {
+        if (animDir == AnimDirection.Down)
+        {
+            if (flippedH)
+            { return OrthogDirection.DownLeft; }
+            else
+            { return OrthogDirection.DownRight; }
+        }
+        else
+        {
+            if (flippedH)
+            { return OrthogDirection.UpLeft; }
+            else
+            { return OrthogDirection.UpRight; }
+        }
+    }
+}
+public static partial class MovementExtensions
+{
+    #region ORTHOG_EXTENSIONS
+    public static AnimDirection GetAnimDirection(this AnimationPlayer animPlayer)
     {
         if (animPlayer.AssignedAnimation.ToString().Contains("Down"))
         {
@@ -49,80 +70,31 @@ public interface IMovementComponent
             return AnimDirection.Up;
         }
     }
-    public static AnimDirection GetAnimDirFromOrthog(OrthogDirection orthogDir)
+    public static AnimDirection GetAnimDir(this OrthogDirection orthogDir)
     {
         switch (orthogDir)
         {
-            case OrthogDirection.DownRight or OrthogDirection.DownLeft:
-                return AnimDirection.Down;
             case OrthogDirection.UpLeft or OrthogDirection.UpRight:
                 return AnimDirection.Up;
-            default: return AnimDirection.Up;
+            case OrthogDirection.DownLeft or OrthogDirection.DownRight:
+                return AnimDirection.Down;
+            default:
+                throw new Exception($"ORTHOG DIR: {orthogDir} GAVE NO ANIM DIRECTION??");
         }
     }
-    public static bool GetFlipHFromOrthog(OrthogDirection orthogDir)
+    public static bool GetFlipH(this OrthogDirection orthogDir)
     {
         switch (orthogDir)
         {
             case OrthogDirection.DownRight or OrthogDirection.UpRight:
                 return false;
-            case OrthogDirection.UpLeft or OrthogDirection.DownLeft:
+            case OrthogDirection.DownLeft or OrthogDirection.UpLeft:
                 return true;
-            default: return false;
+            default:
+                throw new Exception($"ORTHOG DIR: {orthogDir} GAVE NO FLIP H??");
         }
     }
-    public static OrthogDirection GetSpriteOrthogDirection(Sprite3D sprite, AnimationPlayer animPlayer)
-    {
-        if (animPlayer.CurrentAnimation.ToString().Contains("Down"))
-        {
-            if (sprite.FlipH)
-            {
-                return OrthogDirection.DownLeft;
-            }
-            else
-            {
-                return OrthogDirection.DownRight;
-            }
-        }
-        else
-        {
-            if (sprite.FlipH)
-            {
-                return OrthogDirection.UpLeft;
-            }
-            else
-            {
-                return OrthogDirection.UpRight;
-            }
-        }
-    }
-
-    public static OrthogDirection GetOrthogDirection(AnimDirection animDir, bool flippedH)
-    {
-        if (animDir == AnimDirection.Down)
-        {
-            if (flippedH)
-            {
-                return OrthogDirection.DownLeft;
-            }
-            else
-            {
-                return OrthogDirection.DownRight;
-            }
-        }
-        else
-        {
-            if (flippedH)
-            {
-                return OrthogDirection.UpLeft;
-            }
-            else
-            {
-                return OrthogDirection.UpRight;
-            }
-        }
-    }
-    public static OrthogDirection GetOppositeDirection(OrthogDirection direction)
+    public static OrthogDirection GetOppositeDir(this OrthogDirection direction)
     {
         switch (direction)
         {
@@ -139,133 +111,139 @@ public interface IMovementComponent
                 return OrthogDirection.DownLeft;
         }
     }
-    public static AnimDirection GetAnimDirectionFromVector(Vector2 direction)
+    public static Vector2 GetVector2(this OrthogDirection orthogDir)
     {
-        if (direction.Y > 0)
-        {
-            return AnimDirection.Down;
-        }
-        else {
-            return AnimDirection.Up;
-        }
-    }
-    public static bool GetDesiredFlipH(Vector2 direction)
-    {
-        if (direction.X > 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-    //public static EightDirection GetDirectionFromVector(Vector2 direction)
-    //{
-    //    if (direction.X < 0)
-    //    {
-    //        switch (direction.X / direction.Y + float.Epsilon)
-    //        {
-    //            case float n when (Math.Abs(n) > 2):
-    //                return EightDirection.LEFT;
-    //            case float n when (Math.Abs(n) > 0.5):
-    //                if (direction.Y >= 0)
-    //                {
-    //                    return EightDirection.DOWNLEFT;
-    //                }
-    //                else
-    //                {
-    //                    return EightDirection.UPLEFT;
-    //                }
-    //            default:
-    //                if (direction.Y >= 0)
-    //                {
-    //                    return EightDirection.DOWN;
-    //                }
-    //                else
-    //                {
-    //                    return EightDirection.UP;
-    //                }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        switch (direction.X / direction.Y + float.Epsilon)
-    //        {
-    //            case float n when (Math.Abs(n) > 2):
-    //                return EightDirection.RIGHT;
-    //            case float n when (Math.Abs(n) > 0.5):
-    //                if (direction.Y >= 0)
-    //                {
-    //                    return EightDirection.DOWNRIGHT;
-    //                }
-    //                else
-    //                {
-    //                    return EightDirection.UPRIGHT;
-    //                }
-    //            default:
-    //                if (direction.Y >= 0)
-    //                {
-    //                    return EightDirection.DOWN;
-    //                }
-    //                else
-    //                {
-    //                    return EightDirection.UP;
-    //                }
-    //        }
-    //    }
-    //    //if (direction.X < 0)
-    //    //{
-    //    //    return MovementDirection.LEFT;
-    //    //}
-    //    //else if (direction.X > 0)
-    //    //{
-    //    //    return MovementDirection.RIGHT;
-    //    //}
-    //    //else if (direction.Y < 0)
-    //    //{
-    //    //    return MovementDirection.UP;
-    //    //}
-    //    //else
-    //    //{
-    //    //    return MovementDirection.DOWN;
-    //    //}
-    //}
-    public static string GetFaceDirectionString(AnimDirection direction)
-    {
-        switch (direction)
-        {
-            case AnimDirection.Down:
-                return "Down";
-            case AnimDirection.Up:
-                return "Up";
-            default:
-                GD.PrintErr("not any face direction?? facedir = " + direction.ToString());
-                return "Null";
-        }
-    }
-    public static Vector2 GetVectorFromDirection(OrthogDirection dir)
-    {
-        switch (dir)
+        switch (orthogDir)
         {
             case OrthogDirection.UpLeft:
                 return new Vector2(-1f, 0f);
                 //return new Vector2(-0.707f, -0.707f);
             case OrthogDirection.UpRight:
                 return new Vector2(0f, -1f);
-            //return new Vector2(0.707f, -0.707f);
+                //return new Vector2(0.707f, -0.707f);
             case OrthogDirection.DownLeft:
                 return new Vector2(0f, 1f);
-            //return new Vector2(-0.707f, 0.707f);
+                //return new Vector2(-0.707f, 0.707f);
             case OrthogDirection.DownRight:
                 return new Vector2(1f, 0f);
-            //return new Vector2(0.707f, 0.707f);
+                //return new Vector2(0.707f, 0.707f);
             default:
-                GD.Print("not any face direction?? facedir = " + dir.ToString());
-                return Vector2.Zero;
+                throw new Exception($"ORTHOG DIR: {orthogDir} GAVE NO VECTOR??");
         }
     }
-    public static Vector2 GetVectorFromDirection(EightDirection dir)
+    public static Vector3 GetVector3(this OrthogDirection orthogDir)
+    {
+        var vec2 = GetVector2(orthogDir);
+        return new Vector3(vec2.X, 0f, vec2.Y);
+    }
+    public static string GetAnimationString(this AnimDirection dir)
+    {
+        switch (dir)
+        {
+            case AnimDirection.Down:
+                return "Down";
+            case AnimDirection.Up:
+                return "Up";
+            default:
+                GD.PrintErr("not any anim direction?? facedir = " + dir.ToString());
+                return "Null";
+        }
+    }
+    private static OrthogDirection GetDirectionFromXY(float x, float y)
+    {
+        if (x < 0 && y <= 0)
+        {
+            // IMPORTANT: Straight Left = UpLeft
+            return OrthogDirection.UpLeft;
+        }
+        else if (x >= 0 && y < 0)
+        {
+            // IMPORTANT: Straight Up = UpRight
+            return OrthogDirection.UpRight;
+        }
+        else if (x <= 0 && y > 0)
+        {
+            // IMPORTANT: Straight Down = DownLeft
+            return OrthogDirection.DownLeft;
+        }
+        else if (x > 0 && y >= 0)
+        {
+            // IMPORTANT: Straight Right = DownRight
+            return OrthogDirection.DownRight;
+        }
+        else { throw new Exception($"VALUES: ({x}, {y}) GAVE NO ORTHOG DIRECTION??"); }
+    }
+    public static OrthogDirection GetOrthogDirection(this Vector2 dir)
+    {
+        return GetDirectionFromXY(dir.X, dir.Y);
+    }
+    public static OrthogDirection GetOrthogDirection(this Vector3 dir)
+    {
+        return GetDirectionFromXY(dir.X, dir.Z);
+    }
+    private static AnimDirection GetAnimDirection(float forwardDir)
+    {
+        if (forwardDir > 0)
+        { return AnimDirection.Down; }
+        else
+        { return AnimDirection.Up; }
+    }
+    public static AnimDirection GetAnimDir(this Vector2 dir)
+    {
+        return GetAnimDirection(dir.Y);
+    }
+    public static AnimDirection GetAnimDir(this Vector3 dir)
+    {
+        return GetAnimDirection(dir.Z);
+    }
+    public static bool GetFlipH(float horizDir)
+    {
+        if (horizDir < 0)
+        { return true; }
+        else
+        { return false; }
+    }
+    public static bool GetFlipH(this Vector2 dir)
+    {
+        return GetFlipH(dir.X);
+    }
+    public static bool GetFlipH(this Vector3 dir)
+    {
+        return GetFlipH(dir.X);
+    }
+    public static Vector3 ClampIsometric(this Vector3 direction)
+    {
+        return direction.GetOrthogDirection().GetVector3();
+    }
+    public static Vector2 ClampIsometric(this Vector2 direction)
+    {
+        return direction.GetOrthogDirection().GetVector2();
+    }
+    public static Vector3 ClampInputToIsometric(this Vector2 inputDir)
+    {
+        // INPUT DIRECTION MEANS UP Y IS NEGATIVE
+        return ClampIsometric(new Vector3(inputDir.X, 0f, -inputDir.Y));
+    }
+    #endregion
+    #region VELOCITY_EXTENSIONS
+    public static Vector3 GetWeightedGravity(this CharacterBody3D body)
+    {
+        const float WEIGHT_PERCENTAGE = 0.06f;
+        Vector3 weightedGrav;
+        if (body.Velocity.Y < 0)
+        {
+            weightedGrav = body.GetGravity() - (body.Velocity * body.GetGravity() * WEIGHT_PERCENTAGE);
+        }
+        else
+        {
+            weightedGrav = body.GetGravity();
+        }
+        //GD.Print("weighted grav: ", weightedGrav);
+        return weightedGrav;
+    }
+    #endregion
+
+    public static Vector2 GetVector(this EightDirection dir)
     {
         switch (dir) //RETURN NORMALIZED VECTOR
         {
@@ -290,58 +268,4 @@ public interface IMovementComponent
                 return Vector2.Zero;
         }
     }
-    public static OrthogDirection GetDirectionFromVector(Vector3 dir)
-    {
-        if (dir.X < 0 && dir.Z >= 0)
-        {
-            // IMPORTANT: Straight Left = UpLeft
-            return OrthogDirection.UpLeft;
-        }
-        else if (dir.X >= 0 && dir.Z > 0)
-        {
-            // IMPORTANT: Straight Up = UpRight
-            return OrthogDirection.UpRight;
-        }
-        else if (dir.X <= 0 && dir.Z < 0)
-        {
-            // IMPORTANT: Straight Down = DownLeft
-            return OrthogDirection.DownLeft;
-        }
-        else if (dir.X > 0 && dir.Z <= 0)
-        {
-            // IMPORTANT: Straight Right = DownRight
-            return OrthogDirection.DownRight;
-        }
-        //Should be impossible
-        else { throw new Exception("VECTOR GAVE NO ORTHOG DIRECTION??"); }
-    }
-    // Formula for isometric/orthographic movement:
-    // x = horizontalInput - verticalInput
-    // y = horizontalInput + verticalInput
-    public static OrthogDirection GetDirectionFromVector(Vector2 dir)
-    {
-        if (dir.X < 0 && dir.Y >= 0)
-        {
-            // IMPORTANT: Straight Left = UpLeft
-            return OrthogDirection.UpLeft;
-        }
-        else if (dir.X >= 0 && dir.Y > 0)
-        {
-            // IMPORTANT: Straight Up = UpRight
-            return OrthogDirection.UpRight;
-        }
-        else if (dir.X <= 0 && dir.Y < 0)
-        {
-            // IMPORTANT: Straight Down = DownLeft
-            return OrthogDirection.DownLeft;
-        }
-        else if (dir.X > 0 && dir.Y <= 0)
-        {
-            // IMPORTANT: Straight Right = DownRight
-            return OrthogDirection.DownRight;
-        }
-        //Should be impossible
-        else { throw new Exception("VECTOR GAVE NO ORTHOG DIRECTION??"); }
-    }
-
 }

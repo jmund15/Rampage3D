@@ -182,7 +182,7 @@ public partial class AINav3DComponent : NavigationAgent3D
         Vector3 weightedDir = Vector3.Zero;
         foreach (var dir in dirs)
         {
-            var eightDirVec = IMovementComponent.GetVectorFromDirection(dir);
+            var eightDirVec = dir.GetVector();
             DirectionWeights[dir] = normVec.Dot(new Vector3(eightDirVec.X, 0f, eightDirVec.Y));
             DirectionWeights[dir] -= dangerWeights[dir];
             if (DirectionWeights[dir] > maxWeight)
