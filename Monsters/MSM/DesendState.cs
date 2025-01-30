@@ -18,7 +18,7 @@ public partial class DesendState : Base3DState
 
     private ClimberComponent _climberComp;
     private Vector2 _inputDir;
-    private AnimDirection _descendDir;
+    private AnimDirection _descendAnimDir;
     #endregion
     #region STATE_UPDATES
     public override void Init(Node agent, IBlackboard bb)
@@ -31,9 +31,9 @@ public partial class DesendState : Base3DState
         base.Enter(parallelStates);
         _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
         //GD.Print("on descend enter curr anim: ", AnimPlayer.CurrentAnimation);
-        _descendDir = _climberComp.ClimbingDir.GetAnimDir();
+        _descendAnimDir = _climberComp.ClimbingDir.GetAnimDir();
         //GD.Print("DESCEND ANIM DIRECTION: ",  _descendDir);
-        BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(_animName + _descendDir.GetAnimationString());
+        BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(_animName + _descendAnimDir.GetAnimationString());
 
         _body.Velocity = Vector3.Zero;
     }
@@ -44,23 +44,26 @@ public partial class DesendState : Base3DState
     public override void ProcessFrame(float delta)
     {
         base.ProcessFrame(delta);
+        
+    }
+    public override void ProcessPhysics(float delta)
+    {
+        base.ProcessPhysics(delta);
         _inputDir = MoveComp.GetDesiredDirection();
 
-        if (_inputDir.Y == 0)
+        if (_inputDir.IsZeroApprox())
         {
             EmitSignal(SignalName.TransitionState, this, _climbIdleState);
+            return;
         }
         else if (MoveComp.WantsJump())
         {
             _climberComp.EjectRequested = true;
         }
-    }
-    public override void ProcessPhysics(float delta)
-    {
-        base.ProcessPhysics(delta);
-        var desiredAnimDirection = _inputDir.GetAnimDir();
+
+        var desiredOrthogDirection = _inputDir.GetOrthogDirection();
         //GD.Print($"desiredAnimDir: {desiredAnimDirection}; descend dir: {_descendDir}");
-        if (_descendDir == desiredAnimDirection && _inputDir.Y != 0)
+        if (_climberComp.ClimbingDir == desiredOrthogDirection && _inputDir.Y != 0)
         {
             EmitSignal(SignalName.TransitionState, this, _climbState);
             return;
@@ -73,12 +76,16 @@ public partial class DesendState : Base3DState
         }
         //BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = IMovementComponent.GetDesiredFlipH(_inputDir);
 
+        if (_climberComp.ClimbingDir.GetOppositeDir() != desiredOrthogDirection)
+        {
+            return;
+        }
+
         Vector3 velocity = _body.Velocity;
         velocity.X = 0; velocity.Z = 0;
-        var descendInput = -Mathf.Abs(_inputDir.Y);
+        var descendInput = -_inputDir.Length();//Mathf.Abs(_inputDir.Y);
 
         velocity.Y = descendInput * Monster.ClimbSpeed;
-        AnimPlayer.Play();
 
         _body.Velocity = velocity;
         _body.MoveAndSlide();

@@ -228,7 +228,7 @@ public static partial class MovementExtensions
     #region VELOCITY_EXTENSIONS
     public static Vector3 GetWeightedGravity(this CharacterBody3D body)
     {
-        const float WEIGHT_PERCENTAGE = 0.06f;
+        const float WEIGHT_PERCENTAGE = 0.075f;
         Vector3 weightedGrav;
         if (body.Velocity.Y < 0)
         {

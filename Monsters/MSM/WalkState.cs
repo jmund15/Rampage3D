@@ -83,7 +83,7 @@ public partial class WalkState : State
 
         _orthogDir = _inputDir.GetOrthogDirection();
         var animDir = _orthogDir.GetAnimDir();
-        if (_currAnimDir != animDir && _inputDir.Y != 0)
+        if (_currAnimDir != animDir)
         {
             _currAnimDir = animDir;
             BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(AnimName + _currAnimDir.GetAnimationString());

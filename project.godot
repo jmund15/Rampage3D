@@ -25,7 +25,7 @@ project/assembly_name="Clonepage"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/godot-4-importality/addons/nklbdev.importality/plugin.cfg")
 
 [filesystem]
 

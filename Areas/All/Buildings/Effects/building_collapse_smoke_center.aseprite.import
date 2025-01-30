@@ -3,12 +3,12 @@
 importer="Aseprite AnimatedSprite3D"
 type="PackedScene"
 uid="uid://cmhepcxorfn42"
-path="res://.godot/imported/building_collapse_smoke_center.aseprite-6cd09c53dd4eadd2b0cd89dd59788736.scn"
+path="res://.godot/imported/building_collapse_smoke_center.aseprite-d21bd6f3afe0215db58638193bbcb640.scn"
 
 [deps]
 
-source_file="res://Buildings/Effects/building_collapse_smoke_center.aseprite"
-dest_files=["res://.godot/imported/building_collapse_smoke_center.aseprite-6cd09c53dd4eadd2b0cd89dd59788736.scn"]
+source_file="res://Areas/All/Buildings/Effects/building_collapse_smoke_center.aseprite"
+dest_files=["res://.godot/imported/building_collapse_smoke_center.aseprite-d21bd6f3afe0215db58638193bbcb640.scn"]
 
 [params]
 

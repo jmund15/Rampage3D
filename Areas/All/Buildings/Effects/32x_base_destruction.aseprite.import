@@ -3,12 +3,12 @@
 importer="Aseprite AnimatedSprite3D"
 type="PackedScene"
 uid="uid://bub5farc12avm"
-path="res://.godot/imported/32x_base_destruction.aseprite-69b1071279514c5ea23b06bd908b22fc.scn"
+path="res://.godot/imported/32x_base_destruction.aseprite-a62728720046b79f149658171dec20a2.scn"
 
 [deps]
 
-source_file="res://Buildings/Effects/32x_base_destruction.aseprite"
-dest_files=["res://.godot/imported/32x_base_destruction.aseprite-69b1071279514c5ea23b06bd908b22fc.scn"]
+source_file="res://Areas/All/Buildings/Effects/32x_base_destruction.aseprite"
+dest_files=["res://.godot/imported/32x_base_destruction.aseprite-a62728720046b79f149658171dec20a2.scn"]
 
 [params]
 

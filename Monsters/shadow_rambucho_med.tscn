@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=4 uid="uid://bqh1lahoowu3g"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_tigt1"]
+_data = PackedByteArray("AAADAAUAAAABAAAAYAAAACAAAACYAAAAUklGRpAAAABXRUJQVlA4TIQAAAAvX8AHEC8QEWQBpsl57A0ghBAKbjowim07TchBDZCB4L6ooPn+vQTLuInovwK3bZTxDkevQD8lynFstoRysACTJulINFnFEGAqNDkA6AYtjltChEUciAWHU4qkTYZRzjEYkgnEkDiyMG6yGHgcB42ghQDZ9iK/3Kxd3vza+r5vMFfXgAg=")
+size_override = Vector2(96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ave3a"]
+atlas = SubResource("PortableCompressedTexture2D_tigt1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdi2t"]
+atlas = SubResource("PortableCompressedTexture2D_tigt1")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ejge"]
+atlas = SubResource("PortableCompressedTexture2D_tigt1")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2wu8c"]
+animations = [{
+"frames": [{
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_ave3a")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_mdi2t")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_3ejge")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[node name="shadow_rambucho_med" type="AnimatedSprite3D"]
+transform = Transform3D(32, 0, 0, 0, 32, 0, 0, 0, 32, 0, 0, 0)
+modulate = Color(1, 1, 1, 0.490196)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_2wu8c")

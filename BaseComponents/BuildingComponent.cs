@@ -38,6 +38,8 @@ public partial class BuildingComponent : Node
     private int _numFloors;
     private List<BuildingFloorComponent> _sortedFloors = new List<BuildingFloorComponent>();
     private Dictionary<int, BuildingFloorComponent> _floors = new Dictionary<int, BuildingFloorComponent>();
+    public List<Vector2> XFacePoses { get; private set; } = new List<Vector2>();
+    public List<Vector2> ZFacePoses { get; private set; } = new List<Vector2>();
 
     private AnimatedSprite3D _destructionCenterSmoke;
     private AnimatedSprite3D _destructionDirectionalSmoke;
@@ -71,6 +73,9 @@ public partial class BuildingComponent : Node
 
         // Step 1: Sort the heights in ascending order
         _sortedFloors = floors.OrderBy(f => f.YCenter).ToList();
+        //TODO: Eventually calc these here and propogate down to the floors (since all floors of buildings will have same length/width)
+        XFacePoses = _sortedFloors[0].XFacePoses;
+        ZFacePoses = _sortedFloors[0].ZFacePoses;
 
         // Step 2: Set collision shapes of building based on floor meshes
         _structureCollShape = _structure.GetFirstChildOfType<CollisionShape3D>();
