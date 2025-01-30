@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cwayux5uqnujm" path="res://Areas/KentsHill/Buildings/Textures/32x_residential01/32x_roof_residential01_snowy.png" id="3_dpk0e"]
 [ext_resource type="ArrayMesh" uid="uid://dv54t2i6s3yun" path="res://Areas/All/Buildings/Models/roof_32x.obj" id="4_dh8bq"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mwdub"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_o42jb"]
 points = PackedVector3Array(-1, 0, -1, 1, 0, -1, -1, 1.25, -1, 1, 1.25, -1, 1, 0, -1, 1, 0, 1, 1, 1.25, -1, 1, 1.25, 1, 1, 0, 1, -1, 0, 1, 1, 1.25, 1, -1, 1.25, 1, -1, 0, 1, -1, 0, -1, -1, 1.25, 1, -1, 1.25, -1, 1, 1.25, 1, -1, 1.25, 1, 1, 1.25, -1, -1, 1.25, -1, 1, 0, -1, -1, 0, -1, 1, 0, 1, -1, 0, 1, -1.52588e-05, 1.75, 1, -1, 1.25, 1, -1.52588e-05, 1.75, -1, -1, 1.25, -1, -1.52588e-05, 1.75, -1, 1, 1.25, -1, -1.52588e-05, 1.75, 1, 1, 1.25, 1, 1, 1.25, -1, -1, 1.25, -1, 1, 1.25, 1, -1, 1.25, 1, 1, 1.25, -1, -1.52588e-05, 1.75, -1, -1, 1.25, -1, 1, 1.25, 1, -1, 1.25, 1, -1.52588e-05, 1.75, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pgfnq"]
@@ -15,13 +15,13 @@ texture_filter = 0
 [node name="Building" instance=ExtResource("1_hrqg0")]
 
 [node name="CollisionShape3D" parent="." index="0"]
-shape = SubResource("ConvexPolygonShape3D_mwdub")
+shape = SubResource("ConvexPolygonShape3D_o42jb")
 
 [node name="RoofComponent" parent="." index="3" node_paths=PackedStringArray("_roofMesh")]
 _roofMesh = NodePath("../Roof")
 
 [node name="CollisionShape3D" parent="HurtboxComponent3D" index="0"]
-shape = SubResource("ConvexPolygonShape3D_mwdub")
+shape = SubResource("ConvexPolygonShape3D_o42jb")
 
 [node name="BuildingFloor" parent="." index="6" instance=ExtResource("2_q4wy2")]
 

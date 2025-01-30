@@ -25,7 +25,7 @@ public partial class ClimbSkid : BehaviorAction
     {
         base.Enter();
         _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
-        _climberComp.StartClimb();
+        _climberComp.StartClimb(BB.GetVar<IMovementComponent>(BBDataSig.MoveComp).GetFaceDirection());
         //_climberComp.FinishedClimbableAttach += OnFinishAttach;
         PlayAnim.AnimWithOrthog(BB, _skidAnimName, _climberComp.ClimbingDir);
     }

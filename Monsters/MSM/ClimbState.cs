@@ -56,22 +56,25 @@ public partial class ClimbState : Base3DState
     public override void ProcessFrame(float delta)
 	{
 		base.ProcessFrame(delta);
+        
+    }
+	public override void ProcessPhysics(float delta)
+	{
+		base.ProcessPhysics(delta);
         _inputDir = MoveComp.GetDesiredDirection();
 
-        if (_inputDir.Y == 0)
+        if (_inputDir.IsZeroApprox())
         {
             EmitSignal(SignalName.TransitionState, this, _climbIdleState);
+            return;
         }
         else if (MoveComp.WantsJump())
         {
             _climberComp.EjectRequested = true;
         }
-    }
-	public override void ProcessPhysics(float delta)
-	{
-		base.ProcessPhysics(delta);
-        var desiredAnimDirection = _inputDir.GetAnimDir();
-        if (_climbAnimDir != desiredAnimDirection && _inputDir.Y != 0)
+
+        var desiredOrthogDir = _inputDir.GetOrthogDirection();
+        if (_climberComp.ClimbingDir.GetOppositeDir() == desiredOrthogDir && _inputDir.Y != 0)
         {
             EmitSignal(SignalName.TransitionState, this, _descendState);
             return;
@@ -92,10 +95,14 @@ public partial class ClimbState : Base3DState
         Vector3 velocity = _body.Velocity;
         velocity.X = 0; velocity.Z = 0;
 
-        var climbInput = Mathf.Abs(_inputDir.Y);
+        if (_inputDir.GetOrthogDirection() != _climberComp.ClimbingDir)
+        {
+            return;
+        }
+        var climbInput = _inputDir.Length();//Mathf.Abs(_inputDir.Y);
         //GD.Print("climb input: ", climbInput);
 
-        if (_body.Position.Y + (_topBodyDistFromPos / 2) < _climberComp.ClimbableComp.MaxClimbHeight) 
+        if (_body.Position.Y + (_topBodyDistFromPos / 4) < _climberComp.ClimbableComp.MaxClimbHeight) 
         {
             velocity.Y = climbInput * Monster.ClimbSpeed;
         }
@@ -114,7 +121,7 @@ public partial class ClimbState : Base3DState
         //    "\nTop of building height:", _climbComp.MaxClimbHeight);
         float maxClimbHeight = _climberComp.ClimbableComp.MaxClimbHeight +  _climberComp.ClimbableComp.RoofComp.RoofRelHeightMap[_climberComp.ClimbingDir];
         
-        if (_body.Position.Y + (_topBodyDistFromPos / 2) >= maxClimbHeight && _climberComp.ClimbableComp.CanClimbOnTop)
+        if (_body.Position.Y + (_topBodyDistFromPos / 4) >= maxClimbHeight && _climberComp.ClimbableComp.CanClimbOnTop)
         {
             //float climbOnPush = 0.5f;
             //Vector2 pushDir = IMovementComponent.GetVectorFromDirection(MoveComp.GetFaceDirection())

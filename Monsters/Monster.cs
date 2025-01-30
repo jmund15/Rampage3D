@@ -19,11 +19,44 @@ public partial class Monster : CharacterBody3D, IMovementComponent
 
     public IBlackboard BB { get; protected set; }
 
-	public SpriteOrthogComponent Sprite { get; protected set; }
+    public CollisionShape3D CollisionShape { get; protected set; }
+    private Vector3 _baseCollisionPos;
+    private Dictionary<OrthogDirection, Vector3> MonsterPositionMap = new Dictionary<OrthogDirection, Vector3>()
+    {
+        { OrthogDirection.UpRight, new Vector3(0, 0, -0.5f) },
+        { OrthogDirection.UpLeft, new Vector3(0, 0, -0.5f) },
+        { OrthogDirection.DownLeft, new Vector3(-0, 0, 0.5f) },
+        { OrthogDirection.DownRight, new Vector3(0, 0, 0.5f) }
+    };
+    private Dictionary<OrthogDirection, Vector3> CollisionPositionMap = new Dictionary<OrthogDirection, Vector3>()
+    {
+        { OrthogDirection.UpRight, new Vector3(0, 0.8f, -0) },
+        { OrthogDirection.UpLeft, new Vector3(0, 0.8f, -0) },
+        { OrthogDirection.DownLeft, new Vector3(-0, 0.8f, -0.2f) },
+        { OrthogDirection.DownRight, new Vector3(0, 0.8f, -0.2f) }
+    };
+    private Dictionary<OrthogDirection, Vector3> CollisionRotationMap = new Dictionary<OrthogDirection, Vector3>()
+    {
+        { OrthogDirection.UpRight, new Vector3(0, 45f, 90) },
+        { OrthogDirection.UpLeft, new Vector3(0, -45f, 90) },
+        { OrthogDirection.DownLeft, new Vector3(0, 45, 90) },
+        { OrthogDirection.DownRight, new Vector3(0, -45f, 90) }
+    };
+
+    private Dictionary<OrthogDirection, Vector3> SpritePositionMap = new Dictionary<OrthogDirection, Vector3>()
+    {
+        { OrthogDirection.UpRight, new Vector3(-0, -0, 0.8f) },
+        { OrthogDirection.UpLeft, new Vector3(0, -0, 0.8f) },
+        { OrthogDirection.DownLeft, new Vector3(0, -0, 0.8f) },
+        { OrthogDirection.DownRight, new Vector3(-0, -0, 0.8f) }
+    };
+
+    public SpriteOrthogComponent Sprite { get; protected set; }
 	public AnimationPlayer AnimPlayer { get; protected set; }
     public HealthComponent HealthComp { get; protected set; }
     public HurtboxComponent3D HurtboxComp { get; protected set; }
     public HitboxComponent3D HitboxComp { get; protected set; }
+    private Vector3 _baseHitboxComp;
     public EaterComponent EaterComp { get; protected set; }
     public ClimberComponent ClimberComp { get; protected set; }
 
@@ -33,10 +66,21 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     public Dictionary<State, bool> ParallelStates { get; protected set; } =
         new Dictionary<State, bool>();
 
-    public static float Speed { get; private set; } = 6.5f;
+    private OrthogDirection _currOrthogDir;
+    public OrthogDirection CurrOrthogDir
+    {
+        get => _currOrthogDir;
+        set
+        {
+            if (value == _currOrthogDir) { return; }
+            _currOrthogDir = value;
+            OrthogDirectionChanged?.Invoke(this, _currOrthogDir);
+        }
+    }
+    public static float Speed { get; private set; } = 6.0f;
     public static float AirSpeed { get; private set; } = 2.5f;
     public static float AirHorizontalFriction { get; private set; } = 0.2f;
-    public static float ClimbSpeed { get; private set; } = 5.0f;
+    public static float ClimbSpeed { get; private set; } = 4.5f;
     public static float JumpVelocity { get; private set; } = 7.5f;
     public static float ClimbJumpPushOff { get; private set; } = 6.0f;
     public static float FallHeight { get; private set; } = 3f;
@@ -56,11 +100,13 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     private MonsterAttackIdentifier _wna;
     private MonsterAttackIdentifier _wsa;
 
+    public event EventHandler<OrthogDirection> OrthogDirectionChanged;
     public override void _Ready()
     {
         base._Ready();
         MonsterF = MonsterFormStart;
         MonsterId = new MonsterIdentifier(MonsterT, MonsterF);
+        OrthogDirectionChanged += OnOrthogDirChanged;
 
         BB = this.GetFirstChildOfType<Blackboard>();
         BB.SetPrimVar(BBDataSig.SelfInteruptible, true);
@@ -70,7 +116,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         BB.SetVar(BBDataSig.HealthComp, HealthComp);
 
         GD.Print("Before set sprite.");
-
+        CollisionShape = this.GetFirstChildOfType<CollisionShape3D>();
         Sprite = this.GetFirstChildOfType<SpriteOrthogComponent>();
         Sprite.Show();
         //CharacterSize = new Vector2(Sprite.Texture.GetWidth() / Sprite.Hframes, Sprite.Texture.GetHeight() / Sprite.Vframes);
@@ -90,6 +136,9 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         HurtboxComp = this.GetFirstChildOfType<HurtboxComponent3D>();
         BB.SetVar(BBDataSig.HurtboxComp, HurtboxComp);
 
+        _baseCollisionPos = CollisionShape.Position;
+        _baseHitboxComp = HitboxComp.Position;
+
         SetMonsterAttacks();
 
         //Shadow.Scale = BagStateComponent.CurrentRobberShadowScale;
@@ -105,6 +154,9 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         //{
         //    GD.Print($"Animation Started: {name}");
         //};
+        CurrOrthogDir =
+            IMovementComponent.GetOrthogDirection(AnimPlayer.GetAnimDirection(), Sprite.FlipH);
+        OnOrthogDirChanged(this, CurrOrthogDir);
     }
     public override void _ExitTree()
     {
@@ -115,6 +167,9 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     {
         base._Process(delta);
         _stateMachine.ProcessFrame((float)delta);
+        CurrOrthogDir =
+            IMovementComponent.GetOrthogDirection(AnimPlayer.GetAnimDirection(), Sprite.FlipH);
+
     }
     public override void _PhysicsProcess(double delta)
 	{
@@ -155,7 +210,6 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         _stateMachine.HandleInput(@event);
         
     }
-
     private void SetMonsterAttacks()
     {
         MonsterId = new MonsterIdentifier(MonsterT, MonsterF);
@@ -170,21 +224,36 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         BB.SetVar(BBDataSig.WallNormalAttack, MonsterAttackMapping.AttackTreeMap[_wna]);
         BB.SetVar(BBDataSig.WallSpecialAttack, MonsterAttackMapping.AttackTreeMap[_wsa]);
     }
+    private void OnOrthogDirChanged(object sender, OrthogDirection orthogDir)
+    {
+        CollisionShape.Position = CollisionPositionMap[orthogDir];
+        //HitboxComp.Position = _baseHitboxComp + CollisionPositionMap[orthogDir];
+        CollisionShape.RotationDegrees = CollisionRotationMap[orthogDir];
+        Sprite.Position = SpritePositionMap[orthogDir];
 
+        GD.Print("Sprite Pos: ", Sprite.Position);
+        GD.Print("Coll Pos: ", CollisionShape.Position);
+
+        //Sprite.TopLevel = true; CollisionShape.TopLevel = true;
+        //CallDeferred(MethodName.AdjustMonsterPos, MonsterPositionMap[orthogDir]);
+    }
+    private void AdjustMonsterPos(Vector3 pos)
+    {
+        Position = pos;
+        Sprite.TopLevel = false; CollisionShape.TopLevel = false;
+    }
     public AnimDirection GetAnimDirection()
     {
-        return AnimPlayer.GetAnimDirection();
+        return CurrOrthogDir.GetAnimDir();
     }
     public OrthogDirection GetFaceDirection()
     {
-        return IMovementComponent.GetOrthogDirection(AnimPlayer.GetAnimDirection(), Sprite.FlipH);
+        return CurrOrthogDir;
     }
-
     public OrthogDirection GetDesiredFaceDirection()
     {
-        throw new NotImplementedException();
+        return GetDesiredDirection().GetOrthogDirection();
     }
-
     public Vector2 GetDesiredDirection()
     {
         var input = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");

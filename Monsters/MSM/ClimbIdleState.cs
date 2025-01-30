@@ -51,30 +51,15 @@ public partial class ClimbIdleState : State
         base.ProcessFrame(delta);
         _inputDirection = _moveComp.GetDesiredDirection();
         
-        if (_inputDirection.Y != 0)
+        if (_inputDirection.IsZeroApprox()) { return; }
+
+        if (_inputDirection.GetOrthogDirection() == _climberComp.ClimbingDir)
         {
-            if (_moveComp.GetAnimDirection() == AnimDirection.Up)
-            {
-                if (_inputDirection.Y < 0) // in 2d input, negative is up
-                {
-                    EmitSignal(SignalName.TransitionState, this, _climbState);
-                }
-                else
-                {
-                    EmitSignal(SignalName.TransitionState, this, _descendState);
-                }
-            }
-            else
-            {
-                if (_inputDirection.Y < 0) // when facing down, actions are reversed
-                {
-                    EmitSignal(SignalName.TransitionState, this, _descendState);
-                }
-                else
-                {
-                    EmitSignal(SignalName.TransitionState, this, _climbState);
-                }
-            }
+            EmitSignal(SignalName.TransitionState, this, _climbState);
+        }
+        else if (_inputDirection.GetOrthogDirection() == _climberComp.ClimbingDir.GetOppositeDir())
+        {
+            EmitSignal(SignalName.TransitionState, this, _descendState);
         }
         else if (_moveComp.WantsJump())
         {

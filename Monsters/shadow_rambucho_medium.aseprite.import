@@ -2,13 +2,13 @@
 
 importer="Aseprite AnimatedSprite3D"
 type="PackedScene"
-uid="uid://dgwqtn243es3x"
-path="res://.godot/imported/building_collapse_smoke_directional.aseprite-a58d94b8ef7207e351852e5dd7e1f639.scn"
+uid="uid://xuwcyk408owd"
+path="res://.godot/imported/shadow_rambucho_medium.aseprite-dc429a1ccd6869a7d727aecd3567fad3.scn"
 
 [deps]
 
-source_file="res://Areas/All/Buildings/Effects/building_collapse_smoke_directional.aseprite"
-dest_files=["res://.godot/imported/building_collapse_smoke_directional.aseprite-a58d94b8ef7207e351852e5dd7e1f639.scn"]
+source_file="res://Monsters/shadow_rambucho_medium.aseprite"
+dest_files=["res://.godot/imported/shadow_rambucho_medium.aseprite-dc429a1ccd6869a7d727aecd3567fad3.scn"]
 
 [params]
 
@@ -17,7 +17,7 @@ animation/default/direction=0
 animation/default/repeat_count=0
 animation/autoplay_name=""
 atlas_textures/region_filter_clip_enabled=false
-root_node_name="buildingCollapseSmokeDirectional"
+root_node_name="shadow_rambucho_med"
 middle_import_script=""
 post_import_script="res://Base/post_import_AnimatedSprite3D.gd"
 sprite_sheet/edges_artifacts_avoidance_method=0

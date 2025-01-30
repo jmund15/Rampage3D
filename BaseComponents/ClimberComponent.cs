@@ -88,6 +88,7 @@ public partial class ClimberComponent : Node
     {
         get => ClimbingDir.GetOppositeDir();
     }
+    private float _maxDistFromClimbable = 1.0f;
 
     public event EventHandler<ClimbableComponent> StartedClimb;
     public event EventHandler<ClimbableComponent> ConcludedClimb;
@@ -128,24 +129,36 @@ public partial class ClimberComponent : Node
                 return; 
             }
 
+            //var collPos = coll.GetPosition();
             //Make sure body is facing climable directly
             var desVec = _moveComp.GetDesiredDirectionNormalized();
-            if (desVec.IsZeroApprox())
+            if (desVec.IsZeroApprox() || desVec.GetOrthogDirection() != _moveComp.GetFaceDirection())
             {
                 AvailableClimbable = false;
                 return;
             }
-            var collVec = new Vector3(desVec.X, 0f, desVec.Y);
-            var collAngle = coll.GetAngle(upDirection: collVec);
+            var desDir = desVec.GetOrthogDirection();
 
-            GD.Print("just collided @ normal: ", coll.GetNormal(), 
-                " at direction: ", collVec,
-                " and angle: ", collAngle);
-            if (collAngle > (3 * Mathf.Pi) / 4)
+            var xzBodyPos = new Vector2(_body.Position.X, _body.Position.Z);
+            var nearestClimbOnPos = climbComp.GetClosestClimbablePosOfDir(xzBodyPos, desDir);
+            var distToClimbOn = nearestClimbOnPos.DistanceTo(xzBodyPos);
+            GD.Print("distance to climbon pos: ", distToClimbOn);
+            if (distToClimbOn < _maxDistFromClimbable)
             {
                 ClimbableComp = climbComp;
                 AvailableClimbable = true;
             }
+            //var collVec = new Vector3(desVec.X, 0f, desVec.Y);
+            //var collAngle = coll.GetAngle(upDirection: collVec);
+
+            //GD.Print("just collided @ normal: ", coll.GetNormal(), 
+            //    " at direction: ", collVec,
+            //    " and angle: ", collAngle);
+            //if (collAngle > (3 * Mathf.Pi) / 4)
+            //{
+            //    ClimbableComp = climbComp;
+            //    AvailableClimbable = true;
+            //}
         }
         else if (!_body.IsOnWall())
         {
@@ -156,11 +169,12 @@ public partial class ClimberComponent : Node
     {
         EjectRequested = true;
     }
-    public void StartClimb()
+    public void StartClimb(OrthogDirection climbDir)
     {
         ClimbableComp.EjectClimbers += OnClimbableRequestEject;
         IsClimbing = true;
         AvailableClimbable = false;
+        ClimbingDir = climbDir;
 
         //TODO: CHOOSE SPRITE CORRECTLY
         var sprite = _body.GetFirstChildOfType<Sprite3D>();
@@ -169,36 +183,27 @@ public partial class ClimberComponent : Node
         //BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = IMovementComponent.GetDesiredFlipH(_inputDir);
         LockingOn = true;
 
-        var closestDist = float.MaxValue;
-        Vector2 clampPos = Vector2.Zero;
         var xzBodyPos = new Vector2(_body.GlobalPosition.X, _body.GlobalPosition.Z);
-        foreach (var clampPair in ClimbableComp.XZPositionMap)
-        {
-            var pos = clampPair.Value;
-            var dist = xzBodyPos.DistanceTo(pos);
-            if (dist <= closestDist)
-            {
-                closestDist = dist;
-                clampPos = pos;
-                ClimbingDir = clampPair.Key;
-            }
-        }
-
+        var attachPos = ClimbableComp.GetClosestClimbablePosOfDir(xzBodyPos, ClimbingDir);
+        GD.Print("chosen climb pos: ", attachPos);
 
         var lockTween = GetTree().CreateTween();
-        var finalX = clampPos.X;
-        var finalY = 0f;
-        const float DOWNANIM_LOWERY = -10f;
-        var finalZ = clampPos.Y;
+        var finalX = attachPos.X;
+        var spriteOffsetX = 0f;
+        var spriteOffsetY = 0f;
+
+        const float DOWNANIM_LOWERX = -2f;
+        const float DOWNANIM_LOWERY = -4f;
+        var finalZ = attachPos.Y;
         if (ClimbingDir.GetAnimDir() == AnimDirection.Down)
         {
-            finalY = DOWNANIM_LOWERY;
+            spriteOffsetX = DOWNANIM_LOWERX;
+            spriteOffsetY = DOWNANIM_LOWERY;
         }
 
-
-        
         lockTween.TweenProperty(_body, "global_position:x", finalX, 0.05);
-        lockTween.Parallel().TweenProperty(sprite, "offset:y", finalY, 0.05);
+        //lockTween.Parallel().TweenProperty(sprite, "offset:x", spriteOffsetX, 0.05);
+        lockTween.Parallel().TweenProperty(sprite, "offset:y", spriteOffsetY, 0.05);
         lockTween.Parallel().TweenProperty(_body, "global_position:z", finalZ, 0.05);
         lockTween.TweenProperty(this, PropertyName.LockingOn.ToString(), false, 0);
         //lockTween.TweenProperty(this, PropertyName.IsClimbing.ToString(), true, 0);
