@@ -1329,7 +1329,8 @@ _data = {
 }
 
 [node name="grizzler" type="Sprite3D"]
-transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 1)
+sorting_use_aabb_center = false
 centered = false
 offset = Vector2(-16, 0)
 texture_filter = 0
