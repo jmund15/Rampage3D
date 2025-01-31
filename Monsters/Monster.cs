@@ -2,6 +2,16 @@ using Godot;
 using System;
 using Godot.Collections;
 
+public class OrthogDirChangedArgs : EventArgs
+{
+    public OrthogDirection OldDir { get; set; }
+    public OrthogDirection NewDir { get; set; }
+    public OrthogDirChangedArgs(OrthogDirection oldDir, OrthogDirection newDir)
+    {
+        OldDir = oldDir;
+        NewDir = newDir;
+    }
+}
 public partial class Monster : CharacterBody3D, IMovementComponent
 {
     public int PlayerNumber { get; set; }
@@ -21,12 +31,12 @@ public partial class Monster : CharacterBody3D, IMovementComponent
 
     public CollisionShape3D CollisionShape { get; protected set; }
     private Vector3 _baseCollisionPos;
-    private Dictionary<OrthogDirection, Vector3> MonsterPositionMap = new Dictionary<OrthogDirection, Vector3>()
+    private Dictionary<OrthogDirection, Vector3> MonsterPosOffsetMap = new Dictionary<OrthogDirection, Vector3>()
     {
-        { OrthogDirection.UpRight, new Vector3(0, 0, -0.5f) },
-        { OrthogDirection.UpLeft, new Vector3(0, 0, -0.5f) },
-        { OrthogDirection.DownLeft, new Vector3(-0, 0, 0.5f) },
-        { OrthogDirection.DownRight, new Vector3(0, 0, 0.5f) }
+        { OrthogDirection.UpRight, new Vector3(0, 0, -1) },
+        { OrthogDirection.UpLeft, new Vector3(0, 0, -1) },
+        { OrthogDirection.DownLeft, new Vector3(-0, 0, 1) },
+        { OrthogDirection.DownRight, new Vector3(0, 0, 1) }
     };
     private Dictionary<OrthogDirection, Vector3> CollisionPositionMap = new Dictionary<OrthogDirection, Vector3>()
     {
@@ -45,10 +55,10 @@ public partial class Monster : CharacterBody3D, IMovementComponent
 
     private Dictionary<OrthogDirection, Vector3> SpritePositionMap = new Dictionary<OrthogDirection, Vector3>()
     {
-        { OrthogDirection.UpRight, new Vector3(-0, -0, 0.8f) },
+        { OrthogDirection.UpRight, new Vector3(0, -0, 0.8f) },
         { OrthogDirection.UpLeft, new Vector3(0, -0, 0.8f) },
         { OrthogDirection.DownLeft, new Vector3(0, -0, 0.8f) },
-        { OrthogDirection.DownRight, new Vector3(-0, -0, 0.8f) }
+        { OrthogDirection.DownRight, new Vector3(0, -0, 0.8f) }
     };
 
     public SpriteOrthogComponent Sprite { get; protected set; }
@@ -73,8 +83,9 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         set
         {
             if (value == _currOrthogDir) { return; }
+            var oldDir = _currOrthogDir;
             _currOrthogDir = value;
-            OrthogDirectionChanged?.Invoke(this, _currOrthogDir);
+            OrthogDirectionChanged?.Invoke(this, new OrthogDirChangedArgs(oldDir, _currOrthogDir));
         }
     }
     public static float Speed { get; private set; } = 6.0f;
@@ -100,7 +111,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     private MonsterAttackIdentifier _wna;
     private MonsterAttackIdentifier _wsa;
 
-    public event EventHandler<OrthogDirection> OrthogDirectionChanged;
+    public event EventHandler<OrthogDirChangedArgs> OrthogDirectionChanged;
     public override void _Ready()
     {
         base._Ready();
@@ -156,7 +167,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         //};
         CurrOrthogDir =
             IMovementComponent.GetOrthogDirection(AnimPlayer.GetAnimDirection(), Sprite.FlipH);
-        OnOrthogDirChanged(this, CurrOrthogDir);
+        OnOrthogDirChanged(this, new OrthogDirChangedArgs(CurrOrthogDir,CurrOrthogDir));
     }
     public override void _ExitTree()
     {
@@ -224,12 +235,20 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         BB.SetVar(BBDataSig.WallNormalAttack, MonsterAttackMapping.AttackTreeMap[_wna]);
         BB.SetVar(BBDataSig.WallSpecialAttack, MonsterAttackMapping.AttackTreeMap[_wsa]);
     }
-    private void OnOrthogDirChanged(object sender, OrthogDirection orthogDir)
+    private void OnOrthogDirChanged(object sender, OrthogDirChangedArgs dirArgs)
     {
-        CollisionShape.Position = CollisionPositionMap[orthogDir];
+        var oldDir = dirArgs.OldDir;
+        var newDir = dirArgs.NewDir;
+        //if (oldDir.GetAnimDir() != newDir.GetAnimDir())
+        //{
+        //    GD.Print("old monster pos: ", Position);
+        //    Position += Transform.Basis * MonsterPosOffsetMap[newDir];
+        //    GD.Print("new monster pos: ", Position);
+        //}
+        CollisionShape.Position = CollisionPositionMap[newDir];
         //HitboxComp.Position = _baseHitboxComp + CollisionPositionMap[orthogDir];
-        CollisionShape.RotationDegrees = CollisionRotationMap[orthogDir];
-        Sprite.Position = SpritePositionMap[orthogDir];
+        CollisionShape.RotationDegrees = CollisionRotationMap[newDir];
+        Sprite.Position = SpritePositionMap[newDir];
 
         GD.Print("Sprite Pos: ", Sprite.Position);
         GD.Print("Coll Pos: ", CollisionShape.Position);
