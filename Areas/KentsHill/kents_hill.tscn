@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://61o04twhumes"]
+[gd_scene load_steps=14 format=3 uid="uid://61o04twhumes"]
 
 [ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_iq4pq"]
 [ext_resource type="PackedScene" uid="uid://cs5gb1knkhfa2" path="res://Areas/KentsHill/Buildings/Complete/residential01.tscn" id="2_7w10w"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dtrb37fegv7tu" path="res://Areas/KentsHill/Buildings/Complete/garage01.tscn" id="4_ot0hh"]
 [ext_resource type="PackedScene" uid="uid://bpg4mqrfiyrsr" path="res://Areas/KentsHill/Buildings/Complete/school01.tscn" id="5_ve2fd"]
 [ext_resource type="PackedScene" uid="uid://cls6s2vc5ipuk" path="res://Areas/KentsHill/Buildings/Complete/warehouse01.tscn" id="6_w151l"]
+[ext_resource type="PackedScene" uid="uid://n8t3lf385ue3" path="res://BaseComponents/multiplayer_camera_3d_component.tscn" id="7_tomll"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s7knx"]
 
@@ -58,14 +59,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 5)
 environment = SubResource("Environment_x5b6y")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(0.984787, 0.0629067, -0.161982, 0, 0.932172, 0.362016, 0.173768, -0.356508, 0.917991, 0, 4.83154, 6.14081)
+transform = Transform3D(0.984808, 0.133022, -0.111619, 0, 0.642788, 0.766045, 0.173648, -0.754406, 0.633023, 0, 4.83154, 6.14081)
 light_color = Color(1, 0.968627, 0.866667, 1)
+shadow_enabled = true
+shadow_bias = 0.05
+shadow_normal_bias = 1.0
+shadow_opacity = 0.5
+shadow_blur = 0.5
 
-[node name="Camera3D" type="Camera3D" parent="Environment"]
-transform = Transform3D(0.707107, -0.40558, 0.579228, 0, 0.819152, 0.573577, -0.707107, -0.40558, 0.579228, 4.35035, 5.62989, 0.307039)
-projection = 1
-fov = 37.8493
-size = 10.0
+[node name="Camera3D" parent="Environment" node_paths=PackedStringArray("_playerContainer") instance=ExtResource("7_tomll")]
+_playerContainer = NodePath("../../Players")
 
 [node name="Fllor" type="StaticBody3D" parent="Environment"]
 
