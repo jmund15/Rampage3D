@@ -1,9 +1,8 @@
-[gd_scene load_steps=41 format=4 uid="uid://bv0xxgt1n284d"]
+[gd_scene load_steps=40 format=4 uid="uid://bv0xxgt1n284d"]
 
 [ext_resource type="Script" path="res://Monsters/Monster.cs" id="1_g3eh5"]
 [ext_resource type="PackedScene" uid="uid://b2ggfqqshmwa5" path="res://Monsters/grizzler.tscn" id="2_71hpp"]
 [ext_resource type="Script" path="res://Monsters/MSM/MSM.cs" id="3_cgum4"]
-[ext_resource type="PackedScene" uid="uid://bqh1lahoowu3g" path="res://Monsters/shadow_rambucho_med.tscn" id="3_kbulq"]
 [ext_resource type="Shape3D" uid="uid://dncur0o86purp" path="res://Monsters/rambucho2_capsuleshape.tres" id="4_f3r1m"]
 [ext_resource type="Script" path="res://Monsters/MSM/IdleState.cs" id="4_tuk86"]
 [ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="5_4d0qn"]
@@ -39,6 +38,12 @@ resource_local_to_scene = true
 atlas = SubResource("PortableCompressedTexture2D_fmqjk")
 region = Rect2(768, 64, 32, 32)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vc3fb"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2x4ng"]
+radius = 0.75
+height = 1.5
+
 [sub_resource type="Animation" id="Animation_uvjyr"]
 resource_name = "punch1"
 
@@ -64,26 +69,20 @@ radius = 1.5
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_x1l46"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uobrm"]
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_qxjks"]
-size = Vector3(1.5, 1, 1.5)
-
 [node name="monster" type="CharacterBody3D"]
 collision_mask = 3
 script = ExtResource("1_g3eh5")
 
 [node name="grizzle" parent="." instance=ExtResource("2_71hpp")]
 transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0.8)
-sorting_offset = -1.0
-render_priority = -2
 texture = SubResource("AtlasTexture_evvsn")
 
-[node name="shadow_rambucho_med" parent="." instance=ExtResource("3_kbulq")]
-transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 1, -0.05)
-top_level = true
-visible = false
+[node name="ShadowCapsule" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.8, 0.2)
+material_override = SubResource("StandardMaterial3D_vc3fb")
+cast_shadow = 3
+gi_mode = 2
+mesh = SubResource("CapsuleMesh_2x4ng")
 
 [node name="AttackAnim" type="AnimationPlayer" parent="."]
 root_node = NodePath("../grizzle")
@@ -249,9 +248,3 @@ shape = SubResource("SphereShape3D_x1l46")
 
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("6_qo7pu")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0.6, -0.5)
-visible = false
-material_override = SubResource("StandardMaterial3D_uobrm")
-mesh = SubResource("BoxMesh_qxjks")

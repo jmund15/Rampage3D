@@ -123,7 +123,7 @@ public partial class ClimbableComponent : Node
             var backFacePos = new Vector2(frontFacePos.X, 
                 frontFacePos.Y - _buildingComp.Dimensions.Y - ClimbOnBackBuffer);
             DownLeftClimbOnPoses.Add(backFacePos);
-            GD.Print("Up right climb pos: ", frontFacePos, "\nDown Left climb pos: ", backFacePos);
+            //GD.Print("Up right climb pos: ", frontFacePos, "\nDown Left climb pos: ", backFacePos);
         }
         foreach (var frontFacePos in _buildingComp.ZFacePoses)
         {
@@ -131,7 +131,7 @@ public partial class ClimbableComponent : Node
             var backFacePos = new Vector2(frontFacePos.X - _buildingComp.Dimensions.X - ClimbOnBackBuffer,
                 frontFacePos.Y);
             DownRightClimbOnPoses.Add(backFacePos);
-            GD.Print("UP left climb pos: ", frontFacePos, "\nDown Right climb pos: ", backFacePos);
+            //GD.Print("UP left climb pos: ", frontFacePos, "\nDown Right climb pos: ", backFacePos);
         }
 
         ClimbOnPosMap.Add(OrthogDirection.UpLeft, UpLeftClimbOnPoses);

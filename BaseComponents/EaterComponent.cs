@@ -80,7 +80,7 @@ public partial class EaterComponent : Node
 
     private float _currThrowTime = 0f;
     //TODO: BASE ON MONSTER MASS/FORM ATTRIBUTES
-    private Vector2 _throwTimeRange = new Vector2(1.25f, 1.5f);
+    private Vector2 _throwTimeRange = new Vector2(1.0f, 1.25f);
 
     //TODO: ADD FUNCTIONALITY FOR EAT INTERUPTION (npcs land safely instead of getting eaten)
 
