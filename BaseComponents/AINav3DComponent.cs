@@ -4,7 +4,13 @@ using System;
 using System.Collections.Generic;
 using TimeRobbers.Interfaces;
 using System.Linq;
-
+public enum NavType
+{
+    Walk,
+    Drive,
+    Fly,
+    GroundChaos
+}
 public enum AINavWeight
 {
     #region BODIES
@@ -27,6 +33,25 @@ public enum AIFacing
     Distant,
     Opposite
 }
+public enum DetectionTypes
+{
+    Enterable,
+    Vehicle,
+    Monster,
+    Military,
+}
+
+public class AIDetectionArgs : EventArgs
+{
+    public GodotObject Detectable;
+    public List<DetectionTypes> DetectTypes;
+    public AIDetectionArgs(GodotObject detectable, List<DetectionTypes> types = null)
+    {
+        Detectable = detectable;
+        if (types == null) { DetectTypes = new  List<DetectionTypes>(); }
+        else { DetectTypes = types; }
+    }
+}
 
 [GlobalClass, Tool]
 public partial class AINav3DComponent : NavigationAgent3D
@@ -34,7 +59,23 @@ public partial class AINav3DComponent : NavigationAgent3D
     //TEMPLATE FOR COMPONENTS
     #region CLASS_VARIABLES
     [Export]
-    private Node3D ParentAgent;
+    public Node3D ParentAgent { get; private set; }
+    [Export]
+    private NavType _navMethod;
+    public NavType NavMethod 
+    {
+        get => _navMethod;
+        private set
+        {
+            if (_navMethod == value) { return; }
+            _navMethod = value;
+            //TODO: ADD SIGNAL IF NEEDED LATER
+            OnNavMethodChanged(_navMethod);
+        }
+    }
+    public Timer PathTimer { get; private set; }
+    [Export]
+    public float FindPathInterval { get; private set; } = 0.25f;
     private bool _baseAvoidanceEnabled;
     public bool NavigationEnabled { get; private set; } = false;
 
@@ -85,16 +126,10 @@ public partial class AINav3DComponent : NavigationAgent3D
     // Should use avoidance/avoidance layers? or weight with this
     public List<Node3D> CurrentAvoidTargets { get; set; } = new List<Node3D>(); 
 
-    public Path3D RoamingPath { get; set; }
-    public int NumPathControlPoints { get; private set; }
-    public int NumPathBakedPoints { get; private set; }
-
-    public Timer PathTimer { get; private set; }
-    [Export]
-    public float FindPathInterval { get; private set; } = 0.25f;
-    [Export]
-    public float FindPathStrafeInterval { get; private set; } = 0.1f; // may not be needed
     private bool _canCalcPath = true;
+
+
+    public event EventHandler<AIDetectionArgs> AIDetection;
     #endregion
 
     #region BASE_GODOT_OVERRIDEN_FUNCTIONS
@@ -108,6 +143,7 @@ public partial class AINav3DComponent : NavigationAgent3D
                 GD.PrintErr("AINAVCOMP ERROR || INVALID PARENT FOR NAVIGATION!");
             }
         }
+        NavMethod = _navMethod;
 
         _baseAvoidanceEnabled = AvoidanceEnabled;
 
@@ -128,12 +164,9 @@ public partial class AINav3DComponent : NavigationAgent3D
         Raycasts.Add(EightDirection.Left, RayLeft);
         Raycasts.Add(EightDirection.UpLeft, RayUpLeft);
 
-        RoamingPath = this.GetFirstChildOfType<Path3D>();
         PathTimer = this.GetFirstChildOfType<Timer>();
         PathTimer.Timeout += OnPathTimeout;
-
-        NumPathControlPoints = RoamingPath.Curve.PointCount;
-        NumPathBakedPoints = RoamingPath.Curve.GetBakedPoints().Length;
+        
         EnableNavigation();
     }
     public override void _Process(double delta)
@@ -252,7 +285,7 @@ public partial class AINav3DComponent : NavigationAgent3D
 
         return interestVector;
     }
-    public bool SetPath(Vector3 position, bool overrideInterval = false) 
+    public bool SetTarget(Vector3 position, bool overrideInterval = false) 
     {
         if (!_canCalcPath && !overrideInterval) { return false; } // allow path creation if override bool is true
         //Check if point is in a nav mesh
@@ -338,49 +371,10 @@ public partial class AINav3DComponent : NavigationAgent3D
         TargetPosition = currTargetPos;
         return dist;
     }
-    public (Vector3, int) FindNearestPathPoint()
-    {
-        // "RoamingPath.Curve.GetClosestPoint()" would work, but it doesn't account for navigation distance
-        float lowestDist = 9999f;
-        Vector3 nearingPathPoint = Vector3.Inf; //returns inf if can't find path point
-        int idx = -1;
-        for (int i = 0; i < NumPathBakedPoints; i++)
-        {
-            var pathP = RoamingPath.Curve.GetBakedPoints()[i];
-            var navDist = NavDistanceToPoint(pathP);
-            if (navDist < lowestDist)
-            {
-                lowestDist = navDist;
-                nearingPathPoint = pathP;
-                idx = i;
-            }
-            GD.Print("path point (", pathP, ") is at nav dist: ", navDist);
-        }
-        return (nearingPathPoint, idx);
-    }
-    public int GetPathPointIdx(Vector3 pathP, float withinDist = -1f)
-    {
-        if (withinDist < 0f)
-        {
-            withinDist = RoamingPath.Curve.BakeInterval;
-        }
-        var bakedLength = RoamingPath.Curve.GetBakedPoints().Length; //RoamingPath.Curve.GetBakedLength();
-        GD.Print("searching for path point: ", pathP);
-        for (int i = 0; i < bakedLength; i++)
-        {
-            var p = RoamingPath.Curve.GetBakedPoints()[i];
-            //GD.Print("scanning point ", i, ": ", RoamingPath.Curve.GetBakedPoints()[i]);
-            if (pathP.DistanceTo(p) <= withinDist)
-            {
-                GD.Print("found sufficient path point: ", p);
-                return i;
-            }
-        }
-        return -1; // if no idx found, return -1
-    }
+    
     //public Vector2 GetPathPointFromIdx(int idx)
     //{
-    //    return RoamingPath.Curve.GetBakedPoints()[idx];
+    //    return _currPath.Curve.GetBakedPoints()[idx];
     //}
     public Node3D FindNearestNavTarget(List<Node3D> targets)
     {
@@ -420,6 +414,39 @@ public partial class AINav3DComponent : NavigationAgent3D
     private void OnPathTimeout()
     {
         _canCalcPath = true;
+    }
+    private void OnNavMethodChanged(NavType navMethod)
+    {
+        switch (navMethod)
+        {
+            case NavType.Walk:
+                SetNavigationLayerValue(1, true);
+                SetNavigationLayerValue(2, false);
+                SetNavigationLayerValue(3, false);
+                SetNavigationLayerValue(4, false);
+                break;
+            case NavType.Drive:
+                SetNavigationLayerValue(1, false);
+                SetNavigationLayerValue(2, true);
+                SetNavigationLayerValue(3, false);
+                SetNavigationLayerValue(4, false);
+                break;
+            case NavType.Fly:
+                SetNavigationLayerValue(1, false);
+                SetNavigationLayerValue(2, false);
+                SetNavigationLayerValue(3, true);
+                SetNavigationLayerValue(4, false);
+                break;
+            case NavType.GroundChaos:
+                SetNavigationLayerValue(1, false);
+                SetNavigationLayerValue(2, false);
+                SetNavigationLayerValue(3, false);
+                SetNavigationLayerValue(4, true);
+                break;
+            default:
+                GD.PrintErr($"NAVIGATION TYPE ERROR || Selected NavType {navMethod} is not supported!");
+                break;
+        }
     }
     #endregion
 

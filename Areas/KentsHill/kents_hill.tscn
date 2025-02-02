@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://61o04twhumes"]
+[gd_scene load_steps=18 format=3 uid="uid://61o04twhumes"]
 
 [ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_iq4pq"]
 [ext_resource type="PackedScene" uid="uid://cs5gb1knkhfa2" path="res://Areas/KentsHill/Buildings/Complete/residential01.tscn" id="2_7w10w"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bpg4mqrfiyrsr" path="res://Areas/KentsHill/Buildings/Complete/school01.tscn" id="5_ve2fd"]
 [ext_resource type="PackedScene" uid="uid://cls6s2vc5ipuk" path="res://Areas/KentsHill/Buildings/Complete/warehouse01.tscn" id="6_w151l"]
 [ext_resource type="PackedScene" uid="uid://n8t3lf385ue3" path="res://BaseComponents/multiplayer_camera_3d_component.tscn" id="7_tomll"]
+[ext_resource type="ArrayMesh" uid="uid://cpd8n6trh3m2b" path="res://addons/kaykit_city_builder_bits/Assets/obj/road_straight.obj" id="9_orffe"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s7knx"]
 
@@ -29,6 +30,17 @@ volumetric_fog_sky_affect = 0.973
 [sub_resource type="BoxShape3D" id="BoxShape3D_m5tyw"]
 size = Vector3(100, 1, 100)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pq7sc"]
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vjqqj"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_t4bdr"]
+vertices = PackedVector3Array(-3, 0.5, 0.5, -3, 0.5, 7.5, -2, 0.5, 7.5, -2, 0.5, 0.5, 0.5, 1, 0.5, 0.5, 1, 1.5, 1.5, 1, 1.5, 1.5, 1, 0.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(7, 6, 4), PackedInt32Array(4, 6, 5)]
+geometry_source_geometry_mode = 1
+geometry_source_group_name = &"Street"
+
 [node name="KentsCity" type="Node3D"]
 
 [node name="Players" type="Node3D" parent="."]
@@ -42,7 +54,7 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -3.216)
 
 [node name="Building2" parent="Buildings" instance=ExtResource("3_m3um1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -4)
 
 [node name="Building3" parent="Buildings" instance=ExtResource("4_ot0hh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 2)
@@ -68,6 +80,9 @@ shadow_opacity = 0.5
 shadow_blur = 0.5
 
 [node name="Camera3D" parent="Environment" node_paths=PackedStringArray("_playerContainer") instance=ExtResource("7_tomll")]
+h_offset = 1.515
+v_offset = 1.27
+size = 3.023
 _playerContainer = NodePath("../../Players")
 
 [node name="Fllor" type="StaticBody3D" parent="Environment"]
@@ -76,9 +91,19 @@ _playerContainer = NodePath("../../Players")
 shape = SubResource("BoxShape3D_m5tyw")
 
 [node name="Base" type="MeshInstance3D" parent="Environment/Fllor"]
-transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 20, 0.112, 0, -1.659)
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 20, 0.112, -0.1, -1.659)
 mesh = ExtResource("3_wquks")
 skeleton = NodePath("../../..")
+
+[node name="street" type="MeshInstance3D" parent="Environment" groups=["Street"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 4, -2.5, 0, 2)
+mesh = ExtResource("9_orffe")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment" groups=["Street"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, -1)
+visible = false
+material_override = SubResource("StandardMaterial3D_pq7sc")
+mesh = SubResource("PlaneMesh_vjqqj")
 
 [node name="NPCs" type="Node3D" parent="."]
 
@@ -86,7 +111,12 @@ skeleton = NodePath("../../..")
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 5.86789, 0, -1.51928)
 
 [node name="OOOOh" parent="NPCs" instance=ExtResource("4_lgu3m")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -3.28996, 0, 0.20408)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.08996, 0.05, -2.19592)
 
 [node name="Critter" parent="." instance=ExtResource("4_lgu3m")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 1.28976, 0, -0.523116)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.46024, 0.1, -2.52312)
+
+[node name="DriveNavRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+navigation_mesh = SubResource("NavigationMesh_t4bdr")
+navigation_layers = 2
