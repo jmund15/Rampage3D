@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Clonepage"
-run/main_scene="res://Areas/KentsHill/kents_hill.tscn"
+run/main_scene="res://Areas/SanFrancisco/san_francisco.tscn"
 config/features=PackedStringArray("4.3", "C#", "Mobile")
 config/icon="res://icon.svg"
 
@@ -25,7 +25,7 @@ project/assembly_name="Clonepage"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-4-importality/addons/nklbdev.importality/plugin.cfg")
+enabled=PackedStringArray()
 
 [filesystem]
 

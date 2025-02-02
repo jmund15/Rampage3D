@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu4dcip0nk23x"]
+
+[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Areas/All/Buildings/Complete/base_building_component.tscn" id="1_3f6nr"]
+[ext_resource type="PackedScene" uid="uid://db2f1tplkqjp0" path="res://Areas/All/Buildings/Floors/32x_floor_reference.tscn" id="2_6ruuy"]
+
+[node name="Building" instance=ExtResource("1_3f6nr")]
+
+[node name="BuildingFloor" parent="." index="7" instance=ExtResource("2_6ruuy")]
+
+[node name="BuildingFloor2" parent="." index="8" instance=ExtResource("2_6ruuy")]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0, 1.5, 0)
+
+[node name="BuildingFloor3" parent="." index="9" instance=ExtResource("2_6ruuy")]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0, 3, 0)
+
+[node name="BuildingFloor4" parent="." index="10" instance=ExtResource("2_6ruuy")]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0, 4.5, 0)

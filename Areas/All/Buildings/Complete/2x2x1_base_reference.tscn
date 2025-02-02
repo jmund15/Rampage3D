@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr3d8h067lube"]
+
+[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Areas/All/Buildings/Complete/base_building_component.tscn" id="1_4g216"]
+[ext_resource type="PackedScene" uid="uid://dysnk0gb6l8aj" path="res://Areas/All/Buildings/Floors/64x_floor_reference.tscn" id="2_vsw2m"]
+
+[node name="Building" instance=ExtResource("1_4g216")]
+
+[node name="BuildingFloor" parent="." index="7" instance=ExtResource("2_vsw2m")]

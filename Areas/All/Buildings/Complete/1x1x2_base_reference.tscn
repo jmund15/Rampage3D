@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bilhgl6nubni8"]
+
+[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Areas/All/Buildings/Complete/base_building_component.tscn" id="1_34n0e"]
+[ext_resource type="PackedScene" uid="uid://db2f1tplkqjp0" path="res://Areas/All/Buildings/Floors/32x_floor_reference.tscn" id="2_qf2kl"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rq0wl"]
+points = PackedVector3Array(-1.25, 0, -1.25, 1.25, 0, -1.25, -1.25, 1.5, -1.25, 1.25, 1.5, -1.25, 1.25, 0, -1.25, 1.25, 0, 1.25, 1.25, 1.5, -1.25, 1.25, 1.5, 1.25, 1.25, 0, 1.25, -1.25, 0, 1.25, 1.25, 1.5, 1.25, -1.25, 1.5, 1.25, -1.25, 0, 1.25, -1.25, 0, -1.25, -1.25, 1.5, 1.25, -1.25, 1.5, -1.25, 1.25, 1.5, 1.25, -1.25, 1.5, 1.25, 1.25, 1.5, -1.25, -1.25, 1.5, -1.25, 1.25, 0, -1.25, -1.25, 0, -1.25, 1.25, 0, 1.25, -1.25, 0, 1.25, -1.2, 1.5, -1.2, 1.2, 1.5, -1.2, -1.2, 3, -1.2, 1.2, 3, -1.2, 1.2, 1.5, -1.2, 1.2, 1.5, 1.2, 1.2, 3, -1.2, 1.2, 3, 1.2, 1.2, 1.5, 1.2, -1.2, 1.5, 1.2, 1.2, 3, 1.2, -1.2, 3, 1.2, -1.2, 1.5, 1.2, -1.2, 1.5, -1.2, -1.2, 3, 1.2, -1.2, 3, -1.2, 1.2, 3, 1.2, -1.2, 3, 1.2, 1.2, 3, -1.2, -1.2, 3, -1.2, 1.2, 1.5, -1.2, -1.2, 1.5, -1.2, 1.2, 1.5, 1.2, -1.2, 1.5, 1.2)
+
+[node name="Building" instance=ExtResource("1_34n0e")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("ConvexPolygonShape3D_rq0wl")
+
+[node name="CollisionShape3D" parent="HurtboxComponent3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_rq0wl")
+
+[node name="buildingDestructionSmokeCenter" parent="." index="6"]
+transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, 1.75, 0, 1.75)
+
+[node name="BuildingFloor" parent="." index="7" instance=ExtResource("2_qf2kl")]
+
+[node name="BuildingFloor2" parent="." index="8" instance=ExtResource("2_qf2kl")]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0, 1.5, 0)
