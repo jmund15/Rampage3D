@@ -1,10 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://dahmcs8u2k547"]
 
-[ext_resource type="Script" path="res://BaseComponents/AINavComponent.cs" id="1_6k4a4"]
+[ext_resource type="Script" path="res://BaseComponents/AINav3DComponent.cs" id="1_6k4a4"]
 
 [node name="AINav3DComponent" type="NavigationAgent3D"]
-path_desired_distance = 30.0
-target_desired_distance = 20.0
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+path_max_distance = 4.01
 path_postprocessing = 1
 debug_enabled = true
 debug_use_custom = true

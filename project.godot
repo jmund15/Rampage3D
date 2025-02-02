@@ -31,6 +31,10 @@ enabled=PackedStringArray("res://addons/godot-4-importality/addons/nklbdev.impor
 
 import/blender/enabled=false
 
+[global_group]
+
+Street=""
+
 [input]
 
 attack_test={
@@ -47,7 +51,11 @@ sattack_test={
 [layer_names]
 
 3d_physics/layer_1="monsters"
+3d_navigation/layer_1="Walk"
 3d_physics/layer_2="buildings"
+3d_navigation/layer_2="Drive"
+3d_navigation/layer_3="Fly"
+3d_navigation/layer_4="GroundChaos"
 
 [physics]
 

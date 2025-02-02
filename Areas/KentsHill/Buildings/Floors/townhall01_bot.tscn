@@ -8,6 +8,10 @@ albedo_texture = ExtResource("2_3uch8")
 texture_filter = 0
 
 [node name="BuildingFloor" instance=ExtResource("1_fqkhw")]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_3jbct")
 Material = 1
 FloorMaxHealth = 6.0
+
+[node name="HealthComponent" parent="." index="0"]
+MaxHealth = 6.0

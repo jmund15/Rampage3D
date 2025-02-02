@@ -233,6 +233,11 @@ public partial class BuildingComponent : Node
 
             floor.HealthComp.Destroyed += (update) => OnFloorDestroyed(floor, i, update);
             floor.HealthComp.HealthChanged += OnFloorDamaged;
+
+            foreach (var wallCrack in floor.WallCracks)
+            {
+                wallCrack.RotateY(_structure.Rotation.Y);
+            }
         }
     }
     private void InitializeBaseSmoke()
