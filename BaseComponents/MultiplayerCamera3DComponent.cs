@@ -72,18 +72,18 @@ public partial class MultiplayerCamera3DComponent : Camera3D
                 var origSize = PlayerBounds.Size;
                 var newBounds = PlayerBounds.Expand(playerViewportPos);
                 var newSize = newBounds.Size;
-                GD.Print("orig bounds size: ", origSize,
-                    "; expanded bounds size: ", newSize);
+                //GD.Print("orig bounds size: ", origSize,
+                //    "; expanded bounds size: ", newSize);
                 float xDiff = 0f;
                 float zDiff = 0f;
                 if (newBounds.Position.X < PlayerBounds.Position.X) {
                     xDiff = 1 - (newSize.X / origSize.X); }
                 else { 
                     xDiff = (newSize.X / origSize.X) - 1; }
-                GD.Print("orig bounds begin: ", PlayerBounds.Position,
-                    "; orig bounds end: ", PlayerBounds.End);
-                GD.Print("new bounds begin: ", newBounds.Position,
-                    "; new bounds end: ", newBounds.End);
+                //GD.Print("orig bounds begin: ", PlayerBounds.Position,
+                //    "; orig bounds end: ", PlayerBounds.End);
+                //GD.Print("new bounds begin: ", newBounds.Position,
+                //    "; new bounds end: ", newBounds.End);
                 if (newBounds.Position.Y < PlayerBounds.Position.Y) {
                     zDiff = 1 - (newSize.Y / origSize.Y);
                 }
@@ -92,7 +92,7 @@ public partial class MultiplayerCamera3DComponent : Camera3D
                 }
                 var offsetPos = new Vector3(xDiff, 0, zDiff);
                 offsetPos = offsetPos.Rotated(Vector3.Up, Rotation.Y);
-                GD.Print("offset poss: ", offsetPos);
+                //GD.Print("offset poss: ", offsetPos);
                 GlobalPosition += offsetPos;
             }
         }

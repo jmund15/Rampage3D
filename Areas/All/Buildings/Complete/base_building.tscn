@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8ykeo37sw7gg"]
+[gd_scene load_steps=8 format=3 uid="uid://lfy01qk75j3v"]
 
 [ext_resource type="Script" path="res://BaseComponents/RoofComponent.cs" id="3_5xnmb"]
 [ext_resource type="PackedScene" uid="uid://cba4dynklj4fw" path="res://BaseComponents/building_component.tscn" id="4_csccd"]
@@ -27,7 +27,6 @@ _structure = NodePath("..")
 
 [node name="ClimbableComponent" parent="." node_paths=PackedStringArray("_buildingComp") instance=ExtResource("5_73sg8")]
 _buildingComp = NodePath("../BuildingComponent")
-ClimbOnLedgeDist = 1.0
 
 [node name="RoofComponent" type="Node" parent="."]
 script = ExtResource("3_5xnmb")

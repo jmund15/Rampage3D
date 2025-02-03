@@ -16,6 +16,7 @@ public partial class BuildingComponent : Node
     private float _collapseTickInterval = 1.0f;
     [Export(PropertyHint.Range, "0,100,0.1")]
     private float _collapseTickDamagePercentage = 1.0f;
+    
     //[Export]
     private float _maxBuildingHealth = 0f;
     private float _currentBuildingHealth = 0f;
@@ -338,7 +339,7 @@ public partial class BuildingComponent : Node
         {
             var shakePos = new Vector3
                 (Global.GetRndInRange(-0.25f, 0.25f), 0f, Global.GetRndInRange(-0.25f, 0.25f));
-            shakePoses.Add(_structure.GlobalPosition + shakePos);
+            shakePoses.Add(_structure.Position + shakePos);
         }
         var destroyTween = GetTree().CreateTween();
         destroyTween.TweenProperty(_structure, "position:y",

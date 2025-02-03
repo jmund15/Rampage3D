@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b8c2ba16dgbiv"]
 
-[ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://Areas/All/Buildings/Floors/building_floor_component.tscn" id="1_upira"]
+[ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://BaseComponents/building_floor_component.tscn" id="1_upira"]
 [ext_resource type="Texture2D" uid="uid://cewb0egtrt2bg" path="res://Areas/KentsHill/Buildings/Textures/32x64_school01/32x64_base_school01_top_snowy.png" id="2_j6j31"]
 [ext_resource type="ArrayMesh" uid="uid://bohmkj2gnujdk" path="res://Areas/All/Buildings/Models/base_32x64.obj" id="2_mpy8p"]
 

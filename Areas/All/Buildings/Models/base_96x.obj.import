@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dtbmrau055rep"
+path="res://.godot/imported/base_96x.obj-d7b589940a226ba0dea34c8288c6206b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/base_96x.obj-d7b589940a226ba0dea34c8288c6206b.mesh"]
+
+source_file="res://Areas/All/Buildings/Models/base_96x.obj"
+dest_files=["res://.godot/imported/base_96x.obj-d7b589940a226ba0dea34c8288c6206b.mesh", "res://.godot/imported/base_96x.obj-d7b589940a226ba0dea34c8288c6206b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

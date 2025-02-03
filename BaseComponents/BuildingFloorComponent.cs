@@ -73,6 +73,7 @@ public partial class BuildingFloorComponent : MeshInstance3D
             var wallCrackDL = WallCrack.Duplicate() as AnimatedSprite3D;
             AddChild(wallCrackDL);
             wallCrackDL.GlobalPosition = wallCrackDLPosition;
+            wallCrackDL.RotateY(Mathf.Pi / 2f);
             //wallCrackDL.Rotation = Rotation;
 
             WallCracks.Add(wallCrackDL);
@@ -96,7 +97,7 @@ public partial class BuildingFloorComponent : MeshInstance3D
             AddChild(wallCrackDR);
             wallCrackDR.GlobalPosition = wallCrackDRPosition;
             //wallCrackDR.Rotation = GetOwner<Node3D>().Rotation;
-            wallCrackDR.RotateY(Mathf.Pi / 2f);
+            //wallCrackDR.RotateY(Mathf.Pi / 2f);
             WallCracks.Add(wallCrackDR);
             //GD.Print($"z face {i} is at position {wallCrackDRPosition}");
         }

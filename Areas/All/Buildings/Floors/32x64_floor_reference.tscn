@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://brnec6op0nn7r"]
+
+[ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://BaseComponents/building_floor_component.tscn" id="1_rncbo"]
+[ext_resource type="Texture2D" uid="uid://clcdjaq3jqp34" path="res://Areas/All/Buildings/Textures/references/32x64_base_reference.png" id="2_4j1bt"]
+[ext_resource type="ArrayMesh" uid="uid://bohmkj2gnujdk" path="res://Areas/All/Buildings/Models/base_32x64.obj" id="2_v6kid"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_su3nb"]
+albedo_texture = ExtResource("2_4j1bt")
+texture_filter = 0
+
+[node name="BuildingFloor" instance=ExtResource("1_rncbo")]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, -0.095, 0, 0)
+material_override = SubResource("StandardMaterial3D_su3nb")
+mesh = ExtResource("2_v6kid")
