@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmsvrhrb6ljci"]
+[gd_scene load_steps=6 format=3 uid="uid://bmsvrhrb6ljci"]
 
 [ext_resource type="Script" path="res://JmoAI/BT/BehaviorTree.cs" id="1_igc2p"]
 [ext_resource type="Script" path="res://JmoAI/BT/Composites/Sequence.cs" id="2_50aua"]
 [ext_resource type="Script" path="res://Monsters/MSM/AttackMelee.cs" id="3_4b676"]
 [ext_resource type="Resource" uid="uid://bmud2hb586o23" path="res://Monsters/MonsterAttacks/grizzle_2_WNA_P.tres" id="4_hvu57"]
+[ext_resource type="Script" path="res://JmoAI/BT/Actions/Lag.cs" id="5_gdn40"]
 
 [node name="Grizzle_2_WNA" type="Node"]
 script = ExtResource("1_igc2p")
@@ -15,4 +16,9 @@ script = ExtResource("2_50aua")
 script = ExtResource("3_4b676")
 AnimDirStrategy = 0
 AttackInfo = ExtResource("4_hvu57")
+SelfInteruptible = 1
+
+[node name="Lag" type="Node" parent="Sequence"]
+script = ExtResource("5_gdn40")
+LagTime = 0.05
 SelfInteruptible = 0

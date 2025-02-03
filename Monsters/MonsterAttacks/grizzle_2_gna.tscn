@@ -32,6 +32,11 @@ script = ExtResource("3_om6sd")
 AttackInfo = ExtResource("5_h1ia1")
 SelfInteruptible = 1
 
+[node name="InteruptableLag" type="Node" parent="gna_seq"]
+script = ExtResource("7_fe1mb")
+LagTime = 0.01
+SelfInteruptible = 0
+
 [node name="Punch2" type="Node" parent="gna_seq"]
 script = ExtResource("3_om6sd")
 AttackInfo = ExtResource("6_cjnja")

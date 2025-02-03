@@ -16,9 +16,9 @@ script = ExtResource("2_qdecq")
 script = ExtResource("3_1phof")
 AnimDirStrategy = 0
 AttackInfo = ExtResource("4_eqkvx")
-SelfInteruptible = 0
+SelfInteruptible = 1
 
 [node name="Lag" type="Node" parent="Sequence"]
 script = ExtResource("5_p66ok")
 LagTime = 0.1
-SelfInteruptible = 1
+SelfInteruptible = 0

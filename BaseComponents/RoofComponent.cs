@@ -5,7 +5,9 @@ using System.Collections.Generic;
 [GlobalClass, Tool]
 public partial class RoofComponent : Node
 {
-	[Export]
+    [Export] // TODO: IMPLEMENT
+    private bool _setTopFloorAsRoof = false;
+    [Export]
 	private MeshInstance3D _roofMesh;
 	//Rel = relative to max height of building
 	public Dictionary<OrthogDirection, float> RoofRelHeightMap { get; private set; } 
@@ -20,6 +22,11 @@ public partial class RoofComponent : Node
         }
 		//TODO: MAKE IT AN EDITOR THING INSTEAD OF RUNNING EACH TIME THE GAME STARTS
 		//_roofMesh.Conve
+        if (_roofMesh == null)
+        {
+            GD.PrintErr($"ROOF ERROR || Building '{GetOwner().Name}' has no roof mesh!");
+            return;
+        }
         ArrayMesh arrayMesh = _roofMesh.Mesh as ArrayMesh;
         MeshDataTool mdt = new MeshDataTool();
 		List<Vector3> meshVerts = new List<Vector3>();
@@ -103,11 +110,11 @@ public partial class RoofComponent : Node
         RoofRelHeightMap.Add(OrthogDirection.UpLeft, maxHeightMinX - MaxRoofHeight);
         RoofRelHeightMap.Add(OrthogDirection.UpRight, maxHeightMinZ - MaxRoofHeight);
 
-        GD.Print($"Calculated roof height map. " +
-            $"\nUL: {RoofRelHeightMap[OrthogDirection.UpLeft]}" +
-            $"\nUR: {RoofRelHeightMap[OrthogDirection.UpRight]}" +
-            $"\nDL: {RoofRelHeightMap[OrthogDirection.DownLeft]}" +
-            $"\nDR: {RoofRelHeightMap[OrthogDirection.DownRight]}");
+        //GD.Print($"Calculated roof height map. " +
+        //    $"\nUL: {RoofRelHeightMap[OrthogDirection.UpLeft]}" +
+        //    $"\nUR: {RoofRelHeightMap[OrthogDirection.UpRight]}" +
+        //    $"\nDL: {RoofRelHeightMap[OrthogDirection.DownLeft]}" +
+        //    $"\nDR: {RoofRelHeightMap[OrthogDirection.DownRight]}");
     }
 	public override void _Process(double delta)
 	{

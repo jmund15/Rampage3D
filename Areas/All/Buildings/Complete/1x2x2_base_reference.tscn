@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://de1wt6ynyguqg"]
+
+[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Areas/All/Buildings/Complete/base_building_component.tscn" id="1_l7ie2"]
+[ext_resource type="PackedScene" uid="uid://brnec6op0nn7r" path="res://Areas/All/Buildings/Floors/32x64_floor_reference.tscn" id="2_mv85p"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bdcr0"]
+points = PackedVector3Array(-2.75125, 0, -1.25, 2.24875, 0, -1.25, -2.75125, 1.5, -1.25, 2.24875, 1.5, -1.25, 2.24875, 0, -1.25, 2.24875, 0, 1.25, 2.24875, 1.5, -1.25, 2.24875, 1.5, 1.25, 2.24875, 0, 1.25, -2.75125, 0, 1.25, 2.24875, 1.5, 1.25, -2.75125, 1.5, 1.25, -2.75125, 0, 1.25, -2.75125, 0, -1.25, -2.75125, 1.5, 1.25, -2.75125, 1.5, -1.25, 2.24875, 1.5, 1.25, -2.75125, 1.5, 1.25, 2.24875, 1.5, -1.25, -2.75125, 1.5, -1.25, 2.24875, 0, -1.25, -2.75125, 0, -1.25, 2.24875, 0, 1.25, -2.75125, 0, 1.25, -2.75125, 1.5, -1.25, 2.24875, 1.5, -1.25, -2.75125, 3, -1.25, 2.24875, 3, -1.25, 2.24875, 1.5, -1.25, 2.24875, 1.5, 1.25, 2.24875, 3, -1.25, 2.24875, 3, 1.25, 2.24875, 1.5, 1.25, -2.75125, 1.5, 1.25, 2.24875, 3, 1.25, -2.75125, 3, 1.25, -2.75125, 1.5, 1.25, -2.75125, 1.5, -1.25, -2.75125, 3, 1.25, -2.75125, 3, -1.25, 2.24875, 3, 1.25, -2.75125, 3, 1.25, 2.24875, 3, -1.25, -2.75125, 3, -1.25, 2.24875, 1.5, -1.25, -2.75125, 1.5, -1.25, 2.24875, 1.5, 1.25, -2.75125, 1.5, 1.25)
+
+[node name="Building" instance=ExtResource("1_l7ie2")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("ConvexPolygonShape3D_bdcr0")
+
+[node name="RoofComponent" parent="." index="3" node_paths=PackedStringArray("_roofMesh")]
+_roofMesh = NodePath("../BuildingFloor2")
+
+[node name="CollisionShape3D" parent="HurtboxComponent3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_bdcr0")
+
+[node name="buildingDestructionSmokeCenter" parent="." index="6"]
+transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, 2.74875, 0, 1.75)
+
+[node name="BuildingFloor" parent="." index="7" instance=ExtResource("2_mv85p")]
+
+[node name="BuildingFloor2" parent="." index="8" instance=ExtResource("2_mv85p")]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, -0.095, 1.5, 0)

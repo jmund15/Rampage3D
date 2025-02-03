@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://gvnbbaglk3ku"]
 
-[ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://Areas/All/Buildings/Floors/building_floor_component.tscn" id="1_eprev"]
+[ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://BaseComponents/building_floor_component.tscn" id="1_eprev"]
 [ext_resource type="Texture2D" uid="uid://smsog838d4j0" path="res://Areas/KentsHill/Buildings/Textures/32x_bakery01/32x_base_bakery01_snowy.png" id="2_e7gqj"]
 [ext_resource type="Texture2D" uid="uid://bpdtqdfyte5ll" path="res://Areas/KentsHill/Buildings/Textures/32x_bakery01/32x_roof_bakery01_snowy.png" id="2_mi6vt"]
 [ext_resource type="ArrayMesh" uid="uid://dv54t2i6s3yun" path="res://Areas/All/Buildings/Models/roof_32x.obj" id="3_dqphc"]

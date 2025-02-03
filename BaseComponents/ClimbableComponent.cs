@@ -114,7 +114,7 @@ public partial class ClimbableComponent : Node
     }
     private void InitializeClimbPosMap()
     {
-        GD.Print("INITIALIZING CLIMB POSES FOR: ", _structure.Name);
+        //GD.Print("INITIALIZING CLIMB POSES FOR: ", _structure.Name);
         var structPos = _structure.GlobalPosition;
 
         foreach (var frontFacePos in _buildingComp.XFacePoses)
