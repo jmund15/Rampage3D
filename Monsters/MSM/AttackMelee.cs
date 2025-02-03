@@ -61,10 +61,18 @@ public partial class AttackMelee : BehaviorAction
                 }
                 break;
         }
-        //GD.Print("attack direction: ", AttackDirection);
+        if (AttackInfo.AnimName == "punch1")
+        {
+            GD.Print("PUNCH 1 ATTACK STARTING");
+        }
 
         AnimPlayer.Play(AttackInfo.AnimName + AttackAnimDir.GetAnimationString());
         AnimPlayer.AnimationFinished += OnAnimationFinished;
+
+        if (AttackInfo.AnimName == "punch1")
+        {
+            GD.Print("PUNCH 1 ANIM POS: ", AnimPlayer.CurrentAnimationPosition, "/", AnimPlayer.CurrentAnimationLength);
+        }
 
         PrevHitboxShape = HitboxComp.CollisionShape.Shape;
         PrevHitboxLocation = HitboxComp.CollisionShape.Position;

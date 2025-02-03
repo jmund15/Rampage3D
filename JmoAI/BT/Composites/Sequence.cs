@@ -13,7 +13,7 @@ public partial class Sequence : CompositeTask
     public override void Init(Node agent, IBlackboard bb)
 	{
 		base.Init(agent, bb);
-        TaskName += "Sequence";
+        TaskName += "_Sequence";
     }
 	public override void Enter()
 	{

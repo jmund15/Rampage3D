@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bhmrryblcwhjl"
+path="res://.godot/imported/vehicles_ground_truck_semi_container.obj-d18a549f4886c6adf79a6441fb01512e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/vehicles_ground_truck_semi_container.obj-d18a549f4886c6adf79a6441fb01512e.mesh"]
+
+source_file="res://Vehicles/Ground/Civilian/Models/Semi/vehicles_ground_truck_semi_container.obj"
+dest_files=["res://.godot/imported/vehicles_ground_truck_semi_container.obj-d18a549f4886c6adf79a6441fb01512e.mesh", "res://.godot/imported/vehicles_ground_truck_semi_container.obj-d18a549f4886c6adf79a6441fb01512e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

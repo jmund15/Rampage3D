@@ -42,7 +42,7 @@ public partial class TimeLimitRange : BTCondition
 	public override void Init(Node agent, IBlackboard bb)
 	{
 		base.Init(agent, bb);
-        ConditionName = $"*TimeLimitRange:{LimitMin}-{LimitMax}*";
+        ConditionName = $"_TimeLimitRange:{LimitMin}-{LimitMax}";
     }
     public override void Enter()
 	{

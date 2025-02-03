@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://db3qdmpdrqbwh"]
+[gd_scene load_steps=19 format=3 uid="uid://db3qdmpdrqbwh"]
 
 [ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_b5jb8"]
 [ext_resource type="PackedScene" uid="uid://bilhgl6nubni8" path="res://Areas/All/Buildings/Complete/1x1x2_base_reference.tscn" id="2_0gng7"]
+[ext_resource type="PackedScene" uid="uid://bd0dotu3315d" path="res://Vehicles/Implementation/sedan_navy.tscn" id="2_0teqx"]
 [ext_resource type="Texture2D" uid="uid://c78f3ehsc3rm2" path="res://Areas/SanFrancisco/CityFloor/544x_sanfran_reference.png" id="3_6nmqe"]
 [ext_resource type="PackedScene" uid="uid://roik0rft634m" path="res://Areas/All/Buildings/Complete/1x1x3_base_reference.tscn" id="3_ow0rb"]
 [ext_resource type="PackedScene" uid="uid://dsvmcd5mkuj1" path="res://Areas/All/Buildings/Complete/1x2x3_base_reference.tscn" id="4_aqd0w"]
@@ -45,6 +46,14 @@ texture_filter = 0
 
 [node name="monster" parent="Players" instance=ExtResource("1_b5jb8")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.99, 0, 1.647)
+
+[node name="Vehicles" type="Node3D" parent="."]
+
+[node name="SedanNavy" parent="Vehicles" instance=ExtResource("2_0teqx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -7.5)
+
+[node name="SedanNavy2" parent="Vehicles" instance=ExtResource("2_0teqx")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.5, 0, 1.5)
 
 [node name="Buildings" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)

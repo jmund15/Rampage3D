@@ -25,6 +25,7 @@ public partial class LastAnimName : BTCondition
 	{
 		base.Init(agent, bb);
 		_animPlayer = BB.GetVar<AnimationPlayer>(BBDataSig.Anim);
+        ConditionName = $"_LastAnimName:{_lastAnimName}";
     }
     public override void Enter()
 	{

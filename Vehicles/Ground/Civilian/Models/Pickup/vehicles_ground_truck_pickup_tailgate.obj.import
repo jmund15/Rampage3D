@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bqycyq815urod"
+path="res://.godot/imported/vehicles_ground_truck_pickup_tailgate.obj-11b057182e3d1b0b06d9cc09fc328feb.mesh"
+
+[deps]
+
+files=["res://.godot/imported/vehicles_ground_truck_pickup_tailgate.obj-11b057182e3d1b0b06d9cc09fc328feb.mesh"]
+
+source_file="res://Vehicles/Ground/Civilian/Models/Pickup/vehicles_ground_truck_pickup_tailgate.obj"
+dest_files=["res://.godot/imported/vehicles_ground_truck_pickup_tailgate.obj-11b057182e3d1b0b06d9cc09fc328feb.mesh", "res://.godot/imported/vehicles_ground_truck_pickup_tailgate.obj-11b057182e3d1b0b06d9cc09fc328feb.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
