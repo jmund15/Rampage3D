@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://61lg2fuyi43e"
+path="res://.godot/imported/vehicles_ground_tank_sherman_body.obj-b5da137ea5a605386c57801c0e18de28.mesh"
+
+[deps]
+
+files=["res://.godot/imported/vehicles_ground_tank_sherman_body.obj-b5da137ea5a605386c57801c0e18de28.mesh"]
+
+source_file="res://Vehicles/Ground/Military/Models/Sherman/vehicles_ground_tank_sherman_body.obj"
+dest_files=["res://.godot/imported/vehicles_ground_tank_sherman_body.obj-b5da137ea5a605386c57801c0e18de28.mesh", "res://.godot/imported/vehicles_ground_tank_sherman_body.obj-b5da137ea5a605386c57801c0e18de28.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

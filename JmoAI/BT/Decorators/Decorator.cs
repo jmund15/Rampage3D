@@ -11,7 +11,7 @@ public abstract partial class Decorator : CompositeTask
 	public override void Init(Node agent, IBlackboard bb)
 	{
 		base.Init(agent, bb);
-		TaskName += "Decorator";
+		TaskName += "_Decorator";
         RunningChild = this.GetFirstChildOfType<BehaviorTask>(false);
     }
     public override void Enter()

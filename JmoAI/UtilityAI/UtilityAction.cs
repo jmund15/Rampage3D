@@ -17,7 +17,7 @@ public partial class UtilityAction : BehaviorAction, IUtilityTask
 	public override void Init(Node agent, IBlackboard bb)
 	{
 		base.Init(agent, bb);
-		TaskName += "Utility";
+		TaskName += "_Utility";
 	}
 	public override void Enter()
 	{

@@ -45,7 +45,7 @@ public partial class BehaviorTask : Node
         foreach (var condition in Conditions)
         {
             condition.Init(agent, bb);
-            TaskName += " " + condition.ConditionName;
+            TaskName += condition.ConditionName;
         }
         
     }
@@ -53,22 +53,16 @@ public partial class BehaviorTask : Node
     {
         //Status = TaskStatus.FRESH;
         Status = TaskStatus.RUNNING;
-        foreach (var condition in Conditions)
-        {
-            condition.ExitTaskEvent += OnConditionExit;
-            condition.Enter();
-            GD.Print("entered condition: ", condition.ResourceName);
-        }
+        //TODO: make sure is ok? currently deferring to allow proper entering and exiting of tasks.
+        //But if conditions fail, do you really want them to even enter?
+        //Solution could be for enter to return a enum (Enter_success, enter_failure, enter_running)?
+        CallDeferred(MethodName.EnterConditions);
         //GD.Print($"Task {TaskName} entered");
     }
     public virtual void Exit()
     {
         //GD.Print($"Task {TaskName} exited with status {Status}");
-        foreach (var condition in Conditions)
-        {
-            condition.ExitTaskEvent -= OnConditionExit;
-            condition.Exit();
-        }
+        CallDeferred(MethodName.ExitConditions);
     }
     public virtual void ProcessFrame(float delta)
     {
@@ -90,6 +84,23 @@ public partial class BehaviorTask : Node
     }
     #endregion
     #region TASK_HELPER
+    private void EnterConditions()
+    {
+        foreach (var condition in Conditions)
+        {
+            condition.ExitTaskEvent += OnConditionExit;
+            condition.Enter();
+            GD.Print("entered condition: ", condition.ResourceName);
+        }
+    }
+    private void ExitConditions()
+    {
+        foreach (var condition in Conditions)
+        {
+            condition.ExitTaskEvent -= OnConditionExit;
+            condition.Exit();
+        }
+    }
     private void OnConditionExit(object sender, bool succeedTask)
     {
         //if (!Conditions.Contains(sender)) { return; } //safeguard, may be slow and unecessary tho

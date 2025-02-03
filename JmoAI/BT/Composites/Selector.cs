@@ -13,7 +13,7 @@ public partial class Selector : CompositeTask
 	public override void Init(Node agent, IBlackboard bb)
 	{
 		base.Init(agent, bb);
-        TaskName += "Selector";
+        TaskName += "_Selector";
     }
 	public override void Enter()
 	{

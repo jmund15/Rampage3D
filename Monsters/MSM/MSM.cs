@@ -53,6 +53,7 @@ public partial class MSM : CompoundState
         {
             return;
         }
+        //TODO: CHECK IF ATTACK MAPPING EXISTS BEFORE TRANSITIONING!
         //GD.Print("handling input: ", @event.IsAction("attack_test"));
         if (Input.IsActionJustPressed("attack_test"))
         {
@@ -86,7 +87,7 @@ public partial class MSM : CompoundState
             
 
             
-            GD.Print("TRANSITIONED TO AtTACK STATE: ", BB.GetPrimVar<AttackType>(BBDataSig.CurrentAttackType));
+            //GD.Print("TRANSITIONED TO AtTACK STATE: ", BB.GetPrimVar<AttackType>(BBDataSig.CurrentAttackType));
 
         }
     }

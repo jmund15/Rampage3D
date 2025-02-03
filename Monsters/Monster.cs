@@ -186,6 +186,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent
 	{
         base._PhysicsProcess(delta);
         _stateMachine.ProcessPhysics((float)delta);
+        //ApplyFloorSnap();
 		//Vector3 velocity = Velocity;
 
 		
@@ -250,8 +251,8 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         CollisionShape.RotationDegrees = CollisionRotationMap[newDir];
         Sprite.Position = SpritePositionMap[newDir];
 
-        GD.Print("Sprite Pos: ", Sprite.Position);
-        GD.Print("Coll Pos: ", CollisionShape.Position);
+        //GD.Print("Sprite Pos: ", Sprite.Position);
+        //GD.Print("Coll Pos: ", CollisionShape.Position);
 
         //Sprite.TopLevel = true; CollisionShape.TopLevel = true;
         //CallDeferred(MethodName.AdjustMonsterPos, MonsterPositionMap[orthogDir]);

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://g0bsmf3fy73w"
+path="res://.godot/imported/vehicles_ground_truck_pickup.obj-5f246c5aa249c3cc574a78699c0c6ead.mesh"
+
+[deps]
+
+files=["res://.godot/imported/vehicles_ground_truck_pickup.obj-5f246c5aa249c3cc574a78699c0c6ead.mesh"]
+
+source_file="res://Vehicles/Ground/Civilian/Models/Pickup/vehicles_ground_truck_pickup.obj"
+dest_files=["res://.godot/imported/vehicles_ground_truck_pickup.obj-5f246c5aa249c3cc574a78699c0c6ead.mesh", "res://.godot/imported/vehicles_ground_truck_pickup.obj-5f246c5aa249c3cc574a78699c0c6ead.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://bd0dotu3315d"]
+
+[ext_resource type="PackedScene" uid="uid://bk2raes43i7w6" path="res://Vehicles/Implementation/base_vehicle_ground.tscn" id="1_br7v3"]
+[ext_resource type="Texture2D" uid="uid://do3tp4grshs1o" path="res://Vehicles/Ground/Civilian/Textures/Sedan/vehicles_ground_car_sedan_navy.png" id="2_ynqi2"]
+[ext_resource type="ArrayMesh" uid="uid://c0nuk6iblknnu" path="res://Vehicles/Ground/Civilian/Models/Sedan/vehicles_ground_car_sedan.obj" id="3_oatel"]
+[ext_resource type="PackedScene" uid="uid://bn16l4dur84r7" path="res://Vehicles/Implementation/Wheels/4x2_black.tscn" id="4_erehq"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ll1np"]
+points = PackedVector3Array(2, 0.499989, -0.75, 2, 0.25, -0.75, 2, 0.499989, 0.5, 2, 0.25, 0.5, -1.75, 0.499989, -0.75, -1.75, 0.749992, -0.75, -1.75, 0.499989, 0.5, -1.75, 0.749992, 0.5, 0.25, 1.25, 0.5, -0.25, 1.25, 0.5, 0.25, 1.25, -0.75, -0.25, 1.25, -0.75, -0.75, 0.499989, -0.75, -1.25, 0.499989, -0.75, -0.75, 0.499989, 0.5, -1.25, 0.499989, 0.5, -1.25, 0.749992, -0.75, -0.75, 0.749992, -0.75, -1.25, 0.749992, 0.5, -0.75, 0.749992, 0.5, -1.75, 0.25, -0.75, -1.75, 0.25, 0.5, -1.25, 0.25, -0.75, -1.25, 0.25, 0.5, 2, 0.25, 0.5, 2, 0.25, -0.75, 1.75, 0.25, 0.5, 1.75, 0.25, -0.75, 1.25, 0.499989, 0.5, 1.75, 0.499989, 0.5, 1.25, 0.499989, -0.75, 1.75, 0.499989, -0.75, -0.75, 0.25, 0.5, 1.25, 0.25, 0.5, -0.75, 0.25, -0.75, 1.25, 0.25, -0.75, 0.75, 1.25, -0.75, 1.25, 1.25, -0.75, 0.75, 1.25, 0.5, 1.25, 1.25, 0.5, 1.25, 0.499989, 0.5, 1.25, 0.499989, -0.75, 1.25, 0.25, 0.5, 1.25, 0.25, -0.75, 1.75, 0.499989, -0.75, 1.75, 0.499989, 0.5, 1.75, 0.25, -0.75, 1.75, 0.25, 0.5, -0.75, 0.499989, -0.75, -0.75, 0.499989, 0.5, -0.75, 0.25, -0.75, -0.75, 0.25, 0.5, -1.25, 0.499989, 0.5, -1.25, 0.499989, -0.75, -1.25, 0.25, 0.5, -1.25, 0.25, -0.75, 1.25, 1.25, -0.75, -0.25, 1.25, -0.75, 1.5, 0.749992, -0.75, -0.75, 0.749992, -0.75, 1.5, 0.749992, 0.5, -0.75, 0.749992, 0.5, 1.25, 1.25, 0.5, -0.25, 1.25, 0.5, 2, 0.749992, 0.5, 2, 0.749992, -0.75, -1.75, 0.25, 0.5, -1.75, 0.25, -0.75, 2, 0.499989, -0.75, 1.75, 0.499989, -0.75, 2, 0.25, -0.75, 1.75, 0.25, -0.75, 1.25, 0.499989, -0.75, -0.75, 0.499989, -0.75, 1.25, 0.25, -0.75, -0.75, 0.25, -0.75, -1.25, 0.499989, -0.75, -1.75, 0.499989, -0.75, -1.25, 0.25, -0.75, -1.75, 0.25, -0.75, -1.75, 0.749992, 0.5, -1.75, 0.749992, -0.75, -1.25, 0.749992, -0.75, -1.75, 0.749992, -0.75, 2, 0.749992, -0.75, 1.75, 0.749992, -0.75, -1.75, 0.499989, 0.5, -1.25, 0.499989, 0.5, -1.75, 0.25, 0.5, -1.25, 0.25, 0.5, -0.75, 0.499989, 0.5, 1.25, 0.499989, 0.5, -0.75, 0.25, 0.5, 1.25, 0.25, 0.5, 1.75, 0.499989, 0.5, 2, 0.499989, 0.5, 1.75, 0.25, 0.5, 2, 0.25, 0.5, 1.75, 0.749992, 0.5, 2, 0.749992, 0.5, -1.25, 0.749992, 0.5, -1.75, 0.749992, 0.5, 1.5, 0.749992, 0.5, 1.25, 1.25, 0.5, 1.5, 0.749992, -0.75, 1.25, 1.25, -0.75, 1.75, 0.749992, 0.5, 1.5, 0.749992, 0.5, 1.75, 0.749992, -0.75, 1.5, 0.749992, -0.75, 2, 0.749992, -0.75, 2, 0.749992, 0.5, -0.75, 0.749992, -0.75, -0.25, 1.25, -0.75, -0.75, 0.749992, 0.5, -0.25, 1.25, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_raff3"]
+albedo_texture = ExtResource("2_ynqi2")
+texture_filter = 0
+
+[node name="SedanNavy" instance=ExtResource("1_br7v3")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("ConvexPolygonShape3D_ll1np")
+
+[node name="VehicleMesh" parent="." index="1"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_raff3")
+mesh = ExtResource("3_oatel")
+
+[node name="BLWheel" parent="." index="2" instance=ExtResource("4_erehq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 1.5, 0, 0.25)
+
+[node name="BRWheel" parent="." index="3" instance=ExtResource("4_erehq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 1.5, 0, -0.75)
+
+[node name="URWheel" parent="." index="4" instance=ExtResource("4_erehq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -1, 0, -0.75)
+
+[node name="ULWheel" parent="." index="5" instance=ExtResource("4_erehq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -1, 0, 0.25)

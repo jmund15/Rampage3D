@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://ekt317hnth3y"]
+
+[ext_resource type="Texture2D" uid="uid://8ikv2pv0nwhq" path="res://Vehicles/Ground/Civilian/Textures/Wheels/wheel_10x4_black.png" id="1_a22hb"]
+[ext_resource type="ArrayMesh" uid="uid://b7n2w2aar6axq" path="res://Vehicles/Ground/Civilian/Models/Wheels/vehicles_ground_wheel_10x4.obj" id="1_kmxw6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ovtfv"]
+albedo_texture = ExtResource("1_a22hb")
+texture_filter = 0
+
+[node name="10x4BlackWheel" type="VehicleWheel3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_ovtfv")
+mesh = ExtResource("1_kmxw6")

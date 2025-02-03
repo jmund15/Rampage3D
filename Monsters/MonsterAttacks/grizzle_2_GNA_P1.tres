@@ -1,6 +1,12 @@
-[gd_resource type="Resource" script_class="MeleeAttackInfo" load_steps=2 format=3 uid="uid://psjkht04ne2u"]
+[gd_resource type="Resource" script_class="MeleeAttackInfo" load_steps=4 format=3 uid="uid://psjkht04ne2u"]
 
+[ext_resource type="Script" path="res://BaseResources/AttackBuildingEffect.cs" id="1_gxn46"]
 [ext_resource type="Script" path="res://BaseResources/MeleeAttackInfo.cs" id="1_rbn0a"]
+
+[sub_resource type="Resource" id="Resource_yknd2"]
+script = ExtResource("1_gxn46")
+SpilloverRate = 0.0
+FloorsEffected = 0
 
 [resource]
 script = ExtResource("1_rbn0a")
@@ -8,3 +14,4 @@ AnimName = "punch1"
 Velocity = 1.0
 Damage = 1.0
 Knockback = 1.0
+BuildingEffect = SubResource("Resource_yknd2")

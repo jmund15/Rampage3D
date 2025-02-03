@@ -319,6 +319,8 @@ public partial class BuildingComponent : Node
     }
     private void BuildingDestructionEffect()
     {
+        //TODO: USE VELOCITY INSTEAD OF POSITION SO CHARACTERS STICK TO ROOF???
+        // OR launch players off of roof when destroying (last resort)
         _hurtboxComp.DeactivateHurtbox();
 
         _destructionCenterSmoke.Show();

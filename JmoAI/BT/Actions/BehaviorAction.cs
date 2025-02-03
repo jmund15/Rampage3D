@@ -13,7 +13,7 @@ public partial class BehaviorAction : BehaviorTask
     public override void Init(Node agent, IBlackboard bb)
 	{
 		base.Init(agent, bb);
-		TaskName += "Action";
+		TaskName += "_Action";
 	}
 	public override void Enter()
 	{
