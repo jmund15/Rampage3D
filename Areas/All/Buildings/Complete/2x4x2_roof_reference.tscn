@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhr1cyrw2bckn"]
+
+[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Areas/All/Buildings/Complete/base_building_component.tscn" id="1_ygbel"]
+[ext_resource type="PackedScene" uid="uid://duisdy2cwuxf6" path="res://Areas/All/Buildings/Floors/64x128_base_reference.tscn" id="2_l3far"]
+[ext_resource type="PackedScene" uid="uid://bvyg44nw1xn3r" path="res://Areas/All/Buildings/Floors/64x128_roof_reference.tscn" id="3_bl0lm"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1yrwx"]
+points = PackedVector3Array(-2.25, 0, -4.75, 2.75, 0, -4.75, -2.25, 1.5, -4.75, 2.75, 1.5, -4.75, 2.75, 0, -4.75, 2.75, 0, 5.25, 2.75, 1.5, -4.75, 2.75, 1.5, 5.25, 2.75, 0, 5.25, -2.25, 0, 5.25, 2.75, 1.5, 5.25, -2.25, 1.5, 5.25, -2.25, 0, 5.25, -2.25, 0, -4.75, -2.25, 1.5, 5.25, -2.25, 1.5, -4.75, 2.75, 1.5, 5.25, -2.25, 1.5, 5.25, 2.75, 1.5, -4.75, -2.25, 1.5, -4.75, 2.75, 0, -4.75, -2.25, 0, -4.75, 2.75, 0, 5.25, -2.25, 0, 5.25, -2.25, 1.5, -4.75, 2.75, 1.5, -4.75, -2.25, 3, -4.75, 2.75, 3, -4.75, 2.75, 1.5, -4.75, 2.75, 1.5, 5.25, 2.75, 3, -4.75, 2.75, 3, 5.25, 2.75, 1.5, 5.25, -2.25, 1.5, 5.25, 2.75, 3, 5.25, -2.25, 3, 5.25, -2.25, 1.5, 5.25, -2.25, 1.5, -4.75, -2.25, 3, 5.25, -2.25, 3, -4.75, 2.75, 3, 5.25, -2.25, 3, 5.25, 2.75, 3, -4.75, -2.25, 3, -4.75, 2.75, 1.5, -4.75, -2.25, 1.5, -4.75, 2.75, 1.5, 5.25, -2.25, 1.5, 5.25, -2.25, 3, -4.75, 2.75, 3, -4.75, -2.25, 4.5, -4.75, 2.75, 4.5, -4.75, 2.75, 3, -4.75, 2.75, 3, 5.25, 2.75, 4.5, -4.75, 2.75, 4.5, 5.25, 2.75, 3, 5.25, -2.25, 3, 5.25, 2.75, 4.5, 5.25, -2.25, 4.5, 5.25, -2.25, 3, 5.25, -2.25, 3, -4.75, -2.25, 4.5, 5.25, -2.25, 4.5, -4.75, 2.75, 4.5, 5.25, -2.25, 4.5, 5.25, 2.75, 4.5, -4.75, -2.25, 4.5, -4.75, 2.75, 3, -4.75, -2.25, 3, -4.75, 2.75, 3, 5.25, -2.25, 3, 5.25)
+
+[node name="Building" instance=ExtResource("1_ygbel")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("ConvexPolygonShape3D_1yrwx")
+
+[node name="RoofComponent" parent="." index="3" node_paths=PackedStringArray("_roofMesh")]
+_setTopFloorAsRoof = true
+_roofMesh = NodePath("../BuildingFloor2")
+
+[node name="CollisionShape3D" parent="HurtboxComponent3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_1yrwx")
+
+[node name="buildingDestructionSmokeCenter" parent="." index="6"]
+transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, 3.25, 0.130737, 5.75)
+
+[node name="BuildingFloor" parent="." index="7" instance=ExtResource("2_l3far")]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0.25, 0, 0.25)
+
+[node name="BuildingFloor2" parent="." index="8" instance=ExtResource("3_bl0lm")]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0.25, 1.5, 0.25)
