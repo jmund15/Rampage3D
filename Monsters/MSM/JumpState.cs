@@ -51,13 +51,7 @@ public partial class JumpState : State
         {
             var orthogDir = _climberComp.EjectDir;
             _currAnimDir = orthogDir.GetAnimDir();
-            BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = orthogDir.GetFlipH();
 
-            var orthogVec = orthogDir.GetVector2();
-            velocity.X += Monster.ClimbJumpPushOff * orthogVec.X;
-            velocity.Z += Monster.ClimbJumpPushOff * orthogVec.Y;
-
-            _climberComp.EjectRequested = false;
         }
         else if (_inputDir.Y > 0)
         {
@@ -101,7 +95,16 @@ public partial class JumpState : State
             EmitSignal(SignalName.TransitionState, this, _landWallState);
             return;
         }
-
+        if (_body.Velocity.X != 0 || _body.Velocity.Z != 0)
+        {
+            var velDir = _body.Velocity.GetOrthogDirection();
+            if (velDir != _moveComp.GetFaceDirection())
+            {
+                var prevPos = _animPlayer.CurrentAnimationPosition;
+                PlayAnim.AnimWithOrthog(BB, AnimName, velDir);
+                _animPlayer.Seek(prevPos, true);
+            }
+        }
         //GD.Print("curr jump vel: ", _body.Velocity);
         // Add the gravity.
         //if (_body.IsOnFloor())
@@ -133,8 +136,10 @@ public partial class JumpState : State
         Vector3 direction = orthogDir.GetVector3();
         if (direction != Vector3.Zero)
         {
-            velocity.X = direction.X * Monster.AirSpeed;
-            velocity.Z = direction.Z * Monster.AirSpeed;
+            velocity.X = Mathf.MoveToward(_body.Velocity.X, direction.X * Monster.AirMaxSpeed, Monster.AirAcceleration);
+            velocity.Z = Mathf.MoveToward(_body.Velocity.Z, direction.Z * Monster.AirMaxSpeed, Monster.AirAcceleration);
+            //direction.X * Monster.AirSpeed;
+            //velocity.Z = direction.Z * Monster.AirSpeed;
         }
         else
         {
@@ -159,7 +164,20 @@ public partial class JumpState : State
     private void SetJumpVelocity()
     {
         var velocity = _body.Velocity;
+        if (_climberComp.EjectRequested)
+        {
+            var orthogDir = _climberComp.EjectDir;
+            _currAnimDir = orthogDir.GetAnimDir();
+            BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = orthogDir.GetFlipH();
+
+            var orthogVec = orthogDir.GetVector2();
+            velocity.X += Monster.ClimbJumpPushOff * orthogVec.X;
+            velocity.Z += Monster.ClimbJumpPushOff * orthogVec.Y;
+
+            _climberComp.EjectRequested = false;
+        }
         velocity.Y = Monster.JumpVelocity;
+
         _body.Velocity = velocity;
         //GD.Print("body velocity: ", _body.Velocity);
         _body.MoveAndSlide();

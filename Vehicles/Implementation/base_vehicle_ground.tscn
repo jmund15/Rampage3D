@@ -1,13 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bk2raes43i7w6"]
+[gd_scene load_steps=2 format=3 uid="uid://bk2raes43i7w6"]
 
 [ext_resource type="Script" path="res://BaseComponents/GroundVehicleComponent.cs" id="1_0wb2f"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0il6s"]
-
 [node name="BaseGroundVehicle" type="VehicleBody3D"]
 script = ExtResource("1_0wb2f")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_0il6s")
 
 [node name="VehicleMesh" type="MeshInstance3D" parent="."]

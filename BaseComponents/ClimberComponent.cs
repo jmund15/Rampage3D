@@ -131,13 +131,20 @@ public partial class ClimberComponent : Node
 
             //var collPos = coll.GetPosition();
             //Make sure body is facing climable directly
-            var desVec = _moveComp.GetDesiredDirectionNormalized();
-            if (desVec.IsZeroApprox() || desVec.GetOrthogDirection() != _moveComp.GetFaceDirection())
+            var velVec = _body.Velocity;
+            OrthogDirection desDir;
+            //if (desVec.IsZeroApprox() || desVec.GetOrthogDirection() != _moveComp.GetFaceDirection())
+            //{
+            //    AvailableClimbable = false;
+            //    return;
+            //}
+            if (velVec.X == 0 && velVec.Z == 0)
             {
-                AvailableClimbable = false;
-                return;
+                desDir = _moveComp.GetFaceDirection();
             }
-            var desDir = desVec.GetOrthogDirection();
+            else {
+                desDir = velVec.GetOrthogDirection();
+            }
 
             var xzBodyPos = new Vector2(_body.Position.X, _body.Position.Z);
             var nearestClimbOnPos = climbComp.GetClosestClimbablePosOfDir(xzBodyPos, desDir);
