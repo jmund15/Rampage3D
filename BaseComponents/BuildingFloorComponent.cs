@@ -50,20 +50,58 @@ public partial class BuildingFloorComponent : MeshInstance3D
         _healthStateMap.Add(FloorHealthState.Crumbling, HealthComp.MaxHealth - _healthStateChangeAmt * 2);
         _healthStateMap.Add(FloorHealthState.Destroyed, 0f);
 
+        var ownerName = GetOwner().Name;
+        
+        // IMPORTANT: ***GlobalTransform * Aabb != Aabb * GlobalTransform***
+        var localAabb = Mesh.GetAabb();
+        // ORDER: SCALE -> ROTATE -> TRANSLATE
+        var scaledTransform = Transform.Scaled(GlobalBasis.Scale / Basis.Scale);
+        var rotatedTransfrom = scaledTransform.Rotated(Vector3.Up, GlobalRotation.Y - Rotation.Y);
+        var translatedTransform = rotatedTransfrom.Translated(GlobalPosition - Position);
+        var manualGlobalAabb = translatedTransform * localAabb;
+        var globalAabb = GlobalTransform * localAabb;
+        //var globalStartPos = (GlobalBasis * localAabb.Position) + GlobalPosition;
+        //var globalSize = GlobalBasis * localAabb.Size;
+        //var globalAabb = new Aabb(globalStartPos, globalSize);
+        if ((ownerName == "Testing" || ownerName == "Middle") && Name == "BuildingFloor")
+        {
+            GD.Print($"Global:" +
+                $"\nRotation: {GlobalRotation}" +
+                $"\nScale: {GlobalBasis.Scale}" +
+                $"\nTranslation: {GlobalPosition}" +
+                //$"\nTransform: {GlobalTransform}" +
+                //$"\nCreated Transform: {translatedTransform}" +
+                $"");
+
+            GD.Print($"orig startPos {localAabb.Position}" +
+                $"\nmanual startPos {manualGlobalAabb.Position}" +
+                $"\nglobal startPos {globalAabb.Position}" +
+                $"\norig size {localAabb.Size}" +
+                $"\nmanual size {manualGlobalAabb.Size}" +
+                $"\nglobal size {globalAabb.Size}" +
+                $"");
+        }
+        //var globalAabb = GlobalTransform * Mesh.GetAabb();
+
         //define ycenter
-        YCenter = (Mesh.GetAabb().GetCenter().Y * Scale.Y) + GlobalPosition.Y;
+        YCenter = (globalAabb.GetCenter().Y);// * Scale.Y) + GlobalPosition.Y;
         //GD.Print($"floor {Name} YCENTER: {YCenter}.");
-        float baseSizeX = 1 * Scale.X;
-        float baseSizeZ = 1 * Scale.Z;
-        int xFaces = Mathf.FloorToInt(Mesh.GetAabb().Size.X * Scale.X / baseSizeX);
-        int zFaces = Mathf.FloorToInt(Mesh.GetAabb().Size.Z * Scale.Z / baseSizeZ);
+        float baseSizeX = 2.5f;//1 * Scale.X;
+        float baseSizeZ = 2.5f;//1 * Scale.Z;
+        // DUE TO TRANSFORMING, size may have a ~0.001 differnce, so we add 0.01 to offset face miscalcs
+        int xFaces = Mathf.FloorToInt((globalAabb.Size.X + 0.01f) /** Scale.X*/ / baseSizeX);
+        int zFaces = Mathf.FloorToInt((globalAabb.Size.Z + 0.01f) /** Scale.Z*/ / baseSizeZ);
 
         for (int i = 0; i < xFaces; i++)
         {
             var xFacePos = new Vector2(
-                (Mesh.GetAabb().Position.X * Scale.X) + GlobalPosition.X + (baseSizeX * i) + (baseSizeX / 2f),
-                (Mesh.GetAabb().End.Z * Scale.Z) + GlobalPosition.Z
+                (globalAabb.Position.X)/* * Scale.X) + GlobalPosition.X*/ + (baseSizeX * i) + (baseSizeX / 2f),
+                (globalAabb.End.Z)/* * Scale.Z) + GlobalPosition.Z*/
                 );
+            if ((ownerName == "Testing" || ownerName == "Middle") && Name == "BuildingFloor")
+            {
+                GD.Print($"x face {i + 1}/{xFaces}: {xFacePos}.");
+            }
             XFacePoses.Add(xFacePos);
             Vector3 wallCrackDLPosition = new Vector3(
                 xFacePos.X,
@@ -73,7 +111,7 @@ public partial class BuildingFloorComponent : MeshInstance3D
             var wallCrackDL = WallCrack.Duplicate() as AnimatedSprite3D;
             AddChild(wallCrackDL);
             wallCrackDL.GlobalPosition = wallCrackDLPosition;
-            wallCrackDL.RotateY(Mathf.Pi / 2f);
+            //wallCrackDL.RotateY(Mathf.Pi / 2f);
             //wallCrackDL.Rotation = Rotation;
 
             WallCracks.Add(wallCrackDL);
@@ -84,10 +122,14 @@ public partial class BuildingFloorComponent : MeshInstance3D
         for (int i = 0; i < zFaces; i++)
         {
             var zFacePos = new Vector2(
-                (Mesh.GetAabb().End.X * Scale.X) + GlobalPosition.X,
-                (Mesh.GetAabb().Position.Z * Scale.Z) + GlobalPosition.Z + (baseSizeZ * i) + (baseSizeZ / 2f)
+                (globalAabb.End.X)/* * Scale.X) + GlobalPosition.X*/,
+                (globalAabb.Position.Z)/* * Scale.Z) + GlobalPosition.Z*/ + (baseSizeZ * i) + (baseSizeZ / 2f)
                 );
             ZFacePoses.Add(zFacePos);
+            if ((ownerName == "Testing" || ownerName == "Middle") && Name == "BuildingFloor")
+            {
+                GD.Print($"z face {i + 1}/{zFaces}: {zFacePos}.");
+            }
             Vector3 wallCrackDRPosition = new Vector3(
                 zFacePos.X + _crackOffset,
                 YCenter,
@@ -97,7 +139,7 @@ public partial class BuildingFloorComponent : MeshInstance3D
             AddChild(wallCrackDR);
             wallCrackDR.GlobalPosition = wallCrackDRPosition;
             //wallCrackDR.Rotation = GetOwner<Node3D>().Rotation;
-            //wallCrackDR.RotateY(Mathf.Pi / 2f);
+            wallCrackDR.RotateY(Mathf.Pi / 2f);
             WallCracks.Add(wallCrackDR);
             //GD.Print($"z face {i} is at position {wallCrackDRPosition}");
         }

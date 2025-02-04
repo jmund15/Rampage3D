@@ -83,6 +83,7 @@ public partial class BuildingComponent : Node
         _hurtboxCollShape = _hurtboxComp.GetFirstChildOfType<CollisionShape3D>();
         _structureCollShape.MakeConvexFromSiblings();
         _hurtboxCollShape.Shape = _structureCollShape.Shape;
+        //_structureCollShape.Rotate(Vector3.Up, _structure.GlobalRotation.Y - _structure.Rotation.Y);
         var convexShape = _structureCollShape.Shape as ConvexPolygonShape3D;
         float xMin = float.MaxValue; float xMax = float.MinValue;
         float yMin = float.MaxValue; float yMax = float.MinValue;
@@ -91,12 +92,23 @@ public partial class BuildingComponent : Node
         // Step 3: Using collision shape, calculate building dimensions
         foreach (var p in convexShape.Points)
         {
-            if (p.X < xMin) { xMin = p.X; }
-            if (p.X > xMax) { xMax = p.X; }
-            if (p.Y < yMin) { yMin = p.Y; }
-            if (p.Y > yMax) { yMax = p.Y; }
-            if (p.Z < zMin) { zMin = p.Z; }
-            if (p.Z > zMax) { zMax = p.Z; }
+            // PUT IN GLOBAL COORDS
+            var globalP = _structureCollShape.ToGlobal(p);
+            //var globalP = p.Rotated(Vector3.Up, _structure.GlobalRotation.Y - _structure.Rotation.Y);
+            //var globalP = p;
+
+            //var translatedP = p + (_structure.GlobalPosition - ;
+            //var rotatedTransfrom = scaledTransform.Rotated(Vector3.Up, GlobalRotation.Y - Rotation.Y);
+            //var translatedTransform = rotatedTransfrom.Translated(GlobalPosition - Position);
+            //var globalAabb = translatedTransform * localAabb;
+
+
+            if (globalP.X < xMin) { xMin = globalP.X; }
+            if (globalP.X > xMax) { xMax = globalP.X; }
+            if (globalP.Y < yMin) { yMin = globalP.Y; }
+            if (globalP.Y > yMax) { yMax = globalP.Y; }
+            if (globalP.Z < zMin) { zMin = globalP.Z; }
+            if (globalP.Z > zMax) { zMax = globalP.Z; }
         }
         XRange = new Vector2(xMin, xMax);
         YRange = new Vector2(yMin, yMax);
@@ -106,8 +118,14 @@ public partial class BuildingComponent : Node
             (yMax - yMin) * _structure.Scale.Y,
             (zMax - zMin) * _structure.Scale.Z
             );
-
-        GD.Print($"Building {_structure.Name}'s dimensions: {Dimensions}.");
+        if (_structure.Name == "Testing" || _structure.Name == "Middle")
+        {
+            GD.Print(
+                $"Building Start Pos: {new Vector3(xMin, yMin, zMin)}" +
+                $"\nBuilding Size: {new Vector3(Dimensions.X, Dimensions.Y, Dimensions.Z)}" +
+                $"");
+        }
+        //GD.Print($"Building {_structure.Name}'s dimensions: {Dimensions}.");
 
         // Step 4: initialize the floors health and calc full building health
         CallDeferred(MethodName.InitializeFloorHealthConnections);
@@ -237,7 +255,7 @@ public partial class BuildingComponent : Node
 
             foreach (var wallCrack in floor.WallCracks)
             {
-                wallCrack.RotateY(_structure.Rotation.Y);
+                wallCrack.RotateY(_structure.GlobalRotation.Y);
             }
         }
     }

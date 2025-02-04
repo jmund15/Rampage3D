@@ -89,14 +89,19 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         }
     }
     public static float Speed { get; private set; } = 6.0f;
-    public static float AirSpeed { get; private set; } = 2.5f;
+    public static float AirMaxSpeed { get; private set; } = 3.75f;
     public static float AirHorizontalFriction { get; private set; } = 0.2f;
+    public static float AirAcceleration { get; private set; } = 0.5f;
     public static float ClimbSpeed { get; private set; } = 4.5f;
     public static float JumpVelocity { get; private set; } = 7.5f;
-    public static float ClimbJumpPushOff { get; private set; } = 6.0f;
+    public static float ClimbJumpPushOff { get; private set; } = 5.0f;
     public static float FallHeight { get; private set; } = 3f;
     public static float SkidFriction { get; private set; } = 1f;
-
+    public float LastFrameVelocity { get; private set; } = 0f;
+    [Export]
+    private float _pushForce = 200f;
+    [Export]
+    private float _pushImpulse = 1000f;
     public MonsterIdentifier MonsterId { get; private set; }
     [Export]
     public MonsterType MonsterT { get; private set; }
@@ -185,7 +190,35 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     public override void _PhysicsProcess(double delta)
 	{
         base._PhysicsProcess(delta);
+        var preVel = Velocity;
         _stateMachine.ProcessPhysics((float)delta);
+        if (GetDesiredDirection().IsZeroApprox()) { return; }
+        for (int i = 0; i < GetSlideCollisionCount(); i++)
+        {
+            var coll = GetSlideCollision(i);
+            var collBody = coll.GetCollider();
+            var collidingDir = GetLastMotion();
+            if (collBody is GroundVehicleComponent vehicle)
+            {
+                Vector3 force;
+                if (preVel.Length() < 1)
+                {
+                    force = GetDesiredDirection().GetOrthogDirection().GetVector3();
+                    //vehicle.ApplyForce(force * _pushForce * (float)delta, coll.GetPosition());
+                    //GD.Print($"COLLIDED WITH prevel {preVel} @ force: {force}");
+                }
+                else
+                {
+                    force = preVel * GetDesiredDirection().GetOrthogDirection().GetVector3();
+                    //vehicle.ApplyImpulse(force * _pushImpulse * (float)delta, coll.GetPosition());// - vehicle.GlobalPosition);
+                    vehicle.ApplyCentralImpulse(force * _pushImpulse * (float)delta);
+
+                    //GD.Print($"COLLIDED WITH prevel {preVel} @ force: {force}");
+                }
+            }
+            
+           
+        }
         //ApplyFloorSnap();
 		//Vector3 velocity = Velocity;
 

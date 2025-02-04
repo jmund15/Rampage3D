@@ -3,7 +3,7 @@ using Godot.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-[GlobalClass, Tool]
+[GlobalClass]
 public partial class GroundVehicleComponent : VehicleBody3D
 {
 	#region COMPONENT_VARIABLES
@@ -19,11 +19,15 @@ public partial class GroundVehicleComponent : VehicleBody3D
 		foreach (var wheel in _wheels)
 		{
 			var mesh = wheel.GetFirstChildOfType<MeshInstance3D>();
-			mesh.Reparent(this);
-		}
+			//mesh.Reparent(this);
+			wheel.EngineForce = EngineForce;
+			
+        }
 
         _collShape = this.GetFirstChildOfType<CollisionShape3D>();
-		_collShape.MakeConvexFromSiblings();
+		//_collShape.MakeConvexFromSiblings();
+
+		
     }
 	public override void _Process(double delta)
 	{
@@ -32,6 +36,7 @@ public partial class GroundVehicleComponent : VehicleBody3D
 	public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
+		//GD.Print("engine force: ", EngineForce);
 	}
 	#endregion
 	#region COMPONENT_HELPER

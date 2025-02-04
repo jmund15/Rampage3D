@@ -69,7 +69,10 @@ public partial class ClimbIdleState : State
     public override void ProcessPhysics(float delta)
     {
         base.ProcessPhysics(delta);
-        
+        if (_moveComp.WantsJump())
+        {
+            _climberComp.EjectRequested = true;
+        }
     }
     #endregion
     #region STATE_HELPER
