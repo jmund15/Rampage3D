@@ -1,4 +1,4 @@
-#if TOOLS
+//#if TOOLS
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -6,40 +6,50 @@ using System.Linq;
 using System.Threading;
 
 [Tool]
-public partial class AAA : EditorScript
+public partial class AAA : Node
 {
-  
-    public enum Direction
+    public enum SpriteType
+    {
+        Monster,
+        Critter
+    }
+    [Export]
+    public Godot.Collections.Dictionary<SpriteType, int> SpriteTypePixelMap = new Godot.Collections.Dictionary<SpriteType, int>()
+    {
+        { SpriteType.Monster, 32},
+        { SpriteType.Critter, 10}
+    };
+    public enum AAADirection
     {
         DOWN = 0,
         UP,
-        //LEFT,
-        //RIGHT,
-        //DOWNLEFT,
-        //DOWNRIGHT,
-        //UPLEFT,
-        //UPRIGHT
+        LEFT,
+        RIGHT,
+        DOWNLEFT,
+        DOWNRIGHT,
+        UPLEFT,
+        UPRIGHT
     }
-    public static string GetFaceDirectionString(Direction direction)
+    public static string GetFaceDirectionString(AAADirection direction)
     {
         switch (direction)
         {
-            case Direction.DOWN:
+            case AAADirection.DOWN:
                 return "Down";
-            case Direction.UP:
+            case AAADirection.UP:
                 return "Up";
-            //case Direction.LEFT:
-            //    return "Left";
-            //case Direction.RIGHT:
-            //    return "Right";
-            //case Direction.DOWNLEFT:
-            //    return "DownLeft";
-            //case Direction.DOWNRIGHT:
-            //    return "DownRight";
-            //case Direction.UPLEFT:
-            //    return "UpLeft";
-            //case Direction.UPRIGHT:
-            //    return "UpRight";
+            case AAADirection.LEFT:
+                return "Left";
+            case AAADirection.RIGHT:
+                return "Right";
+            case AAADirection.DOWNLEFT:
+                return "DownLeft";
+            case AAADirection.DOWNRIGHT:
+                return "DownRight";
+            case AAADirection.UPLEFT:
+                return "UpLeft";
+            case AAADirection.UPRIGHT:
+                return "UpRight";
             default:
                 GD.PrintErr("not any face direction?? facedir = " + direction.ToString());
                 return "Null";
@@ -62,36 +72,59 @@ public partial class AAA : EditorScript
         { "lift", Animation.LoopModeEnum.None },
         { "grab", Animation.LoopModeEnum.None },
         { "eat", Animation.LoopModeEnum.None },
-
     };
 
-    private const int initOffset = 32;//10
-    private const int frameHeight = 32;
+    [Export(PropertyHint.SaveFile, "*.tscn")]
+    public string SavePath { get; private set; }
+    [Export]
+    private int _initOffset = 32;//10
+    [Export]
+    private int _frameHeight = 32;
         
-    public static Dictionary<Direction, int> DirectionOffset = new Dictionary<Direction, int>()
+  //  public static Dictionary<AAADirection, int> DirectionOffset = new Dictionary<AAADirection, int>()
+  //  {
+  //      //{ Direction.RIGHT, initOffset },
+		////{ Direction.DOWNRIGHT, initOffset + frameHeight },
+  //      { AAADirection.DOWN, _initOffset },
+  //      //{ Direction.DOWNLEFT, initOffset + frameHeight * 3},
+  //      //{ Direction.LEFT, initOffset + frameHeight * 4 },
+  //      //{ Direction.UPLEFT, initOffset + frameHeight * 5 },
+  //      { AAADirection.UP, _initOffset + _frameHeight },
+  //      //{ Direction.UPRIGHT, initOffset + frameHeight * 7 },
+  //  };
+
+    [Export]
+    private SpriteType _spriteType;
+    [Export]
+    public Godot.Collections.Dictionary<string, int> BodyParts { get; private set; } = new Godot.Collections.Dictionary<string, int>()
     {
-        //{ Direction.RIGHT, initOffset },
-		//{ Direction.DOWNRIGHT, initOffset + frameHeight },
-        { Direction.DOWN, initOffset },
-        //{ Direction.DOWNLEFT, initOffset + frameHeight * 3},
-        //{ Direction.LEFT, initOffset + frameHeight * 4 },
-        //{ Direction.UPLEFT, initOffset + frameHeight * 5 },
-        { Direction.UP, initOffset + frameHeight },
-        //{ Direction.UPRIGHT, initOffset + frameHeight * 7 },
+        { "body", 2 },
+        { "pants", 2 },
+        { "shirt", 2 },
+        { "hat", 2 },
     };
+    [Export]
+    public Godot.Collections.Array<AAADirection> AnimDirections { get; private set; } = new Godot.Collections.Array<AAADirection>()
+    {
+        AAADirection.UP,
+        AAADirection.DOWN,
+    };
+
+    private Node _sprite;
 
     // Called when the script is executed (using File -> Run in Script Editor).
-    public override void _Run()
+    public override void _Ready()
 	{
+        if (!Engine.IsEditorHint()) { return; }
         PortableCompressedTexture2D texture;
         AtlasTexture atlasTexture;
-        Node Scene = GetScene();
-        if (Scene is Sprite2D spritesheet)
+        _sprite = this.GetFirstChildOfType<Node>();
+        if (_sprite is Sprite2D spritesheet)
 		{
             texture = spritesheet.Texture as PortableCompressedTexture2D;
             atlasTexture = spritesheet.Texture as AtlasTexture;
         }
-        else if (Scene is Sprite3D spritesheet3D)
+        else if (_sprite is Sprite3D spritesheet3D)
         {
             texture = spritesheet3D.Texture as PortableCompressedTexture2D;
             atlasTexture = spritesheet3D.Texture as AtlasTexture;
@@ -115,44 +148,115 @@ public partial class AAA : EditorScript
             textureHeight = atlasTexture.GetHeight();
         }
 
-		var animPlayer = Scene.GetFirstChildOfType<AnimationPlayer>();
+
+        AutoAnimateSprite3D();
+
+        //GetTree().CreateTimer(5.0f).Timeout += () => SaveThisSceneAs(SavePath);
+
+        //var scenePath = SaveDir + "//" + SavePath;
+        //CallDeferred(MethodName.SaveThisSceneAs, SavePath);
+        //SaveThisSceneAs(SavePath);
+
+		//EditorInterface.Singleton.SaveScene();
+        GD.Print($"Finished Animation Automation!");
+
+    }
+
+    private void AutoAnimateSprite2D()
+    {
+
+    }
+    private void AutoAnimateSprite3D()
+    {
+        var animPlayer = _sprite.GetFirstChildOfType<AnimationPlayer>();
         var animLibrary = animPlayer.GetAnimationLibrary("");
 
+        
         //var appendLibrary = ResourceLoader.Load<AnimationLibrary>();
 
-		foreach (var animName in animPlayer.GetAnimationList())
-		{
-            GD.Print($"Starting automating '{animName}'...");
-			var anim = animPlayer.GetAnimation(animName);
-            if (AnimLoopMap.ContainsKey(animName))
+        // TODO: MAKE NEW SPRITE FOR BODY PARTS HERE
+        int partNum = 1;
+        foreach (var bodyPartPair in BodyParts)
+        {
+            var part = bodyPartPair.Key;
+            var typesOfPart = bodyPartPair.Value;
+            Sprite3D partSprite;
+            AnimationPlayer partPlayer;
+            AnimationLibrary partLibrary;
+            if (partNum == 1)
             {
-                anim.LoopMode = AnimLoopMap[animName];
-                //GD.Print($"Set loop mode to '{anim.LoopMode}'.");
+                partSprite = _sprite as Sprite3D;
+                partPlayer = animPlayer;
+                partLibrary = animLibrary;
             }
-
-            int trackNum = 1;
-
-            foreach (var dir in Global.GetEnumValues<Direction>())
+            else
             {
-                var dirAnim = anim.Duplicate(true) as Animation;
-            
-                var numFrames = dirAnim.TrackGetKeyCount(trackNum);
-                for (int i = 0; i < numFrames; i++)
+                partSprite = _sprite.Duplicate() as Sprite3D;
+                partPlayer = new AnimationPlayer();
+                partSprite.Name = part;
+                partPlayer.Name = part + "AnimationPlayer";
+                AddChild(partSprite);
+                partSprite.Owner = GetTree().EditedSceneRoot;
+                partSprite.AddChild(partPlayer);
+                partPlayer.Owner = partSprite;
+                partLibrary = new AnimationLibrary();//partPlayer.GetAnimationLibrary(""); //animLibrary.Duplicate(true) as AnimationLibrary; //deep copy
+                partPlayer.AddAnimationLibrary("", partLibrary);
+                
+            }
+            foreach (var animName in animPlayer.GetAnimationList())
+            {
+                int currHeight = _initOffset;
+                GD.Print($"Starting automating '{animName}'...");
+                var anim = animPlayer.GetAnimation(animName);
+                if (AnimLoopMap.ContainsKey(animName))
                 {
-                    var currRect = (Rect2)dirAnim.TrackGetKeyValue(trackNum, i);
-                    var dirRect = new Rect2(currRect.Position.X, DirectionOffset[dir],
-                        currRect.Size.X, frameHeight);
-
-                    dirAnim.TrackSetKeyValue(trackNum, i, Variant.From(dirRect));
+                    anim.LoopMode = AnimLoopMap[animName];
+                    //GD.Print($"Set loop mode to '{anim.LoopMode}'.");
                 }
-                animLibrary.AddAnimation(animName + GetFaceDirectionString(dir), dirAnim);
+                int trackNum = 1;
+                for (int typeNum = 1; typeNum <= typesOfPart; typeNum++)
+                {
+                    foreach (var dir in AnimDirections)
+                    {
+                        var dirAnim = anim.Duplicate(true) as Animation;
+
+                        var numFrames = dirAnim.TrackGetKeyCount(trackNum);
+                        for (int i = 0; i < numFrames; i++)
+                        {
+                            var currRect = (Rect2)dirAnim.TrackGetKeyValue(trackNum, i);
+                            var dirRect = new Rect2(currRect.Position.X, currHeight,
+                                currRect.Size.X, _frameHeight);
+
+                            dirAnim.TrackSetKeyValue(trackNum, i, Variant.From(dirRect));
+                        }
+                        partLibrary.AddAnimation(animName + GetFaceDirectionString(dir) + typeNum.ToString(), dirAnim);
+                        currHeight += _frameHeight;
+                        if (partNum == 1)
+                        {
+                            partLibrary.RemoveAnimation(animName);
+                        }
+                    }
+                }
             }
+            partNum++;
+        }
+    }
 
-            animLibrary.RemoveAnimation(animName);
-		}
+    private void SaveThisSceneAs(string scenePath)
+    {
+        GD.Print("saving Scene: ", EditorInterface.Singleton.GetEditedSceneRoot().Name);
+        EditorInterface.Singleton.SaveSceneAs(scenePath);
+        EditorInterface.Singleton.OpenSceneFromPath(scenePath);
+        //var topNode = EditorInterface.Singleton.GetEditedSceneRoot();
+        //topNode.Name = "TESTED WOOO";
+        //EditorInterface.Singleton.SaveScene();
 
-		EditorInterface.Singleton.SaveScene();
-        GD.Print($"Finished Animation Automation!");
+        //var packedScene = new PackedScene();
+        //packedScene.Pack(GetTree().CurrentScene);
+        //GD.Print("current scene num children: ", GetTree().CurrentScene.GetChildCount());
+        //ResourceSaver.Save(packedScene, scenePath);
+
+        //GetTree().Quit();
     }
 }
-#endif
+//#endif

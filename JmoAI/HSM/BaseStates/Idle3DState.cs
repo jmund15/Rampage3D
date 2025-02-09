@@ -6,7 +6,7 @@ public partial class Idle3DState : Base3DState
 {
     #region STATE_VARIABLES
     [Export]
-    public string AnimName { get; protected set; }
+    public string AnimName { get; protected set; } = "idle";
 
     [Export(PropertyHint.NodeType, "State")]
     private State _onMoveInputState;
