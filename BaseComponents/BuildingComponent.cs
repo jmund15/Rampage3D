@@ -1,11 +1,11 @@
 using Godot;
-using Godot.NativeInterop;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 [GlobalClass, Tool]
-public partial class BuildingComponent : Node
+public partial class BuildingComponent : RigidBody3D
 {
     #region COMPONENT_VARIABLES
     [Export]
@@ -30,13 +30,10 @@ public partial class BuildingComponent : Node
     [Export]
     private HurtboxComponent3D _hurtboxComp;
     private CollisionShape3D _hurtboxCollShape;
-    [Export]
-    private Node3D _structure;
-    private CollisionShape3D _structureCollShape;
+    private CollisionShape3D thisCollShape;
 
     private Timer _collapseTicker;
-
-    private int _numFloors;
+    
     private List<BuildingFloorComponent> _sortedFloors = new List<BuildingFloorComponent>();
     private Dictionary<int, BuildingFloorComponent> _floors = new Dictionary<int, BuildingFloorComponent>();
     public List<Vector2> XFacePoses { get; private set; } = new List<Vector2>();
@@ -56,6 +53,17 @@ public partial class BuildingComponent : Node
     public override void _Ready()
     {
         base._Ready();
+        
+        SetBuildingLocDirs();
+        SetBuildingTypeDirs();
+        SetFloorTextureFiles();
+
+        var floors = this.GetChildrenOfType<BuildingFloorComponent>().ToList();
+        _numFloors = floors.Count;
+        //NotifyPropertyListChanged();
+        //this.ChildEnteredTree += OnChildEnteredBuilding;
+        //this.ChildExitingTree += OnChildExitingBuilding;
+        
         if (!Engine.IsEditorHint())
         {
             //convert to percentages
@@ -67,9 +75,6 @@ public partial class BuildingComponent : Node
         _collapseTicker.Timeout += OnCollapseTick;
 
         _hurtboxComp.HitboxEntered += OnHitboxEntered;
-
-        var floors = _structure.GetChildrenOfType<BuildingFloorComponent>().ToList();
-        _numFloors = floors.Count;
         //GD.Print("num floors: ", _numFloors);
 
         // Step 1: Sort the heights in ascending order
@@ -79,12 +84,12 @@ public partial class BuildingComponent : Node
         ZFacePoses = _sortedFloors[0].ZFacePoses;
 
         // Step 2: Set collision shapes of building based on floor meshes
-        _structureCollShape = _structure.GetFirstChildOfType<CollisionShape3D>();
+        thisCollShape = this.GetFirstChildOfType<CollisionShape3D>();
         _hurtboxCollShape = _hurtboxComp.GetFirstChildOfType<CollisionShape3D>();
-        _structureCollShape.MakeConvexFromSiblings();
-        _hurtboxCollShape.Shape = _structureCollShape.Shape;
-        //_structureCollShape.Rotate(Vector3.Up, _structure.GlobalRotation.Y - _structure.Rotation.Y);
-        var convexShape = _structureCollShape.Shape as ConvexPolygonShape3D;
+        thisCollShape.MakeConvexFromSiblings();
+        _hurtboxCollShape.Shape = thisCollShape.Shape;
+        //thisCollShape.Rotate(Vector3.Up, this.GlobalRotation.Y - this.Rotation.Y);
+        var convexShape = thisCollShape.Shape as ConvexPolygonShape3D;
         float xMin = float.MaxValue; float xMax = float.MinValue;
         float yMin = float.MaxValue; float yMax = float.MinValue;
         float zMin = float.MaxValue; float zMax = float.MinValue;
@@ -93,11 +98,11 @@ public partial class BuildingComponent : Node
         foreach (var p in convexShape.Points)
         {
             // PUT IN GLOBAL COORDS
-            var globalP = _structureCollShape.ToGlobal(p);
-            //var globalP = p.Rotated(Vector3.Up, _structure.GlobalRotation.Y - _structure.Rotation.Y);
+            var globalP = thisCollShape.ToGlobal(p);
+            //var globalP = p.Rotated(Vector3.Up, this.GlobalRotation.Y - this.Rotation.Y);
             //var globalP = p;
 
-            //var translatedP = p + (_structure.GlobalPosition - ;
+            //var translatedP = p + (this.GlobalPosition - ;
             //var rotatedTransfrom = scaledTransform.Rotated(Vector3.Up, GlobalRotation.Y - Rotation.Y);
             //var translatedTransform = rotatedTransfrom.Translated(GlobalPosition - Position);
             //var globalAabb = translatedTransform * localAabb;
@@ -114,28 +119,37 @@ public partial class BuildingComponent : Node
         YRange = new Vector2(yMin, yMax);
         ZRange = new Vector2(zMin, zMax);
         Dimensions = new Vector3(
-            (xMax - xMin) * _structure.Scale.X,
-            (yMax - yMin) * _structure.Scale.Y,
-            (zMax - zMin) * _structure.Scale.Z
+            (xMax - xMin) * this.Scale.X,
+            (yMax - yMin) * this.Scale.Y,
+            (zMax - zMin) * this.Scale.Z
             );
-        if (_structure.Name == "Testing" || _structure.Name == "Middle")
+        if (this.Name == "Testing" || this.Name == "Middle")
         {
             GD.Print(
                 $"Building Start Pos: {new Vector3(xMin, yMin, zMin)}" +
                 $"\nBuilding Size: {new Vector3(Dimensions.X, Dimensions.Y, Dimensions.Z)}" +
                 $"");
         }
-        //GD.Print($"Building {_structure.Name}'s dimensions: {Dimensions}.");
+        //GD.Print($"Building {this.Name}'s dimensions: {Dimensions}.");
 
         // Step 4: initialize the floors health and calc full building health
         CallDeferred(MethodName.InitializeFloorHealthConnections);
         
 
         // Step 5: setup destruction smoke
-        _destructionCenterSmoke = _structure.GetNode<AnimatedSprite3D>("buildingDestructionSmokeCenter");
-        _destructionDirectionalSmoke = _structure.GetNode<AnimatedSprite3D>("buildingDestructionSmokeDirectional");
+        _destructionCenterSmoke = this.GetNode<AnimatedSprite3D>("buildingDestructionSmokeCenter");
+        _destructionDirectionalSmoke = this.GetNode<AnimatedSprite3D>("buildingDestructionSmokeDirectional");
         CallDeferred(MethodName.InitializeBaseSmoke);
+
+
+        // Step 6: Set floor textures
+        //NotifyPropertyListChanged();
+        if (!Engine.IsEditorHint())
+        {
+            SetFloorTextures();
+        }
     }
+
     public override void _Process(double delta)
     {
         base._Process(delta);
@@ -143,6 +157,11 @@ public partial class BuildingComponent : Node
         {
             MinimumFloorsToCollapse = Mathf.Clamp(MinimumFloorsToCollapse, 0, _numFloors);
         }
+    }
+    public override void _PhysicsProcess(double delta)
+    {
+        base._PhysicsProcess(delta);
+        //NotifyPropertyListChanged();
     }
     #endregion
     #region SIGNAL_LISTENERS
@@ -255,7 +274,7 @@ public partial class BuildingComponent : Node
 
             foreach (var wallCrack in floor.WallCracks)
             {
-                wallCrack.RotateY(_structure.GlobalRotation.Y);
+                wallCrack.RotateY(this.GlobalRotation.Y);
             }
         }
     }
@@ -263,32 +282,32 @@ public partial class BuildingComponent : Node
     {
         var smokeOffset = 0.5f;
         _destructionCenterSmoke.Position = new Vector3(
-            XRange.Y + smokeOffset + _structure.GlobalPosition.X,
-            YRange.X + _structure.GlobalPosition.Y,
-            ZRange.Y + smokeOffset + _structure.GlobalPosition.Z
+            XRange.Y + smokeOffset + this.GlobalPosition.X,
+            YRange.X + this.GlobalPosition.Y,
+            ZRange.Y + smokeOffset + this.GlobalPosition.Z
             );
         _destructionCenterSmoke.RotationDegrees = new Vector3(0,45,0);
 
         //var baseFloor = _floors[1]; // get bottom floor
 
         var smokeX = _destructionDirectionalSmoke.Duplicate() as AnimatedSprite3D;
-        _structure.AddChild(smokeX);
+        this.AddChild(smokeX);
         smokeX.FlipH = true;
         smokeX.RotationDegrees = new Vector3(0, 45, 0);
         smokeX.GlobalPosition = new Vector3(
-            XRange.X + smokeOffset + _structure.GlobalPosition.X,
-            YRange.X + _structure.GlobalPosition.Y,
-            ZRange.Y + smokeOffset + _structure.GlobalPosition.Z
+            XRange.X + smokeOffset + this.GlobalPosition.X,
+            YRange.X + this.GlobalPosition.Y,
+            ZRange.Y + smokeOffset + this.GlobalPosition.Z
         );
         _smokeSprites.Add(smokeX);
 
         var smokeZ = _destructionDirectionalSmoke.Duplicate() as AnimatedSprite3D;
-        _structure.AddChild(smokeZ);
+        this.AddChild(smokeZ);
         smokeZ.RotationDegrees = new Vector3(0, 45, 0);
         smokeZ.GlobalPosition = new Vector3(
-            XRange.Y + smokeOffset + _structure.GlobalPosition.X,
-            YRange.X + _structure.GlobalPosition.Y,
-            ZRange.X + smokeOffset + _structure.GlobalPosition.Z
+            XRange.Y + smokeOffset + this.GlobalPosition.X,
+            YRange.X + this.GlobalPosition.Y,
+            ZRange.X + smokeOffset + this.GlobalPosition.Z
         );
         _smokeSprites.Add(smokeZ);
 
@@ -359,27 +378,27 @@ public partial class BuildingComponent : Node
         {
             var shakePos = new Vector3
                 (Global.GetRndInRange(-0.25f, 0.25f), 0f, Global.GetRndInRange(-0.25f, 0.25f));
-            shakePoses.Add(_structure.Position + shakePos);
+            shakePoses.Add(this.Position + shakePos);
         }
         var destroyTween = GetTree().CreateTween();
-        destroyTween.TweenProperty(_structure, "position:y",
-                _structure.Position.Y - Dimensions.Y - 0.5f, timeToCollapse).SetEase(Tween.EaseType.InOut);
+        destroyTween.TweenProperty(this, "position:y",
+                this.Position.Y - Dimensions.Y - 0.5f, timeToCollapse).SetEase(Tween.EaseType.InOut);
         var shakeTween = GetTree().CreateTween();
         while (timeToCollapse > 0f)
         {
             foreach (var pos in shakePoses)
             {
-                shakeTween.TweenProperty(_structure, "position:x",
+                shakeTween.TweenProperty(this, "position:x",
                     pos.X, 0.05f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
-                shakeTween.Parallel().TweenProperty(_structure, "position:z",
+                shakeTween.Parallel().TweenProperty(this, "position:z",
                     pos.Z, 0.05f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
                 timeToCollapse -= 0.05f;
             }
         }
-        shakeTween.TweenProperty(_structure, "position:x",
-             _structure.Position.X, 0.05f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
-        shakeTween.Parallel().TweenProperty(_structure, "position:z",
-            _structure.Position.Z, 0.05f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+        shakeTween.TweenProperty(this, "position:x",
+             this.Position.X, 0.05f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+        shakeTween.Parallel().TweenProperty(this, "position:z",
+            this.Position.Z, 0.05f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
         
         destroyTween.TweenCallback(Callable.From(ChangeSmokeAnimsToDispurseAndFree));
         
@@ -407,8 +426,427 @@ public partial class BuildingComponent : Node
             //{
             //    smokeSprite.QueueFree();
             //}
-            _structure.QueueFree();
+            this.QueueFree();
         };
+    }
+
+    private void SetFloorTextures()
+    {
+        for (int i = 1; i <= _numFloors; i++)
+        {
+            var floor = _sortedFloors[i - 1];
+            var floorTexture = _floorTextureMap[i];
+            var text = ResourceLoader.Load<CompressedTexture2D>(floorTexture);
+            
+            floor.Texture = text;
+        }
+    }
+    #endregion
+
+    #region EDITOR_HELPERS
+    private string _buildingTypeRootDir = "res://Areas";
+    [Export(PropertyHint.Dir)]
+    public string BuildingTypeRootDir
+    {
+        get => _buildingTypeRootDir;
+        private set
+        {
+            _buildingTypeRootDir = value;
+            NotifyPropertyListChanged();
+        }
+    }
+    private string _customBuildingLocPropName = "Building Location";
+    private string _buildingLocDirIdentifier = "Buildings//Textures";
+    [ExportGroup("CREATOR PROPS *DON'T EDIT*")]
+    [Export]
+    public string BuildingLocationDir { get; private set; } = "";
+    [Export]
+    private int _buildingLocDirIdx = 0;
+    [Export]
+    private Godot.Collections.Dictionary<int, string> _buildingLocationDirMap = new();
+    [Export]
+    private string _buildingLocPropHint = "";
+
+    private string _customBuildingTypePropName = "Building Type";
+    [Export]
+    public string BuildingTypeDir { get; private set; } = "";
+    [Export]
+    private int _buildingTypeDirIdx = 0;
+    [Export]
+    private Godot.Collections.Dictionary<int, string> _buildingTypeDirMap = new();
+    [Export]
+    private string _buildingTypePropHint = "";
+
+    [Export]
+    private int _numFloors = 0;
+    // int => floor num; string => texture path
+    [Export]
+    private Godot.Collections.Dictionary<int, string> _floorTextureMap = new();
+    private string _floorBuildingPropStart = "Floor";
+    [Export]
+    // int => texture num; string => texture path
+    private Godot.Collections.Dictionary<int, string> _availableFloorTexturePathMap = new();
+    [Export]
+    // int => floor num; int => texture num
+    private Godot.Collections.Dictionary<int, int> _floorTextureIdxMap = new();
+    private string _textureFileExt = ".png";
+    [Export]
+    private string _floorPropHint = "";
+
+    private void SetBuildingLocDirs()
+    {
+        GD.Print($"building type root dir: {_buildingTypeRootDir}");
+        // Check if the directory exists
+        if (!DirAccess.DirExistsAbsolute(_buildingTypeRootDir))
+        {
+            GD.PrintErr($"BUILDING LOCATION ERROR || Building Root @ '{_buildingTypeRootDir}' has no directories inside!");
+            return;// properties;
+        }
+        // Get all directories inside the specified directory
+        string[] buildingTypeDirs = DirAccess.GetDirectoriesAt(BuildingTypeRootDir);
+        _buildingLocPropHint = string.Empty;
+        // sep by commma
+        for (int i = 0; i < buildingTypeDirs.Length; i++)
+        {
+            var dir = buildingTypeDirs[i];
+            var absDir = BuildingTypeRootDir
+                + "//" + dir + "//" + _buildingLocDirIdentifier;
+            if (DirAccess.DirExistsAbsolute(absDir))
+            {
+                if (_buildingLocationDirMap.ContainsKey(i))
+                {
+                    _buildingLocationDirMap[i] = absDir;
+                }
+                else
+                {
+                    _buildingLocationDirMap.Add(i, absDir);
+                    //GD.Print($"added '{i}' to _buildingLocationDirMap.");
+                }
+
+                _buildingLocPropHint += dir + ",";
+            }
+        }
+        _buildingLocPropHint = _buildingLocPropHint.Remove(_buildingLocPropHint.Length - 1); // remove last comma
+    }
+    private void SetBuildingTypeDirs()
+    {
+        if (!DirAccess.DirExistsAbsolute(BuildingLocationDir) || BuildingLocationDir == string.Empty)
+        {
+            GD.PrintErr($"BUILDING TYPE ERROR || Building Location @ '{BuildingLocationDir}' does not exist!");
+            return;// properties;
+        }
+        GD.Print("building location dir: ", BuildingLocationDir);
+        string[] textureDirs = DirAccess.GetDirectoriesAt(BuildingLocationDir);
+        _buildingTypePropHint = string.Empty;
+        if (textureDirs.IsEmpty())
+        {
+            GD.PrintErr($"BUILDING TYPE ERROR || Building Location @ '{BuildingLocationDir}' has no building type directories inside!");
+            return; // properties;
+        }
+        // sep by commma
+        for (int i = 0; i < textureDirs.Length; i++)
+        {
+            var dir = textureDirs[i];
+            var absDir = BuildingLocationDir + "//" + dir;
+            if (_buildingTypeDirMap.ContainsKey(i))
+            {
+                _buildingTypeDirMap[i] = absDir;
+            }
+            else { _buildingTypeDirMap.Add(i, absDir); }
+            _buildingTypePropHint += dir + ",";
+        }
+        _buildingTypePropHint = _buildingTypePropHint.Remove(_buildingTypePropHint.Length - 1); // remove last comma
+    }
+    private void SetFloorTextureFiles()
+    {
+        if (!DirAccess.DirExistsAbsolute(BuildingTypeDir) || BuildingTypeDir == string.Empty)
+        {
+            GD.PrintErr($"BUILDING TYPE ERROR || Building Type @ '{BuildingTypeDir}' does not exist!");
+            return;// properties;
+        }
+
+        GD.Print("building type dir: ", BuildingTypeDir);
+        string[] files = DirAccess.GetFilesAt(BuildingTypeDir);
+        var textureFiles = new List<string>();
+        foreach (var file in files)
+        {
+            var ext = Path.GetExtension(file);
+            if (ext == _textureFileExt)
+            {
+                textureFiles.Add(file);
+            }
+        }
+        //GD.Print("amt of texture files: ", textureFiles.Length);
+        if (textureFiles.Count == 0)
+        {
+            GD.PrintErr($"BUILDING TYPE ERROR || Building Type @ '{BuildingTypeDir}' has no texture files inside!");
+            return;// properties;
+        }
+
+        _floorPropHint = string.Empty;
+        // sep by commma
+        for (int i = 0; i < textureFiles.Count; i++)
+        {
+            var file = textureFiles[i];
+
+            var absPath = BuildingTypeDir + "//" + file;
+            if (_availableFloorTexturePathMap.ContainsKey(i))
+            {
+                _availableFloorTexturePathMap[i] = absPath;
+            }
+            else { _availableFloorTexturePathMap.Add(i, absPath); }
+            _floorPropHint += file + ",";
+        }
+        _floorPropHint = _floorPropHint.Remove(_floorPropHint.Length - 1); // remove last comma
+    }
+    public override bool _PropertyCanRevert(StringName property)
+    {
+        if (property.Equals(_customBuildingLocPropName))
+        {
+            return true;
+        }
+        else if (property.Equals(_customBuildingTypePropName))
+        {
+            return true;
+        }
+        else if (property.ToString().StartsWith(_floorBuildingPropStart))
+        {
+            return true;
+        }
+        return base._PropertyCanRevert(property);
+    }
+    public override Variant _PropertyGetRevert(StringName property)
+    {
+        if (property.Equals(_customBuildingLocPropName))
+        {
+            return Variant.From(0);
+        }
+        else if (property.Equals(_customBuildingTypePropName))
+        {
+            return Variant.From(0);
+        }
+        else if (property.ToString().StartsWith(_floorBuildingPropStart))
+        {
+            return Variant.From(0);
+        }
+        return base._PropertyGetRevert(property);
+    }
+    public override Godot.Collections.Array<Godot.Collections.Dictionary> _GetPropertyList()
+    {
+        var properties = new Godot.Collections.Array<Godot.Collections.Dictionary>();
+        
+        if (!_buildingLocationDirMap.ContainsKey(0))
+        {
+            //GD.PrintErr($"BUILDING LOCATION ERROR || Building Root @ '{_buildingTypeRootDir}' has no directories inside!");
+            return properties;
+        }
+        properties.Add(new Godot.Collections.Dictionary()
+            {
+                { "name", $"{_customBuildingLocPropName}" },
+                { "type", (int)Variant.Type.Int },
+                { "hint", (int)PropertyHint.Enum },
+                { "hint_string", $"{_buildingLocPropHint}" },
+            });
+        if (BuildingLocationDir == string.Empty) // not set yet
+        {
+            GD.Print("INFO || BuildingLocationDir has not been set yet, defaulting...");
+            _buildingLocDirIdx = 0;
+            BuildingLocationDir = _buildingLocationDirMap[0];
+        }
+        //_Get(_customBuildingLocPropName);
+        //_Set(_customBuildingLocPropName, _PropertyGetRevert(_customBuildingLocPropName));
+        //GD.Print("added property: ", properties[properties.Count - 1]);
+
+
+        if (!_buildingTypeDirMap.ContainsKey(0))
+        {
+            //GD.PrintErr($"BUILDING LOCATION ERROR || Building Root @ '{_buildingTypeRootDir}' has no directories inside!");
+            return properties;
+        }
+        properties.Add(new Godot.Collections.Dictionary()
+            {
+                { "name", $"{_customBuildingTypePropName}" },
+                { "type", (int)Variant.Type.Int },
+                { "hint", (int)PropertyHint.Enum },
+                { "hint_string", $"{_buildingTypePropHint}" },
+            });
+        if (BuildingTypeDir == string.Empty) // not set yet
+        {
+            GD.Print("INFO || BuildingTypeDir has not been set yet, defaulting...");
+            _buildingTypeDirIdx = 0;
+            BuildingTypeDir = _buildingTypeDirMap[0];
+        }
+        //_Get(_customBuildingTypePropName);
+        //_Set(_customBuildingTypePropName, _PropertyGetRevert(_customBuildingTypePropName));
+        //GD.Print("added property: ", properties[properties.Count - 1]);
+
+
+        // CHOOSE TEXTURES
+        if (!_availableFloorTexturePathMap.ContainsKey(0))
+        {
+            //GD.PrintErr($"BUILDING LOCATION ERROR || Building Root @ '{_buildingTypeRootDir}' has no directories inside!");
+            return properties;
+        }
+        //GD.Print("propHint: ", propHint, "\nnum floors: ", _numFloors);
+        for (int i = 1; i <= _numFloors; i++)
+        {
+            properties.Add(new Godot.Collections.Dictionary()
+                {
+                    { "name", $"{_floorBuildingPropStart} {i}"},
+                    { "type", (int)Variant.Type.Int },
+                    { "hint", (int)PropertyHint.Enum },
+                    { "hint_string", $"{_floorPropHint}" },
+                });
+            if (!_floorTextureIdxMap.ContainsKey(i) || !_floorTextureMap.ContainsKey(i)) // not set yet
+            {
+                GD.Print($"INFO || '{_floorBuildingPropStart} {i}' has not been set yet, defaulting...");
+                _floorTextureIdxMap.Add(i, 0);
+                _floorTextureMap.Add(i, _availableFloorTexturePathMap[0]);
+            }
+            //_Get($"{_floorBuildingPropStart} {i}");
+            //GD.Print("added property: ", properties[properties.Count - 1]);
+            //_Set($"{_floorBuildingPropStart} {i}", _PropertyGetRevert($"{_floorBuildingPropStart} {i}"));
+        }
+        if (_sortedFloors.Count > 0)
+        {
+            SetFloorTextures();
+        }
+        return properties;
+    }
+
+    public override Variant _Get(StringName property)
+    {
+        string propertyName = property.ToString();
+        if (propertyName.Equals(_customBuildingLocPropName))
+        {
+            //if (_buildingLocDirIdx == -1) // HASN'T BEEN SET!
+            //{
+            //    //_Set(property, _PropertyGetRevert(property));
+            //    _buildingTypeDirIdx = _PropertyGetRevert(_customBuildingLocPropName).AsInt32();
+            //    NotifyPropertyListChanged();
+            //}
+            return _buildingLocDirIdx;
+        }
+        else if (propertyName.Equals(_customBuildingTypePropName))
+        {
+            //if (_buildingTypeDirIdx == -1) // HASN'T BEEN SET!
+            //{
+            //    //_Set(property, _PropertyGetRevert(property));
+            //    _buildingTypeDirIdx = _PropertyGetRevert(propertyName).AsInt32();
+            //    NotifyPropertyListChanged();
+            //}
+            return _buildingTypeDirIdx;
+        }
+        else if (propertyName.StartsWith(_floorBuildingPropStart))
+        {
+            // don't do 'Length - 1' bc of space
+            int floorNum = int.Parse(propertyName.Substring(_floorBuildingPropStart.Length));
+
+            //if (!_floorTextureIdxMap.ContainsKey(floorNum))
+            //{
+            //    _Set(property, _PropertyGetRevert(property));
+            //    //var defProp = _PropertyGetRevert(propertyName).AsInt32();
+            //    //var texture = _availableFloorTexturePathMap[defProp];
+            //    //_floorTextureIdxMap.Add(floorNum, defProp);
+            //    //_floorTextureMap.Add(floorNum, texture);
+            //    //NotifyPropertyListChanged();
+            //}
+            return _floorTextureIdxMap[floorNum];
+        }
+        return default;
+        //return new Variant();//base._Get(property);
+    }
+
+    public override bool _Set(StringName property, Variant value)
+    {
+        string propertyName = property.ToString();
+        if (propertyName.Equals(_customBuildingLocPropName))
+        {
+            if (!_buildingTypeDirMap.ContainsKey(value.AsInt32())) 
+            {
+                SetBuildingLocDirs();
+            }
+            _buildingLocDirIdx = value.AsInt32();
+            BuildingLocationDir = _buildingLocationDirMap[value.AsInt32()];
+
+            // default building type and textures
+            _buildingTypeDirMap.Clear();
+            SetBuildingTypeDirs();
+            
+            _buildingTypeDirIdx = 0;
+            BuildingTypeDir = _buildingTypeDirMap[_buildingTypeDirIdx];
+
+            _floorTextureIdxMap.Clear();
+            _floorTextureMap.Clear();
+            SetFloorTextureFiles();
+
+            NotifyPropertyListChanged();
+            //SetFloorTextures();
+            return true;
+        }
+        else if (propertyName.Equals(_customBuildingTypePropName))
+        {
+            if (!_buildingTypeDirMap.ContainsKey(value.AsInt32()))
+            {
+                SetBuildingTypeDirs();
+            }
+            _buildingTypeDirIdx = value.AsInt32();
+            BuildingTypeDir = _buildingTypeDirMap[value.AsInt32()];
+            _floorTextureIdxMap.Clear();
+            _floorTextureMap.Clear();
+            SetFloorTextureFiles();
+
+            NotifyPropertyListChanged();
+            //SetFloorTextures();
+            return true;
+        }
+        else if (propertyName.StartsWith(_floorBuildingPropStart))
+        {
+            if (_availableFloorTexturePathMap.ContainsKey(value.AsInt32()))
+            {
+                SetFloorTextureFiles();
+            }
+            GD.Print("SETTING FLOOR PROP: ", propertyName);
+            var texture = _availableFloorTexturePathMap[value.AsInt32()];
+            // don't do 'Length - 1' bc of space
+            int floorNum = int.Parse(propertyName.Substring(_floorBuildingPropStart.Length));
+
+            GD.Print($"Changed floor {floorNum}'s texture to: {texture}");
+
+            if (_floorTextureMap.ContainsKey(floorNum))
+            {
+                _floorTextureIdxMap[floorNum] = value.AsInt32();
+                _floorTextureMap[floorNum] = texture;
+            }
+            else
+            {
+                _floorTextureIdxMap.Add(floorNum, value.AsInt32());
+                _floorTextureMap.Add(floorNum, texture);
+            }
+            NotifyPropertyListChanged();
+            //SetFloorTextures();
+            return true;
+        }
+        return false;
+        //return base._Set(property, value);
+    }
+    private void OnChildEnteredBuilding(Node node)
+    {
+        if (!Engine.IsEditorHint()) { return; }
+        if (node is BuildingFloorComponent)
+        {
+            _numFloors = this.GetChildrenOfType<BuildingFloorComponent>().Count;
+            NotifyPropertyListChanged();
+        }
+    }
+    private void OnChildExitingBuilding(Node node)
+    {
+        if (!Engine.IsEditorHint()) { return; }
+        if (node is BuildingFloorComponent)
+        {
+            _numFloors = this.GetChildrenOfType<BuildingFloorComponent>().Count;
+            NotifyPropertyListChanged();
+        }
     }
     #endregion
 }

@@ -1,13 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://hukks8001cmk"]
+[gd_scene load_steps=5 format=4 uid="uid://hukks8001cmk"]
 
-[ext_resource type="ArrayMesh" uid="uid://cr7ka0otfrjo0" path="res://Areas/All/Buildings/Models/base_32x.obj" id="1_01shm"]
 [ext_resource type="Script" path="res://BaseComponents/BuildingFloorComponent.cs" id="2_p1mb1"]
 [ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="3_d4lqj"]
 [ext_resource type="PackedScene" uid="uid://7rxr0u3eirrr" path="res://Areas/All/Buildings/Effects/floorDestruction32x.tscn" id="4_cddi3"]
 
+[sub_resource type="ArrayMesh" id="ArrayMesh_5yrta"]
+_surfaces = [{
+"aabb": AABB(-0.5, 0, -0.5, 1, 0.625, 1),
+"attribute_data": PackedByteArray("/3//Z/8//2f/f/8//z//P/8//2cAAP9n/z//PwAA/z////9n/7//Z////z//v/8//7//Z/9//2f/v/8//3//P/8/AAD/fwAA/z//P/9//z//f/8//7//P/9/AAD/vwAA"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMABAAFAAYABgAFAAcACAAJAAoACgAJAAsADAANAA4ADgANAA8AEAARABIAEgARABMAFAAVABYAFgAVABcA"),
+"name": "m_534100e7-5f36-94b3-4f9e-88b4ccbf85c8",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAAAAAAA/////wAAAAD//wAA//8AAP///////wAA/////wAAAAD/v///AAD///+//////wAA/7//////////v///AAD//wCAAAAAAP//AID///////8AgAAA/////wCAAAAAAP///78AAAAAAAD/vwAA//////+/AAD//wAA/7///////////wAA/////////////wAA//8AAP//AAD/////AAAAAAAAAAAAAAAAAAD//wAA//8AAAAAAAD//wAA/3////9/////f////3////9/AAD/fwAA/38AAP9/AAD/f////3////9/////f////3////9/////f////3////9//7//f/+//3//v/9//7//f/8//3//P/9//z//f/8/")
+}]
+blend_shape_mode = 0
+
 [node name="BuildingFloor" type="MeshInstance3D"]
 transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0, 0, 0)
-mesh = ExtResource("1_01shm")
+mesh = SubResource("ArrayMesh_5yrta")
 script = ExtResource("2_p1mb1")
 FloorMaxHealth = 5.0
 

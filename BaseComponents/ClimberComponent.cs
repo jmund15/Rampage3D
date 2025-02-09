@@ -138,18 +138,19 @@ public partial class ClimberComponent : Node
             //    AvailableClimbable = false;
             //    return;
             //}
-            if (velVec.X == 0 && velVec.Z == 0)
+            if (velVec.X > Global.CHANGE_DIR_VEL_REQ || velVec.Z > Global.CHANGE_DIR_VEL_REQ)
+            {
+                desDir = velVec.GetOrthogDirection();
+            }
+            else 
             {
                 desDir = _moveComp.GetFaceDirection();
-            }
-            else {
-                desDir = velVec.GetOrthogDirection();
             }
 
             var xzBodyPos = new Vector2(_body.Position.X, _body.Position.Z);
             var nearestClimbOnPos = climbComp.GetClosestClimbablePosOfDir(xzBodyPos, desDir);
             var distToClimbOn = nearestClimbOnPos.DistanceTo(xzBodyPos);
-            GD.Print("distance to climbon pos: ", distToClimbOn);
+            //GD.Print("distance to climbon pos: ", distToClimbOn);
             if (distToClimbOn < _maxDistFromClimbable)
             {
                 ClimbableComp = climbComp;

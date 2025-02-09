@@ -95,11 +95,13 @@ public partial class JumpState : State
             EmitSignal(SignalName.TransitionState, this, _landWallState);
             return;
         }
-        if (_body.Velocity.X != 0 || _body.Velocity.Z != 0)
+        if (Mathf.Abs(_body.Velocity.X) > Global.CHANGE_DIR_VEL_REQ || Mathf.Abs(_body.Velocity.Z) > Global.CHANGE_DIR_VEL_REQ)
         {
             var velDir = _body.Velocity.GetOrthogDirection();
+            //GD.Print("vel: ", _body., "\nvelDir: ", velDir, "; curr dir: ", _moveComp.GetFaceDirection());
             if (velDir != _moveComp.GetFaceDirection())
             {
+                GD.Print("Velocity when changing dirs: ", _body.Velocity);
                 var prevPos = _animPlayer.CurrentAnimationPosition;
                 PlayAnim.AnimWithOrthog(BB, AnimName, velDir);
                 _animPlayer.Seek(prevPos, true);

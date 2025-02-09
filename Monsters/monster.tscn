@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Monsters/Monster.cs" id="1_g3eh5"]
 [ext_resource type="PackedScene" uid="uid://b2ggfqqshmwa5" path="res://Monsters/grizzler.tscn" id="2_71hpp"]
 [ext_resource type="Script" path="res://Monsters/MSM/MSM.cs" id="3_cgum4"]
-[ext_resource type="Shape3D" uid="uid://dncur0o86purp" path="res://Monsters/rambucho2_capsuleshape.tres" id="4_f3r1m"]
+[ext_resource type="Shape3D" uid="uid://bmpwyjckkxcwe" path="res://Monsters/rambucho2_capsuleshape_smaller.tres" id="3_m3lms"]
 [ext_resource type="Script" path="res://Monsters/MSM/IdleState.cs" id="4_tuk86"]
 [ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="5_4d0qn"]
 [ext_resource type="Script" path="res://Monsters/MSM/WalkState.cs" id="5_gtr0n"]
@@ -93,7 +93,7 @@ libraries = {
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-3.09086e-08, -0.707107, 0.707107, 1, -4.37114e-08, 0, 3.09086e-08, 0.707107, 0.707107, 0, 0.8, 0)
-shape = ExtResource("4_f3r1m")
+shape = ExtResource("3_m3lms")
 
 [node name="MSM" type="Node" parent="." node_paths=PackedStringArray("AttackState", "WallAttackState", "OnEjectClimberState", "InitialSubState")]
 script = ExtResource("3_cgum4")

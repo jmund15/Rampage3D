@@ -25,6 +25,8 @@ public partial class FallState : State
     private AnimDirection _currAnimDir;
 
     private float _fallHeight;
+
+    
     #endregion
     #region STATE_UPDATES
     public override void Init(Node agent, IBlackboard bb)
@@ -81,11 +83,13 @@ public partial class FallState : State
             }
         }
 
-        if (_body.Velocity.X != 0 || _body.Velocity.Z != 0)
+        if (_body.Velocity.X > Global.CHANGE_DIR_VEL_REQ || _body.Velocity.Z > Global.CHANGE_DIR_VEL_REQ)
         {
             var velDir = _body.Velocity.GetOrthogDirection();
+            GD.Print("velDir: ", velDir, "; curr dir: ", _moveComp.GetFaceDirection());
             if (velDir != _moveComp.GetFaceDirection())
             {
+                GD.Print("Velocity when changing dirs: ", _body.Velocity);
                 var prevPos = _animPlayer.CurrentAnimationPosition;
                 PlayAnim.AnimWithOrthog(BB, _animName, velDir);
                 _animPlayer.Seek(prevPos, true);

@@ -5,8 +5,6 @@ using System.Collections.Generic;
 [GlobalClass, Tool]
 public partial class ClimbableComponent : Node
 {
-    private Node3D _structure;
-    [Export]
     private BuildingComponent _buildingComp;
     public RoofComponent RoofComp { get; private set; }
  //   [Export]
@@ -31,8 +29,12 @@ public partial class ClimbableComponent : Node
     public event EventHandler EjectClimbers;
     public override void _Ready()
 	{
-        _structure = GetOwner<Node3D>();
-        RoofComp = _structure.GetFirstChildOfType<RoofComponent>();
+        _buildingComp = GetOwner<BuildingComponent>();
+        if (_buildingComp == null )
+        {
+            GD.PrintErr("ERROR || Climbable Component Needs a buildng comp as a parent!");
+        }
+        RoofComp = _buildingComp.GetFirstChildOfType<RoofComponent>();
 
         CallDeferred(MethodName.InitializeClimbPosMap);
 
@@ -41,9 +43,9 @@ public partial class ClimbableComponent : Node
         //{
         //    var centerTopPoint = new Vector3
         //        (
-        //        _structure.Position.X /*+ (_boxShape.Size.X / 2)) * _structure.Scale.X*/,
+        //        _buildingComp.Position.X /*+ (_boxShape.Size.X / 2)) * _buildingComp.Scale.X*/,
         //        MaxClimbHeight,
-        //        _structure.Position.Z /*+ (_boxShape.Size.Z / 2)) * _structure.Scale.Z*/
+        //        _buildingComp.Position.Z /*+ (_boxShape.Size.Z / 2)) * _buildingComp.Scale.Z*/
         //        );
 
 
@@ -74,9 +76,9 @@ public partial class ClimbableComponent : Node
         var closestDist = float.MaxValue;
         Vector2 closestPos = Vector2.Zero;
 
-        GD.Print("startign climbing at dir: ", dir,
-            "\nbody pos: ", xzPos,
-            "\nclamp pos options:");
+        //GD.Print("startign climbing at dir: ", dir,
+        //    "\nbody pos: ", xzPos,
+        //    "\nclamp pos options:");
 
         foreach (var climbOnPos in ClimbOnPosMap[dir])
         {
@@ -96,9 +98,9 @@ public partial class ClimbableComponent : Node
         var closestDist = float.MaxValue;
         Vector2 closestPos = Vector2.Zero;
 
-        GD.Print("startign climbing at dir: ", dir,
-            "\nbody pos: ", xzPos,
-            "\nclamp pos options:");
+        //GD.Print("startign climbing at dir: ", dir,
+        //    "\nbody pos: ", xzPos,
+        //    "\nclamp pos options:");
 
         foreach (var climbOnPos in ClimbOnPosMap[dir])
         {
@@ -114,8 +116,8 @@ public partial class ClimbableComponent : Node
     }
     private void InitializeClimbPosMap()
     {
-        //GD.Print("INITIALIZING CLIMB POSES FOR: ", _structure.Name);
-        var structPos = _structure.GlobalPosition;
+        //GD.Print("INITIALIZING CLIMB POSES FOR: ", _buildingComp.Name);
+        var structPos = _buildingComp.GlobalPosition;
 
         foreach (var frontFacePos in _buildingComp.XFacePoses)
         {
