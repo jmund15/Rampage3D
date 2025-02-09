@@ -86,10 +86,10 @@ public partial class FallState : State
         if (_body.Velocity.X > Global.CHANGE_DIR_VEL_REQ || _body.Velocity.Z > Global.CHANGE_DIR_VEL_REQ)
         {
             var velDir = _body.Velocity.GetOrthogDirection();
-            GD.Print("velDir: ", velDir, "; curr dir: ", _moveComp.GetFaceDirection());
+            //GD.Print("velDir: ", velDir, "; curr dir: ", _moveComp.GetFaceDirection());
             if (velDir != _moveComp.GetFaceDirection())
             {
-                GD.Print("Velocity when changing dirs: ", _body.Velocity);
+                //GD.Print("Velocity when changing dirs: ", _body.Velocity);
                 var prevPos = _animPlayer.CurrentAnimationPosition;
                 PlayAnim.AnimWithOrthog(BB, _animName, velDir);
                 _animPlayer.Seek(prevPos, true);

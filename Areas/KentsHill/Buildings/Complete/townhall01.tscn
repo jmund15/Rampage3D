@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b1kscej50yrvh"]
 
-[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Areas/All/Buildings/Complete/base_building.tscn" id="1_pd2r4"]
+[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://BaseComponents/base_building_component.tscn" id="1_pd2r4"]
 [ext_resource type="PackedScene" uid="uid://dmbipgv33ejot" path="res://Areas/KentsHill/Buildings/Floors/townhall01_bot.tscn" id="2_1dhp7"]
 [ext_resource type="PackedScene" uid="uid://5t33gb788rjn" path="res://Areas/KentsHill/Buildings/Floors/townhall01_top.tscn" id="3_qtjom"]
 [ext_resource type="Texture2D" uid="uid://dpuhfip2wpo47" path="res://Areas/KentsHill/Buildings/Textures/32x_townhall01/32x_base_townhall01_top_snowy.png" id="4_2xeub"]

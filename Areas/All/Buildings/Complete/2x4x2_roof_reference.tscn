@@ -1,29 +1,59 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhr1cyrw2bckn"]
+[gd_scene load_steps=8 format=3 uid="uid://dhr1cyrw2bckn"]
 
-[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Areas/All/Buildings/Complete/base_building_component.tscn" id="1_ygbel"]
+[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://BaseComponents/base_building_component.tscn" id="1_ygbel"]
 [ext_resource type="PackedScene" uid="uid://duisdy2cwuxf6" path="res://Areas/All/Buildings/Floors/64x128_base_reference.tscn" id="2_l3far"]
 [ext_resource type="PackedScene" uid="uid://bvyg44nw1xn3r" path="res://Areas/All/Buildings/Floors/64x128_roof_reference.tscn" id="3_bl0lm"]
+[ext_resource type="Texture2D" uid="uid://dmncsywk7x8u8" path="res://Areas/All/Buildings/Textures/references/64x128_base_reference.png" id="3_v1dtc"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_302vn"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_eyqcx"]
 points = PackedVector3Array(-2.25, 0, -4.75, 2.75, 0, -4.75, -2.25, 1.5, -4.75, 2.75, 1.5, -4.75, 2.75, 0, -4.75, 2.75, 0, 5.25, 2.75, 1.5, -4.75, 2.75, 1.5, 5.25, 2.75, 0, 5.25, -2.25, 0, 5.25, 2.75, 1.5, 5.25, -2.25, 1.5, 5.25, -2.25, 0, 5.25, -2.25, 0, -4.75, -2.25, 1.5, 5.25, -2.25, 1.5, -4.75, 2.75, 1.5, 5.25, -2.25, 1.5, 5.25, 2.75, 1.5, -4.75, -2.25, 1.5, -4.75, 2.75, 0, -4.75, -2.25, 0, -4.75, 2.75, 0, 5.25, -2.25, 0, 5.25, -2.25, 1.5, -4.75, 2.75, 1.5, -4.75, -2.25, 3, -4.75, 2.75, 3, -4.75, 2.75, 1.5, -4.75, 2.75, 1.5, 5.25, 2.75, 3, -4.75, 2.75, 3, 5.25, 2.75, 1.5, 5.25, -2.25, 1.5, 5.25, 2.75, 3, 5.25, -2.25, 3, 5.25, -2.25, 1.5, 5.25, -2.25, 1.5, -4.75, -2.25, 3, 5.25, -2.25, 3, -4.75, 2.75, 3, 5.25, -2.25, 3, 5.25, 2.75, 3, -4.75, -2.25, 3, -4.75, 2.75, 1.5, -4.75, -2.25, 1.5, -4.75, 2.75, 1.5, 5.25, -2.25, 1.5, 5.25)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0bhqa"]
+resource_local_to_scene = true
+albedo_texture = ExtResource("3_v1dtc")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aunk8"]
+resource_local_to_scene = true
+albedo_texture = ExtResource("3_v1dtc")
+texture_filter = 0
+
 [node name="Building" instance=ExtResource("1_ygbel")]
+"Building Type" = 1
+"Floor 1" = 2
+"Floor 2" = 2
+MinimumFloorsToCollapse = 1
+PercentageDamageToCollapse = 70.0
+BuildingTypeDir = "res://Areas//All//Buildings//Textures//references"
+_buildingTypeDirIdx = 1
+_numFloors = 2
+_floorTextureMap = {
+1: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png"
+}
+_floorTextureIdxMap = {
+1: 2,
+2: 2
+}
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x128_roof_reference.png,64x_base_reference.png,64x_roof_reference.png,96x_base_reference.png"
 
 [node name="CollisionShape3D" parent="." index="0"]
-shape = SubResource("ConvexPolygonShape3D_302vn")
+shape = SubResource("ConvexPolygonShape3D_eyqcx")
 
-[node name="RoofComponent" parent="." index="3" node_paths=PackedStringArray("_roofMesh")]
+[node name="RoofComponent" parent="." index="2" node_paths=PackedStringArray("_roofMesh")]
 _setTopFloorAsRoof = true
 _roofMesh = NodePath("../BuildingFloor2")
 
 [node name="CollisionShape3D" parent="HurtboxComponent3D" index="0"]
-shape = SubResource("ConvexPolygonShape3D_302vn")
+shape = SubResource("ConvexPolygonShape3D_eyqcx")
 
-[node name="buildingDestructionSmokeCenter" parent="." index="6"]
+[node name="buildingDestructionSmokeCenter" parent="." index="5"]
 transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, 3.25, 0.130737, 5.75)
 
 [node name="BuildingFloor" parent="." index="7" instance=ExtResource("2_l3far")]
 transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0.25, 0, 0.25)
+material_override = SubResource("StandardMaterial3D_0bhqa")
 
 [node name="BuildingFloor2" parent="." index="8" instance=ExtResource("3_bl0lm")]
 transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0.25, 1.5, 0.25)
+material_override = SubResource("StandardMaterial3D_aunk8")

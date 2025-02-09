@@ -9,13 +9,13 @@ public partial class BuildingComponent : RigidBody3D
 {
     #region COMPONENT_VARIABLES
     [Export]
-    public int MinimumFloorsToCollapse { get; private set; } = 1;
+    public int MinimumFloorsToCollapse { get; private set; } = 0;
     [Export(PropertyHint.Range, "0,100,0.1")]
     public float PercentageDamageToCollapse { get; private set; } = 100f;
     [Export] //TODO?: TICK FASTER AS LESS HEALTH
     private float _collapseTickInterval = 1.0f;
     [Export(PropertyHint.Range, "0,100,0.1")]
-    private float _collapseTickDamagePercentage = 1.0f;
+    private float _collapseTickDamagePercentage = 5.0f;
     
     //[Export]
     private float _maxBuildingHealth = 0f;
@@ -27,10 +27,9 @@ public partial class BuildingComponent : RigidBody3D
     public Vector2 ZRange { get; private set; } = new Vector2();
     public Vector3 Dimensions { get; private set; } = new Vector3(); // X width, z length, and y height
 
-    [Export]
     private HurtboxComponent3D _hurtboxComp;
     private CollisionShape3D _hurtboxCollShape;
-    private CollisionShape3D thisCollShape;
+    private CollisionShape3D _collShape;
 
     private Timer _collapseTicker;
     
@@ -74,6 +73,7 @@ public partial class BuildingComponent : RigidBody3D
         _collapseTicker = GetNode<Timer>("CollapseTicker");
         _collapseTicker.Timeout += OnCollapseTick;
 
+        _hurtboxComp = this.GetFirstChildOfType<HurtboxComponent3D>();
         _hurtboxComp.HitboxEntered += OnHitboxEntered;
         //GD.Print("num floors: ", _numFloors);
 
@@ -84,12 +84,12 @@ public partial class BuildingComponent : RigidBody3D
         ZFacePoses = _sortedFloors[0].ZFacePoses;
 
         // Step 2: Set collision shapes of building based on floor meshes
-        thisCollShape = this.GetFirstChildOfType<CollisionShape3D>();
+        _collShape = this.GetFirstChildOfType<CollisionShape3D>();
         _hurtboxCollShape = _hurtboxComp.GetFirstChildOfType<CollisionShape3D>();
-        thisCollShape.MakeConvexFromSiblings();
-        _hurtboxCollShape.Shape = thisCollShape.Shape;
+        _collShape.MakeConvexFromSiblings();
+        _hurtboxCollShape.Shape = _collShape.Shape;
         //thisCollShape.Rotate(Vector3.Up, this.GlobalRotation.Y - this.Rotation.Y);
-        var convexShape = thisCollShape.Shape as ConvexPolygonShape3D;
+        var convexShape = _collShape.Shape as ConvexPolygonShape3D;
         float xMin = float.MaxValue; float xMax = float.MinValue;
         float yMin = float.MaxValue; float yMax = float.MinValue;
         float zMin = float.MaxValue; float zMax = float.MinValue;
@@ -98,7 +98,7 @@ public partial class BuildingComponent : RigidBody3D
         foreach (var p in convexShape.Points)
         {
             // PUT IN GLOBAL COORDS
-            var globalP = thisCollShape.ToGlobal(p);
+            var globalP = _collShape.ToGlobal(p);
             //var globalP = p.Rotated(Vector3.Up, this.GlobalRotation.Y - this.Rotation.Y);
             //var globalP = p;
 
@@ -123,13 +123,13 @@ public partial class BuildingComponent : RigidBody3D
             (yMax - yMin) * this.Scale.Y,
             (zMax - zMin) * this.Scale.Z
             );
-        if (this.Name == "Testing" || this.Name == "Middle")
-        {
-            GD.Print(
-                $"Building Start Pos: {new Vector3(xMin, yMin, zMin)}" +
-                $"\nBuilding Size: {new Vector3(Dimensions.X, Dimensions.Y, Dimensions.Z)}" +
-                $"");
-        }
+        //if (this.Name == "Testing" || this.Name == "Middle")
+        //{
+        //    GD.Print(
+        //        $"Building Start Pos: {new Vector3(xMin, yMin, zMin)}" +
+        //        $"\nBuilding Size: {new Vector3(Dimensions.X, Dimensions.Y, Dimensions.Z)}" +
+        //        $"");
+        //}
         //GD.Print($"Building {this.Name}'s dimensions: {Dimensions}.");
 
         // Step 4: initialize the floors health and calc full building health
@@ -208,7 +208,7 @@ public partial class BuildingComponent : RigidBody3D
         }
         foreach (var floor in floorsAffected)
         {
-            GD.Print("DAMAGING FLOOR: ", floor.Name);
+            //GD.Print("DAMAGING FLOOR: ", floor.Name);
             floor.HealthComp.DamageWithAttack(hitbox.CurrentAttack);
         }
     }
@@ -263,11 +263,21 @@ public partial class BuildingComponent : RigidBody3D
         {
             var floor = _sortedFloors[i - 1];
             _floors.Add(i, floor);
-            floor.HealthComp.HealthInitialized += (sender, args) =>
+            //floor.HealthComp.HealthInitialized += (sender, args) =>
+            //{
+            //    _maxBuildingHealth += floor.HealthComp.MaxHealth;
+            //    _currentBuildingHealth += floor.HealthComp.Health;
+            //    if (Name == "Middle")
+            //    {
+            //        GD.Print("added building health to: ", _maxBuildingHealth);
+            //    }
+            //};
+            _maxBuildingHealth += floor.HealthComp.MaxHealth;
+            _currentBuildingHealth += floor.HealthComp.Health;
+            if (Name == "Middle")
             {
-                _maxBuildingHealth += floor.HealthComp.MaxHealth;
-                _currentBuildingHealth += floor.HealthComp.Health;
-            };
+                GD.Print("added building health to: ", _maxBuildingHealth);
+            }
 
             floor.HealthComp.Destroyed += (update) => OnFloorDestroyed(floor, i, update);
             floor.HealthComp.HealthChanged += OnFloorDamaged;
@@ -281,33 +291,33 @@ public partial class BuildingComponent : RigidBody3D
     private void InitializeBaseSmoke()
     {
         var smokeOffset = 0.5f;
-        _destructionCenterSmoke.Position = new Vector3(
-            XRange.Y + smokeOffset + this.GlobalPosition.X,
-            YRange.X + this.GlobalPosition.Y,
-            ZRange.Y + smokeOffset + this.GlobalPosition.Z
+        _destructionCenterSmoke.GlobalPosition = new Vector3(
+            XRange.Y + smokeOffset,// + this.GlobalPosition.X,
+            YRange.X,// + this.GlobalPosition.Y,
+            ZRange.Y + smokeOffset// + this.GlobalPosition.Z
             );
-        _destructionCenterSmoke.RotationDegrees = new Vector3(0,45,0);
+        _destructionCenterSmoke.RotationDegrees = /*RotationDegrees +*/ new Vector3(0,45,0);
 
         //var baseFloor = _floors[1]; // get bottom floor
 
         var smokeX = _destructionDirectionalSmoke.Duplicate() as AnimatedSprite3D;
-        this.AddChild(smokeX);
+        AddChild(smokeX);
         smokeX.FlipH = true;
-        smokeX.RotationDegrees = new Vector3(0, 45, 0);
+        smokeX.GlobalRotationDegrees = _destructionDirectionalSmoke.GlobalRotationDegrees - new Vector3(0, 45, 0);
         smokeX.GlobalPosition = new Vector3(
-            XRange.X + smokeOffset + this.GlobalPosition.X,
-            YRange.X + this.GlobalPosition.Y,
-            ZRange.Y + smokeOffset + this.GlobalPosition.Z
+            XRange.X + smokeOffset,// + this.GlobalPosition.X,
+            YRange.X,// + this.GlobalPosition.Y,
+            ZRange.Y + smokeOffset// + this.GlobalPosition.Z
         );
         _smokeSprites.Add(smokeX);
 
         var smokeZ = _destructionDirectionalSmoke.Duplicate() as AnimatedSprite3D;
-        this.AddChild(smokeZ);
-        smokeZ.RotationDegrees = new Vector3(0, 45, 0);
+        AddChild(smokeZ);
+        smokeZ.GlobalRotationDegrees = _destructionDirectionalSmoke.GlobalRotationDegrees - new Vector3(0, 45, 0);
         smokeZ.GlobalPosition = new Vector3(
-            XRange.Y + smokeOffset + this.GlobalPosition.X,
-            YRange.X + this.GlobalPosition.Y,
-            ZRange.X + smokeOffset + this.GlobalPosition.Z
+            XRange.Y + smokeOffset,
+            YRange.X,
+            ZRange.X + smokeOffset
         );
         _smokeSprites.Add(smokeZ);
 
@@ -321,7 +331,13 @@ public partial class BuildingComponent : RigidBody3D
             //smokeSprite.Play("idle");
             smokeSprite.Hide();
         }
-        //GD.Print("smoke center sprite pos: ", _destructionCenterSmoke.GlobalPosition);
+        if (Name == "Middle")
+        {
+            GD.Print($"smoke center sprite pos: {_destructionCenterSmoke.GlobalPosition}" +
+            $"\nsmokeX glob pos: {smokeX.GlobalPosition}" +
+            $"\nsmokeZ glob pos: {smokeZ.GlobalPosition}");
+        }
+        
     }
     private void CheckCollapseStatus()
     {
@@ -367,6 +383,7 @@ public partial class BuildingComponent : RigidBody3D
         {
             smokeSprite.Show();
             smokeSprite.Play("emit");
+            GD.Print("smoke sprite pos: ", smokeSprite.GlobalPosition);
         }
 
 
@@ -495,7 +512,7 @@ public partial class BuildingComponent : RigidBody3D
 
     private void SetBuildingLocDirs()
     {
-        GD.Print($"building type root dir: {_buildingTypeRootDir}");
+        //GD.Print($"building type root dir: {_buildingTypeRootDir}");
         // Check if the directory exists
         if (!DirAccess.DirExistsAbsolute(_buildingTypeRootDir))
         {
@@ -535,7 +552,7 @@ public partial class BuildingComponent : RigidBody3D
             GD.PrintErr($"BUILDING TYPE ERROR || Building Location @ '{BuildingLocationDir}' does not exist!");
             return;// properties;
         }
-        GD.Print("building location dir: ", BuildingLocationDir);
+        //GD.Print("building location dir: ", BuildingLocationDir);
         string[] textureDirs = DirAccess.GetDirectoriesAt(BuildingLocationDir);
         _buildingTypePropHint = string.Empty;
         if (textureDirs.IsEmpty())
@@ -565,7 +582,7 @@ public partial class BuildingComponent : RigidBody3D
             return;// properties;
         }
 
-        GD.Print("building type dir: ", BuildingTypeDir);
+        //GD.Print("building type dir: ", BuildingTypeDir);
         string[] files = DirAccess.GetFilesAt(BuildingTypeDir);
         var textureFiles = new List<string>();
         foreach (var file in files)
@@ -806,12 +823,12 @@ public partial class BuildingComponent : RigidBody3D
             {
                 SetFloorTextureFiles();
             }
-            GD.Print("SETTING FLOOR PROP: ", propertyName);
+            //GD.Print("SETTING FLOOR PROP: ", propertyName);
             var texture = _availableFloorTexturePathMap[value.AsInt32()];
             // don't do 'Length - 1' bc of space
             int floorNum = int.Parse(propertyName.Substring(_floorBuildingPropStart.Length));
 
-            GD.Print($"Changed floor {floorNum}'s texture to: {texture}");
+            //GD.Print($"Changed floor {floorNum}'s texture to: {texture}");
 
             if (_floorTextureMap.ContainsKey(floorNum))
             {

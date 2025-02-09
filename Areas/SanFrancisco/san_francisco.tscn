@@ -49,75 +49,128 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 
 
 [node name="Middle" parent="Buildings" instance=ExtResource("7_d6ob6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 5)
+"Building Type" = 0
+"Floor 1" = 0
+"Floor 2" = 6
+"Floor 3" = 3
+"Floor 4" = 7
+BuildingTypeDir = "res://Areas//All//Buildings//Textures//32x_brick01"
+_buildingTypeDirIdx = 0
+_floorTextureMap = {
+1: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot.png",
+2: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt04.png",
+3: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt01.png",
+4: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot.png",
+1: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot_alt01.png",
+2: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid.png",
+3: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt01.png",
+4: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt02.png",
+5: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt03.png",
+6: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt04.png",
+7: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top.png",
+8: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top_alt01.png"
+}
+_floorTextureIdxMap = {
+1: 0,
+2: 6,
+3: 3,
+4: 7
+}
+_floorPropHint = "32x_brick01_bot.png,32x_brick01_bot_alt01.png,32x_brick01_mid.png,32x_brick01_mid_alt01.png,32x_brick01_mid_alt02.png,32x_brick01_mid_alt03.png,32x_brick01_mid_alt04.png,32x_brick01_top.png,32x_brick01_top_alt01.png"
 
 [node name="Testing" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -7.5)
 
 [node name="Building2" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -7.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building31" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -15)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building32" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -17.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building21" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building18" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -7.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building20" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -7.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building38" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -20)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building35" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -17.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building4" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 2.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building14" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 12.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building16" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 20)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building24" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 17.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building25" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 0, 17.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building23" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 17.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building12" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, -7.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building26" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, -5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building27" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building28" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, -5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building5" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 2.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building10" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 10)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building9" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 12.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building8" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 10)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2, 0, 1.5)
@@ -133,36 +186,47 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 0
 
 [node name="Building3" parent="Buildings" instance=ExtResource("8_jjwty")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 0, 1.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building33" parent="Buildings" instance=ExtResource("8_jjwty")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5, 0, -16)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building34" parent="Buildings" instance=ExtResource("8_jjwty")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -12, 0, -17.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building11" parent="Buildings" instance=ExtResource("8_jjwty")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 0, -7.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building7" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 12.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building13" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 10)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building41" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 20)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building39" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 0, -20)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building40" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 0, -17.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building22" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 17.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building17" parent="Buildings" instance=ExtResource("6_byd3a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, 18.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building15" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 17.5)
@@ -172,12 +236,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 20)
 
 [node name="Building19" parent="Buildings" instance=ExtResource("9_jtpy1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -24, 0, -6.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building29" parent="Buildings" instance=ExtResource("9_jtpy1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -24, 0, 3.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Building36" parent="Buildings" instance=ExtResource("9_jtpy1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -24, 0, 13.5)
+_collapseTickDamagePercentage = 1.0
 
 [node name="Environment" type="Node3D" parent="."]
 

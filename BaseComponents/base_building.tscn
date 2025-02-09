@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://lfy01qk75j3v"]
+
+[ext_resource type="Script" path="res://BaseComponents/BuildingComponent.cs" id="1_bs3e0"]
+[ext_resource type="PackedScene" uid="uid://cbct72jw70cm4" path="res://BaseComponents/climbable_component.tscn" id="2_7uvr2"]
+[ext_resource type="Script" path="res://BaseComponents/RoofComponent.cs" id="3_gmuio"]
+[ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="4_4ib5k"]
+[ext_resource type="PackedScene" uid="uid://bt85nwj2gb1b3" path="res://Areas/All/Buildings/Effects/buildingDestructionSmokeDirectional.tscn" id="5_fjhom"]
+[ext_resource type="PackedScene" uid="uid://denn1dumyw2kq" path="res://Areas/All/Buildings/Effects/buildingDestructionSmokeCenter.tscn" id="6_52h57"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_65lnb"]
+
+[node name="Building" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 3
+sleeping = true
+freeze = true
+script = ExtResource("1_bs3e0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.130737, 0)
+shape = SubResource("ConvexPolygonShape3D_65lnb")
+
+[node name="ClimbableComponent" parent="." instance=ExtResource("2_7uvr2")]
+
+[node name="RoofComponent" type="Node" parent="."]
+script = ExtResource("3_gmuio")
+
+[node name="HurtboxComponent3D" type="Area3D" parent="."]
+collision_layer = 2
+script = ExtResource("4_4ib5k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.129578, 0)
+shape = SubResource("ConvexPolygonShape3D_65lnb")
+
+[node name="buildingDestructionSmokeDirectional" parent="." instance=ExtResource("5_fjhom")]
+visible = false
+
+[node name="buildingDestructionSmokeCenter" parent="." instance=ExtResource("6_52h57")]
+transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, -3.40282e+38, 3.40282e+38, -3.40282e+38)
+top_level = true
+visible = false
+frame_progress = 0.364956

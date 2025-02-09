@@ -1,16 +1,16 @@
-[gd_scene load_steps=14 format=4 uid="uid://b81vpki5u4v5a"]
+[gd_scene load_steps=15 format=4 uid="uid://b81vpki5u4v5a"]
 
-[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_ph6xp"]
-_data = PackedByteArray("AAADAAUAAAABAAAAjAAAAB4AAAAoAwAAUklGRiADAABXRUJQVlA4TBMDAAAvi0AHEHegJgAIxgyggqoyySCGiwR+NdRGktowFGUj+q+DAoykyCoKAMIxSymnjhKeYqggwM35DwAAAP9/t03lkjGmjvbgpPSUXW3Q5QVmJjJBrqxta9w8S2b/Exm7nZGuwBBmZk5+jSu2FE7rNrizVZgrZsaaqfMVZLSTWUdJsRehH9aUPqL/Dty2jSQHc+1qACWYfMKZJeV6ntfielXKotFiNXBaXI3TXKpz0xi3pUXjZj6uxk02juckVo7ntjiWOG5ikri0mAbaWy065zgtrqHrtCjOVaxqTHvPdnINkRbDwDM7t87UdU0DT+vUMeLaTp4Rw8BRrOpX+9W1nbQ+LCdtHI7tZEywxWrgabgm2eKZukmU2LQh1pNmWp1zZkkxlSqlMGqMaahSSjO1R5RSgvGNGVOoM2+R7J90NEnDVOeO9W/8XUd/KCu6kDw9FxgXsDMu5WDOXFiVqZKdYc7kLH34YUDUJ2WdJhQdle+aiUolCOYWBDsLcUxRgHXQUkqTC6XRx6DMAbIGpGLrlEFl40k4fTQHZ4JAEMqyMOKXUhTlBFZOSt9gLz6uz1BUBpcSA723SGlM+F1E/bKAnnNyY4bocT1Wrvj4L6AMvjRtBaEMPiuDnfI68Ph6lsc3srD/xo2lXJKBSOIDP+fauUgzWIRWdoPB65sznGtaysqfADzJZLv6y5W4605wTNCVheoccy2Za0lysDIDXU1aVjYR7S/MBc7wH9R4nmndmbzGVcmvfAQv46wp9CdlpiKM8eaz1aJJGqYGF8dnqMiwLHShnXIdRAJY2VeGSrlEfywmvzNGH/rOHPNlwRAKyu+bOZMXsFMGKKPKoPVrZ0wJSZOz7ozGoe9M1HcGCIqxZZmCOlRvRmQeIj+2czt9Cfg1cOfGUogLAm4qAxmaQoPhfMW9aQZ5RpmWs/BYYOWix7FlZzaB+NcAd5o2GWO6+bhBcZuBxz8z7A8T9tyBHHR9qa/GCWBtEsAwyILKfVj5eRPcNT531jx6XBBdj+tj4MPcyXBdaLEbDPpzAZbCZ5tUVon2MlsKAA==")
-size_override = Vector2(140, 30)
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_rmn4e"]
+_data = PackedByteArray("AAADAAUAAAABAAAAqgAAAB4AAAAyAwAAUklGRioDAABXRUJQVlA4TB4DAAAvqUAHEGegGADQqP/5TiCI7CJK6prFNExFsvECvFfg1VKaBDL4NAJQE0mKxJvj4/OvgJQcA9SpOIJsmzqO84wPAADA/39K5y4mgzF6nlotqkmvzN27A0m2batxc9ayVHaWTF8zkEbgVhhMFXchNYCgFOboh5MhZBRMCnOiMI6q/ntPxn5E/yGojSRJioI5dqNBWUN+wq3Nk+V5nma5fdJsuQKXZqrXSjN6q5IsTUVvzSUTvWXF5a5Pc3mWOiP94+QdOEFwuSHI+oI0lT2nfgCX5v0ZpCDYBDzNxHO5FQlJDYFhyfW9tPwA/ViMXEzvVLL2l/6ry2W0wIVuuAjx16z1RcR6ccGkIziKpq7bFuSiLripvhdnvLgsW4WK+bKcilubh5U5DxJTsIRTi167VCBbLXav/vBNMz4M6AneiedqqCc+ABMfrAif6FkjWBbVLb8dV4zq2zBwcwNMvB8Gmm2w91fo/dw2bET4dE+NYFlUt/QdxfBVMcze9x0otxewd+P/hNPVMJwurprXK6Sqp0YQDLtHhepSDsPeMO/PYhBOvwq9sqIuqkGVJtzJ3moYo6f0TdURDNVt5mJCVwjUvKcrYK8H5kuGOe1ROV18G+77wOipEW7OBfj5IWWZjyJb4P1uIDBOh9m6kzHM94Be2YHJ0gM97F4zZzC6hoAWwa2qB0QxTAJERNCLYf6Qfz9M73QDxLT0IkMwLwRGYiM+bkGhuVde/0+gZj2fRuwMiOVcUoRlaVu7RIvq7v1gbWNibLLx3L+BhOP/BlryQSKtsQyL7ha/ngNSMAC3hoDmfVBV76H4WcHen4lOXQuf0ZMjWBbV9b4QDCFI2Bu6xcYSTvvtCV6sX9EREWMGX8fqCbNlUV3KjupSEm5NqygrmtoDtR9U2Vtth6YctHoKebpMBEN1uRIhu1yJw7yCRkjo94D58zVQvoLa3w6+xOrpsa4MwU1pEfsbG4JIzdt4gKsRTE7G0I2Dwv8cZlLcQZeWnhih27LO0CI4XcUwL7dY8CIpmO9eKBN6UQLM09KbNASxIaBFUHu57RplySJgMmaNHgA=")
+size_override = Vector2(170, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_khwcw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ali21"]
 resource_local_to_scene = true
-atlas = SubResource("PortableCompressedTexture2D_ph6xp")
+atlas = SubResource("PortableCompressedTexture2D_rmn4e")
 region = Rect2(0, 0, 1, 1)
 margin = Rect2(2, 2, 0, 0)
 
-[sub_resource type="Animation" id="Animation_bv7xm"]
+[sub_resource type="Animation" id="Animation_vy0ag"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -38,7 +38,7 @@ tracks/1/keys = {
 "values": [Rect2(0, 0, 10, 30)]
 }
 
-[sub_resource type="Animation" id="Animation_jv1qb"]
+[sub_resource type="Animation" id="Animation_aqqdv"]
 length = 0.501
 loop_mode = 1
 tracks/0/type = "value"
@@ -66,8 +66,8 @@ tracks/1/keys = {
 "values": [Rect2(10, 0, 10, 30), Rect2(20, 0, 10, 30), Rect2(30, 0, 10, 30)]
 }
 
-[sub_resource type="Animation" id="Animation_vlibf"]
-length = 0.261
+[sub_resource type="Animation" id="Animation_4nane"]
+length = 0.481
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -88,13 +88,13 @@ tracks/1/path = NodePath(".:texture:region")
 tracks/1/interp = 0
 tracks/1/loop_wrap = false
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.13),
+"times": PackedFloat32Array(0, 0.24),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Rect2(40, 0, 10, 30), Rect2(50, 0, 10, 30)]
 }
 
-[sub_resource type="Animation" id="Animation_nedip"]
+[sub_resource type="Animation" id="Animation_ycgjw"]
 length = 0.261
 loop_mode = 1
 tracks/0/type = "value"
@@ -122,64 +122,36 @@ tracks/1/keys = {
 "values": [Rect2(60, 0, 10, 30), Rect2(70, 0, 10, 30)]
 }
 
-[sub_resource type="Animation" id="Animation_7kttf"]
+[sub_resource type="Animation" id="Animation_gur8x"]
+length = 0.261
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.13),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(80, 0, 10, 30), Rect2(90, 0, 10, 30)]
+}
+
+[sub_resource type="Animation" id="Animation_hqhms"]
 length = 0.131
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(80, 0, 10, 30)]
-}
-
-[sub_resource type="Animation" id="Animation_lmv7n"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(90, 0, 10, 30)]
-}
-
-[sub_resource type="Animation" id="Animation_qq1q6"]
-length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -206,7 +178,7 @@ tracks/1/keys = {
 "values": [Rect2(100, 0, 10, 30)]
 }
 
-[sub_resource type="Animation" id="Animation_cxh3q"]
+[sub_resource type="Animation" id="Animation_ufe7y"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -234,7 +206,7 @@ tracks/1/keys = {
 "values": [Rect2(110, 0, 10, 30)]
 }
 
-[sub_resource type="Animation" id="Animation_qdh01"]
+[sub_resource type="Animation" id="Animation_4swca"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -262,7 +234,35 @@ tracks/1/keys = {
 "values": [Rect2(120, 0, 10, 30)]
 }
 
-[sub_resource type="Animation" id="Animation_ygh6a"]
+[sub_resource type="Animation" id="Animation_bh5c3"]
+length = 0.281
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(130, 0, 10, 30), Rect2(140, 0, 10, 30)]
+}
+
+[sub_resource type="Animation" id="Animation_ddg4r"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -287,29 +287,58 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(130, 0, 10, 30)]
+"values": [Rect2(150, 0, 10, 30)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_r02w4"]
+[sub_resource type="Animation" id="Animation_cjiqt"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(160, 0, 10, 30)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8alju"]
 _data = {
-"cower": SubResource("Animation_7kttf"),
-"cower2": SubResource("Animation_lmv7n"),
-"fallen": SubResource("Animation_qdh01"),
-"falling": SubResource("Animation_cxh3q"),
-"getup": SubResource("Animation_ygh6a"),
-"idle": SubResource("Animation_jv1qb"),
-"reference": SubResource("Animation_bv7xm"),
-"run1": SubResource("Animation_vlibf"),
-"run2": SubResource("Animation_nedip"),
-"trip": SubResource("Animation_qq1q6")
+"cower": SubResource("Animation_hqhms"),
+"cower2": SubResource("Animation_ufe7y"),
+"fallen": SubResource("Animation_ddg4r"),
+"falling": SubResource("Animation_bh5c3"),
+"getup": SubResource("Animation_cjiqt"),
+"idle": SubResource("Animation_aqqdv"),
+"reference": SubResource("Animation_vy0ag"),
+"run1": SubResource("Animation_ycgjw"),
+"run2": SubResource("Animation_gur8x"),
+"trip": SubResource("Animation_4swca"),
+"walk": SubResource("Animation_4nane")
 }
 
 [node name="critters_sprite" type="Sprite3D"]
 centered = false
 texture_filter = 0
-texture = SubResource("AtlasTexture_khwcw")
+texture = SubResource("AtlasTexture_ali21")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_r02w4")
+"": SubResource("AnimationLibrary_8alju")
 }

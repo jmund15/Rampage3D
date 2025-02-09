@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://n01545pb156f"]
 
-[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Areas/All/Buildings/Complete/base_building_component.tscn" id="1_srr3g"]
+[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://BaseComponents/base_building_component.tscn" id="1_srr3g"]
 [ext_resource type="PackedScene" uid="uid://gvnbbaglk3ku" path="res://Areas/KentsHill/Buildings/Floors/bakery01_bot.tscn" id="2_vb0ob"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_i1a27"]
