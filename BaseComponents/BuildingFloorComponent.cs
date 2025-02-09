@@ -1,6 +1,8 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using static System.Net.Mime.MediaTypeNames;
+using System.Drawing;
 
 public enum FloorHealthState
 {
@@ -30,6 +32,26 @@ public partial class BuildingFloorComponent : MeshInstance3D
     private float _healthStateChangeAmt;
 
     private Dictionary<FloorHealthState, float> _healthStateMap = new Dictionary<FloorHealthState, float>();
+
+    private StandardMaterial3D _standMat;
+    private CompressedTexture2D _texture;
+    public CompressedTexture2D Texture
+    {
+        get => _texture;
+        set
+        {
+            if (/*value == _texture || */value == null) { return; }
+            _texture = value;
+            SetTexture();
+        }
+    }
+    private void SetTexture()
+    {
+        //MaterialOverride.ResourceLocalToScene = true;
+        
+        _standMat.AlbedoTexture = Texture;
+        _standMat.TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest;
+    }
     #endregion
     #region COMPONENT_UPDATES
     public override void _Ready()
@@ -37,6 +59,14 @@ public partial class BuildingFloorComponent : MeshInstance3D
         base._Ready();
         HealthComp = this.GetFirstChildOfType<HealthComponent>();
         WallCrack = GetNode<AnimatedSprite3D>("floorDestruction32x");
+        if (MaterialOverride == null)
+        {
+            MaterialOverride = new StandardMaterial3D();
+        }
+        MaterialOverride.ResourceLocalToScene = true;
+        _standMat = MaterialOverride as StandardMaterial3D;
+        
+        //_standMat.AlbedoTexture.ResourceLocalToScene = true;
 
         if (FloorMaxHealth > 0f)
         {

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://chs1tg8ixkiog"
+path="res://.godot/imported/64x128_floor_sanfrancisco_docks.obj-76f4e02cca8c8d9d3e9f94275e1e858c.mesh"
+
+[deps]
+
+files=["res://.godot/imported/64x128_floor_sanfrancisco_docks.obj-76f4e02cca8c8d9d3e9f94275e1e858c.mesh"]
+
+source_file="res://Areas/SanFrancisco/CityFloor/Models/64x128_floor_sanfrancisco_docks.obj"
+dest_files=["res://.godot/imported/64x128_floor_sanfrancisco_docks.obj-76f4e02cca8c8d9d3e9f94275e1e858c.mesh", "res://.godot/imported/64x128_floor_sanfrancisco_docks.obj-76f4e02cca8c8d9d3e9f94275e1e858c.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
