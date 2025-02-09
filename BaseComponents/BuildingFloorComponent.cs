@@ -40,7 +40,7 @@ public partial class BuildingFloorComponent : MeshInstance3D
         get => _texture;
         set
         {
-            if (/*value == _texture || */value == null) { return; }
+            if (value == _texture || value == null || _standMat == null) { return; }
             _texture = value;
             SetTexture();
         }

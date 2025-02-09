@@ -101,7 +101,7 @@ public partial class JumpState : State
             //GD.Print("vel: ", _body., "\nvelDir: ", velDir, "; curr dir: ", _moveComp.GetFaceDirection());
             if (velDir != _moveComp.GetFaceDirection())
             {
-                GD.Print("Velocity when changing dirs: ", _body.Velocity);
+                //GD.Print("Velocity when changing dirs: ", _body.Velocity);
                 var prevPos = _animPlayer.CurrentAnimationPosition;
                 PlayAnim.AnimWithOrthog(BB, AnimName, velDir);
                 _animPlayer.Seek(prevPos, true);

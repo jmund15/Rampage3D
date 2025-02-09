@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bpg4mqrfiyrsr"]
 
-[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://Areas/All/Buildings/Complete/base_building.tscn" id="1_hcnpe"]
+[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://BaseComponents/base_building_component.tscn" id="1_hcnpe"]
 [ext_resource type="PackedScene" uid="uid://bkndh6ycpysta" path="res://Areas/KentsHill/Buildings/Floors/school01_bot.tscn" id="2_p4ob1"]
 [ext_resource type="PackedScene" uid="uid://b8c2ba16dgbiv" path="res://Areas/KentsHill/Buildings/Floors/school01_top.tscn" id="3_31sav"]
 
