@@ -19,7 +19,7 @@ public partial class FallState : State
     [Export(PropertyHint.NodeType, "State")]
     private State _landFallState;
 
-    private AnimationPlayer _animPlayer;
+    private IAnimPlayerComponent _animPlayer;
     private ClimberComponent _climberComp;
     private Vector2 _inputDir = new Vector2();
     private AnimDirection _currAnimDir;
@@ -34,7 +34,7 @@ public partial class FallState : State
         base.Init(agent, bb);
         _body = Agent as Monster;
         _moveComp = BB.GetVar<IMovementComponent>(BBDataSig.MoveComp);
-        _animPlayer = BB.GetVar<AnimationPlayer>(BBDataSig.Anim);
+        _animPlayer = BB.GetVar<IAnimPlayerComponent>(BBDataSig.Anim);
         _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
     }
     public override void Enter(Dictionary<State, bool> parallelStates)
@@ -45,9 +45,9 @@ public partial class FallState : State
         //GD.Print("on fall enter anim: ", _animPlayer.CurrentAnimation);
         //GD.Print("on fall enter anim direction: ", _currAnimDir);
         //GD.Print("FALL ANIM DIR: ", _currAnimDir);
-        _animPlayer.Play(_animName + _currAnimDir.GetAnimationString());
-        _animPlayer.Seek(_animStartTime, true);
-        _animPlayer.Pause();
+        _animPlayer.StartAnim(_animName + _currAnimDir.GetAnimationString());
+        _animPlayer.SeekPos(_animStartTime, true);
+        _animPlayer.PauseAnim();
 
         _fallHeight = _body.Position.Y;
 
@@ -90,9 +90,8 @@ public partial class FallState : State
             if (velDir != _moveComp.GetFaceDirection())
             {
                 //GD.Print("Velocity when changing dirs: ", _body.Velocity);
-                var prevPos = _animPlayer.CurrentAnimationPosition;
-                PlayAnim.AnimWithOrthog(BB, _animName, velDir);
-                _animPlayer.Seek(prevPos, true);
+                BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = velDir.GetFlipH();
+                _animPlayer.UpdateAnim(_animName + velDir.GetAnimDir());
             }
         }
         

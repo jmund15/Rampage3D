@@ -27,7 +27,7 @@ public partial class AttackState : BTState
 
     protected CharacterBody3D Body;
     protected IMovementComponent MoveComp;
-	protected AnimationPlayer AnimPlayer;
+	protected IAnimComponent AnimPlayer;
     protected EaterComponent EaterComp;
 
 	[Export(PropertyHint.NodeType, "State")]
@@ -44,7 +44,7 @@ public partial class AttackState : BTState
 		base.Init(agent, bb);
         Body = Agent as CharacterBody3D;
 		MoveComp = BB.GetVar<IMovementComponent>(BBDataSig.MoveComp);
-        AnimPlayer = BB.GetVar<AnimationPlayer>(BBDataSig.Anim);
+        AnimPlayer = BB.GetVar<IAnimComponent>(BBDataSig.Anim);
         EaterComp = BB.GetVar<EaterComponent>(BBDataSig.EaterComp);
 
     }
@@ -73,7 +73,7 @@ public partial class AttackState : BTState
     public override void Exit()
 	{
 		base.Exit();
-        //AnimPlayer.AnimationFinished -= OnAnimationFinished;
+        //AnimPlayer.AnimFinished -= OnAnimationFinished;
         Tree.TreeFinishedLoop -= OnTreeFinishLoop;
         EaterComp.EatableHit -= OnEatableHit;
     }
@@ -116,7 +116,7 @@ public partial class AttackState : BTState
                 Global.LogError("HOW DID TREE FINISH LOOP ON NON SUCCeSS OR FAILURE STATUS?"); break;
         }
     }
-    private void OnAnimationFinished(StringName animName)
+    private void OnAnimationFinished(object sender, string animName)
     {
     }
 

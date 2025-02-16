@@ -40,8 +40,12 @@ static func modify_context(
 	var sprite: Sprite3D = (context.resource as PackedScene).instantiate() as Sprite3D
 	#sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+	var parent = MultiAnimPlayerComponent.new()
+	parent.add_child(sprite)
+	sprite.owner = parent
+	sprite.get_node("AnimationPlayer").owner = parent
 	var packed_scene = PackedScene.new()
-	var result = packed_scene.pack(sprite)
+	var result = packed_scene.pack(parent)
 	print(result)
 	if result == OK:
 		var scene_name = "res://" + sprite.name + ".tscn"

@@ -36,7 +36,7 @@ public partial class ClimbIdleState : State
             _climberComp.EjectRequested = true;
         }
 
-        BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(_animName +
+        BB.GetVar<IAnimComponent>(BBDataSig.Anim).StartAnim(_animName +
             _moveComp.GetAnimDirection().GetAnimationString());
 
         _body.Velocity = Vector3.Zero;

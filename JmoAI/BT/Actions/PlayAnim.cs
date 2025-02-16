@@ -21,21 +21,21 @@ public partial class PlayAnim : BehaviorAction
 	[Export]
 	protected AnimDirectionStrategy AnimDirStrategy;
 
-	protected AnimationPlayer AnimPlayer;
+	protected IAnimComponent AnimPlayer;
 
     #endregion
     #region TASK_UPDATES
     public override void Init(Node agent, IBlackboard bb)
 	{
 		base.Init(agent, bb);
-		AnimPlayer = BB.GetVar<AnimationPlayer>(BBDataSig.Anim);
+		AnimPlayer = BB.GetVar<IAnimComponent>(BBDataSig.Anim);
     }
 	public override void Enter()
 	{
-        AnimPlayer.AnimationFinished += OnAnimationFinished; // so we guarentee signal connect and disconnect
+        AnimPlayer.AnimFinished += OnAnimationFinished; // so we guarentee signal connect and disconnect
         base.Enter();
 		GD.Print("entered play anim");
-        AnimPlayer.SpeedScale = AnimSpeed;
+        AnimPlayer.SetSpeedScale(AnimSpeed);
 
 		AnimDirection animDir = AnimDirection.Down;
 		switch (AnimDirStrategy)
@@ -48,14 +48,14 @@ public partial class PlayAnim : BehaviorAction
 				break;
 		}
 		var dirName = animDir.GetAnimationString();
-        AnimPlayer.Play(AnimName + dirName);
+        AnimPlayer.StartAnim(AnimName + dirName);
     }
 	public override void Exit()
 	{
 		base.Exit();
-        AnimPlayer.AnimationFinished -= OnAnimationFinished;
+        AnimPlayer.AnimFinished -= OnAnimationFinished;
 
-        AnimPlayer.SpeedScale = 1f;
+		AnimPlayer.SetSpeedScale(1f);
     }
     public override void ProcessFrame(float delta)
 	{
@@ -91,9 +91,9 @@ public partial class PlayAnim : BehaviorAction
 		var animDir = orthogDir.GetAnimDir();
 		var dirName = animDir.GetAnimationString();
 		bb.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = orthogDir.GetFlipH();
-        bb.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(animName + dirName);
+        bb.GetVar<IAnimComponent>(BBDataSig.Anim).StartAnim(animName + dirName);
     }
-    private void OnAnimationFinished(StringName animName)
+    private void OnAnimationFinished(object sender, string animName)
     {
 		GD.Print("startup anim finished!");
 		Status = TaskStatus.SUCCESS;

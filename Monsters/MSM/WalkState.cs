@@ -54,7 +54,7 @@ public partial class WalkState : State
         //    _currAnimDir = _moveComp.GetAnimDirection();
         //}
 
-        BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(AnimName + _currAnimDir.GetAnimationString());
+        BB.GetVar<IAnimComponent>(BBDataSig.Anim).StartAnim(AnimName + _currAnimDir.GetAnimationString());
         _bufferingClimbingTransition = false;
     }
     public override void Exit()
@@ -86,7 +86,7 @@ public partial class WalkState : State
         if (_currAnimDir != animDir)
         {
             _currAnimDir = animDir;
-            BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(AnimName + _currAnimDir.GetAnimationString());
+            BB.GetVar<IAnimComponent>(BBDataSig.Anim).StartAnim(AnimName + _currAnimDir.GetAnimationString());
         }
         BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = _orthogDir.GetFlipH();
     }

@@ -26,7 +26,7 @@ public partial class Idle3DState : Base3DState
     {
         base.Enter(parallelStates);
 
-        AnimPlayer.Play(AnimName +
+        AnimPlayer.StartAnim(AnimName +
             MoveComp.GetAnimDirection().GetAnimationString());
     }
     public override void Exit()
