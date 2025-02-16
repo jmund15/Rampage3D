@@ -9,7 +9,7 @@ public partial class AttackMelee : BehaviorAction
     protected CharacterBody3D Body;
     protected IMovementComponent MoveComp;
     protected HitboxComponent3D HitboxComp;
-    protected AnimationPlayer AnimPlayer;
+    protected IAnimComponent AnimPlayer;
 
     [Export]
     protected AnimDirectionStrategy AnimDirStrategy = AnimDirectionStrategy.InputDirection;
@@ -30,7 +30,7 @@ public partial class AttackMelee : BehaviorAction
         Body = BB.GetVar<CharacterBody3D>(BBDataSig.Agent);
         HitboxComp = BB.GetVar<HitboxComponent3D>(BBDataSig.HitboxComp);
         MoveComp = BB.GetVar<IMovementComponent>(BBDataSig.MoveComp);
-        AnimPlayer = BB.GetVar<AnimationPlayer>(BBDataSig.Anim);
+        AnimPlayer = BB.GetVar<IAnimComponent>(BBDataSig.Anim);
 
     }
     public override void Enter()
@@ -66,13 +66,13 @@ public partial class AttackMelee : BehaviorAction
             GD.Print("PUNCH 1 ATTACK STARTING");
         }
 
-        AnimPlayer.Play(AttackInfo.AnimName + AttackAnimDir.GetAnimationString());
-        AnimPlayer.AnimationFinished += OnAnimationFinished;
+        AnimPlayer.StartAnim(AttackInfo.AnimName + AttackAnimDir.GetAnimationString());
+        AnimPlayer.AnimFinished += OnAnimationFinished;
 
-        if (AttackInfo.AnimName == "punch1")
-        {
-            GD.Print("PUNCH 1 ANIM POS: ", AnimPlayer.CurrentAnimationPosition, "/", AnimPlayer.CurrentAnimationLength);
-        }
+        //if (AttackInfo.AnimName == "punch1")
+        //{
+        //    GD.Print("PUNCH 1 ANIM POS: ", AnimPlayer.CurrentAnimationPosition, "/", AnimPlayer.CurrentAnimationLength);
+        //}
 
         PrevHitboxShape = HitboxComp.CollisionShape.Shape;
         PrevHitboxLocation = HitboxComp.CollisionShape.Position;
@@ -89,7 +89,7 @@ public partial class AttackMelee : BehaviorAction
     public override void Exit()
     {
         base.Exit();
-        AnimPlayer.AnimationFinished -= OnAnimationFinished;
+        AnimPlayer.AnimFinished -= OnAnimationFinished;
 
         //TODO: REPLACE WITH ANIM
         HitboxComp.HitboxDeactivate();
@@ -141,7 +141,7 @@ public partial class AttackMelee : BehaviorAction
     }
     #endregion
     #region TASK_HELPER
-    private void OnAnimationFinished(StringName animName)
+    private void OnAnimationFinished(object sender, string animName)
     {
         //GD.Print("FINISHED ATTACK ANIM");
         Status = TaskStatus.SUCCESS;

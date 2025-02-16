@@ -21,7 +21,7 @@ public partial class JumpState : State
     [Export(PropertyHint.NodeType, "State")]
     private State _landWallState;
 
-    private AnimationPlayer _animPlayer;
+    private IAnimPlayerComponent _animPlayer;
     private ClimberComponent _climberComp;
     private Vector2 _inputDir = new Vector2();
     private AnimDirection _currAnimDir;
@@ -36,7 +36,7 @@ public partial class JumpState : State
         base.Init(agent, bb);
         _body = Agent as Monster;
         _moveComp = BB.GetVar<IMovementComponent>(BBDataSig.MoveComp);
-        _animPlayer = BB.GetVar<AnimationPlayer>(BBDataSig.Anim);
+        _animPlayer = BB.GetVar<IAnimPlayerComponent>(BBDataSig.Anim);
         _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
     }
     public override void Enter(Dictionary<State, bool> parallelStates)
@@ -61,10 +61,10 @@ public partial class JumpState : State
         {
             _currAnimDir = _moveComp.GetAnimDirection();
         }
-        _animPlayer.Play(AnimName +
+        _animPlayer.StartAnim(AnimName +
             _currAnimDir.GetAnimationString());
-        _animPlayer.Seek(0f, true);
-        _animPlayer.Pause();
+        _animPlayer.SeekPos(0f, true);
+        _animPlayer.PauseAnim();
 
         _velocitySet = false;
         CallDeferred(MethodName.SetJumpVelocity);
@@ -102,9 +102,8 @@ public partial class JumpState : State
             if (velDir != _moveComp.GetFaceDirection())
             {
                 //GD.Print("Velocity when changing dirs: ", _body.Velocity);
-                var prevPos = _animPlayer.CurrentAnimationPosition;
-                PlayAnim.AnimWithOrthog(BB, AnimName, velDir);
-                _animPlayer.Seek(prevPos, true);
+                BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = velDir.GetFlipH();
+                _animPlayer.UpdateAnim(AnimName + velDir.GetAnimDir());
             }
         }
         //GD.Print("curr jump vel: ", _body.Velocity);

@@ -18,14 +18,14 @@ public partial class AnimState : State
 	protected State AnimTransitionState;
 
 	protected IMovementComponent MoveComp;
-	protected AnimationPlayer AnimPlayer;
+	protected IAnimPlayerComponent AnimPlayer;
 	#endregion
 	#region STATE_UPDATES
 	public override void Init(Node agent, IBlackboard bb)
 	{
 		base.Init(agent, bb);
 		MoveComp = BB.GetVar<IMovementComponent>(BBDataSig.MoveComp);
-        AnimPlayer = BB.GetVar<AnimationPlayer>(BBDataSig.Anim);
+        AnimPlayer = BB.GetVar<IAnimPlayerComponent>(BBDataSig.Anim);
     }
 	public override void Enter(Dictionary<State, bool> parallelStates)
 	{
@@ -35,7 +35,7 @@ public partial class AnimState : State
     public override void Exit()
 	{
 		base.Exit();
-        AnimPlayer.AnimationFinished -= OnAnimationFinished;
+        AnimPlayer.AnimFinished -= OnAnimationFinished;
     }
     public override void ProcessFrame(float delta)
 	{
@@ -64,12 +64,12 @@ public partial class AnimState : State
         {
             animDir = MoveComp.GetAnimDirection();
         }
-        AnimPlayer.Play(AnimName + animDir.GetAnimationString());
-        AnimPlayer.Seek(AnimStartTime, true);
+        AnimPlayer.StartAnim(AnimName + animDir.GetAnimationString());
+        AnimPlayer.SeekPos(AnimStartTime, true);
 
-        AnimPlayer.AnimationFinished += OnAnimationFinished;
+        AnimPlayer.AnimFinished += OnAnimationFinished;
     }
-    protected virtual void OnAnimationFinished(StringName animName)
+    protected virtual void OnAnimationFinished(object sender, string animName)
     {
 		EmitSignal(SignalName.TransitionState, this, AnimTransitionState);
     }

@@ -32,7 +32,7 @@ public partial class IdleState : State
     {
         base.Enter(parallelStates);
 
-        BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(AnimName + 
+        BB.GetVar<IAnimComponent>(BBDataSig.Anim).StartAnim(AnimName + 
             _moveComp.GetAnimDirection().GetAnimationString());
         _bufferingMovementTransition = false;
     }

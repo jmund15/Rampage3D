@@ -1,6 +1,6 @@
 [gd_resource type="AnimationLibrary" load_steps=12 format=3 uid="uid://ctdpw6pc36fx3"]
 
-[sub_resource type="Animation" id="Animation_r10tq"]
+[sub_resource type="Animation" id="Animation_fummd"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -28,7 +28,7 @@ tracks/1/keys = {
 "values": [Rect2(100, 0, 10, 130)]
 }
 
-[sub_resource type="Animation" id="Animation_qroab"]
+[sub_resource type="Animation" id="Animation_cxcfq"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -56,7 +56,7 @@ tracks/1/keys = {
 "values": [Rect2(110, 0, 10, 130)]
 }
 
-[sub_resource type="Animation" id="Animation_g23w6"]
+[sub_resource type="Animation" id="Animation_eysnn"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -84,7 +84,7 @@ tracks/1/keys = {
 "values": [Rect2(150, 0, 10, 130)]
 }
 
-[sub_resource type="Animation" id="Animation_sqfx1"]
+[sub_resource type="Animation" id="Animation_70le6"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -112,7 +112,7 @@ tracks/1/keys = {
 "values": [Rect2(130, 0, 10, 130), Rect2(140, 0, 10, 130)]
 }
 
-[sub_resource type="Animation" id="Animation_gm67k"]
+[sub_resource type="Animation" id="Animation_plfek"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -140,7 +140,7 @@ tracks/1/keys = {
 "values": [Rect2(160, 0, 10, 130)]
 }
 
-[sub_resource type="Animation" id="Animation_f7f7a"]
+[sub_resource type="Animation" id="Animation_je34c"]
 length = 0.301
 loop_mode = 1
 tracks/0/type = "value"
@@ -168,7 +168,7 @@ tracks/1/keys = {
 "values": [Rect2(10, 0, 10, 130), Rect2(20, 0, 10, 130), Rect2(30, 0, 10, 130)]
 }
 
-[sub_resource type="Animation" id="Animation_antrp"]
+[sub_resource type="Animation" id="Animation_v2pf6"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -196,7 +196,7 @@ tracks/1/keys = {
 "values": [Rect2(0, 0, 10, 130)]
 }
 
-[sub_resource type="Animation" id="Animation_axab5"]
+[sub_resource type="Animation" id="Animation_kk3e6"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -224,7 +224,7 @@ tracks/1/keys = {
 "values": [Rect2(60, 0, 10, 130), Rect2(70, 0, 10, 130)]
 }
 
-[sub_resource type="Animation" id="Animation_glp4l"]
+[sub_resource type="Animation" id="Animation_pa65k"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -252,7 +252,7 @@ tracks/1/keys = {
 "values": [Rect2(80, 0, 10, 130), Rect2(90, 0, 10, 130)]
 }
 
-[sub_resource type="Animation" id="Animation_ijedj"]
+[sub_resource type="Animation" id="Animation_nbth6"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -280,7 +280,7 @@ tracks/1/keys = {
 "values": [Rect2(120, 0, 10, 130)]
 }
 
-[sub_resource type="Animation" id="Animation_kf76s"]
+[sub_resource type="Animation" id="Animation_kedcl"]
 length = 0.481
 loop_mode = 1
 tracks/0/type = "value"
@@ -310,15 +310,15 @@ tracks/1/keys = {
 
 [resource]
 _data = {
-"cower": SubResource("Animation_r10tq"),
-"cower2": SubResource("Animation_qroab"),
-"fallen": SubResource("Animation_g23w6"),
-"falling": SubResource("Animation_sqfx1"),
-"getup": SubResource("Animation_gm67k"),
-"idle": SubResource("Animation_f7f7a"),
-"reference": SubResource("Animation_antrp"),
-"run1": SubResource("Animation_axab5"),
-"run2": SubResource("Animation_glp4l"),
-"trip": SubResource("Animation_ijedj"),
-"walk": SubResource("Animation_kf76s")
+"cower": SubResource("Animation_fummd"),
+"cower2": SubResource("Animation_cxcfq"),
+"fallen": SubResource("Animation_eysnn"),
+"falling": SubResource("Animation_70le6"),
+"getup": SubResource("Animation_plfek"),
+"idle": SubResource("Animation_je34c"),
+"reference": SubResource("Animation_v2pf6"),
+"run1": SubResource("Animation_kk3e6"),
+"run2": SubResource("Animation_pa65k"),
+"trip": SubResource("Animation_nbth6"),
+"walk": SubResource("Animation_kedcl")
 }

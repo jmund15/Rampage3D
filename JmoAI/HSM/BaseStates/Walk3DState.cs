@@ -28,7 +28,7 @@ public partial class Walk3DState : Base3DState
 	{
 		base.Enter(parallelStates);
 
-        AnimPlayer.Play(AnimName +
+        AnimPlayer.StartAnim(AnimName +
             MoveComp.GetAnimDirection().GetAnimationString());
     }
 	public override void Exit()
@@ -50,7 +50,7 @@ public partial class Walk3DState : Base3DState
         if (_currAnimDir != animDir)
         {
             _currAnimDir = animDir;
-            BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(AnimName + _currAnimDir.GetAnimationString());
+            BB.GetVar<IAnimComponent>(BBDataSig.Anim).StartAnim(AnimName + _currAnimDir.GetAnimationString());
         }
         BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = _orthogDir.GetFlipH();
     }

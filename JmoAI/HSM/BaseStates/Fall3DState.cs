@@ -29,7 +29,7 @@ public partial class Fall3DState : Base3DState
 	public override void Enter(Dictionary<State, bool> parallelStates)
 	{
 		base.Enter(parallelStates);
-        AnimPlayer.Play(AnimName +
+        AnimPlayer.StartAnim(AnimName +
             MoveComp.GetAnimDirection().GetAnimationString());
 
         _fallHeight = Body.Position.Y;
@@ -71,9 +71,11 @@ public partial class Fall3DState : Base3DState
             if (velDir != MoveComp.GetFaceDirection())
             {
                 //GD.Print("Velocity when changing dirs: ", Body.Velocity);
-                var prevPos = AnimPlayer.CurrentAnimationPosition;
-                PlayAnim.AnimWithOrthog(BB, AnimName, velDir);
-                AnimPlayer.Seek(prevPos, true);
+                //var prevPos = AnimPlayer.CurrentAnimationPosition;
+                //PlayAnim.AnimWithOrthog(BB, AnimName, velDir);
+                //AnimPlayer.Seek(prevPos, true);
+                BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = velDir.GetFlipH();
+                AnimPlayer.UpdateAnim(AnimName + velDir.GetAnimDir());
             }
         }
 

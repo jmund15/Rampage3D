@@ -7,7 +7,7 @@ public partial class Base3DState : State
     #region STATE_VARIABLES
     protected CharacterBody3D Body;
     protected IMovementComponent MoveComp;
-    protected AnimationPlayer AnimPlayer;
+    protected IAnimComponent AnimPlayer;
     #endregion
     #region STATE_UPDATES
     public override void Init(Node agent, IBlackboard bb)
@@ -15,7 +15,7 @@ public partial class Base3DState : State
         base.Init(agent, bb);
         Body = Agent as CharacterBody3D;
         MoveComp = BB.GetVar<IMovementComponent>(BBDataSig.MoveComp);
-        AnimPlayer = BB.GetVar<AnimationPlayer>(BBDataSig.Anim);
+        AnimPlayer = BB.GetVar<IAnimComponent>(BBDataSig.Anim);
     }
     public override void Enter(Dictionary<State, bool> parallelStates)
     {

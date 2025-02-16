@@ -31,4 +31,5 @@ BodyParts = {
 "pants": 2,
 "shirt": 2
 }
+PartConfigLabels = {}
 AnimDirections = [1, 0]

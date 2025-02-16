@@ -1,0 +1,64 @@
+[gd_scene load_steps=13 format=3 uid="uid://cqbbrnjnrh7n2"]
+
+[ext_resource type="Script" path="res://Critters/Critter.cs" id="1_inyqc"]
+[ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="3_wj2f5"]
+[ext_resource type="PackedScene" uid="uid://6qu40cqm10xy" path="res://BaseComponents/eatable_component.tscn" id="4_uq2js"]
+[ext_resource type="Script" path="res://Critters/CSM/CSM.cs" id="5_uxy06"]
+[ext_resource type="Script" path="res://JmoAI/HSM/BaseStates/Idle3DState.cs" id="6_v7vmi"]
+[ext_resource type="Script" path="res://JmoAI/HSM/BaseStates/Walk3DState.cs" id="7_xudxj"]
+[ext_resource type="Script" path="res://JmoAI/HSM/BaseStates/Fall3DState.cs" id="8_w55v4"]
+[ext_resource type="Script" path="res://Critters/CSM/GrabbedState.cs" id="9_i2kue"]
+[ext_resource type="Script" path="res://Critters/CSM/AteState.cs" id="10_tkq50"]
+[ext_resource type="Script" path="res://JmoAI/Blackboard/Blackboard.cs" id="11_aa0n8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sn03u"]
+size = Vector3(0.75, 0.75, 0.1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6for4"]
+
+[node name="Critter" type="CharacterBody3D"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_inyqc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, -0.063)
+shape = SubResource("BoxShape3D_sn03u")
+
+[node name="HurtboxComponent3D" type="Area3D" parent="."]
+script = ExtResource("3_wj2f5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_6for4")
+
+[node name="EatableComponent" parent="HurtboxComponent3D" node_paths=PackedStringArray("Body", "_hurtboxComp") instance=ExtResource("4_uq2js")]
+Body = NodePath("../..")
+_hurtboxComp = NodePath("..")
+
+[node name="CSM" type="Node" parent="." node_paths=PackedStringArray("_onGrabbedState", "InitialSubState")]
+script = ExtResource("5_uxy06")
+_onGrabbedState = NodePath("Grabbed")
+InitialSubState = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="CSM"]
+script = ExtResource("6_v7vmi")
+
+[node name="Walk" type="Node" parent="CSM"]
+script = ExtResource("7_xudxj")
+
+[node name="Fall" type="Node" parent="CSM"]
+script = ExtResource("8_w55v4")
+
+[node name="Cower" type="Node" parent="CSM"]
+
+[node name="Grabbed" type="Node" parent="CSM" node_paths=PackedStringArray("_onEatenState")]
+script = ExtResource("9_i2kue")
+_onEatenState = NodePath("../Ate")
+
+[node name="Ate" type="Node" parent="CSM"]
+script = ExtResource("10_tkq50")
+
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource("11_aa0n8")

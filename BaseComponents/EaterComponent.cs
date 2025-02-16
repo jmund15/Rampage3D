@@ -25,7 +25,8 @@ public partial class EaterComponent : Node
 
 	private HitboxComponent3D _hitboxComp;
     private SpriteOrthogComponent _orthogSprite;
-    private AnimationPlayer _animPlayer;
+    private IAnimComponent _animPlayer;
+    private IMovementComponent _moveComp;
 
     private EatStatus _status = EatStatus.Restricted;
     public EatStatus Status
@@ -108,7 +109,7 @@ public partial class EaterComponent : Node
     {
         _hitboxComp = _bb.GetVar<HitboxComponent3D>(BBDataSig.HitboxComp);
         _orthogSprite = _bb.GetVar<SpriteOrthogComponent>(BBDataSig.Sprite);
-        _animPlayer = _bb.GetVar<AnimationPlayer>(BBDataSig.Anim);
+        _animPlayer = _bb.GetVar<IAnimComponent>(BBDataSig.Anim);
 
         _hitboxComp.HurtboxEntered += OnHurtboxEntered;
         _hitboxComp.AttackFinished += OnAttackFinished;
@@ -140,10 +141,11 @@ public partial class EaterComponent : Node
     {
         Status = EatStatus.Grabbing;
         _orthogSprite = _bb.GetVar<SpriteOrthogComponent>(BBDataSig.Sprite);
-        _animPlayer = _bb.GetVar<AnimationPlayer>(BBDataSig.Anim);
-        _animPlayer.AnimationFinished += OnAnimationFinished;
+        _animPlayer = _bb.GetVar<IAnimComponent>(BBDataSig.Anim);
+        _moveComp = _bb.GetVar<IMovementComponent>(BBDataSig.MoveComp);
+        _animPlayer.AnimFinished += OnAnimationFinished;
 
-        _animPlayer.Play(_grabAnimName + _animPlayer.GetAnimDirection());
+        _animPlayer.StartAnim(_grabAnimName + _moveComp.GetAnimDirection());
         _hitboxComp.HitboxActivate();
 
         _currThrowTime = Global.GetRndInRange(_throwTimeRange.X, _throwTimeRange.Y);
@@ -237,10 +239,10 @@ public partial class EaterComponent : Node
         {
             EatingEatable?.Invoke(this, chomp);
         }
-        _animPlayer.Play(_eatAnimName + _animPlayer.GetAnimDirection());
+        _animPlayer.StartAnim(_eatAnimName + _moveComp.GetAnimDirection());
         Status = EatStatus.Eating;
     }
-    private void OnAnimationFinished(StringName animName)
+    private void OnAnimationFinished(object sender, string animName)
     {
         //TODO: HANDLE INTERUPTION HERE
         if (Status == EatStatus.Restricted) { return; }
@@ -260,7 +262,7 @@ public partial class EaterComponent : Node
             EatQueue.Clear(); GettingEaten.Clear();
             FinishedEatingCycle?.Invoke(this, EventArgs.Empty);
 
-            _animPlayer.AnimationFinished -= OnAnimationFinished;
+            _animPlayer.AnimFinished -= OnAnimationFinished;
             GD.Print("finished eating cycle!");
 
         }

@@ -55,6 +55,7 @@ public partial class AAA : EditorScript
     private AAAParameters _aaaParams;
     private int _initOffset;// = 32;//10
     private int _frameHeight;// = 32;
+    private Node _topLevel;
     private Node _sprite;
     private PortableCompressedTexture2D _texture;
     private AtlasTexture _atlasTexture;
@@ -66,14 +67,17 @@ public partial class AAA : EditorScript
     {
         //GD.Print("resource type: ", ResourceLoader.Load(_aaaParamsPath).GetType().FullName);
         _aaaParams = ResourceLoader.Load<AAAParameters>(_aaaParamsPath);// as AAAParameters;
+        SaveThisSceneAs(_aaaParams.SavePath);
+        _topLevel = GetScene();
+        _sprite = _topLevel.GetFirstChildOfType<Node>();
 
         //GD.Print("loaded resource! param list of dirs: ", _aaaParams.AnimDirections);
 
-        SaveThisSceneAs(_aaaParams.SavePath);
+        
         _initOffset = _aaaParams.SpriteTypePixelMap[_aaaParams.SpriteType];
         _frameHeight = _aaaParams.SpriteTypePixelMap[_aaaParams.SpriteType];
 
-        _sprite = GetScene();
+       
         if (_sprite is Sprite2D spritesheet)
 		{
             _texture = spritesheet.Texture as PortableCompressedTexture2D;
@@ -112,9 +116,16 @@ public partial class AAA : EditorScript
         //CallDeferred(MethodName.SaveThisSceneAs, SavePath);
 
 
+        if (_aaaParams.BodyParts.Count > 1)
+        {
+            OpenAndSaveScene(_aaaParams.SavePath);
+        }
+        else
+        {
+            SaveNodeAsScene(_sprite, _aaaParams.SavePath);
+        }
         //EditorInterface.Singleton.SaveScene();
         //CallDeferred(MethodName.OpenAndSaveScene, _aaaParams.SavePath);
-        OpenAndSaveScene(_aaaParams.SavePath);
         //GD.Print($"Finished Animation Automation!");
     }
 
@@ -124,73 +135,104 @@ public partial class AAA : EditorScript
     }
     private void AutoAnimateSprite3D()
     {
+
         var animPlayer = _sprite.GetFirstChildOfType<AnimationPlayer>();
         var globalAnimLibrary = animPlayer.GetAnimationLibrary("");
-        ResourceSaver.Save(globalAnimLibrary, "res://testLib.tres");
+        ResourceSaver.Save(globalAnimLibrary, $"res://Base/{_sprite.Name}AnimLib.tres");
         animPlayer.RemoveAnimationLibrary(""); // remove globalAnimLibrary
 
+        var topLevelName = _sprite.Name;
+        _sprite.Name = "QueueDelete";
+        _topLevel.Name = topLevelName;
 
         //var appendLibrary = ResourceLoader.Load<AnimationLibrary>();
 
         // TODO: MAKE NEW SPRITE FOR BODY PARTS HERE
         int partNum = 1;
-        int partOffset = 0;
+        int partOffset;
         foreach (var bodyPartPair in _aaaParams.BodyParts)
         {
             var part = bodyPartPair.Key;
             var typesOfPart = bodyPartPair.Value;
             partOffset = _initOffset + (partNum - 1) * _frameHeight * typesOfPart * _aaaParams.AnimDirections.Count;
-            Sprite3D partSprite;
-            AnimationPlayer partPlayer;
+            SpriteOrthogComponent partSprite;
+            AnimationPlayerComponent partPlayer;
             AnimationLibrary partLibrary = new AnimationLibrary();//globalAnimLibrary.Duplicate(true) as AnimationLibrary;
-            if (partNum == 1)
-            {
-                partSprite = _sprite as Sprite3D;
-                partPlayer = animPlayer;
-                partPlayer.AddAnimationLibrary("", partLibrary);
-            }
-            else
-            {
-                //continue;
-                partSprite = new Sprite3D();//_sprite.Duplicate((int)Node.DuplicateFlags.UseInstantiation) as Sprite3D;
-                _sprite.AddChild(partSprite);
-                partSprite.Owner = _sprite;
-                partSprite.Texture = _atlasTexture.Duplicate(true) as AtlasTexture;
-                partSprite.TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest;
-                partPlayer = new AnimationPlayer();//partSprite.GetFirstChildOfType<AnimationPlayer>();//new AnimationPlayer();
-                partPlayer.AddAnimationLibrary("", partLibrary);
-                partSprite.AddChild(partPlayer);
-                partPlayer.Owner = _sprite;
-                //partPlayer.Reparent(partSprite);
+            List<string> configLabels = new List<string>();
 
-                partSprite.Name = part;
-                partPlayer.Name = part + "AnimationPlayer";
-                //_sprite.AddChild(partSprite);
-                //partSprite.AddChild(partPlayer);
-                
-            }
+            //if (partNum == 1)
+            //{
+            //    partSprite = _sprite as Sprite3D;
+            //    partPlayer = animPlayer;
+            //    partPlayer.AddAnimationLibrary("", partLibrary);
+            //    if (_aaaParams.BodyParts.Count > 1)
+            //    {
+            //        _sprite.Name = part;
+            //    }
+            //}
+            //else
+            //{
+            //    //continue;
 
+            //    //_sprite.AddChild(partSprite);
+            //    //partSprite.AddChild(partPlayer);
+            //}
+            if (partNum == 1 && _aaaParams.BodyParts.Count > 1)
+            {
+                _sprite.Name = part;
+            }
+            partSprite = new SpriteOrthogComponent();//_sprite.Duplicate((int)Node.DuplicateFlags.UseInstantiation) as Sprite3D;
+            _topLevel.AddChild(partSprite);
+            partSprite.Owner = _topLevel;
+            partSprite.Texture = _atlasTexture.Duplicate(true) as AtlasTexture;
+            partSprite.TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest;
+            ResourceSaver.Save(partSprite.Texture, $"res://Temp/{_topLevel.Name}_{partSprite.Name}.tres");
+            partPlayer = new AnimationPlayerComponent();//partSprite.GetFirstChildOfType<AnimationPlayer>();//new AnimationPlayer();
+            partPlayer.AddAnimationLibrary("", partLibrary);
+            partSprite.AddChild(partPlayer);
+            partPlayer.Owner = _topLevel;
+            //partPlayer.Reparent(partSprite);
+
+            partSprite.Name = part;
+            partPlayer.Name = part + "AnimationPlayer";
             GD.Print($"children count of {partSprite}'s node: {partSprite.GetChildCount()}");
 
             //GD.Print($"part anim library anims: {partLibrary.GetAnimationList()}");
             //GD.Print($"blobal anim library anims: {globalAnimLibrary.GetAnimationList()}");
-
-            foreach (var animName in globalAnimLibrary.GetAnimationList()) 
+            int typeOffset;
+            for (int typeNum = 0; typeNum < typesOfPart; typeNum++)
             {
-                _currHeight = partOffset;
-                //GD.Print($"Starting automating '{animName}'...");
-                var anim = globalAnimLibrary.GetAnimation(animName);
-                if (_aaaParams.AnimLoopMap.ContainsKey(animName))
+                typeOffset = typeNum * _frameHeight * _aaaParams.AnimDirections.Count;
+                string typeLabel = "";
+                if (typesOfPart > 1)
                 {
-                    anim.LoopMode = _aaaParams.AnimLoopMap[animName];
-                    //GD.Print($"Set loop mode to '{anim.LoopMode}'.");
+                    if (_aaaParams.PartConfigLabels.ContainsKey(part))
+                    {
+                        typeLabel = _aaaParams.PartConfigLabels[part][typeNum];
+                    }
+                    else
+                    {
+                        char typeChar = (char)(typeNum + 65);
+                        typeLabel = typeChar.ToString();
+                    }
                 }
-                int trackNum = 1;
-                for (int typeNum = 1; typeNum <= typesOfPart; typeNum++)
+                configLabels.Add(typeLabel);
+                foreach (var animName in globalAnimLibrary.GetAnimationList()) 
                 {
+                    _currHeight = partOffset + typeOffset;
+                    //GD.Print($"Starting automating '{animName}'...");
+                    var anim = globalAnimLibrary.GetAnimation(animName);
+                    if (_aaaParams.AnimLoopMap.ContainsKey(animName))
+                    {
+                        anim.LoopMode = _aaaParams.AnimLoopMap[animName];
+                        //GD.Print($"Set loop mode to '{anim.LoopMode}'.");
+                    }
+                    int trackNum = 1;
+                
+                    
+                    
                     foreach (var dir in _aaaParams.AnimDirections)
                     {
-
                         var dirAnim = anim.Duplicate(true) as Animation;
 
                         var numFrames = dirAnim.TrackGetKeyCount(trackNum);
@@ -202,7 +244,7 @@ public partial class AAA : EditorScript
 
                             dirAnim.TrackSetKeyValue(trackNum, i, Variant.From(dirRect));
                         }
-                        var newAnimName = animName + GetFaceDirectionString(dir) + typeNum.ToString();
+                        var newAnimName = animName + GetFaceDirectionString(dir) + typeLabel;
                         GD.Print($"For {partPlayer.Name}'s animation '{newAnimName}', height is: {_currHeight}");
                         partLibrary.AddAnimation(newAnimName, dirAnim);
                         _currHeight += _frameHeight;
@@ -210,9 +252,13 @@ public partial class AAA : EditorScript
                     }
                 }
             }
+            partPlayer.SetConfigOptions(configLabels);
             partNum++;
             partOffset += _currHeight;
         }
+
+        animPlayer.Free();
+        _sprite.Free();
         //globalAnimLibrary.Dispose();
     }
 
@@ -231,6 +277,16 @@ public partial class AAA : EditorScript
         //ResourceSaver.Save(packedScene, scenePath);
 
         //GetTree().Quit();
+    }
+    private void SaveNodeAsScene(Node node, string scenePath)
+    {
+        var packedScene = new PackedScene();
+        foreach (var child in node.GetChildren())
+        {
+            child.Owner = node;
+        }
+        packedScene.Pack(node);
+        ResourceSaver.Save(packedScene, scenePath);
     }
     private void OpenAndSaveScene(string scenePath)
     {

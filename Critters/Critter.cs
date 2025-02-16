@@ -1,22 +1,24 @@
 using Godot;
-using Godot.Collections;
 using System;
+using System.Collections.Generic;
 using TimeRobbers.Interfaces;
 
 public partial class Critter : CharacterBody3D, IMovementComponent
 {
     public IBlackboard BB { get; protected set; }
     public SpriteOrthogComponent Sprite { get; protected set; }
-    public AnimationPlayer AnimPlayer { get; protected set; }
+    public MultiAnimPlayerComponent AnimPlayer { get; protected set; }
+    public List<IConfigAnimComponent> ConfigComps { get; protected set; } = new List<IConfigAnimComponent>();
     public HealthComponent HealthComp { get; protected set; }
     public HurtboxComponent3D HurtboxComp { get; protected set; }
     public EatableComponent EatableComp { get; protected set; }
 
     private CompoundState _stateMachine;
-    private Dictionary<State, bool> _parallelStateMachines = new Dictionary<State, bool>();
+    private Godot.Collections.Dictionary<State, bool> _parallelStateMachines = 
+        new Godot.Collections.Dictionary<State, bool>();
     public State PrimaryState { get; protected set; }
-    public Dictionary<State, bool> ParallelStates { get; protected set; } =
-        new Dictionary<State, bool>();
+    public Godot.Collections.Dictionary<State, bool> ParallelStates { get; protected set; } =
+        new Godot.Collections.Dictionary<State, bool>();
 
     public static float Speed { get; private set; } = 7.5f;
     public static float AirSpeed { get; private set; } = 2.0f;
@@ -41,11 +43,39 @@ public partial class Critter : CharacterBody3D, IMovementComponent
         Sprite = this.GetFirstChildOfType<SpriteOrthogComponent>();
         Sprite.Show();
         //CharacterSize = new Vector2(Sprite.Texture.GetWidth() / Sprite.Hframes, Sprite.Texture.GetHeight() / Sprite.Vframes);
-        AnimPlayer = Sprite.GetFirstChildOfType<AnimationPlayer>();
+        
         //AnimPlayer.AnimationStarted += OnAnimationStarted;
         //AnimPlayer.AnimationFinished += OnAnimationFinished;
+
+        AnimPlayer = this.GetFirstChildOfType<MultiAnimPlayerComponent>();
+        // GET CONFIGS AND RANDOMIZE
+        foreach (var child in this.GetChildrenOfType<Node>())
+        {
+            if (child is IConfigAnimComponent config)
+            {
+                ConfigComps.Add(config);
+                var configOpts = config.GetConfigOptions();
+                var configCount = configOpts.Count;
+                var randConfig = Global.Rnd.Next(0, configCount);
+                config.SetConfig(configOpts[randConfig]);
+                GD.Print($"Sprite {child.GetParent().Name}'s config set to {config.GetConfig()}");
+            }
+            //if (child is IAnimComponent anim)
+            //{
+            //    AnimPlayer = anim;
+            //}
+        }
+
         BB.SetVar(BBDataSig.Sprite, Sprite);
         BB.SetVar(BBDataSig.Anim, AnimPlayer);
+        //foreach (var config in ConfigComps)
+        //{
+        //    var configOpts = config.GetConfigOptions();
+        //    var configCount = configOpts.Count;
+        //    var randConfig = Global.Rnd.Next(0, configCount);
+        //    config.SetConfig(configOpts[randConfig]);
+        //    GD.Print($"");
+        //}
 
         HurtboxComp = this.GetFirstChildOfType<HurtboxComponent3D>();
         EatableComp = HurtboxComp.GetFirstChildOfType<EatableComponent>();
@@ -78,11 +108,23 @@ public partial class Critter : CharacterBody3D, IMovementComponent
 
     public AnimDirection GetAnimDirection()
     {
-        return AnimPlayer.GetAnimDirection();
+        if (AnimPlayer.GetCurrAnimation().Contains("Down"))
+        {
+            return AnimDirection.Down;
+        }
+        else /*if (AnimPlayer.GetCurrAnimation().Contains("Up"))*/
+        {
+            return AnimDirection.Up;
+        }
+        //else
+        //{
+        //    throw new Exception("ERROR || Can't get anim direction from current animation: " +
+        //        AnimPlayer.GetCurrAnimation());
+        //}
     }
     public OrthogDirection GetFaceDirection()
     {
-        return IMovementComponent.GetOrthogDirection(AnimPlayer.GetAnimDirection(), Sprite.FlipH);
+        return IMovementComponent.GetOrthogDirection(GetAnimDirection(), Sprite.FlipH);
     }
 
     public OrthogDirection GetDesiredFaceDirection()

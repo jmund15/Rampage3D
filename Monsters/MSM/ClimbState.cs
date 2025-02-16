@@ -40,7 +40,7 @@ public partial class ClimbState : Base3DState
         //GD.Print("on climb enter anim direction: ", _climbDir);
         //GD.Print("climbable max climb height: ", _climbComp.MaxClimbHeight);
 
-        BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(_animName + _climbAnimDir.GetAnimationString());
+        BB.GetVar<IAnimComponent>(BBDataSig.Anim).StartAnim(_animName + _climbAnimDir.GetAnimationString());
 
         _body.Velocity = Vector3.Zero;
 

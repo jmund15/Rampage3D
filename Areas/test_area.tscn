@@ -1,0 +1,120 @@
+[gd_scene load_steps=12 format=3 uid="uid://d05u6lxvqokd3"]
+
+[ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_6sbl0"]
+[ext_resource type="PackedScene" uid="uid://bd0dotu3315d" path="res://Vehicles/Implementation/sedan_navy.tscn" id="2_y8ogm"]
+[ext_resource type="PackedScene" uid="uid://dsvmcd5mkuj1" path="res://Areas/All/Buildings/Complete/1x2x3_base_reference.tscn" id="3_a3yva"]
+[ext_resource type="PackedScene" uid="uid://n8t3lf385ue3" path="res://BaseComponents/multiplayer_camera_3d_component.tscn" id="4_27cyl"]
+[ext_resource type="PackedScene" uid="uid://djo53nhfpike4" path="res://Areas/All/Buildings/Complete/2x2x2_base_reference.tscn" id="4_e8788"]
+[ext_resource type="PackedScene" uid="uid://ch47oeiqubnrc" path="res://Areas/SanFrancisco/CityFloor/Complete/sanfrancisco_floor.tscn" id="5_hxlsu"]
+[ext_resource type="PackedScene" uid="uid://u01pn5rjsba0" path="res://Critters/critter.tscn" id="6_7i7lb"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s7knx"]
+
+[sub_resource type="Sky" id="Sky_5a5uy"]
+sky_material = SubResource("ProceduralSkyMaterial_s7knx")
+
+[sub_resource type="Environment" id="Environment_x5b6y"]
+background_mode = 2
+sky = SubResource("Sky_5a5uy")
+volumetric_fog_density = 0.5365
+volumetric_fog_emission_energy = 240.86
+volumetric_fog_gi_inject = 3.4
+volumetric_fog_anisotropy = 0.77
+volumetric_fog_length = 497.58
+volumetric_fog_ambient_inject = 9.95
+volumetric_fog_sky_affect = 0.973
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m5tyw"]
+size = Vector3(100, 1, 100)
+
+[node name="Sanfrancisco" type="Node3D"]
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="monster" parent="Players" instance=ExtResource("1_6sbl0")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 1.94896, -9.53674e-07, -4.74783)
+
+[node name="Vehicles" type="Node3D" parent="."]
+
+[node name="SedanNavy3" parent="Vehicles" instance=ExtResource("2_y8ogm")]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -2.3125, 0, -4.1875)
+
+[node name="Buildings" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Building" parent="Buildings" instance=ExtResource("3_a3yva")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2, 0, 1.5)
+"Building Location" = 1
+"Building Type" = 0
+BuildingLocationDir = "res://Areas//KentsHill//Buildings//Textures"
+_buildingLocDirIdx = 1
+BuildingTypeDir = "res://Areas//KentsHill//Buildings//Textures//32x64_warehouse01"
+_buildingTypeDirIdx = 0
+_buildingTypePropHint = "32x64_school01,32x64_warehouse01,32x_bakery01,32x_garage01,32x_residential01,32x_townhall01"
+_floorTextureMap = {
+1: "res://Areas//KentsHill//Buildings//Textures//32x64_warehouse01//32x64_base_warehouse01_snowy.png",
+2: "res://Areas//KentsHill//Buildings//Textures//32x64_warehouse01//32x64_base_warehouse01_snowy.png",
+3: "res://Areas//KentsHill//Buildings//Textures//32x64_warehouse01//32x64_base_warehouse01_snowy.png"
+}
+_floorPropHint = "32x64_base_warehouse01_snowy.png,32x64_roof_warehouse01_snowy.png,32x_hill_sheetmetal01_snowy_rubble.png"
+
+[node name="Building2" parent="Buildings" instance=ExtResource("4_e8788")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.8445, 0, 2.94264)
+"Building Location" = 2
+"Building Type" = 0
+"Floor 1" = 0
+"Floor 2" = 0
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//32x64_school01"
+_buildingTypeDirIdx = 0
+_buildingTypePropHint = "32x64_school01"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//32x64_school01//32x64_base_school01_bot_snowy.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//32x64_school01//32x64_base_school01_bot_snowy.png"
+}
+_floorTextureIdxMap = {
+1: 0,
+2: 0
+}
+_floorPropHint = "32x64_base_school01_bot_snowy.png,32x64_base_school01_top_snowy.png,32x_hill_school01_rubble.png,32x_hill_school01_snowy_rubble.png"
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_x5b6y")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.984808, 0.133022, -0.111619, 0, 0.642788, 0.766045, 0.173648, -0.754406, 0.633023, 0, 4.83154, 6.14081)
+light_color = Color(1, 0.968627, 0.866667, 1)
+shadow_enabled = true
+shadow_bias = 0.05
+shadow_normal_bias = 1.0
+shadow_opacity = 0.5
+shadow_blur = 0.5
+
+[node name="Camera3D" parent="Environment" node_paths=PackedStringArray("_playerContainer") instance=ExtResource("4_27cyl")]
+transform = Transform3D(0.707107, -0.40558, 0.579228, 0, 0.819152, 0.573577, -0.707107, -0.40558, 0.579228, 10, 10, 10)
+_playerContainer = NodePath("../../Players")
+
+[node name="Floor" type="StaticBody3D" parent="Environment"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Floor"]
+shape = SubResource("BoxShape3D_m5tyw")
+
+[node name="Sanfrancisco Floor" parent="Environment/Floor" instance=ExtResource("5_hxlsu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="NPCs" type="Node3D" parent="."]
+
+[node name="BOOOO" parent="NPCs" instance=ExtResource("6_7i7lb")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 5.18039, 0, 0.85572)
+
+[node name="OOOOh" parent="NPCs" instance=ExtResource("6_7i7lb")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -6, 0, -6)
+
+[node name="OOOOh2" parent="NPCs" instance=ExtResource("6_7i7lb")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1, 0, -7.5)
+
+[node name="Critter" parent="NPCs" instance=ExtResource("6_7i7lb")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -2.71024, 0, 1.47688)

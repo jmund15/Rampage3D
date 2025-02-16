@@ -1,6 +1,14 @@
 using Godot;
 using System;
 
+public enum DirectionType
+{
+    EightDir,
+    FourDir,
+    UpDown,
+    LeftRight
+}
+
 [GlobalClass, Tool]
 public partial class AAAParameters : Resource
 {
@@ -43,6 +51,13 @@ public partial class AAAParameters : Resource
         { "shirt", 2 },
         { "hat", 2 },
     };
+    [Export]
+    public Godot.Collections.Dictionary<string, Godot.Collections.Array<string>> PartConfigLabels { get; private set; } =
+        new Godot.Collections.Dictionary<string, Godot.Collections.Array<string>>();
+
+    //[Export]
+    //public DirectionType DirType { get; private set } = DirectionType.UpDown;
+
     [Export]
     public Godot.Collections.Array<AAADirection> AnimDirections { get; private set; } = new Godot.Collections.Array<AAADirection>()
     {

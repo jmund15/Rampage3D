@@ -10,8 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://n8t3lf385ue3" path="res://BaseComponents/multiplayer_camera_3d_component.tscn" id="8_6pwtu"]
 [ext_resource type="PackedScene" uid="uid://de1wt6ynyguqg" path="res://Areas/All/Buildings/Complete/1x2x2_base_reference.tscn" id="8_jjwty"]
 [ext_resource type="PackedScene" uid="uid://dhr1cyrw2bckn" path="res://Areas/All/Buildings/Complete/2x4x2_roof_reference.tscn" id="9_jtpy1"]
-[ext_resource type="PackedScene" uid="uid://u01pn5rjsba0" path="res://Critters/critter.tscn" id="10_cx1pi"]
 [ext_resource type="PackedScene" uid="uid://ch47oeiqubnrc" path="res://Areas/SanFrancisco/CityFloor/Complete/sanfrancisco_floor.tscn" id="11_5csb4"]
+[ext_resource type="PackedScene" uid="uid://bgrnqh6ibmvyk" path="res://Critters/critter_moose.tscn" id="13_j8nxj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s7knx"]
 
@@ -274,14 +274,35 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 
 [node name="NPCs" type="Node3D" parent="."]
 
-[node name="BOOOO" parent="NPCs" instance=ExtResource("10_cx1pi")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 4.86789, 0, 0.48072)
+[node name="CritterMoose" parent="NPCs" instance=ExtResource("13_j8nxj")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 1, 0, -10)
 
-[node name="OOOOh" parent="NPCs" instance=ExtResource("10_cx1pi")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -6, 0, -6)
+[node name="CritterMoose2" parent="NPCs" instance=ExtResource("13_j8nxj")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 1.5, 0, -8.5)
 
-[node name="OOOOh2" parent="NPCs" instance=ExtResource("10_cx1pi")]
+[node name="CritterMoose3" parent="NPCs" instance=ExtResource("13_j8nxj")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, -8.5)
+
+[node name="CritterMoose4" parent="NPCs" instance=ExtResource("13_j8nxj")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -2, 0, -5)
+
+[node name="CritterMoose5" parent="NPCs" instance=ExtResource("13_j8nxj")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.5, 0, -10)
+
+[node name="CritterMoose6" parent="NPCs" instance=ExtResource("13_j8nxj")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -3.5, 0, -5.5)
+
+[node name="CritterMoose7" parent="NPCs" instance=ExtResource("13_j8nxj")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -2.5, 0, -8.5)
+
+[node name="CritterMoose8" parent="NPCs" instance=ExtResource("13_j8nxj")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1, 0, -7.5)
 
-[node name="Critter" parent="NPCs" instance=ExtResource("10_cx1pi")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -2.71024, 0, 1.47688)
+[node name="CritterMoose9" parent="NPCs" instance=ExtResource("13_j8nxj")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.5, 0, -11)
+
+[node name="CritterMoose10" parent="NPCs" instance=ExtResource("13_j8nxj")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -4, 0, -7)
+
+[node name="CritterMoose11" parent="NPCs" instance=ExtResource("13_j8nxj")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -2, 0, -6.5)

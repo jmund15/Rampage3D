@@ -25,7 +25,7 @@ public partial class GrabbedState : Base3DState
 		_eater = _eatableComp.Eater;
 
 		//var faceDir = IMovementComponent.GetOppositeDirection(_eater.)
-		AnimPlayer.Play("falling" + MoveComp.GetAnimDirection());
+		AnimPlayer.StartAnim("falling" + MoveComp.GetAnimDirection());
 
 		_eatableComp.InMouth += OnInMouth;
     }

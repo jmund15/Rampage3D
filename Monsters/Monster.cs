@@ -62,7 +62,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     };
 
     public SpriteOrthogComponent Sprite { get; protected set; }
-	public AnimationPlayer AnimPlayer { get; protected set; }
+	public AnimationPlayerComponent AnimPlayer { get; protected set; }
     public HealthComponent HealthComp { get; protected set; }
     public HurtboxComponent3D HurtboxComp { get; protected set; }
     public HitboxComponent3D HitboxComp { get; protected set; }
@@ -120,6 +120,9 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     public override void _Ready()
     {
         base._Ready();
+        AnimationPlayer animPlayer;
+        AnimatedSprite3D animSprite;
+
         MonsterF = MonsterFormStart;
         MonsterId = new MonsterIdentifier(MonsterT, MonsterF);
         OrthogDirectionChanged += OnOrthogDirChanged;
@@ -136,7 +139,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         Sprite = this.GetFirstChildOfType<SpriteOrthogComponent>();
         Sprite.Show();
         //CharacterSize = new Vector2(Sprite.Texture.GetWidth() / Sprite.Hframes, Sprite.Texture.GetHeight() / Sprite.Vframes);
-        AnimPlayer = Sprite.GetFirstChildOfType<AnimationPlayer>();
+        AnimPlayer = Sprite.GetFirstChildOfType<AnimationPlayerComponent>();
         //AnimPlayer.AnimationStarted += OnAnimationStarted;
         //AnimPlayer.AnimationFinished += OnAnimationFinished;
         BB.SetVar(BBDataSig.Sprite, Sprite);

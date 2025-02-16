@@ -8,14 +8,14 @@ public partial class ClimbInitBTState : BTState
     #region STATE_VARIABLES
     private CharacterBody3D _body;
     private ClimberComponent _climberComp;
-    private AnimationPlayer _animPlayer;
+    private IAnimComponent _animPlayer;
     #endregion
     #region STATE_UPDATES
     public override void Init(Node agent, IBlackboard bb)
     {
         base.Init(agent, bb);
         _body = Agent as CharacterBody3D;
-        _animPlayer = BB.GetVar<AnimationPlayer>(BBDataSig.Anim);
+        _animPlayer = BB.GetVar<IAnimComponent>(BBDataSig.Anim);
     }
     public override void Enter(Dictionary<State, bool> parallelStates)
 	{

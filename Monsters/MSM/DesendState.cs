@@ -33,7 +33,7 @@ public partial class DesendState : Base3DState
         //GD.Print("on descend enter curr anim: ", AnimPlayer.CurrentAnimation);
         _descendAnimDir = _climberComp.ClimbingDir.GetAnimDir();
         //GD.Print("DESCEND ANIM DIRECTION: ",  _descendDir);
-        BB.GetVar<AnimationPlayer>(BBDataSig.Anim).Play(_animName + _descendAnimDir.GetAnimationString());
+        BB.GetVar<IAnimComponent>(BBDataSig.Anim).StartAnim(_animName + _descendAnimDir.GetAnimationString());
 
         _body.Velocity = Vector3.Zero;
     }

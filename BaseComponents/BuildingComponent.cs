@@ -830,7 +830,7 @@ public partial class BuildingComponent : RigidBody3D
 
             //GD.Print($"Changed floor {floorNum}'s texture to: {texture}");
 
-            if (_floorTextureMap.ContainsKey(floorNum))
+            if (_floorTextureIdxMap.ContainsKey(floorNum))
             {
                 _floorTextureIdxMap[floorNum] = value.AsInt32();
                 _floorTextureMap[floorNum] = texture;
