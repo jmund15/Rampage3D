@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://chfw2wpuauyf5" path="res://Areas/All/Buildings/Textures/references/32x_base_reference.png" id="2_f475w"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ehnt"]
+resource_local_to_scene = true
 albedo_texture = ExtResource("2_f475w")
 texture_filter = 0
 

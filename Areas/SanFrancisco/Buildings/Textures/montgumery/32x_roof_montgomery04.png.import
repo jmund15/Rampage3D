@@ -2,30 +2,30 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmu42fmsb8cqc"
-path="res://.godot/imported/32x_hill_school01_rubble.png-1a447e5c4369db941157d0412232a16a.ctex"
+uid="uid://djrsq7dat1iiq"
+path="res://.godot/imported/32x_roof_montgomery04.png-576d9beb5799a0ccd01d2c5548abb665.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Areas/SanFrancisco/Buildings/Textures/32x64_school01/32x_hill_school01_rubble.png"
-dest_files=["res://.godot/imported/32x_hill_school01_rubble.png-1a447e5c4369db941157d0412232a16a.ctex"]
+source_file="res://Areas/SanFrancisco/Buildings/Textures/montgumery/32x_roof_montgomery04.png"
+dest_files=["res://.godot/imported/32x_roof_montgomery04.png-576d9beb5799a0ccd01d2c5548abb665.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=2
 compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=0
+roughness/mode=1
 roughness/src_normal=""
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

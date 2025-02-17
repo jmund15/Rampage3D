@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://biya3bal2bv5q"]
+
+[ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://BaseComponents/base_building_component.tscn" id="1_slgh4"]
+[ext_resource type="PackedScene" uid="uid://db2f1tplkqjp0" path="res://Areas/All/Buildings/Floors/32x_floor_reference.tscn" id="2_bhfxw"]
+[ext_resource type="ArrayMesh" uid="uid://dv54t2i6s3yun" path="res://Areas/All/Buildings/Models/roof_32x.obj" id="4_n3q4i"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0mvow"]
+load_path = "res://.godot/imported/32x_base_reference.png-e488a62a0939280a31285401ee6258be.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q5swu"]
+resource_local_to_scene = true
+albedo_texture = SubResource("CompressedTexture2D_0mvow")
+texture_filter = 0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h3v7a"]
+load_path = "res://.godot/imported/32x_base_reference.png-e488a62a0939280a31285401ee6258be.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qn1me"]
+resource_local_to_scene = true
+albedo_texture = SubResource("CompressedTexture2D_h3v7a")
+texture_filter = 0
+
+[node name="Building" instance=ExtResource("1_slgh4")]
+
+[node name="RoofComponent" parent="." index="2" node_paths=PackedStringArray("_roofMesh")]
+_roofMesh = NodePath("../MeshInstance3D")
+
+[node name="BuildingFloor" parent="." index="7" instance=ExtResource("2_bhfxw")]
+material_override = SubResource("StandardMaterial3D_q5swu")
+
+[node name="BuildingFloor2" parent="." index="8" instance=ExtResource("2_bhfxw")]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0, 1.5, 0)
+material_override = SubResource("StandardMaterial3D_qn1me")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="9"]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 3, 0)
+mesh = ExtResource("4_n3q4i")

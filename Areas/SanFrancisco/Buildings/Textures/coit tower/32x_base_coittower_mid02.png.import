@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7cec3yke7j78"
-path="res://.godot/imported/608x480_floor_sanfrancisco_base.png-3acf82043430c589efa90f05acb3a164.ctex"
+uid="uid://ci6brym7jvfjl"
+path="res://.godot/imported/32x_base_coittower_mid02.png-33f966213b822c2f51ed884d0f6ca5bb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Areas/SanFrancisco/CityFloor/Textures/608x480_floor_sanfrancisco_base.png"
-dest_files=["res://.godot/imported/608x480_floor_sanfrancisco_base.png-3acf82043430c589efa90f05acb3a164.ctex"]
+source_file="res://Areas/SanFrancisco/Buildings/Textures/coit tower/32x_base_coittower_mid02.png"
+dest_files=["res://.godot/imported/32x_base_coittower_mid02.png-33f966213b822c2f51ed884d0f6ca5bb.ctex"]
 
 [params]
 
@@ -21,9 +21,9 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=2
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
+roughness/mode=1
 roughness/src_normal=""
 process/fix_alpha_border=false
 process/premult_alpha=false

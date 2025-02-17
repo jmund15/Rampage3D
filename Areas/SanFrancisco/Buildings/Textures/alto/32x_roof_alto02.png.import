@@ -2,30 +2,30 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wrhx8kdokiuy"
-path="res://.godot/imported/32x_hill_school01_snowy_rubble.png-25ee4990bb7f59999cd6c0615b51d56b.ctex"
+uid="uid://xv72xtpxvnfq"
+path="res://.godot/imported/32x_roof_alto02.png-bcdef9a7525a961409437dc1707dbdfd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Areas/SanFrancisco/Buildings/Textures/32x64_school01/32x_hill_school01_snowy_rubble.png"
-dest_files=["res://.godot/imported/32x_hill_school01_snowy_rubble.png-25ee4990bb7f59999cd6c0615b51d56b.ctex"]
+source_file="res://Areas/SanFrancisco/Buildings/Textures/alto/32x_roof_alto02.png"
+dest_files=["res://.godot/imported/32x_roof_alto02.png-bcdef9a7525a961409437dc1707dbdfd.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=2
 compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=0
+roughness/mode=1
 roughness/src_normal=""
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://db3qdmpdrqbwh"]
+[gd_scene load_steps=18 format=3 uid="uid://db3qdmpdrqbwh"]
 
 [ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_b5jb8"]
 [ext_resource type="PackedScene" uid="uid://bilhgl6nubni8" path="res://Areas/All/Buildings/Complete/1x1x2_base_reference.tscn" id="2_0gng7"]
@@ -12,22 +12,61 @@
 [ext_resource type="PackedScene" uid="uid://dhr1cyrw2bckn" path="res://Areas/All/Buildings/Complete/2x4x2_roof_reference.tscn" id="9_jtpy1"]
 [ext_resource type="PackedScene" uid="uid://u01pn5rjsba0" path="res://Critters/critter.tscn" id="10_cx1pi"]
 [ext_resource type="PackedScene" uid="uid://ch47oeiqubnrc" path="res://Areas/SanFrancisco/CityFloor/Complete/sanfrancisco_floor.tscn" id="11_5csb4"]
+[ext_resource type="PackedScene" uid="uid://biya3bal2bv5q" path="res://Areas/All/Buildings/Complete/1x1x2_roof_reference.tscn" id="13_yh2gs"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s7knx"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3whln"]
 
-[sub_resource type="Sky" id="Sky_5a5uy"]
-sky_material = SubResource("ProceduralSkyMaterial_s7knx")
+[sub_resource type="Sky" id="Sky_3xso8"]
+sky_material = SubResource("ProceduralSkyMaterial_3whln")
+process_mode = 1
 
 [sub_resource type="Environment" id="Environment_x5b6y"]
 background_mode = 2
-sky = SubResource("Sky_5a5uy")
+background_energy_multiplier = 1.2
+sky = SubResource("Sky_3xso8")
+ambient_light_source = 3
+ambient_light_color = Color(0.966935, 0.988943, 0.928694, 1)
+reflected_light_source = 2
+tonemap_mode = 2
+tonemap_white = 4.54
+ssr_fade_in = 8.95712
+ssao_enabled = true
+ssao_power = 2.04906
+ssao_light_affect = 0.43
+ssil_enabled = true
+ssil_radius = 1.09
+ssil_intensity = 2.3
+ssil_sharpness = 0.72
+ssil_normal_rejection = 0.63
+sdfgi_enabled = true
+sdfgi_bounce_feedback = 1.99
+sdfgi_cascades = 1
+sdfgi_min_cell_size = 0.01
+sdfgi_y_scale = 0
+sdfgi_energy = 1.51
+sdfgi_normal_bias = 4.5
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 6.35
+glow_strength = 0.63
+glow_bloom = 0.36
+glow_hdr_threshold = 1.46
+glow_hdr_scale = 2.25
+glow_hdr_luminance_cap = 13.55
+fog_mode = 1
+fog_light_color = Color(0.428359, 0.489756, 0.588557, 1)
+fog_light_energy = 1.17
+fog_density = 0.1149
 volumetric_fog_density = 0.5365
-volumetric_fog_emission_energy = 240.86
-volumetric_fog_gi_inject = 3.4
-volumetric_fog_anisotropy = 0.77
-volumetric_fog_length = 497.58
-volumetric_fog_ambient_inject = 9.95
-volumetric_fog_sky_affect = 0.973
+volumetric_fog_emission_energy = 1024.0
+volumetric_fog_gi_inject = 4.29
+volumetric_fog_anisotropy = -0.9
+volumetric_fog_length = 470.38
+volumetric_fog_detail_spread = 4.24264
+volumetric_fog_ambient_inject = 6.9
+volumetric_fog_sky_affect = 0.023
+adjustment_enabled = true
+adjustment_contrast = 1.2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m5tyw"]
 size = Vector3(100, 1, 100)
@@ -37,7 +76,7 @@ size = Vector3(100, 1, 100)
 [node name="Players" type="Node3D" parent="."]
 
 [node name="monster" parent="Players" instance=ExtResource("1_b5jb8")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 1.94896, -9.53674e-07, -4.74783)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 11.949, -9.53674e-07, 6.75217)
 
 [node name="Vehicles" type="Node3D" parent="."]
 
@@ -49,24 +88,27 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 
 
 [node name="Middle" parent="Buildings" instance=ExtResource("7_d6ob6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 5)
+"Building Location" = 2
 "Building Type" = 0
 "Floor 1" = 0
-"Floor 2" = 6
-"Floor 3" = 3
-"Floor 4" = 7
-BuildingTypeDir = "res://Areas//All//Buildings//Textures//32x_brick01"
+"Floor 3" = 2
+"Floor 4" = 3
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//coit tower"
 _buildingTypeDirIdx = 0
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
 _floorTextureMap = {
-1: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot.png",
-2: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt04.png",
-3: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt01.png",
-4: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top.png"
+1: "res://Areas//SanFrancisco//Buildings//Textures//coit tower//32x_base_coittower_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//coit tower//32x_base_coittower_mid01.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//coit tower//32x_base_coittower_mid02.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//coit tower//32x_base_coittower_top.png"
 }
 _availableFloorTexturePathMap = {
-0: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot.png",
-1: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot_alt01.png",
-2: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid.png",
-3: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt01.png",
+0: "res://Areas//SanFrancisco//Buildings//Textures//coit tower//32x_base_coittower_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//coit tower//32x_base_coittower_mid01.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//coit tower//32x_base_coittower_mid02.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//coit tower//32x_base_coittower_top.png",
 4: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt02.png",
 5: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt03.png",
 6: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt04.png",
@@ -75,176 +117,1407 @@ _availableFloorTexturePathMap = {
 }
 _floorTextureIdxMap = {
 1: 0,
-2: 6,
-3: 3,
-4: 7
+2: 1,
+3: 2,
+4: 3
 }
-_floorPropHint = "32x_brick01_bot.png,32x_brick01_bot_alt01.png,32x_brick01_mid.png,32x_brick01_mid_alt01.png,32x_brick01_mid_alt02.png,32x_brick01_mid_alt03.png,32x_brick01_mid_alt04.png,32x_brick01_top.png,32x_brick01_top_alt01.png"
+_floorPropHint = "32x_base_coittower_bot.png,32x_base_coittower_mid01.png,32x_base_coittower_mid02.png,32x_base_coittower_top.png"
 
 [node name="Testing" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -7.5)
-
-[node name="Building2" parent="Buildings" instance=ExtResource("2_0gng7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -7.5)
-_collapseTickDamagePercentage = 1.0
+"Building Location" = 2
+"Building Type" = 2
+"Floor 2" = 1
+"Floor 3" = 2
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//greenwich"
+_buildingTypeDirIdx = 2
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//greenwich//32x64_base_greenwich01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich//32x64_base_greenwich01_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//greenwich//32x64_base_greenwich01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//greenwich//32x64_base_greenwich01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//greenwich//32x64_base_greenwich01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich//32x64_base_greenwich01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//greenwich//32x_base_greenwich02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//greenwich//32x_base_greenwich02_top.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny02_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 0,
+2: 1,
+3: 2
+}
+_floorPropHint = "32x64_base_greenwich01_bot.png,32x64_base_greenwich01_mid.png,32x64_base_greenwich01_top.png,32x_base_greenwich02_bot.png,32x_base_greenwich02_top.png"
 
 [node name="Building31" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -15)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building32" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -17.5)
 _collapseTickDamagePercentage = 1.0
-
-[node name="Building21" parent="Buildings" instance=ExtResource("2_0gng7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -5)
-_collapseTickDamagePercentage = 1.0
-
-[node name="Building18" parent="Buildings" instance=ExtResource("2_0gng7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -7.5)
-_collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building20" parent="Buildings" instance=ExtResource("2_0gng7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -7.5)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -13, 0, -7.5)
+"Building Location" = 2
+"Building Type" = 2
+"Floor 1" = 3
+"Floor 2" = 4
 _collapseTickDamagePercentage = 1.0
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//greenwich"
+_buildingTypeDirIdx = 2
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//greenwich//32x_base_greenwich02_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich//32x_base_greenwich02_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//greenwich//32x64_base_greenwich01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//greenwich//32x64_base_greenwich01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich//32x64_base_greenwich01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//greenwich//32x_base_greenwich02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//greenwich//32x_base_greenwich02_top.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny02_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 3,
+2: 4
+}
+_floorPropHint = "32x64_base_greenwich01_bot.png,32x64_base_greenwich01_mid.png,32x64_base_greenwich01_top.png,32x_base_greenwich02_bot.png,32x_base_greenwich02_top.png"
 
 [node name="Building38" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -20)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building35" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -17.5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building4" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 2.5)
 _collapseTickDamagePercentage = 1.0
-
-[node name="Building14" parent="Buildings" instance=ExtResource("2_0gng7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 12.5)
-_collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building16" parent="Buildings" instance=ExtResource("2_0gng7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 20)
+transform = Transform3D(1, 0, -3.55271e-15, 0, 1, 0, 3.55271e-15, 0, 1, 2, 0, 20)
+"Building Location" = 2
+"Building Type" = 6
+"Floor 1" = 3
+"Floor 2" = 4
 _collapseTickDamagePercentage = 1.0
-
-[node name="Building24" parent="Buildings" instance=ExtResource("2_0gng7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 17.5)
-_collapseTickDamagePercentage = 1.0
-
-[node name="Building25" parent="Buildings" instance=ExtResource("2_0gng7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 0, 17.5)
-_collapseTickDamagePercentage = 1.0
-
-[node name="Building23" parent="Buildings" instance=ExtResource("2_0gng7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 17.5)
-_collapseTickDamagePercentage = 1.0
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//union"
+_buildingTypeDirIdx = 6
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union02_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union02_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//union//32x64_base_union01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//union//32x64_base_union01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//union//32x64_base_union01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union02_top.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union03_bot.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union03_mid.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union03_top.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 3,
+2: 4
+}
+_floorPropHint = "32x64_base_union01_bot.png,32x64_base_union01_mid.png,32x64_base_union01_top.png,32x_base_union02_bot.png,32x_base_union02_top.png,32x_base_union03_bot.png,32x_base_union03_mid.png,32x_base_union03_top.png"
 
 [node name="Building12" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, -7.5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building26" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, -5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building27" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building28" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, -5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building5" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 2.5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building10" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 10)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building9" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 12.5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building8" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 10)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2, 0, 1.5)
+"Building Location" = 2
+"Building Type" = 5
+"Floor 2" = 1
+"Floor 3" = 2
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//mosher"
+_buildingTypeDirIdx = 5
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//mosher//32x64_base_mosher_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//mosher//32x64_base_mosher_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//mosher//32x64_base_mosher_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//mosher//32x64_base_mosher_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//mosher//32x64_base_mosher_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//mosher//32x64_base_mosher_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny02_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 0,
+2: 1,
+3: 2
+}
+_floorPropHint = "32x64_base_mosher_bot.png,32x64_base_mosher_mid.png,32x64_base_mosher_top.png"
 
 [node name="Building37" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -12, 0, -20)
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building30" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.5, 0, -20)
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building6" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 0, 11.5)
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building3" parent="Buildings" instance=ExtResource("8_jjwty")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 0, 1.5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building33" parent="Buildings" instance=ExtResource("8_jjwty")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5, 0, -16)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building34" parent="Buildings" instance=ExtResource("8_jjwty")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -12, 0, -17.5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building11" parent="Buildings" instance=ExtResource("8_jjwty")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 0, -7.5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building7" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 12.5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building13" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 10)
+"Building Location" = 2
+"Building Type" = 0
+"Floor 1" = 0
+"Floor 3" = 2
 _collapseTickDamagePercentage = 1.0
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//alto"
+_buildingTypeDirIdx = 0
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_base_alto01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_base_alto01_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_base_alto01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_base_alto01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_base_alto01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_base_alto01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_base_alto02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_base_alto02_top.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_roof_alto02.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 0,
+2: 1,
+3: 2
+}
+_floorPropHint = "32x_base_alto01_bot.png,32x_base_alto01_mid.png,32x_base_alto01_top.png,32x_base_alto02_bot.png,32x_base_alto02_top.png,32x_roof_alto02.png"
 
 [node name="Building41" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 20)
+"Building Location" = 2
+"Building Type" = 6
+"Floor 1" = 5
+"Floor 2" = 6
+"Floor 3" = 7
 _collapseTickDamagePercentage = 1.0
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//union"
+_buildingTypeDirIdx = 6
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union03_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union03_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union03_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//union//32x64_base_union01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//union//32x64_base_union01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//union//32x64_base_union01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union02_top.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union03_bot.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union03_mid.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union03_top.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 5,
+2: 6,
+3: 7
+}
+_floorPropHint = "32x64_base_union01_bot.png,32x64_base_union01_mid.png,32x64_base_union01_top.png,32x_base_union02_bot.png,32x_base_union02_top.png,32x_base_union03_bot.png,32x_base_union03_mid.png,32x_base_union03_top.png"
 
 [node name="Building39" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 0, -20)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building40" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 0, -17.5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building22" parent="Buildings" instance=ExtResource("3_ow0rb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 17.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 17.5)
+"Building Location" = 2
+"Building Type" = 4
+"Floor 1" = 4
+"Floor 2" = 5
+"Floor 3" = 6
 _collapseTickDamagePercentage = 1.0
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//montgumery"
+_buildingTypeDirIdx = 4
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery01_top.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery02_bot.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery02_top.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_bot.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_mid.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_top.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery04_bot.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery04_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 4,
+2: 5,
+3: 6
+}
+_floorPropHint = "32x_base_montgomery01_bot.png,32x_base_montgomery01_top.png,32x_base_montgomery02_bot.png,32x_base_montgomery02_top.png,32x_base_montgomery03_bot.png,32x_base_montgomery03_mid.png,32x_base_montgomery03_top.png,32x_base_montgomery04_bot.png,32x_base_montgomery04_top.png,32x_roof_montgomery01.png,32x_roof_montgomery02.png,32x_roof_montgomery04.png,texture32x64_base_montgomery05_bot.png,texture32x64_base_montgomery05_mid.png,texture32x64_base_montgomery05_top.png"
 
 [node name="Building17" parent="Buildings" instance=ExtResource("6_byd3a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, 18.5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building15" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 17.5)
+"Building Location" = 2
+"Building Type" = 6
+"Floor 2" = 1
+"Floor 3" = 2
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//union"
+_buildingTypeDirIdx = 6
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//union//32x64_base_union01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//union//32x64_base_union01_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//union//32x64_base_union01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//union//32x64_base_union01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//union//32x64_base_union01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//union//32x64_base_union01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union02_top.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union03_bot.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union03_mid.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//union//32x_base_union03_top.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 0,
+2: 1,
+3: 2
+}
+_floorPropHint = "32x64_base_union01_bot.png,32x64_base_union01_mid.png,32x64_base_union01_top.png,32x_base_union02_bot.png,32x_base_union02_top.png,32x_base_union03_bot.png,32x_base_union03_mid.png,32x_base_union03_top.png"
 
 [node name="Building42" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 20)
+"Building Location" = 2
+"Building Type" = 4
+"Floor 1" = 12
+"Floor 2" = 13
+"Floor 3" = 14
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//montgumery"
+_buildingTypeDirIdx = 4
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery01_top.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery02_bot.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery02_top.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_bot.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_mid.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_top.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery04_bot.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery04_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 12,
+2: 13,
+3: 14
+}
+_floorPropHint = "32x_base_montgomery01_bot.png,32x_base_montgomery01_top.png,32x_base_montgomery02_bot.png,32x_base_montgomery02_top.png,32x_base_montgomery03_bot.png,32x_base_montgomery03_mid.png,32x_base_montgomery03_top.png,32x_base_montgomery04_bot.png,32x_base_montgomery04_top.png,32x_roof_montgomery01.png,32x_roof_montgomery02.png,32x_roof_montgomery04.png,texture32x64_base_montgomery05_bot.png,texture32x64_base_montgomery05_mid.png,texture32x64_base_montgomery05_top.png"
 
 [node name="Building19" parent="Buildings" instance=ExtResource("9_jtpy1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -24, 0, -6.5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building29" parent="Buildings" instance=ExtResource("9_jtpy1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -24, 0, 3.5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
 
 [node name="Building36" parent="Buildings" instance=ExtResource("9_jtpy1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -24, 0, 13.5)
 _collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references",
+2: "res://Areas//SanFrancisco//Buildings//Textures//greenwich",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery",
+5: "res://Areas//SanFrancisco//Buildings//Textures//mosher",
+6: "res://Areas//SanFrancisco//Buildings//Textures//union"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+
+[node name="Building23" parent="Buildings" instance=ExtResource("13_yh2gs")]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -8, 0, 17.5)
+"Building Location" = 2
+"Building Type" = 4
+"Floor 1" = 0
+"Floor 2" = 1
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//montgumery"
+_buildingTypeDirIdx = 4
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_numFloors = 2
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery01_top.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery02_bot.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery02_top.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_bot.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_mid.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_top.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery04_bot.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery04_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 0,
+2: 1
+}
+_floorPropHint = "32x_base_montgomery01_bot.png,32x_base_montgomery01_top.png,32x_base_montgomery02_bot.png,32x_base_montgomery02_top.png,32x_base_montgomery03_bot.png,32x_base_montgomery03_mid.png,32x_base_montgomery03_top.png,32x_base_montgomery04_bot.png,32x_base_montgomery04_top.png,32x_roof_montgomery01.png,32x_roof_montgomery02.png,32x_roof_montgomery04.png,texture32x64_base_montgomery05_bot.png,texture32x64_base_montgomery05_mid.png,texture32x64_base_montgomery05_top.png"
+
+[node name="Building24" parent="Buildings" instance=ExtResource("13_yh2gs")]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -10.5, 0, 17.5)
+"Building Location" = 2
+"Building Type" = 4
+"Floor 1" = 7
+"Floor 2" = 8
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//montgumery"
+_buildingTypeDirIdx = 4
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_numFloors = 2
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery02_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery02_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery01_top.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery02_bot.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery02_top.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_bot.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_mid.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_top.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery04_bot.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery04_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 7,
+2: 8
+}
+_floorPropHint = "32x_base_montgomery01_bot.png,32x_base_montgomery01_top.png,32x_base_montgomery02_bot.png,32x_base_montgomery02_top.png,32x_base_montgomery03_bot.png,32x_base_montgomery03_mid.png,32x_base_montgomery03_top.png,32x_base_montgomery04_bot.png,32x_base_montgomery04_top.png,32x_roof_montgomery01.png,32x_roof_montgomery02.png,32x_roof_montgomery04.png,texture32x64_base_montgomery05_bot.png,texture32x64_base_montgomery05_mid.png,texture32x64_base_montgomery05_top.png"
+
+[node name="Building25" parent="Buildings" instance=ExtResource("13_yh2gs")]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -15.5, 0, 17.5)
+"Building Location" = 2
+"Building Type" = 4
+"Floor 1" = 7
+"Floor 2" = 8
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//montgumery"
+_buildingTypeDirIdx = 4
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_numFloors = 2
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery04_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery04_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery01_top.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery02_bot.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery02_top.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_bot.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_mid.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery03_top.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery04_bot.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_base_montgomery04_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 7,
+2: 8
+}
+_floorPropHint = "32x_base_montgomery01_bot.png,32x_base_montgomery01_top.png,32x_base_montgomery02_bot.png,32x_base_montgomery02_top.png,32x_base_montgomery03_bot.png,32x_base_montgomery03_mid.png,32x_base_montgomery03_top.png,32x_base_montgomery04_bot.png,32x_base_montgomery04_top.png,32x_roof_montgomery01.png,32x_roof_montgomery02.png,32x_roof_montgomery04.png,texture32x64_base_montgomery05_bot.png,texture32x64_base_montgomery05_mid.png,texture32x64_base_montgomery05_top.png"
+
+[node name="Building14" parent="Buildings" instance=ExtResource("13_yh2gs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 12.5)
+"Building Location" = 2
+"Floor 1" = 3
+"Floor 2" = 4
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//alto"
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_numFloors = 2
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_base_alto02_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_base_alto02_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_base_alto01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_base_alto01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_base_alto01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_base_alto02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_base_alto02_top.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//alto//32x_roof_alto02.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 3,
+2: 4
+}
+_floorPropHint = "32x_base_alto01_bot.png,32x_base_alto01_mid.png,32x_base_alto01_top.png,32x_base_alto02_bot.png,32x_base_alto02_top.png,32x_roof_alto02.png"
+
+[node name="Building2" parent="Buildings" instance=ExtResource("3_ow0rb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -7.5)
+"Building Location" = 2
+"Building Type" = 3
+"Floor 1" = 0
+"Floor 3" = 2
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//kearny"
+_buildingTypeDirIdx = 3
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny01_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny01_top.png"
+}
+_floorTextureIdxMap = {
+1: 0,
+2: 1,
+3: 2
+}
+_floorPropHint = "32x_base_kearny01_bot.png,32x_base_kearny01_mid.png,32x_base_kearny01_top.png,32x_base_kearny02_bot.png,32x_base_kearny02_mid.png,32x_base_kearny02_top.png,32x_base_kearny03_bot.png,32x_base_kearny03_mid.png,32x_base_kearny03_top.png"
+
+[node name="Building18" parent="Buildings" instance=ExtResource("3_ow0rb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2, 0, -5)
+"Building Location" = 2
+"Building Type" = 3
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//kearny"
+_buildingTypeDirIdx = 3
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny03_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "32x_base_kearny01_bot.png,32x_base_kearny01_mid.png,32x_base_kearny01_top.png,32x_base_kearny02_bot.png,32x_base_kearny02_mid.png,32x_base_kearny02_top.png,32x_base_kearny03_bot.png,32x_base_kearny03_mid.png,32x_base_kearny03_top.png"
+
+[node name="Building21" parent="Buildings" instance=ExtResource("3_ow0rb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -7.5)
+"Building Location" = 2
+"Building Type" = 3
+"Floor 1" = 3
+"Floor 2" = 4
+"Floor 3" = 5
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//kearny"
+_buildingTypeDirIdx = 3
+_buildingTypePropHint = "alto,coit tower,greenwich,kearny,montgumery,mosher,union"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny02_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny02_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//kearny//32x_base_kearny02_top.png"
+}
+_floorTextureIdxMap = {
+1: 3,
+2: 4,
+3: 5
+}
+_floorPropHint = "32x_base_kearny01_bot.png,32x_base_kearny01_mid.png,32x_base_kearny01_top.png,32x_base_kearny02_bot.png,32x_base_kearny02_mid.png,32x_base_kearny02_top.png,32x_base_kearny03_bot.png,32x_base_kearny03_mid.png,32x_base_kearny03_top.png"
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -252,13 +1525,13 @@ _collapseTickDamagePercentage = 1.0
 environment = SubResource("Environment_x5b6y")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(0.984808, 0.133022, -0.111619, 0, 0.642788, 0.766045, 0.173648, -0.754406, 0.633023, 0, 4.83154, 6.14081)
-light_color = Color(1, 0.968627, 0.866667, 1)
+transform = Transform3D(-0.284831, -0.948764, 0.136818, -0.46793, 0.262185, 0.843979, -0.836608, 0.17637, -0.518634, -3.5, 14.8315, 1.14081)
+light_color = Color(0.905099, 0.963104, 0.969469, 1)
 shadow_enabled = true
-shadow_bias = 0.05
-shadow_normal_bias = 1.0
-shadow_opacity = 0.5
-shadow_blur = 0.5
+shadow_transmittance_bias = 3.737
+shadow_opacity = 0.58
+shadow_blur = 0.781
+directional_shadow_blend_splits = true
 
 [node name="Camera3D" parent="Environment" node_paths=PackedStringArray("_playerContainer") instance=ExtResource("8_6pwtu")]
 transform = Transform3D(0.707107, -0.40558, 0.579228, 0, 0.819152, 0.573577, -0.707107, -0.40558, 0.579228, 10, 10, 10)
