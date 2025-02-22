@@ -6,4 +6,4 @@
 [node name="Critter" instance=ExtResource("1_6vrue")]
 
 [node name="moose" parent="." index="0" instance=ExtResource("2_uafwq")]
-transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 1, 0)
+EditorPlayAnimName = "idleUp"

@@ -28,6 +28,7 @@ public partial class Idle3DState : Base3DState
 
         AnimPlayer.StartAnim(AnimName +
             MoveComp.GetAnimDirection().GetAnimationString());
+        //GD.Print($"{Agent.Name} started anim '{AnimPlayer.GetCurrAnimation()}'");
     }
     public override void Exit()
     {

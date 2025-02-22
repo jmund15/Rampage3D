@@ -10,20 +10,20 @@ public partial class AteState : Base3DState
 	private State _transitionState;
 
 	private EatableComponent _eatableComp;
-	private Sprite3D _sprite;
+	private MultiAnimPlayerComponent _spritesOwner;
 	#endregion
 	#region STATE_UPDATES
 	public override void Init(Node agent, IBlackboard bb)
 	{
 		base.Init(agent, bb);
-        _sprite = BB.GetVar<Sprite3D>(BBDataSig.Sprite);
+        _spritesOwner = BB.GetVar<MultiAnimPlayerComponent>(BBDataSig.Sprite);
 		_eatableComp = BB.GetVar<EatableComponent>(BBDataSig.EatableComp);
     }
 	public override void Enter(Dictionary<State, bool> parallelStates)
 	{
 		base.Enter(parallelStates);
 		//GD.Print("CRITTER EATEN!!!");
-		_sprite.Hide();
+		_spritesOwner.Hide();
 		GD.Print("HIDING SPIRTE");
 		_eatableComp.Eaten += OnEaten;
     }

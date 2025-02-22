@@ -16,7 +16,7 @@ public partial class Walk3DState : Base3DState
     private State _onNotOnFloorState;
 
     private Vector2 _inputDirection = new Vector2();
-    private OrthogDirection _orthogDir;
+    private Dir4 _orthogDir;
     private AnimDirection _currAnimDir;
     #endregion
     #region STATE_UPDATES
@@ -45,14 +45,7 @@ public partial class Walk3DState : Base3DState
             EmitSignal(SignalName.TransitionState, this, _onJumpInputState);
         }
 
-        _orthogDir = _inputDirection.GetOrthogDirection();
-        var animDir = _orthogDir.GetAnimDir();
-        if (_currAnimDir != animDir)
-        {
-            _currAnimDir = animDir;
-            BB.GetVar<IAnimComponent>(BBDataSig.Anim).StartAnim(AnimName + _currAnimDir.GetAnimationString());
-        }
-        BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = _orthogDir.GetFlipH();
+        
     }
 	public override void ProcessPhysics(float delta)
 	{
@@ -69,18 +62,27 @@ public partial class Walk3DState : Base3DState
             EmitSignal(SignalName.TransitionState, this, _onNoInputState);
             return;
         }
-        var orthogDir = _inputDirection.GetOrthogDirection();
-        Vector3 direction = orthogDir.GetVector3();
+
+        _orthogDir = _inputDirection.GetOrthogDirection();
+        var animDir = _orthogDir.GetAnimDir();
+        if (_currAnimDir != animDir)
+        {
+            _currAnimDir = animDir;
+            BB.GetVar<IAnimComponent>(BBDataSig.Anim).StartAnim(AnimName + _currAnimDir.GetAnimationString());
+        }
+        BB.GetVar<ISpriteComponent>(BBDataSig.Sprite).FlipH = _orthogDir.GetFlipH();
+
+        Vector3 direction = _orthogDir.GetVector3();
 
         if (direction != Vector3.Zero)
         {
-            velocity.X = direction.X * Monster.Speed;
-            velocity.Z = direction.Z * Monster.Speed;
+            velocity.X = direction.X * (Monster.Speed / 2);
+            velocity.Z = direction.Z * (Monster.Speed / 2);
         }
         else
         {
-            velocity.X = Mathf.MoveToward(Body.Velocity.X, 0, Monster.Speed);
-            velocity.Z = Mathf.MoveToward(Body.Velocity.Z, 0, Monster.Speed);
+            velocity.X = Mathf.MoveToward(Body.Velocity.X, 0, (Monster.Speed / 2));
+            velocity.Z = Mathf.MoveToward(Body.Velocity.Z, 0, (Monster.Speed / 2));
         }
 
         Body.Velocity = velocity;

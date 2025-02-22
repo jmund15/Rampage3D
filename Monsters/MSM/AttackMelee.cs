@@ -43,7 +43,7 @@ public partial class AttackMelee : BehaviorAction
             case AnimDirectionStrategy.CurrDirection:
                 AttackAnimDir = PlayAnim.CurrDirectionStrat(BB);
                 var orthogDir = IMovementComponent.GetOrthogDirection(AttackAnimDir,
-                    BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH);
+                    BB.GetVar<ISpriteComponent>(BBDataSig.Sprite).FlipH);
                 AttackDirection = orthogDir.GetVector3();
                 break;
             case AnimDirectionStrategy.InputDirection:
@@ -56,7 +56,7 @@ public partial class AttackMelee : BehaviorAction
                 else
                 {
                     orthogDir = IMovementComponent.GetOrthogDirection(AttackAnimDir,
-                    BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH);
+                    BB.GetVar<ISpriteComponent>(BBDataSig.Sprite).FlipH);
                     AttackDirection = orthogDir.GetVector3();
                 }
                 break;

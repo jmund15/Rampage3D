@@ -19,7 +19,7 @@ public partial class AnimationPlayerComponent : AnimationPlayer, IAnimPlayerComp
         get => _configLabel;
         set
         {
-            if (_configLabel == value) { return; }
+            if (_configLabel == value || _configOptions.Count == 0) { return; }
             for (int i = 0; i < _configOptions.Count; i++)
             {
                 var config = _configOptions[i];
@@ -54,11 +54,14 @@ public partial class AnimationPlayerComponent : AnimationPlayer, IAnimPlayerComp
         };
 
         //ConfigChanged += OnConfigChanged;
-        ConfigLabel = _configOptions[0];
+        if (_configOptions.Count > 0)
+        {
+            ConfigLabel = _configOptions[0];
+        }
     }
     private void OnConfigChanged(object sender, string e)
     {
-        if (IsAnimating())
+        if (IsPlaying())
         {
             GD.Print("updating anim with config label: ", ConfigLabel, "!");
             UpdateAnim(BaseAnimName);
@@ -76,7 +79,7 @@ public partial class AnimationPlayerComponent : AnimationPlayer, IAnimPlayerComp
 
     public void StartAnim(string animName)
     {
-        if (!AnimationExists(animName))
+        if (!HasAnimation(animName))
         {
             GD.PrintErr("ERROR || Animation doesn't Exist!!!");
         }
@@ -113,30 +116,30 @@ public partial class AnimationPlayerComponent : AnimationPlayer, IAnimPlayerComp
     {
         return (float)CurrentAnimationPosition;
     }
-    public new float GetSpeedScale()
-    {
-        return GetPlayingSpeed();
-    }
-    public new void SetSpeedScale(float speedScale)
-    {
-        SpeedScale = speedScale;
-    }
+    //public float GetSpeedScale()
+    //{
+    //    return GetPlayingSpeed();
+    //}
+    //public void SetSpeedScale(float speedScale)
+    //{
+    //    SpeedScale = speedScale;
+    //}
     public void UpdateAnim(string animName)
     {
         if (GetCurrAnimation() == (animName + ConfigLabel)) { return; }
-        if (!IsAnimating()) { StartAnim(animName); }
+        if (!IsPlaying()) { StartAnim(animName); }
 
         var currAnimPos = GetCurrAnimationPosition();
         StartAnim(animName);
         SeekPos(currAnimPos);
     }
-    public bool IsAnimating()
+    //public bool IsPlaying()
+    //{
+    //    return IsPlaying();
+    //}
+    public bool HasAnimation(string animName)
     {
-        return IsPlaying();
-    }
-    public bool AnimationExists(string animName)
-    {
-        return HasAnimation(animName + ConfigLabel);
+        return base.HasAnimation(animName + ConfigLabel);
     }
     public void SetConfig(string type)
     {
@@ -174,6 +177,11 @@ public partial class AnimationPlayerComponent : AnimationPlayer, IAnimPlayerComp
     public void SetConfigOptions(List<string> configOptions)
     {
         _configOptions = new Godot.Collections.Array<string>(configOptions);
+    }
+
+    public Node GetInterfaceNode()
+    {
+        return this;
     }
 
     //private string GetAnimName()

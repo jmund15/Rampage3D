@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,5 +17,13 @@ public partial class AttackBuildingEffect : Resource
     {
         SpilloverRate = 0f;
         FloorsEffected = 0;
+
+        RigidBody3D _rigBody;
+        StaticBody3D _statBod;
+        CharacterBody3D _charBod;
+
+        //_charBod.
+        //_statBod.Ax
+        //_rigBody.Velo
     }
 }

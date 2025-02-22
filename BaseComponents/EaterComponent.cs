@@ -24,7 +24,7 @@ public partial class EaterComponent : Node
     private IBlackboard _bb;
 
 	private HitboxComponent3D _hitboxComp;
-    private SpriteOrthogComponent _orthogSprite;
+    private Sprite3DComponent _orthogSprite;
     private IAnimComponent _animPlayer;
     private IMovementComponent _moveComp;
 
@@ -108,7 +108,7 @@ public partial class EaterComponent : Node
     private void InitEaterVariables()
     {
         _hitboxComp = _bb.GetVar<HitboxComponent3D>(BBDataSig.HitboxComp);
-        _orthogSprite = _bb.GetVar<SpriteOrthogComponent>(BBDataSig.Sprite);
+        _orthogSprite = _bb.GetVar<Sprite3DComponent>(BBDataSig.Sprite);
         _animPlayer = _bb.GetVar<IAnimComponent>(BBDataSig.Anim);
 
         _hitboxComp.HurtboxEntered += OnHurtboxEntered;
@@ -140,7 +140,7 @@ public partial class EaterComponent : Node
     private void StartEatCycle()
     {
         Status = EatStatus.Grabbing;
-        _orthogSprite = _bb.GetVar<SpriteOrthogComponent>(BBDataSig.Sprite);
+        _orthogSprite = _bb.GetVar<Sprite3DComponent>(BBDataSig.Sprite);
         _animPlayer = _bb.GetVar<IAnimComponent>(BBDataSig.Anim);
         _moveComp = _bb.GetVar<IMovementComponent>(BBDataSig.MoveComp);
         _animPlayer.AnimFinished += OnAnimationFinished;

@@ -74,7 +74,7 @@ public partial class Fall3DState : Base3DState
                 //var prevPos = AnimPlayer.CurrentAnimationPosition;
                 //PlayAnim.AnimWithOrthog(BB, AnimName, velDir);
                 //AnimPlayer.Seek(prevPos, true);
-                BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = velDir.GetFlipH();
+                BB.GetVar<ISpriteComponent>(BBDataSig.Sprite).FlipH = velDir.GetFlipH();
                 AnimPlayer.UpdateAnim(AnimName + velDir.GetAnimDir());
             }
         }

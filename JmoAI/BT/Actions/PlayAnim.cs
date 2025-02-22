@@ -86,7 +86,7 @@ public partial class PlayAnim : BehaviorAction
         }
         return moveComp.GetAnimDirection();
     }
-	public static void AnimWithOrthog(IBlackboard bb, string animName, OrthogDirection orthogDir)
+	public static void AnimWithOrthog(IBlackboard bb, string animName, Dir4 orthogDir)
 	{
 		var animDir = orthogDir.GetAnimDir();
 		var dirName = animDir.GetAnimationString();

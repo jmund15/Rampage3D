@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 public static partial class NodeExts
@@ -55,6 +56,32 @@ public static partial class NodeExts
 
         return null;
     }
+    public static T GetFirstChildOfInterface<T>(this Node root, bool includeSubChildren = true) where T : class
+    {
+        if (!includeSubChildren)
+        {
+            Array<Node> children = root.GetChildren();
+            foreach (var node in children)
+            {
+                if (node is T castedNode)
+                    return castedNode;
+            }
+        }
+        else
+        {
+            Array<Node> nodesToParse = root.GetChildren();
+            while (nodesToParse.Count > 0)
+            {
+                var cursor = nodesToParse[0];
+                nodesToParse.Remove(cursor);
+                if (cursor is T castedNode)
+                    return castedNode;
+                nodesToParse.AddRange(cursor.GetChildren());
+            }
+        }
+
+        return null;
+    }
     public static Array<T> GetChildrenOfType<[MustBeVariant] T>(this Node root, bool includeSubChildren = true) where T : Node
     {
         Array<T> childArray = new Array<T>();
@@ -82,7 +109,33 @@ public static partial class NodeExts
         }
         return childArray;
     }
-
+    public static List<T> GetChildrenOfInterface<T>(this Node root, bool includeSubChildren = true) where T : class
+    {
+        List<T> childArray = new List<T>();
+        if (!includeSubChildren)
+        {
+            foreach (var node in root.GetChildren())
+            {
+                if (node is T castNode)
+                    childArray.Add(castNode);
+            }
+        }
+        else
+        {
+            Array<Node> nodesToParse = root.GetChildren();
+            while (nodesToParse.Count > 0)
+            {
+                var cursor = nodesToParse[0];
+                nodesToParse.Remove(cursor);
+                if (cursor is T castedNode)
+                {
+                    childArray.Add(castedNode);
+                }
+                nodesToParse.AddRange(cursor.GetChildren());
+            }
+        }
+        return childArray;
+    }
     // SAME AS "GetChildrenOfType" once we added the "includeSubChildren" param, so it's redundant
     //public static Array<T> GetAllNodesOfType<[MustBeVariant] T>(this Node root) where T : Node
     //{
@@ -136,6 +189,13 @@ public static partial class NodeExts
         return currentScene == null ? null :
             currentScene.GetChildrenOfType<T>(includeSubChildren);
             //includeSubChildren ? currentScene.GetAllNodesOfType<T>() : currentScene.GetChildrenOfType<T>();
+    }
+    public static List<T> GetAllNodesOfInterfaceInScene<T>(bool includeSubChildren = true) where T : class
+    {
+        Node currentScene = (Engine.GetMainLoop() as SceneTree)?.CurrentScene;
+        return currentScene == null ? null :
+            currentScene.GetChildrenOfInterface<T>(includeSubChildren);
+        //includeSubChildren ? currentScene.GetAllNodesOfType<T>() : currentScene.GetChildrenOfType<T>();
     }
     #endregion
 }

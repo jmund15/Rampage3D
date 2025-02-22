@@ -26,6 +26,7 @@ public enum BBDataSig
     CombatComp,
     MovementSM,
     AISM, 
+    //TargetPosition,
     SelfInteruptible,
     #region ROBBER_SIGS
     RobberBag, RobberEffects,
@@ -40,6 +41,7 @@ public enum BBDataSig
     WallSpecialAttack,
     EaterComp,
     EatableComp
+
     #endregion
 }
 [GlobalClass, Tool]

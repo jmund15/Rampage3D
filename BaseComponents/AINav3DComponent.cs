@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using TimeRobbers.Interfaces;
 using System.Linq;
+
 public enum NavType
 {
     Walk,
@@ -15,8 +16,8 @@ public enum AINavWeight
 {
     #region BODIES
     Monster,
-    Wall,
     Building,
+    EnvObject,
     Vehicle,
     Critter,
     Military,
@@ -28,7 +29,7 @@ public enum AINavWeight
 public enum AIFacing
 {
     Facing,
-    Next,
+    Peripheral,
     Perpindicular,
     Distant,
     Opposite
@@ -58,10 +59,27 @@ public partial class AINav3DComponent : NavigationAgent3D
 {
     //TEMPLATE FOR COMPONENTS
     #region CLASS_VARIABLES
+    #region HELPER_VARS
+    private Dictionary<Dir8, bool> _eightToOrthogMap = new Dictionary<Dir8, bool>()
+    {
+        { Dir8.Right, true },
+        { Dir8.DownRight, false },
+        { Dir8.Down, true },
+        { Dir8.DownLeft, false },
+        { Dir8.Left, true },
+        { Dir8.UpLeft, false },
+        { Dir8.Up, true },
+        { Dir8.UpRight, false }
+    };
+    #endregion
     [Export]
     public Node3D ParentAgent { get; private set; }
     [Export]
     private NavType _navMethod;
+    [Export]
+    public AIRays16Dir Rays { get; private set; }
+    private IMovementComponent _moveComp;
+    private IBlackboard _bb;
     public NavType NavMethod 
     {
         get => _navMethod;
@@ -83,53 +101,75 @@ public partial class AINav3DComponent : NavigationAgent3D
     public static Dictionary<AINavWeight, uint> NavLayerMap { get; private set; } = new Dictionary<AINavWeight, uint>()
     {
         { AINavWeight.Monster, 1 },
-        { AINavWeight.Building, 4 },
-        { AINavWeight.Wall, 5 },
-        { AINavWeight.Vehicle, 7 },
-        { AINavWeight.Critter, 9 },
+        { AINavWeight.Building, 2 },
+        { AINavWeight.EnvObject, 3 },
+        { AINavWeight.Critter, 4 },
+        { AINavWeight.Vehicle, 5 },
         { AINavWeight.Military, 14 }
     };
 
     public Dictionary<AINavWeight, float> NavWeights { get; private set; } = new Dictionary<AINavWeight, float>()
     {
-        { AINavWeight.Monster, 1 },
-        { AINavWeight.Building, 1 },
-        { AINavWeight.Wall, 1 },
-        { AINavWeight.Vehicle, 1 },
-        { AINavWeight.Critter, 1 },
-        { AINavWeight.Military, 1 }
-    }; // TODO: CREATE CUSTOM SETTER FOR SPECIFIC SITUATIONS
-
-
-    public Dictionary<EightDirection, float> DirectionWeights { get; private set; } = new Dictionary<EightDirection, float>() {
-        { EightDirection.Right, 0f },
-        { EightDirection.DownRight, 0f },
-        { EightDirection.Down, 0f },
-        { EightDirection.DownLeft, 0f },
-        { EightDirection.Left, 0f },
-        { EightDirection.UpLeft, 0f },
-        { EightDirection.Up, 0f },
-        { EightDirection.UpRight, 0f }
+        { AINavWeight.Monster, 2f },
+        { AINavWeight.Building, 1f },
+        { AINavWeight.EnvObject, 1 },
+        { AINavWeight.Vehicle, 2f },
+        { AINavWeight.Critter, 0.5f },
+        { AINavWeight.Military, 2f }
     };
-    public Dictionary<AIFacing, float> SpatialAwarenessWeights { get; private set; } = new Dictionary<AIFacing, float>();
-    public RayCast3D RayUp { get; private set; }
-    public RayCast3D RayUpRight { get; private set; }
-    public RayCast3D RayRight { get; private set; }
-    public RayCast3D RayDownRight { get; private set; }
-    public RayCast3D RayDown { get; private set; }  
-    public RayCast3D RayDownLeft { get; private set; }
-    public RayCast3D RayLeft { get; private set; }
-    public RayCast3D RayUpLeft { get; private set; }
-    public Dictionary<EightDirection, RayCast3D> Raycasts { get; private set; } = new Dictionary<EightDirection, RayCast3D>();
+    public Dictionary<AINavWeight, float> NavDistThresh { get; private set; } = new Dictionary<AINavWeight, float>()
+    {
+        { AINavWeight.Monster, 5 },
+        { AINavWeight.Building, 0.5f },
+        { AINavWeight.EnvObject, 0.5f },
+        { AINavWeight.Vehicle, 3f },
+        { AINavWeight.Critter, 0.25f },
+        { AINavWeight.Military, 2f }
+    };
+    // TODO: CREATE CUSTOM SETTER FOR SPECIFIC SITUATIONS
 
+
+    //public Dictionary<EightDirection, float> DirectionWeights { get; private set; } = new Dictionary<EightDirection, float>() {
+    //    { EightDirection.Right, 0f },
+    //    { EightDirection.DownRight, 0f },
+    //    { EightDirection.Down, 0f },
+    //    { EightDirection.DownLeft, 0f },
+    //    { EightDirection.Left, 0f },
+    //    { EightDirection.UpLeft, 0f },
+    //    { EightDirection.Up, 0f },
+    //    { EightDirection.UpRight, 0f }
+    //};
+    public Dictionary<Dir16, float> DangerWeights { get; private set; } = new Dictionary<Dir16, float>();
+    public Dictionary<Dir8, float> DirectionWeights { get; private set; } = new Dictionary<Dir8, float>() {
+        { Dir8.Right, 0f },
+        { Dir8.DownRight, 0f },
+        { Dir8.Down, 0f },
+        { Dir8.DownLeft, 0f },
+        { Dir8.Left, 0f },
+        { Dir8.UpLeft, 0f },
+        { Dir8.Up, 0f },
+        { Dir8.UpRight, 0f }
+    };
+    public Dictionary<AIFacing, float> SpatialAwarenessWeights { get; private set; } = new Dictionary<AIFacing, float>()
+    {
+        { AIFacing.Facing, 1.0f },
+        { AIFacing.Peripheral, 1 },
+        { AIFacing.Opposite, 1 }
+        //{ AIFacing.Perpindicular, 1 },
+        //{ AIFacing.Distant, 1 },
+    };
     public Node3D CurrentTarget { get; set; }
     // Should use avoidance/avoidance layers? or weight with this
     public List<Node3D> CurrentAvoidTargets { get; set; } = new List<Node3D>(); 
 
     private bool _canCalcPath = true;
 
+    [Export]
+    public bool UseOrthogNavOnly { get; private set; } = true;
 
     public event EventHandler<AIDetectionArgs> AIDetection;
+
+    private Timer _debugTimer;
     #endregion
 
     #region BASE_GODOT_OVERRIDEN_FUNCTIONS
@@ -138,37 +178,89 @@ public partial class AINav3DComponent : NavigationAgent3D
         base._Ready();
         if (!Engine.IsEditorHint())
         {
-            if (!ParentAgent.IsValid())
+            if (!ParentAgent.IsValid() || ParentAgent is not IMovementComponent)
             {
                 GD.PrintErr("AINAVCOMP ERROR || INVALID PARENT FOR NAVIGATION!");
             }
+            _debugTimer = GetNode<Timer>("DebugTimer");
+            _debugTimer.Timeout += OnDebugTimeout;
+            _debugTimer.Start(1.0f);
         }
+        foreach (var dir in Global.GetEnumValues<Dir16>())
+        {
+            DangerWeights.Add(dir, 0f);
+        }
+        _moveComp = ParentAgent as IMovementComponent;
+        _bb = ParentAgent.GetFirstChildOfInterface<IBlackboard>();
+
         NavMethod = _navMethod;
 
         _baseAvoidanceEnabled = AvoidanceEnabled;
 
-        RayUp = GetNode<RayCast3D>("RayUp");
-        RayUpRight = GetNode<RayCast3D>("RayUpRight");
-        RayRight = GetNode<RayCast3D>("RayRight");
-        RayDownRight = GetNode<RayCast3D>("RayDownRight");
-        RayDown = GetNode<RayCast3D>("RayDown");
-        RayDownLeft = GetNode<RayCast3D>("RayDownLeft");
-        RayLeft = GetNode<RayCast3D>("RayLeft");
-        RayUpLeft = GetNode<RayCast3D>("RayUpLeft");
-        Raycasts.Add(EightDirection.Up, RayUp);
-        Raycasts.Add(EightDirection.UpRight, RayUpRight);
-        Raycasts.Add(EightDirection.Right, RayRight);
-        Raycasts.Add(EightDirection.DownRight, RayDownRight);
-        Raycasts.Add(EightDirection.Down, RayDown);
-        Raycasts.Add(EightDirection.DownLeft, RayDownLeft);
-        Raycasts.Add(EightDirection.Left, RayLeft);
-        Raycasts.Add(EightDirection.UpLeft, RayUpLeft);
-
-        PathTimer = this.GetFirstChildOfType<Timer>();
+        PathTimer = GetNode<Timer>("PathTimer");
         PathTimer.Timeout += OnPathTimeout;
-        
+
         EnableNavigation();
     }
+
+    private void OnDebugTimeout()
+    {
+        GD.Print($"Danger Weights:\n" +
+            $"Up: {DangerWeights[Dir16.U]:F2} " +
+            $"UpRight: {DangerWeights[Dir16.UR]:F2} " +
+            $"Right: {DangerWeights[Dir16.R]:F2} " +
+            $"DownRight: {DangerWeights[Dir16.DR]:F2} " +
+            $"Down: {DangerWeights[Dir16.D]:F2} " +
+            $"DownLeft: {DangerWeights[Dir16.DL]:F2} " +
+            $"Left: {DangerWeights[Dir16.L]:F2} " +
+            $"UpLeft: {DangerWeights[Dir16.UL]:F2} "
+            );
+
+        GD.Print($"Direction Weights:\n" +
+            $"Up: {DirectionWeights[Dir8.Up]:F2} " +
+            $"Right: {DirectionWeights[Dir8.Right]:F2} " +
+            $"Down: {DirectionWeights[Dir8.Down]:F2} " +
+            $"Left: {DirectionWeights[Dir8.Left]:F2} " +
+            $"UpRight: {DirectionWeights[Dir8.UpRight]:F2} " +
+            $"DownRight: {DirectionWeights[Dir8.DownRight]:F2} " +
+            $"DownLeft: {DirectionWeights[Dir8.DownLeft]:F2} " +
+            $"UpLeft: {DirectionWeights[Dir8.UpLeft]:F2} "
+            );
+
+        //foreach (var pair in _rays.Raycasts)
+        //{
+        //    var dir = pair.Key;
+        //    var raycast = pair.Value;
+        //    var castLength = raycast.TargetPosition.Length();
+        //    if (raycast.IsColliding())
+        //    {
+        //        var rayCollision = raycast.GetCollider() as CollisionObject3D;
+        //        if (rayCollision == ParentAgent) { continue; } //TODO: better fix
+        //        var collDist = (raycast.GetCollisionPoint() - raycast.GlobalPosition).Length();
+        //        // the closer the collision is to the raycast, the higher the "danger" weight
+        //        // at max dist, weight is 0. TODO: change s.t. it's not zero, just lower (i.e. 0.1)
+        //        // at dist 0, weight is 1.0. TODO: change s.t. weight being 0 occurs not only at dist 0, since that is impossible and too late
+        //        //var distWeight = 1f - (collisionDist / castLength); 
+        //        var minWeight = 0.1f;
+        //        var k = 2.5f;
+        //        var distDropThresh = 1.5f;
+        //        float distWeight;
+        //        if (collDist <= distDropThresh)
+        //        {
+        //            distWeight = 1.0f;  // Ensure max weight
+        //        }
+        //        else
+        //        {
+        //            distWeight = minWeight + (1.0f - minWeight) * (float)Math.Exp(-k * (collDist - distDropThresh) / (castLength - distDropThresh));
+        //        }
+                
+        //        GD.Print($"Raycast colliding with {rayCollision.Name} @ dir {dir}!" +
+        //            $"\n\tColl layer val: {rayCollision.CollisionLayer}" +
+        //            $"\n\tColl Dist: {collDist}, weight: {distWeight}");
+        //    }
+        //}
+    }
+
     public override void _Process(double delta)
     {
         base._Process(delta);
@@ -182,7 +274,7 @@ public partial class AINav3DComponent : NavigationAgent3D
             !NavigationEnabled)// ||
             //IsNavigationFinished())
         {
-            WeightedNextPathDirection = ParentAgent.GlobalPosition; // stay same pos
+            WeightedNextPathDirection = Vector3.Zero;//ParentAgent.GlobalPosition; // stay same pos
             return; 
         }
         WeightedNextPathDirection = GetWeightedPathPosition() * 10f; // TODO: change 10 to intelliget value
@@ -205,19 +297,41 @@ public partial class AINav3DComponent : NavigationAgent3D
     protected virtual Vector3 GetWeightedPathPosition()
     {
         //INITIAL PATH
-        var unweightedPathPoint = ParentAgent.ToLocal(GetNextPathPosition());
+        var globalPathP = GetNextPathPosition();
+        var unweightedPathPoint = ParentAgent.ToLocal(globalPathP);
+        //GD.Print("global path p: ", globalPathP);
+        //GD.Print("local path p: ", unweightedPathPoint);
+        //GD.Print("parent global p: ", ParentAgent.GlobalPosition);
         var normVec = unweightedPathPoint.Normalized();
-        List<EightDirection> dirs = Global.GetEnumValues<EightDirection>().ToList();
+        List<Dir8> dirs = Global.GetEnumValues<Dir8>().ToList();
 
-        var dangerWeights = GetDangerVector();
+        DangerWeights = GetDangerVector();
 
         float maxWeight = float.MinValue;
         Vector3 weightedDir = Vector3.Zero;
         foreach (var dir in dirs)
         {
-            var eightDirVec = dir.GetVector();
+            var eightDirVec = dir.GetVector2();
+            
             DirectionWeights[dir] = normVec.Dot(new Vector3(eightDirVec.X, 0f, eightDirVec.Y));
-            DirectionWeights[dir] -= dangerWeights[dir];
+            var neighborDirs = dir.GetNeighboring16Dirs();
+            var weight = 0.5f;
+            DirectionWeights[dir] -= DangerWeights[dir.GetDir16()] * weight;
+            DirectionWeights[dir] -= DangerWeights[neighborDirs.Item1] * weight * weight;
+            DirectionWeights[dir] -= DangerWeights[neighborDirs.Item2] * weight * weight;
+            if (UseOrthogNavOnly)
+            {
+                if (_eightToOrthogMap[dir]) // add neighboring dir weights for better orthog weighted movement
+                {
+                    //var neighborDirs = dir.GetNeighboringDirs();
+                    //DirectionWeights[dir] += DirectionWeights[neighborDirs.Item1] * 0.5f;
+                    //DirectionWeights[dir] += DirectionWeights[neighborDirs.Item2] * 0.5f;
+                }
+                else
+                {
+                    continue; // don't set non orthogdir as move dir;
+                }
+            }
             if (DirectionWeights[dir] > maxWeight)
             {
                 weightedDir = new Vector3(eightDirVec.X, unweightedPathPoint.Y, eightDirVec.Y);
@@ -236,40 +350,93 @@ public partial class AINav3DComponent : NavigationAgent3D
         // TODO: DON'T WEIGHT AGAINST OBJECT IF IT IS THE CURRENT TARGET 
 
         //var result = Enumerable.Zip(DirectionWeights, DirectionWeights, (a, b) => (a.Key, a.Value + b.Value));
-        return weightedDir;
+        return weightedDir;//unweightedPathPoint;//
     }
-    protected virtual Dictionary<EightDirection, float> GetDangerVector()
+    protected virtual Dictionary<Dir16, float> GetDangerVector()
     {
-        var dangerVector = new Dictionary<EightDirection, float>()
+        var dangerVector = new Dictionary<Dir16, float>()
         {
-            { EightDirection.Right, 0f },
-            { EightDirection.DownRight, 0f },
-            { EightDirection.Down, 0f },
-            { EightDirection.DownLeft, 0f },
-            { EightDirection.Left, 0f },
-            { EightDirection.UpLeft, 0f },
-            { EightDirection.Up, 0f },
-            { EightDirection.UpRight, 0f }
+            { Dir16.U, 0f }, { Dir16.UUR, 0f }, { Dir16.UR, 0f }, { Dir16.URR, 0f },
+            { Dir16.R, 0f }, { Dir16.DRR, 0f }, { Dir16.DR, 0f }, { Dir16.DDR, 0f },
+            { Dir16.D, 0f }, { Dir16.DDL, 0f }, { Dir16.DL, 0f }, { Dir16.DLL, 0f },
+            { Dir16.L, 0f }, { Dir16.ULL, 0f }, { Dir16.UL, 0f }, { Dir16.UUL, 0f }
         };
-        foreach (var pair in Raycasts)
+        foreach (var pair in Rays.Raycasts)
         {
             var dir = pair.Key;
             var raycast = pair.Value;
             var castLength = raycast.TargetPosition.Length();
             if (raycast.IsColliding())
             {
-                var collisionDist = (raycast.GetCollisionPoint() - raycast.GlobalPosition).Length();
-                // the closer the collision is to the raycast, the higher the "danger" weight
-                // at max dist, weight is 0. TODO: change s.t. it's not zero, just lower (i.e. 0.1)
-                // at dist 0, weight is 1.0. TODO: change s.t. weight being 0 occurs not only at dist 0, since that is impossible and too late
-                var distWeight = 1f - (collisionDist / castLength); 
+                var rayCollision = raycast.GetCollider() as CollisionObject3D;
+                if (rayCollision == ParentAgent) { continue; } //TODO: better fix
+                
 
-                var rayCollision = raycast.GetCollider() as CollisionObject2D;
+                //GD.Print($"Raycast colliding with {rayCollision.Name} @ dir {dir}!" +
+                //    $"\n\tColl layer val: {rayCollision.CollisionLayer}" +
+                //    $"\n\tColl Dist: {collDist}, weight: {distWeight}");
                 foreach (var navLayer in NavLayerMap)
                 {
                     if (rayCollision.GetCollisionLayerValue((int)navLayer.Value))
                     {
-                        dangerVector[dir] += NavWeights[navLayer.Key] * distWeight;
+                        var collDist = (raycast.GetCollisionPoint() - raycast.GlobalPosition).Length();
+                        // the closer the collision is to the raycast, the higher the "danger" weight
+                        // at max dist, weight is 0. TODO: change s.t. it's not zero, just lower (i.e. 0.1)
+                        // at dist 0, weight is 1.0. TODO: change s.t. weight being 0 occurs not only at dist 0, since that is impossible and too late
+                        //var distWeight = 1f - (collisionDist / castLength); 
+                        var minWeight = 0.1f;
+                        var k = 2.5f;
+                        var distDropThresh = NavDistThresh[navLayer.Key];//1.5f; 
+                        float distWeight;
+                        if (collDist <= distDropThresh)
+                        {
+                            distWeight = 1.0f;  // Ensure max weight
+                        }
+                        else
+                        {
+                            distWeight = minWeight + (1.0f - minWeight) * (float)Math.Exp(-k * (collDist - distDropThresh) / (castLength - distDropThresh));
+                        }
+                        //GD.Print($"Raycast found danger {navLayer.Key} @ dir {dir}!");
+                        //var spatialAwarenessMod = SpatialAwarenessWeights[dir.GetAIFacing(_moveComp.GetFaceDirection())];
+                        var dangerAmt = NavWeights[navLayer.Key] * distWeight;
+                            //* spatialAwarenessMod;
+
+                        dangerVector[dir] += dangerAmt;
+
+                        //PROPOGATE DANGER OUT
+                        var propogateNum = 3;
+                        var propLDir = dir;
+                        var propRDir = dir;
+                        var weightDrop = 0.75f;
+                        var propWeight = 0.5f;
+                        while (propogateNum > 0)
+                        {
+                            propLDir = propLDir.GetLeftDir();
+                            propRDir = propRDir.GetRightDir();
+                            dangerVector[propLDir] += dangerAmt * propWeight;
+                            dangerVector[propRDir] += dangerAmt * propWeight;
+
+                            propWeight *= weightDrop;
+                            propogateNum--;
+                        }
+
+
+                        // add danger to any danger dir in a 45 degree sweep
+                        //TODO: to increase performance, static these comparisons for quicker calcs
+                        //foreach (var dir8 in dangerVector.Keys)
+                        //{
+                            //var angle = Mathf.Abs(dir8.GetVector2().GetAngleToVector(dir.GetVector2()));
+                            //var dangerAngle = 30f;
+                            //if (angle <= dangerAngle)
+                            //{
+                            //    // base is 0.5, max is 1
+                            //    var angleDangerMod = 1.0f - ((angle / 2) / dangerAngle);
+                            //    //GD.Print($"{dir8} danger amt for cast {dir}: {NavWeights[navLayer.Key]} * {distWeight} " +
+                            //    //    $"* {spatialAwarenessMod} * {angleDangerMod}");
+                            //    dangerVector[dir8] += dangerAmt * angleDangerMod;
+                            //}
+                        //}
+                        
                     }
                 }
             }
@@ -277,9 +444,9 @@ public partial class AINav3DComponent : NavigationAgent3D
 
         return dangerVector;
     }
-    protected virtual Dictionary<EightDirection, float> GetInterestVector()
+    protected virtual Dictionary<Dir8, float> GetInterestVector()
     {
-        var interestVector = new Dictionary<EightDirection, float>();
+        var interestVector = new Dictionary<Dir8, float>();
 
 
 
@@ -306,12 +473,12 @@ public partial class AINav3DComponent : NavigationAgent3D
         }
         if (_canCalcPath)
         {
-            //GD.Print("failed to calc path");
+            GD.Print("failed to calc path");
             return false; // wasn't able to set path
         }
         else
         {
-            //GD.Print("successfully calc path");
+            GD.Print("successfully calc path");
             return true; // successfully set path
         }
     }
@@ -451,5 +618,6 @@ public partial class AINav3DComponent : NavigationAgent3D
     #endregion
 
     #region HELPER_CLASSES
+    
     #endregion
 }

@@ -17,7 +17,7 @@ public partial class ClimbState : Base3DState
     [Export(PropertyHint.NodeType, "State")]
     private State _descendState;
 
-    private SpriteOrthogComponent _bodySprite;
+    private Sprite3DComponent _bodySprite;
     private float _topBodyDistFromPos;
 
 	private ClimberComponent _climberComp;
@@ -29,7 +29,7 @@ public partial class ClimbState : Base3DState
 	{
 		base.Init(agent, bb);
         _body = Agent as CharacterBody3D;
-        _bodySprite = BB.GetVar<SpriteOrthogComponent>(BBDataSig.Sprite);
+        _bodySprite = BB.GetVar<Sprite3DComponent>(BBDataSig.Sprite);
     }
 	public override void Enter(Dictionary<State, bool> parallelStates)
 	{

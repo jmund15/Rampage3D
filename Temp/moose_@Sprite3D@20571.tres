@@ -1,9 +1,0 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://b5hs1aoroatrm"]
-
-[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_yhgbr"]
-size_override = Vector2(170, 130)
-
-[resource]
-resource_local_to_scene = true
-atlas = SubResource("PortableCompressedTexture2D_yhgbr")
-region = Rect2(100, 0, 10, 130)

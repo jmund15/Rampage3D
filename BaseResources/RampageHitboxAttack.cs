@@ -13,7 +13,7 @@ public partial class RampageHitboxAttack : Resource
     [Export]
     public Vector3 Direction { get; private set; }
     [Export]
-    public OrthogDirection FaceDirection { get; private set; }
+    public Dir4 FaceDirection { get; private set; }
     [Export]
     public AttackBuildingEffect BuildingEffect { get; private set; }
 
@@ -22,7 +22,7 @@ public partial class RampageHitboxAttack : Resource
         Damage = 0.0f;
         Force = 0.0f;
         Direction = Vector3.Zero;
-        FaceDirection = OrthogDirection.DownRight;
+        FaceDirection = Dir4.Right;
         BuildingEffect = new AttackBuildingEffect();
     }
     public RampageHitboxAttack(float damage, float force, Vector3 direction, 

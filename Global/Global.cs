@@ -10,6 +10,7 @@ public partial class Global : Node
     public const float MovementTransitionBufferTime = 0.1f;
     public const float MINIMUM_PIXEL_SIZE = 0.01f;
     public const float CHANGE_DIR_VEL_REQ = 0.01f;
+    public const string NAV_OBSTACLE_GROUP_NAME = "FullNav";
     public override void _Ready()
 	{
 	}
@@ -21,10 +22,10 @@ public partial class Global : Node
         var normF = Rnd.NextSingle();
         return (normF * (max - min) + min);
     }
-    public static OrthogDirection GetRndEightDirection()
+    public static Dir4 GetRndEightDirection()
     {
         var rndEight = Rnd.Next(0, 4);
-        return (OrthogDirection)rndEight;
+        return (Dir4)rndEight;
     }
     public static Vector2 GetRndVector2()
     {

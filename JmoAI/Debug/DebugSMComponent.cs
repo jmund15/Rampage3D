@@ -14,7 +14,7 @@ public partial class DebugSMComponent : Node2D
     [Export]
     private bool _labelMoveUp = true;
     [Export]
-    private OrthogDirection _displayDirection;
+    private Dir4 _displayDirection;
 
     private List<Label> _stateLabels = new List<Label>();
     private string _currStateName;
@@ -33,13 +33,13 @@ public partial class DebugSMComponent : Node2D
 
         switch (_displayDirection)
         {
-            case OrthogDirection.UpLeft:
+            case Dir4.Left:
                 Position = new Vector2(75, 0); break;
-            case OrthogDirection.UpRight:
+            case Dir4.Up:
                 Position = new Vector2(-150, 0); break;
-            case OrthogDirection.DownLeft:
+            case Dir4.Down:
                 Position = new Vector2(0, -100); break;
-            case OrthogDirection.DownRight:
+            case Dir4.Right:
                 Position = new Vector2(0, 100); break;
         }
     }

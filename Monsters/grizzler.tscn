@@ -1,6 +1,6 @@
 [gd_scene load_steps=52 format=4 uid="uid://b2ggfqqshmwa5"]
 
-[ext_resource type="Script" path="res://BaseComponents/SpriteOrthogComponent.cs" id="1_ebq48"]
+[ext_resource type="Script" path="res://BaseComponents/Sprite3DComponent.cs" id="1_ebq48"]
 [ext_resource type="Script" path="res://BaseComponents/AnimationPlayerComponent.cs" id="2_ibec0"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_7vf6w"]
