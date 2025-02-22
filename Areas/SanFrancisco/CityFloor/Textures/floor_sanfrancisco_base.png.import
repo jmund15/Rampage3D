@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgbwdhmarg6tm"
-path.s3tc="res://.godot/imported/1248x1120_floor_sanfrancisco_outofbounds.png-c820486fb2b2d952c31b815634ad45dc.s3tc.ctex"
+uid="uid://bfy2n84prf8h8"
+path="res://.godot/imported/floor_sanfrancisco_base.png-f004a7c839c40577946a6651915c7e45.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://Areas/SanFrancisco/CityFloor/Textures/1248x1120_floor_sanfrancisco_outofbounds.png"
-dest_files=["res://.godot/imported/1248x1120_floor_sanfrancisco_outofbounds.png-c820486fb2b2d952c31b815634ad45dc.s3tc.ctex"]
+source_file="res://Areas/SanFrancisco/CityFloor/Textures/floor_sanfrancisco_base.png"
+dest_files=["res://.godot/imported/floor_sanfrancisco_base.png-f004a7c839c40577946a6651915c7e45.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=2
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=1
 roughness/src_normal=""

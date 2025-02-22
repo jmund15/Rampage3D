@@ -76,7 +76,7 @@ size = Vector3(100, 1, 100)
 [node name="Players" type="Node3D" parent="."]
 
 [node name="monster" parent="Players" instance=ExtResource("1_b5jb8")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.509066, -9.53674e-07, -16.8161)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 15.4909, -9.53674e-07, 11.1839)
 
 [node name="Vehicles" type="Node3D" parent="."]
 
@@ -1180,6 +1180,7 @@ _floorPropHint = "32x_base_lofthouse01_bot.png,32x_base_lofthouse01_top.png,32x_
 
 [node name="Building45" parent="Buildings" instance=ExtResource("13_yh2gs")]
 transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 14.5, 0, 2.5)
+"Building Location" = 2
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
 BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo"
@@ -1204,9 +1205,6 @@ _availableFloorTexturePathMap = {
 12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
-}
-_floorTextureIdxMap = {
-1: 0
 }
 _floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png,32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
 
@@ -1249,6 +1247,8 @@ _floorPropHint = "32x_base_tilehouse01_bot.png,32x_base_tilehouse01_top.png,32x_
 
 [node name="Building14" parent="Buildings" instance=ExtResource("13_yh2gs")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2, 0, 12.5)
+"Building Location" = 2
+"Building Type" = 4
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
 BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_townhouse"
@@ -1274,9 +1274,6 @@ _availableFloorTexturePathMap = {
 12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
-}
-_floorTextureIdxMap = {
-1: 0
 }
 _floorPropHint = "32x_base_townhouse01_bot.png,32x_base_townhouse01_top.png,32x_base_townhouse02_bot.png,32x_base_townhouse02_top.png,32x_base_townhouse03_bot.png,32x_base_townhouse03_top.png,32x_base_townhouse04_bot.png,32x_base_townhouse04_top.png"
 
