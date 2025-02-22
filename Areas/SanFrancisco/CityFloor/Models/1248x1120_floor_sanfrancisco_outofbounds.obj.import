@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ddh8vonwg6768"
+path="res://.godot/imported/1248x1120_floor_sanfrancisco_outofbounds.obj-d122a321bb4cecab60efc384a82bdf3a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/1248x1120_floor_sanfrancisco_outofbounds.obj-d122a321bb4cecab60efc384a82bdf3a.mesh"]
+
+source_file="res://Areas/SanFrancisco/CityFloor/Models/1248x1120_floor_sanfrancisco_outofbounds.obj"
+dest_files=["res://.godot/imported/1248x1120_floor_sanfrancisco_outofbounds.obj-d122a321bb4cecab60efc384a82bdf3a.mesh", "res://.godot/imported/1248x1120_floor_sanfrancisco_outofbounds.obj-d122a321bb4cecab60efc384a82bdf3a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
