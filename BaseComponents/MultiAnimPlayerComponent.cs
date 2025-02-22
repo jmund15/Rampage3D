@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 
 [GlobalClass, Tool]
-public partial class MultiAnimPlayerComponent : Node3D, IAnimPlayerComponent
+public partial class MultiAnimPlayerComponent : Node3D, IAnimPlayerComponent, ISpriteComponent
 {
     private string _editorPlayAnimName = "";
     [Export]
@@ -16,13 +16,37 @@ public partial class MultiAnimPlayerComponent : Node3D, IAnimPlayerComponent
         {
             if (value == _editorPlayAnimName) { return; }
             _editorPlayAnimName = value;
-            if (AnimationExists(_editorPlayAnimName))
-            {
-                StartAnim(_editorPlayAnimName);
-            }
+            //if (AnimationExists(_editorPlayAnimName))
+            //{
+            //    StartAnim(_editorPlayAnimName);
+            //}
         }
     }
     public List<IAnimPlayerComponent> AnimPlayers { get; private set; } = new List<IAnimPlayerComponent>();
+    public List<ISpriteComponent> Sprites { get; private set; } = new List<ISpriteComponent>();
+    
+    public bool FlipH 
+    {
+        get => Sprites[0].FlipH; 
+        set
+        {
+            foreach (var sprite in Sprites)
+            {
+                sprite.FlipH = value;
+            }
+        }
+    }
+    public bool FlipV 
+    {
+        get => Sprites[0].FlipV;
+        set
+        {
+            foreach (var sprite in Sprites)
+            {
+                sprite.FlipV = value;
+            }
+        }
+    }
 
     public event EventHandler<string> AnimStarted;
     public event EventHandler<string> AnimFinished;
@@ -39,6 +63,10 @@ public partial class MultiAnimPlayerComponent : Node3D, IAnimPlayerComponent
             if (child is IAnimPlayerComponent animPlayerComp)
             {
                 AnimPlayers.Add(animPlayerComp);
+            }
+            else if (child is ISpriteComponent spriteComp)
+            {
+                Sprites.Add(spriteComp);
             }
         }
         if (AnimPlayers.Count == 0)
@@ -98,19 +126,19 @@ public partial class MultiAnimPlayerComponent : Node3D, IAnimPlayerComponent
     public void UpdateAnim(string animName)
     {
         //if (GetCurrAnimation() == animName) { return; }
-        if (!AnimPlayers[0].IsAnimating()) { StartAnim(animName); }
+        if (!AnimPlayers[0].IsPlaying()) { StartAnim(animName); }
 
         var currAnimPos = GetCurrAnimationPosition();
         StartAnim(animName);
         SeekPos(currAnimPos);
     }
-    public bool IsAnimating()
+    public bool IsPlaying()
     {
-        return AnimPlayers[0].IsAnimating();
+        return AnimPlayers[0].IsPlaying();
     }
-    public bool AnimationExists(string animName)
+    public bool HasAnimation(string animName)
     {
-        return AnimPlayers[0].AnimationExists(animName);
+        return AnimPlayers[0].HasAnimation(animName);
     }
     public void SeekPos(float time, bool updateNow = true)
     {
@@ -147,6 +175,27 @@ public partial class MultiAnimPlayerComponent : Node3D, IAnimPlayerComponent
         {
             animPlayer.SetSpeedScale(speedScale);
         }
+    }
+
+    public Node GetInterfaceNode()
+    {
+        return this;
+    }
+
+    public float GetSpriteHeight()
+    {
+        throw new NotImplementedException();
+        //TODO: given sprites, get their combined width/height??
+    }
+
+    public float GetSpriteWidth()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Texture2D GetTexture()
+    {
+        return Sprites[0].GetTexture();
     }
 
     #endregion

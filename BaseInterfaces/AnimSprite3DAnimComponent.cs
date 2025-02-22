@@ -54,7 +54,7 @@ public partial class AnimSprite3DAnimComponent : IAnimSpriteComponent
         StartAnim(animName);
         SetFrameAndProgress(currFrame, currProg);
     }
-    public bool IsAnimating()
+    public bool IsPlaying()
     {
         return _animSprite.IsPlaying();
     }
@@ -88,8 +88,13 @@ public partial class AnimSprite3DAnimComponent : IAnimSpriteComponent
         return _animSprite.FrameProgress;
     }
 
-    public bool AnimationExists(string animName)
+    public bool HasAnimation(string animName)
     {
         return _animSprite.SpriteFrames.HasAnimation(animName);
+    }
+
+    public Node GetInterfaceNode()
+    {
+        throw new NotImplementedException();
     }
 }

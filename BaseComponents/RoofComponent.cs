@@ -10,8 +10,8 @@ public partial class RoofComponent : Node
     [Export]
 	private MeshInstance3D _roofMesh;
 	//Rel = relative to max height of building
-	public Dictionary<OrthogDirection, float> RoofRelHeightMap { get; private set; } 
-		= new Dictionary<OrthogDirection, float>();
+	public Dictionary<Dir4, float> RoofRelHeightMap { get; private set; } 
+		= new Dictionary<Dir4, float>();
     public float MaxRoofHeight { get; private set; } = float.MinValue;
 	public override void _Ready()
 	{
@@ -105,10 +105,10 @@ public partial class RoofComponent : Node
                 maxHeightMaxZ = Math.Max(maxHeightMaxZ, y);
             }
         }
-        RoofRelHeightMap.Add(OrthogDirection.DownLeft, maxHeightMaxZ - MaxRoofHeight);
-        RoofRelHeightMap.Add(OrthogDirection.DownRight, maxHeightMaxX - MaxRoofHeight);
-        RoofRelHeightMap.Add(OrthogDirection.UpLeft, maxHeightMinX - MaxRoofHeight);
-        RoofRelHeightMap.Add(OrthogDirection.UpRight, maxHeightMinZ - MaxRoofHeight);
+        RoofRelHeightMap.Add(Dir4.Down, maxHeightMaxZ - MaxRoofHeight);
+        RoofRelHeightMap.Add(Dir4.Right, maxHeightMaxX - MaxRoofHeight);
+        RoofRelHeightMap.Add(Dir4.Left, maxHeightMinX - MaxRoofHeight);
+        RoofRelHeightMap.Add(Dir4.Up, maxHeightMinZ - MaxRoofHeight);
 
         //GD.Print($"Calculated roof height map. " +
         //    $"\nUL: {RoofRelHeightMap[OrthogDirection.UpLeft]}" +

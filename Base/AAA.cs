@@ -57,8 +57,9 @@ public partial class AAA : EditorScript
     private int _frameHeight;// = 32;
     private Node _topLevel;
     private Node _sprite;
-    private PortableCompressedTexture2D _texture;
+    private PortableCompressedTexture2D _portTexture;
     private AtlasTexture _atlasTexture;
+    private Texture2D _texture;
 
     private int _currHeight;
 
@@ -80,12 +81,14 @@ public partial class AAA : EditorScript
        
         if (_sprite is Sprite2D spritesheet)
 		{
-            _texture = spritesheet.Texture as PortableCompressedTexture2D;
+            _texture = spritesheet.Texture;
+            _portTexture = spritesheet.Texture as PortableCompressedTexture2D;
             _atlasTexture = spritesheet.Texture as AtlasTexture;
         }
         else if (_sprite is Sprite3D spritesheet3D)
         {
-            _texture = spritesheet3D.Texture as PortableCompressedTexture2D;
+            _texture = spritesheet3D.Texture;
+            _portTexture = spritesheet3D.Texture as PortableCompressedTexture2D;
             _atlasTexture = spritesheet3D.Texture as AtlasTexture;
         }
         else
@@ -98,9 +101,9 @@ public partial class AAA : EditorScript
         //string? appendLibPath = await this.Extensibility.Shell().ShowOpenFileDialogAsync(options, cancellationToken);
 
         int textureHeight;
-        if (_texture != null)
+        if (_portTexture != null)
         {
-            textureHeight = _texture.GetHeight();
+            textureHeight = _portTexture.GetHeight();
         }
         else if (_atlasTexture != null)
         {
@@ -138,7 +141,9 @@ public partial class AAA : EditorScript
 
         var animPlayer = _sprite.GetFirstChildOfType<AnimationPlayer>();
         var globalAnimLibrary = animPlayer.GetAnimationLibrary("");
-        ResourceSaver.Save(globalAnimLibrary, $"res://Base/{_sprite.Name}AnimLib.tres");
+        ResourceSaver.Save(globalAnimLibrary, $"res://Temp/{_sprite.Name}AnimLib.tres");
+        var textPath = $"res://Temp/{_sprite.Name}SpriteSheet.tres";
+        ResourceSaver.Save(_atlasTexture, textPath);
         animPlayer.RemoveAnimationLibrary(""); // remove globalAnimLibrary
 
         var topLevelName = _sprite.Name;
@@ -155,7 +160,7 @@ public partial class AAA : EditorScript
             var part = bodyPartPair.Key;
             var typesOfPart = bodyPartPair.Value;
             partOffset = _initOffset + (partNum - 1) * _frameHeight * typesOfPart * _aaaParams.AnimDirections.Count;
-            SpriteOrthogComponent partSprite;
+            Sprite3DComponent partSprite;
             AnimationPlayerComponent partPlayer;
             AnimationLibrary partLibrary = new AnimationLibrary();//globalAnimLibrary.Duplicate(true) as AnimationLibrary;
             List<string> configLabels = new List<string>();
@@ -177,16 +182,18 @@ public partial class AAA : EditorScript
             //    //_sprite.AddChild(partSprite);
             //    //partSprite.AddChild(partPlayer);
             //}
-            if (partNum == 1 && _aaaParams.BodyParts.Count > 1)
-            {
-                _sprite.Name = part;
-            }
-            partSprite = new SpriteOrthogComponent();//_sprite.Duplicate((int)Node.DuplicateFlags.UseInstantiation) as Sprite3D;
+            //if (partNum == 1 && _aaaParams.BodyParts.Count > 1)
+            //{
+            //    _sprite.Name = part;
+            //}
+            partSprite = new Sprite3DComponent();//_sprite.Duplicate((int)Node.DuplicateFlags.UseInstantiation) as Sprite3D;
             _topLevel.AddChild(partSprite);
             partSprite.Owner = _topLevel;
-            partSprite.Texture = _atlasTexture.Duplicate(true) as AtlasTexture;
+            //partSprite.Texture = ResourceLoader.Load<AtlasTexture>(textPath);
+            //partSprite.Texture.ResourceLocalToScene = true;
+            partSprite.Texture = _texture.Duplicate() as Texture2D;
             partSprite.TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest;
-            ResourceSaver.Save(partSprite.Texture, $"res://Temp/{_topLevel.Name}_{partSprite.Name}.tres");
+            //ResourceSaver.Save(partSprite.Texture, $"res://Temp/{_topLevel.Name}_{partSprite.Name}.tres");
             partPlayer = new AnimationPlayerComponent();//partSprite.GetFirstChildOfType<AnimationPlayer>();//new AnimationPlayer();
             partPlayer.AddAnimationLibrary("", partLibrary);
             partSprite.AddChild(partPlayer);

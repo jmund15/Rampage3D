@@ -15,8 +15,8 @@ public partial class ClimbableComponent : Node
     public float ClimbOnFrontBuffer { get; private set; } = 1f;
     public float ClimbOnBackBuffer { get; private set; } = 0.75f;
     public float MaxClimbHeight;
-	public Dictionary<OrthogDirection, List<Vector2>> ClimbOnPosMap { get; private set; } 
-        = new Dictionary<OrthogDirection, List<Vector2>>();
+	public Dictionary<Dir4, List<Vector2>> ClimbOnPosMap { get; private set; } 
+        = new Dictionary<Dir4, List<Vector2>>();
     public List<Vector2> UpLeftClimbOnPoses { get; private set; }
         = new List<Vector2>();
     public List<Vector2> UpRightClimbOnPoses { get; private set; }
@@ -71,7 +71,7 @@ public partial class ClimbableComponent : Node
     //{
 
     //}
-    public Vector2 GetClosestClimbablePosOfDir(Vector2 xzPos, OrthogDirection dir)
+    public Vector2 GetClosestClimbablePosOfDir(Vector2 xzPos, Dir4 dir)
     {
         var closestDist = float.MaxValue;
         Vector2 closestPos = Vector2.Zero;
@@ -82,7 +82,7 @@ public partial class ClimbableComponent : Node
 
         foreach (var climbOnPos in ClimbOnPosMap[dir])
         {
-            GD.Print("\t", climbOnPos);
+            //GD.Print("\t", climbOnPos);
             var dist = xzPos.DistanceTo(climbOnPos);
             if (dist <= closestDist)
             {
@@ -92,7 +92,7 @@ public partial class ClimbableComponent : Node
         }
         return closestPos;
     }
-    public Vector2 GetClosestClimbablePosOfDir(Vector3 pos, OrthogDirection dir)
+    public Vector2 GetClosestClimbablePosOfDir(Vector3 pos, Dir4 dir)
     {
         Vector2 xzPos = new Vector2(pos.X, pos.Z);
         var closestDist = float.MaxValue;
@@ -146,10 +146,10 @@ public partial class ClimbableComponent : Node
             //GD.Print("UP left climb pos: ", frontFacePos, "\nDown Right climb pos: ", backFacePos);
         }
 
-        ClimbOnPosMap.Add(OrthogDirection.UpLeft, UpLeftClimbOnPoses);
-        ClimbOnPosMap.Add(OrthogDirection.UpRight, UpRightClimbOnPoses);
-        ClimbOnPosMap.Add(OrthogDirection.DownLeft, DownLeftClimbOnPoses);
-        ClimbOnPosMap.Add(OrthogDirection.DownRight, DownRightClimbOnPoses);
+        ClimbOnPosMap.Add(Dir4.Left, UpLeftClimbOnPoses);
+        ClimbOnPosMap.Add(Dir4.Up, UpRightClimbOnPoses);
+        ClimbOnPosMap.Add(Dir4.Down, DownLeftClimbOnPoses);
+        ClimbOnPosMap.Add(Dir4.Right, DownRightClimbOnPoses);
 
         //var uLPos = new Vector2(structPos.X + _buildingComp.Dimensions.X, structPos.Z);
         //      var uRPos = new Vector2(structPos.X, structPos.Z + _buildingComp.Dimensions.Z);

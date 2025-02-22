@@ -124,12 +124,17 @@ public partial class MultiConfigAnimPlayerComponent : IAnimPlayerComponent
         }
     }
 
-    public bool IsAnimating()
+    public bool IsPlaying()
     {
         throw new NotImplementedException();
     }
 
-    public bool AnimationExists(string animName)
+    public bool HasAnimation(string animName)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Node GetInterfaceNode()
     {
         throw new NotImplementedException();
     }

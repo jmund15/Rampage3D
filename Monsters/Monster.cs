@@ -4,9 +4,9 @@ using Godot.Collections;
 
 public class OrthogDirChangedArgs : EventArgs
 {
-    public OrthogDirection OldDir { get; set; }
-    public OrthogDirection NewDir { get; set; }
-    public OrthogDirChangedArgs(OrthogDirection oldDir, OrthogDirection newDir)
+    public Dir4 OldDir { get; set; }
+    public Dir4 NewDir { get; set; }
+    public OrthogDirChangedArgs(Dir4 oldDir, Dir4 newDir)
     {
         OldDir = oldDir;
         NewDir = newDir;
@@ -31,37 +31,37 @@ public partial class Monster : CharacterBody3D, IMovementComponent
 
     public CollisionShape3D CollisionShape { get; protected set; }
     private Vector3 _baseCollisionPos;
-    private Dictionary<OrthogDirection, Vector3> MonsterPosOffsetMap = new Dictionary<OrthogDirection, Vector3>()
+    private Dictionary<Dir4, Vector3> MonsterPosOffsetMap = new Dictionary<Dir4, Vector3>()
     {
-        { OrthogDirection.UpRight, new Vector3(0, 0, -1) },
-        { OrthogDirection.UpLeft, new Vector3(0, 0, -1) },
-        { OrthogDirection.DownLeft, new Vector3(-0, 0, 1) },
-        { OrthogDirection.DownRight, new Vector3(0, 0, 1) }
+        { Dir4.Up, new Vector3(0, 0, -1) },
+        { Dir4.Left, new Vector3(0, 0, -1) },
+        { Dir4.Down, new Vector3(-0, 0, 1) },
+        { Dir4.Right, new Vector3(0, 0, 1) }
     };
-    private Dictionary<OrthogDirection, Vector3> CollisionPositionMap = new Dictionary<OrthogDirection, Vector3>()
+    private Dictionary<Dir4, Vector3> CollisionPositionMap = new Dictionary<Dir4, Vector3>()
     {
-        { OrthogDirection.UpRight, new Vector3(0, 0.8f, -0) },
-        { OrthogDirection.UpLeft, new Vector3(0, 0.8f, -0) },
-        { OrthogDirection.DownLeft, new Vector3(-0, 0.8f, -0.2f) },
-        { OrthogDirection.DownRight, new Vector3(0, 0.8f, -0.2f) }
+        { Dir4.Up, new Vector3(0, 0.8f, -0) },
+        { Dir4.Left, new Vector3(0, 0.8f, -0) },
+        { Dir4.Down, new Vector3(-0, 0.8f, -0.2f) },
+        { Dir4.Right, new Vector3(0, 0.8f, -0.2f) }
     };
-    private Dictionary<OrthogDirection, Vector3> CollisionRotationMap = new Dictionary<OrthogDirection, Vector3>()
+    private Dictionary<Dir4, Vector3> CollisionRotationMap = new Dictionary<Dir4, Vector3>()
     {
-        { OrthogDirection.UpRight, new Vector3(0, 45f, 90) },
-        { OrthogDirection.UpLeft, new Vector3(0, -45f, 90) },
-        { OrthogDirection.DownLeft, new Vector3(0, 45, 90) },
-        { OrthogDirection.DownRight, new Vector3(0, -45f, 90) }
-    };
-
-    private Dictionary<OrthogDirection, Vector3> SpritePositionMap = new Dictionary<OrthogDirection, Vector3>()
-    {
-        { OrthogDirection.UpRight, new Vector3(0, -0, 0.8f) },
-        { OrthogDirection.UpLeft, new Vector3(0, -0, 0.8f) },
-        { OrthogDirection.DownLeft, new Vector3(0, -0, 0.8f) },
-        { OrthogDirection.DownRight, new Vector3(0, -0, 0.8f) }
+        { Dir4.Up, new Vector3(0, 45f, 90) },
+        { Dir4.Left, new Vector3(0, -45f, 90) },
+        { Dir4.Down, new Vector3(0, 45, 90) },
+        { Dir4.Right, new Vector3(0, -45f, 90) }
     };
 
-    public SpriteOrthogComponent Sprite { get; protected set; }
+    private Dictionary<Dir4, Vector3> SpritePositionMap = new Dictionary<Dir4, Vector3>()
+    {
+        { Dir4.Up, new Vector3(0, -0, 0.8f) },
+        { Dir4.Left, new Vector3(0, -0, 0.8f) },
+        { Dir4.Down, new Vector3(0, -0, 0.8f) },
+        { Dir4.Right, new Vector3(0, -0, 0.8f) }
+    };
+
+    public Sprite3DComponent Sprite { get; protected set; }
 	public AnimationPlayerComponent AnimPlayer { get; protected set; }
     public HealthComponent HealthComp { get; protected set; }
     public HurtboxComponent3D HurtboxComp { get; protected set; }
@@ -76,8 +76,8 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     public Dictionary<State, bool> ParallelStates { get; protected set; } =
         new Dictionary<State, bool>();
 
-    private OrthogDirection _currOrthogDir;
-    public OrthogDirection CurrOrthogDir
+    private Dir4 _currOrthogDir;
+    public Dir4 CurrOrthogDir
     {
         get => _currOrthogDir;
         set
@@ -136,7 +136,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent
 
         GD.Print("Before set sprite.");
         CollisionShape = this.GetFirstChildOfType<CollisionShape3D>();
-        Sprite = this.GetFirstChildOfType<SpriteOrthogComponent>();
+        Sprite = this.GetFirstChildOfType<Sprite3DComponent>();
         Sprite.Show();
         //CharacterSize = new Vector2(Sprite.Texture.GetWidth() / Sprite.Hframes, Sprite.Texture.GetHeight() / Sprite.Vframes);
         AnimPlayer = Sprite.GetFirstChildOfType<AnimationPlayerComponent>();
@@ -302,11 +302,11 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     {
         return CurrOrthogDir.GetAnimDir();
     }
-    public OrthogDirection GetFaceDirection()
+    public Dir4 GetFaceDirection()
     {
         return CurrOrthogDir;
     }
-    public OrthogDirection GetDesiredFaceDirection()
+    public Dir4 GetDesiredFaceDirection()
     {
         return GetDesiredDirection().GetOrthogDirection();
     }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ch47oeiqubnrc"]
+[gd_scene load_steps=11 format=3 uid="uid://ch47oeiqubnrc"]
 
 [ext_resource type="Texture2D" uid="uid://c7cec3yke7j78" path="res://Areas/SanFrancisco/CityFloor/Textures/608x480_floor_sanfrancisco_base.png" id="1_kdqyo"]
 [ext_resource type="ArrayMesh" uid="uid://dfl61w13yvjoa" path="res://Areas/SanFrancisco/CityFloor/Models/608x480_floor_sanfrancisco_base.obj" id="2_njhku"]
@@ -9,28 +9,58 @@
 albedo_texture = ExtResource("1_kdqyo")
 texture_filter = 0
 
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_13sg4"]
+data = PackedVector3Array(-9.5, 2, 7.5, -9.5, 0, 7.5, -9.5, 2, -7.5, -9.5, 2, -7.5, -9.5, 0, 7.5, -9.5, 0, -7.5, 9.5, 2, 7.5, -9.5, 2, 7.5, 9.5, 2, -7.5, 9.5, 2, -7.5, -9.5, 2, 7.5, -9.5, 2, -7.5, 9.5, 2, -7.5, -9.5, 2, -7.5, 9.5, 0, -7.5, 9.5, 0, -7.5, -9.5, 2, -7.5, -9.5, 0, -7.5, 9.5, 2, 7.5, 9.5, 0, 7.5, -9.5, 2, 7.5, -9.5, 2, 7.5, 9.5, 0, 7.5, -9.5, 0, 7.5, 9.5, 2, 7.5, 9.5, 2, -7.5, 9.5, 0, 7.5, 9.5, 0, 7.5, 9.5, 2, -7.5, 9.5, 0, -7.5)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2risg"]
 albedo_texture = ExtResource("3_s1lsb")
 texture_filter = 0
 
-[node name="Sanfrancisco Floor" type="Node3D"]
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_jl2qc"]
+data = PackedVector3Array(1, 2, 2, 1, 2, -2, 1, 0, 2, 1, 0, 2, 1, 2, -2, 1, 0, -2, -1, 2, 2, -1, 0, 2, -1, 2, -2, -1, 2, -2, -1, 0, 2, -1, 0, -2, 1, 2, 2, -1, 2, 2, 1, 2, -2, 1, 2, -2, -1, 2, 2, -1, 2, -2, 1, 2, 2, 1, 0, 2, -1, 2, 2, -1, 2, 2, 1, 0, 2, -1, 0, 2, 1, 2, -2, -1, 2, -2, 1, 0, -2, 1, 0, -2, -1, 2, -2, -1, 0, -2)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_aow5g"]
+data = PackedVector3Array(1, 2, 2, 1, 2, -2, 1, 0, 2, 1, 0, 2, 1, 2, -2, 1, 0, -2, -1, 2, 2, -1, 0, 2, -1, 2, -2, -1, 2, -2, -1, 0, 2, -1, 0, -2, 1, 2, 2, -1, 2, 2, 1, 2, -2, 1, 2, -2, -1, 2, 2, -1, 2, -2, 1, 2, 2, 1, 0, 2, -1, 2, 2, -1, 2, 2, 1, 0, 2, -1, 0, 2, 1, 2, -2, -1, 2, -2, 1, 0, -2, 1, 0, -2, -1, 2, -2, -1, 0, -2)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_yklxp"]
+data = PackedVector3Array(1, 2, 2, 1, 2, -2, 1, 0, 2, 1, 0, 2, 1, 2, -2, 1, 0, -2, -1, 2, 2, -1, 0, 2, -1, 2, -2, -1, 2, -2, -1, 0, 2, -1, 0, -2, 1, 2, 2, -1, 2, 2, 1, 2, -2, 1, 2, -2, -1, 2, 2, -1, 2, -2, 1, 2, 2, 1, 0, 2, -1, 2, 2, -1, 2, 2, 1, 0, 2, -1, 0, 2, 1, 2, -2, -1, 2, -2, 1, 0, -2, 1, 0, -2, -1, 2, -2, -1, 0, -2)
+
+[node name="Sanfrancisco Floor" type="StaticBody3D" groups=["FullNav"]]
+collision_layer = 32
+collision_mask = 63
 
 [node name="Base Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, -5, 0)
 material_override = SubResource("StandardMaterial3D_rk3el")
 mesh = ExtResource("2_njhku")
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, -5, 0)
+shape = SubResource("ConcavePolygonShape3D_13sg4")
+
 [node name="Dock1" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 6.25, -5, -23.75)
 material_override = SubResource("StandardMaterial3D_2risg")
 mesh = ExtResource("3_h70nk")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 6.25, -5, -23.75)
+shape = SubResource("ConcavePolygonShape3D_jl2qc")
 
 [node name="Dock2" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -3.75, -5, -23.75)
 material_override = SubResource("StandardMaterial3D_2risg")
 mesh = ExtResource("3_h70nk")
 
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -3.75, -5, -23.75)
+shape = SubResource("ConcavePolygonShape3D_aow5g")
+
 [node name="Dock3" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -13.75, -5, -23.75)
 material_override = SubResource("StandardMaterial3D_2risg")
 mesh = ExtResource("3_h70nk")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -13.75, -5, -23.75)
+shape = SubResource("ConcavePolygonShape3D_yklxp")

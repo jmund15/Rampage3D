@@ -83,8 +83,8 @@ public partial class ClimberComponent : Node
             }
         }
     }
-    public OrthogDirection ClimbingDir { get; private set; }
-    public OrthogDirection EjectDir
+    public Dir4 ClimbingDir { get; private set; }
+    public Dir4 EjectDir
     {
         get => ClimbingDir.GetOppositeDir();
     }
@@ -132,7 +132,7 @@ public partial class ClimberComponent : Node
             //var collPos = coll.GetPosition();
             //Make sure body is facing climable directly
             var velVec = _body.Velocity;
-            OrthogDirection desDir;
+            Dir4 desDir;
             //if (desVec.IsZeroApprox() || desVec.GetOrthogDirection() != _moveComp.GetFaceDirection())
             //{
             //    AvailableClimbable = false;
@@ -177,7 +177,7 @@ public partial class ClimberComponent : Node
     {
         EjectRequested = true;
     }
-    public void StartClimb(OrthogDirection climbDir)
+    public void StartClimb(Dir4 climbDir)
     {
         ClimbableComp.EjectClimbers += OnClimbableRequestEject;
         IsClimbing = true;
@@ -185,8 +185,9 @@ public partial class ClimberComponent : Node
         ClimbingDir = climbDir;
 
         //TODO: CHOOSE SPRITE CORRECTLY
-        var sprite = _body.GetFirstChildOfType<Sprite3D>();
-        _origSpritePos = sprite.GlobalPosition;
+        var spriteComp = _body.GetFirstChildOfInterface<ISpriteComponent>();
+        var spriteNode = spriteComp.GetInterfaceNode() as Node3D;
+        _origSpritePos = spriteNode.GlobalPosition;
 
         //BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = IMovementComponent.GetDesiredFlipH(_inputDir);
         LockingOn = true;
@@ -211,7 +212,7 @@ public partial class ClimberComponent : Node
 
         lockTween.TweenProperty(_body, "global_position:x", finalX, 0.05);
         //lockTween.Parallel().TweenProperty(sprite, "offset:x", spriteOffsetX, 0.05);
-        lockTween.Parallel().TweenProperty(sprite, "offset:y", spriteOffsetY, 0.05);
+        lockTween.Parallel().TweenProperty(spriteNode, "offset:y", spriteOffsetY, 0.05);
         lockTween.Parallel().TweenProperty(_body, "global_position:z", finalZ, 0.05);
         lockTween.TweenProperty(this, PropertyName.LockingOn.ToString(), false, 0);
         //lockTween.TweenProperty(this, PropertyName.IsClimbing.ToString(), true, 0);
@@ -224,12 +225,13 @@ public partial class ClimberComponent : Node
         LockingOn = true;
 
         //TODO: CHOOSE SPRITE CORRECTLY
-        var sprite = _body.GetFirstChildOfType<Sprite3D>();
+        var sprite = _body.GetFirstChildOfInterface<ISpriteComponent>();
+        var spriteNode = sprite.GetInterfaceNode() as Node3D;
 
         var lockTween = GetTree().CreateTween();
 
         //lockTween.TweenProperty(sprite, "global_position:x", _origSpritePos.X, 0.05);
-        lockTween/*.Parallel()*/.TweenProperty(sprite, "offset:y", 0, 0.05);
+        lockTween/*.Parallel()*/.TweenProperty(spriteNode, "offset:y", 0, 0.05);
         //lockTween.Parallel().TweenProperty(sprite, "global_position:z", _origSpritePos.Z, 0.05);
         lockTween.TweenProperty(this, PropertyName.LockingOn.ToString(), false, 0);
     }

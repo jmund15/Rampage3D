@@ -3,10 +3,12 @@
 [ext_resource type="Script" path="res://BaseComponents/AINav3DComponent.cs" id="1_6k4a4"]
 
 [node name="AINav3DComponent" type="NavigationAgent3D"]
-path_desired_distance = 0.5
-target_desired_distance = 0.5
-path_max_distance = 4.01
+path_desired_distance = 1.5
+path_height_offset = 0.5
+path_max_distance = 3.01
+navigation_layers = 9
 path_postprocessing = 1
+simplify_path = true
 debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(1, 0, 0, 1)
@@ -16,34 +18,4 @@ FindPathInterval = 0.5
 [node name="PathTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="RayUp" type="RayCast3D" parent="."]
-target_position = Vector3(0, 0, -100)
-collision_mask = 13659
-
-[node name="RayUpRight" type="RayCast3D" parent="."]
-target_position = Vector3(70.7, 0, -70.7)
-collision_mask = 13659
-
-[node name="RayRight" type="RayCast3D" parent="."]
-target_position = Vector3(100, 0, 0)
-collision_mask = 13659
-
-[node name="RayDownRight" type="RayCast3D" parent="."]
-target_position = Vector3(70.7, 0, 70.7)
-collision_mask = 13659
-
-[node name="RayDown" type="RayCast3D" parent="."]
-target_position = Vector3(0, 0, 100)
-collision_mask = 13659
-
-[node name="RayDownLeft" type="RayCast3D" parent="."]
-target_position = Vector3(-70.7, 0, 70.7)
-collision_mask = 13659
-
-[node name="RayLeft" type="RayCast3D" parent="."]
-target_position = Vector3(-100, 0, 0)
-collision_mask = 13659
-
-[node name="RayUpLeft" type="RayCast3D" parent="."]
-target_position = Vector3(-70.7, 0, -70.7)
-collision_mask = 13659
+[node name="DebugTimer" type="Timer" parent="."]

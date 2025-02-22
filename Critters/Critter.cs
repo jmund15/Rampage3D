@@ -6,18 +6,26 @@ using TimeRobbers.Interfaces;
 public partial class Critter : CharacterBody3D, IMovementComponent
 {
     public IBlackboard BB { get; protected set; }
-    public SpriteOrthogComponent Sprite { get; protected set; }
-    public MultiAnimPlayerComponent AnimPlayer { get; protected set; }
+    public AINav3DComponent AINavComp { get; protected set; }
+    public ISpriteComponent Sprite { get; protected set; }
+    public IAnimPlayerComponent AnimPlayer { get; protected set; }
     public List<IConfigAnimComponent> ConfigComps { get; protected set; } = new List<IConfigAnimComponent>();
     public HealthComponent HealthComp { get; protected set; }
     public HurtboxComponent3D HurtboxComp { get; protected set; }
     public EatableComponent EatableComp { get; protected set; }
 
-    private CompoundState _stateMachine;
+    private CompoundState _csm;
     private Godot.Collections.Dictionary<State, bool> _parallelStateMachines = 
         new Godot.Collections.Dictionary<State, bool>();
     public State PrimaryState { get; protected set; }
     public Godot.Collections.Dictionary<State, bool> ParallelStates { get; protected set; } =
+        new Godot.Collections.Dictionary<State, bool>();
+
+    private CompoundState _aism;
+    private Godot.Collections.Dictionary<State, bool> _aiParallelStateMachines =
+        new Godot.Collections.Dictionary<State, bool>();
+    public State AIPrimaryState { get; protected set; }
+    public Godot.Collections.Dictionary<State, bool> AIParallelStates { get; protected set; } =
         new Godot.Collections.Dictionary<State, bool>();
 
     public static float Speed { get; private set; } = 7.5f;
@@ -35,19 +43,22 @@ public partial class Critter : CharacterBody3D, IMovementComponent
         BB.SetPrimVar(BBDataSig.SelfInteruptible, true);
         BB.SetVar(BBDataSig.Agent, this);
         BB.SetVar(BBDataSig.MoveComp, this); //since we implement "IMovementComponent" within this class we just send this object
+
+        AINavComp = this.GetFirstChildOfType<AINav3DComponent>();
+        BB.SetVar(BBDataSig.AINavComp, AINavComp);
+
         HealthComp = this.GetFirstChildOfType<HealthComponent>();
         BB.SetVar(BBDataSig.HealthComp, HealthComp);
 
-        GD.Print("Before set sprite.");
-
-        Sprite = this.GetFirstChildOfType<SpriteOrthogComponent>();
+        Sprite = this.GetFirstChildOfInterface<ISpriteComponent>();
         Sprite.Show();
+
         //CharacterSize = new Vector2(Sprite.Texture.GetWidth() / Sprite.Hframes, Sprite.Texture.GetHeight() / Sprite.Vframes);
         
         //AnimPlayer.AnimationStarted += OnAnimationStarted;
         //AnimPlayer.AnimationFinished += OnAnimationFinished;
 
-        AnimPlayer = this.GetFirstChildOfType<MultiAnimPlayerComponent>();
+        AnimPlayer = this.GetFirstChildOfInterface<IAnimPlayerComponent>();
         // GET CONFIGS AND RANDOMIZE
         foreach (var child in this.GetChildrenOfType<Node>())
         {
@@ -66,8 +77,8 @@ public partial class Critter : CharacterBody3D, IMovementComponent
             //}
         }
 
-        BB.SetVar(BBDataSig.Sprite, Sprite);
-        BB.SetVar(BBDataSig.Anim, AnimPlayer);
+        BB.SetVar(BBDataSig.Sprite, Sprite.GetInterfaceNode());
+        BB.SetVar(BBDataSig.Anim, AnimPlayer.GetInterfaceNode());
         //foreach (var config in ConfigComps)
         //{
         //    var configOpts = config.GetConfigOptions();
@@ -83,26 +94,34 @@ public partial class Critter : CharacterBody3D, IMovementComponent
         BB.SetVar(BBDataSig.EatableComp, EatableComp);
 
 
-        _stateMachine = GetNode<CompoundState>("CSM");
-        _stateMachine.Init(this, BB);
-        PrimaryState = _stateMachine.InitialSubState;
-        ParallelStates = _stateMachine.ParallelSubStates;
-        _stateMachine.Enter(_parallelStateMachines);
+        _csm = GetNode<CompoundState>("CSM");
+        _csm.Init(this, BB);
+        PrimaryState = _csm.InitialSubState;
+        ParallelStates = _csm.ParallelSubStates;
+        _csm.Enter(_parallelStateMachines);
+
+        _aism = GetNode<CompoundState>("AISM");
+        _aism.Init(this, BB);
+        AIPrimaryState = _aism.InitialSubState;
+        AIParallelStates = _aism.ParallelSubStates;
+        _aism.Enter(_aiParallelStateMachines);
+
+        GD.Print("raycast angle = ", this.GetFirstChildOfType<AIRays16Dir>().RayU.GlobalRotation);
     }
     public override void _ExitTree()
     {
         base._ExitTree();
-        _stateMachine.Exit();
+        _csm.Exit();
     }
     public override void _Process(double delta)
     {
         base._Process(delta);
-        _stateMachine.ProcessFrame((float)delta);
+        _csm.ProcessFrame((float)delta);
     }
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        _stateMachine.ProcessPhysics((float)delta);
+        _csm.ProcessPhysics((float)delta);
     }
 
 
@@ -122,24 +141,25 @@ public partial class Critter : CharacterBody3D, IMovementComponent
         //        AnimPlayer.GetCurrAnimation());
         //}
     }
-    public OrthogDirection GetFaceDirection()
+    public Dir4 GetFaceDirection()
     {
         return IMovementComponent.GetOrthogDirection(GetAnimDirection(), Sprite.FlipH);
     }
 
-    public OrthogDirection GetDesiredFaceDirection()
+    public Dir4 GetDesiredFaceDirection()
     {
         throw new NotImplementedException();
     }
 
     public Vector2 GetDesiredDirection()
     {
-        return Vector2.Zero;
+        var dir = AINavComp.WeightedNextPathDirection;
+        return new Vector2(dir.X, dir.Z);
     }
 
     public Vector2 GetDesiredDirectionNormalized()
     {
-        throw new NotImplementedException();
+        return GetDesiredDirection().Normalized();
     }
 
     public bool WantsJump()

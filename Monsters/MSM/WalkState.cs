@@ -26,7 +26,7 @@ public partial class WalkState : State
     private float _climbBufferTime = 0.1f;
 
     private Vector2 _inputDir;
-    private OrthogDirection _orthogDir;
+    private Dir4 _orthogDir;
     private AnimDirection _currAnimDir;
     #endregion
     #region STATE_UPDATES

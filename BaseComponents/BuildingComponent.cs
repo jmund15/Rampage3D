@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 
 [GlobalClass, Tool]
-public partial class BuildingComponent : RigidBody3D
+public partial class BuildingComponent : StaticBody3D
 {
     #region COMPONENT_VARIABLES
     [Export]
@@ -30,6 +30,7 @@ public partial class BuildingComponent : RigidBody3D
     private HurtboxComponent3D _hurtboxComp;
     private CollisionShape3D _hurtboxCollShape;
     private CollisionShape3D _collShape;
+    private NavigationObstacle3D _navObstacle;
 
     private Timer _collapseTicker;
     
@@ -52,7 +53,10 @@ public partial class BuildingComponent : RigidBody3D
     public override void _Ready()
     {
         base._Ready();
-        
+        //if (!IsInGroup(Global.NAV_OBSTACLE_GROUP_NAME))
+        //{
+        //    AddToGroup(Global.NAV_OBSTACLE_GROUP_NAME);
+        //}
         SetBuildingLocDirs();
         SetBuildingTypeDirs();
         SetFloorTextureFiles();
@@ -131,6 +135,9 @@ public partial class BuildingComponent : RigidBody3D
         //        $"");
         //}
         //GD.Print($"Building {this.Name}'s dimensions: {Dimensions}.");
+
+        //_navObstacle = this.GetFirstChildOfType<NavigationObstacle3D>();
+        //_navObstacle.Vertices = convexShape.Points;
 
         // Step 4: initialize the floors health and calc full building health
         CallDeferred(MethodName.InitializeFloorHealthConnections);
@@ -803,6 +810,10 @@ public partial class BuildingComponent : RigidBody3D
         }
         else if (propertyName.Equals(_customBuildingTypePropName))
         {
+            if (BuildingLocationDir == string.Empty)
+            {
+                return false; //TODO: FIX
+            }
             if (!_buildingTypeDirMap.ContainsKey(value.AsInt32()))
             {
                 SetBuildingTypeDirs();
@@ -819,6 +830,10 @@ public partial class BuildingComponent : RigidBody3D
         }
         else if (propertyName.StartsWith(_floorBuildingPropStart))
         {
+            if (BuildingTypeDir == string.Empty)
+            {
+                return false; //TODO: FIX
+            }
             if (_availableFloorTexturePathMap.ContainsKey(value.AsInt32()))
             {
                 SetFloorTextureFiles();
