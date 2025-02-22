@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://db3qdmpdrqbwh"]
+[gd_scene load_steps=22 format=3 uid="uid://db3qdmpdrqbwh"]
 
 [ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_b5jb8"]
 [ext_resource type="PackedScene" uid="uid://bilhgl6nubni8" path="res://Areas/All/Buildings/Complete/1x1x2_base_reference.tscn" id="2_0gng7"]
@@ -12,7 +12,17 @@
 [ext_resource type="PackedScene" uid="uid://u01pn5rjsba0" path="res://Critters/critter.tscn" id="10_cx1pi"]
 [ext_resource type="PackedScene" uid="uid://bb5q626ca8fac" path="res://Areas/All/Buildings/Complete/1x1x6_base_reference.tscn" id="10_rwa2k"]
 [ext_resource type="PackedScene" uid="uid://ch47oeiqubnrc" path="res://Areas/SanFrancisco/CityFloor/Complete/sanfrancisco_floor.tscn" id="11_5csb4"]
+[ext_resource type="Shader" path="res://Shaders/outofbounds.gdshader" id="11_octjq"]
+[ext_resource type="Texture2D" uid="uid://cp36ktp0vvlem" path="res://Shaders/metro-vein-30-8x.png" id="12_1yewm"]
 [ext_resource type="PackedScene" uid="uid://biya3bal2bv5q" path="res://Areas/All/Buildings/Complete/1x1x2_roof_reference.tscn" id="13_yh2gs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pf7o0"]
+render_priority = 0
+shader = ExtResource("11_octjq")
+shader_parameter/palette_size = 16
+shader_parameter/palette = ExtResource("12_1yewm")
+
+[sub_resource type="BoxMesh" id="BoxMesh_2f7g6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3whln"]
 
@@ -506,6 +516,47 @@ _floorTextureIdxMap = {
 }
 _floorPropHint = "32x64_base_apartmentFlat01_bot.png,32x64_base_apartmentFlat01_mid.png,32x64_base_apartmentFlat01_top.png,32x64_base_apartmentFlat02_bot.png,32x64_base_apartmentFlat02_mid.png,32x64_base_apartmentFlat02_top.png,32x64_base_apartmentFlat03_bot.png,32x64_base_apartmentFlat03_mid.png,32x64_base_apartmentFlat03_top.png"
 
+[node name="Building4" parent="Buildings" instance=ExtResource("4_aqd0w")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24.5, 0, 19)
+"Building Location" = 2
+"Building Type" = 11
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentFlat"
+_buildingTypeDirIdx = 11
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentFlat//32x64_base_apartmentFlat03_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentFlat//32x64_base_apartmentFlat03_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentFlat//32x64_base_apartmentFlat03_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentFlat//32x64_base_apartmentFlat01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentFlat//32x64_base_apartmentFlat01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentFlat//32x64_base_apartmentFlat01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentFlat//32x64_base_apartmentFlat02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentFlat//32x64_base_apartmentFlat02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentFlat//32x64_base_apartmentFlat02_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentFlat//32x64_base_apartmentFlat03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentFlat//32x64_base_apartmentFlat03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentFlat//32x64_base_apartmentFlat03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "32x64_base_apartmentFlat01_bot.png,32x64_base_apartmentFlat01_mid.png,32x64_base_apartmentFlat01_top.png,32x64_base_apartmentFlat02_bot.png,32x64_base_apartmentFlat02_mid.png,32x64_base_apartmentFlat02_top.png,32x64_base_apartmentFlat03_bot.png,32x64_base_apartmentFlat03_mid.png,32x64_base_apartmentFlat03_top.png"
+
 [node name="Building37" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -12, 0, -20)
 _availableFloorTexturePathMap = {
@@ -688,6 +739,254 @@ _floorPropHint = "32x64_base_apartmentAngled01_bot.png,32x64_base_apartmentAngle
 [node name="Building7" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 12.5)
 _collapseTickDamagePercentage = 1.0
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+
+[node name="Building64" parent="Buildings" instance=ExtResource("2_0gng7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 27.5)
+_collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+
+[node name="Building65" parent="Buildings" instance=ExtResource("2_0gng7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 30)
+_collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+
+[node name="Building66" parent="Buildings" instance=ExtResource("2_0gng7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 27.5)
+_collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+
+[node name="Building67" parent="Buildings" instance=ExtResource("4_aqd0w")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 0, 29)
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+
+[node name="Building68" parent="Buildings" instance=ExtResource("3_ow0rb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 30)
+_collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+
+[node name="Building69" parent="Buildings" instance=ExtResource("2_0gng7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 35)
+_collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+
+[node name="Building70" parent="Buildings" instance=ExtResource("2_0gng7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 37.5)
+_collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+
+[node name="Building71" parent="Buildings" instance=ExtResource("2_0gng7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 35)
+_collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+
+[node name="Building72" parent="Buildings" instance=ExtResource("4_aqd0w")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 0, 36.5)
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
+6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+
+[node name="Building73" parent="Buildings" instance=ExtResource("3_ow0rb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 37.5)
+_collapseTickDamagePercentage = 1.0
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references"
+}
 _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
@@ -1178,6 +1477,843 @@ _floorTextureIdxMap = {
 }
 _floorPropHint = "32x_base_lofthouse01_bot.png,32x_base_lofthouse01_top.png,32x_base_lofthouse02_bot.png,32x_base_lofthouse02_top.png,32x_base_lofthouse03_bot.png,32x_base_lofthouse03_top.png,32x_roof_lofthouse01.png,32x_roof_lofthouse02.png,32x_roof_lofthouse03.png"
 
+[node name="Building25" parent="Buildings" instance=ExtResource("2_0gng7")]
+transform = Transform3D(1, 0, -3.55271e-15, 0, 1, 0, 3.55271e-15, 0, 1, 2, 0, 20)
+"Building Location" = 2
+"Building Type" = 2
+"Floor 1" = 0
+"Floor 2" = 0
+_collapseTickDamagePercentage = 1.0
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential"
+_buildingTypeDirIdx = 2
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_tilehouse//32x_base_tilehouse01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_tilehouse//32x_base_tilehouse01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential01_top.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential02_bot.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential02_top.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential03_bot.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential03_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_roof_residential01.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_roof_residential02.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_roof_residential03.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 0,
+2: 0
+}
+_floorPropHint = "32x_base_residential01_bot.png,32x_base_residential01_top.png,32x_base_residential02_bot.png,32x_base_residential02_top.png,32x_base_residential03_bot.png,32x_base_residential03_top.png,32x_roof_residential01.png,32x_roof_residential02.png,32x_roof_residential03.png"
+
+[node name="Building47" parent="Buildings" instance=ExtResource("3_ow0rb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 20)
+"Building Location" = 2
+"Building Type" = 7
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+_collapseTickDamagePercentage = 1.0
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat"
+_buildingTypeDirIdx = 7
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla02_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla02_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla02_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat02_top.png",
+6: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt04.png",
+7: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top.png",
+8: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top_alt01.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "32x_base_duplexFlat01_bot.png,32x_base_duplexFlat01_mid.png,32x_base_duplexFlat01_top.png,32x_base_duplexFlat02_bot.png,32x_base_duplexFlat02_mid.png,32x_base_duplexFlat02_top.png"
+
+[node name="Building28" parent="Buildings" instance=ExtResource("3_ow0rb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 20)
+"Building Location" = 2
+"Building Type" = 5
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+_collapseTickDamagePercentage = 1.0
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment"
+_buildingTypeDirIdx = 5
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment02_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "32x_base_apartment01_bot.png,32x_base_apartment01_mid.png,32x_base_apartment01_top.png,32x_base_apartment02_bot.png,32x_base_apartment02_mid.png,32x_base_apartment02_top.png,32x_base_apartment03_bot.png,32x_base_apartment03_mid.png,32x_base_apartment03_top.png"
+
+[node name="Building39" parent="Buildings" instance=ExtResource("4_aqd0w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 17.5)
+"Building Location" = 2
+"Building Type" = 10
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled"
+_buildingTypeDirIdx = 10
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled02_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "32x64_base_apartmentAngled01_bot.png,32x64_base_apartmentAngled01_mid.png,32x64_base_apartmentAngled01_top.png,32x64_base_apartmentAngled02_bot.png,32x64_base_apartmentAngled02_mid.png,32x64_base_apartmentAngled02_top.png,32x64_base_apartmentAngled03_bot.png,32x64_base_apartmentAngled03_mid.png,32x64_base_apartmentAngled03_top.png"
+
+[node name="Building48" parent="Buildings" instance=ExtResource("4_aqd0w")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 0, 18.5)
+"Building Location" = 2
+"Building Type" = 13
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat"
+_buildingTypeDirIdx = 13
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat02_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "texture32x64_base_stuccoFlat01_bot.png,texture32x64_base_stuccoFlat01_mid.png,texture32x64_base_stuccoFlat01_top.png,texture32x64_base_stuccoFlat02_bot.png,texture32x64_base_stuccoFlat02_mid.png,texture32x64_base_stuccoFlat02_top.png,texture32x64_base_stuccoFlat03_bot.png,texture32x64_base_stuccoFlat03_mid.png,texture32x64_base_stuccoFlat03_top.png"
+
+[node name="Building40" parent="Buildings" instance=ExtResource("13_yh2gs")]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -8, 0, 17.5)
+"Building Location" = 2
+"Floor 1" = 2
+"Floor 2" = 3
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo"
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo01_top.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_bot.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_top.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo03_bot.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo03_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo01.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo02.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo03.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 2,
+2: 3
+}
+_floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png,32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
+
+[node name="Building49" parent="Buildings" instance=ExtResource("13_yh2gs")]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -10.5, 0, 17.5)
+"Building Location" = 2
+"Building Type" = 1
+"Floor 1" = 2
+"Floor 2" = 3
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse"
+_buildingTypeDirIdx = 1
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse01_top.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse02_bot.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse02_top.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_bot.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse01.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse02.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse03.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 2,
+2: 3
+}
+_floorPropHint = "32x_base_lofthouse01_bot.png,32x_base_lofthouse01_top.png,32x_base_lofthouse02_bot.png,32x_base_lofthouse02_top.png,32x_base_lofthouse03_bot.png,32x_base_lofthouse03_top.png,32x_roof_lofthouse01.png,32x_roof_lofthouse02.png,32x_roof_lofthouse03.png"
+
+[node name="Building50" parent="Buildings" instance=ExtResource("2_0gng7")]
+transform = Transform3D(1, 0, -3.55271e-15, 0, 1, 0, 3.55271e-15, 0, 1, 2, 0, 30)
+"Building Location" = 2
+"Building Type" = 2
+"Floor 1" = 0
+"Floor 2" = 0
+_collapseTickDamagePercentage = 1.0
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential"
+_buildingTypeDirIdx = 2
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_tilehouse//32x_base_tilehouse01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_tilehouse//32x_base_tilehouse01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential01_top.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential02_bot.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential02_top.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential03_bot.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential03_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_roof_residential01.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_roof_residential02.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_roof_residential03.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 0,
+2: 0
+}
+_floorPropHint = "32x_base_residential01_bot.png,32x_base_residential01_top.png,32x_base_residential02_bot.png,32x_base_residential02_top.png,32x_base_residential03_bot.png,32x_base_residential03_top.png,32x_roof_residential01.png,32x_roof_residential02.png,32x_roof_residential03.png"
+
+[node name="Building51" parent="Buildings" instance=ExtResource("3_ow0rb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 30)
+"Building Location" = 2
+"Building Type" = 5
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+_collapseTickDamagePercentage = 1.0
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment"
+_buildingTypeDirIdx = 5
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment02_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "32x_base_apartment01_bot.png,32x_base_apartment01_mid.png,32x_base_apartment01_top.png,32x_base_apartment02_bot.png,32x_base_apartment02_mid.png,32x_base_apartment02_top.png,32x_base_apartment03_bot.png,32x_base_apartment03_mid.png,32x_base_apartment03_top.png"
+
+[node name="Building52" parent="Buildings" instance=ExtResource("4_aqd0w")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 0, 28.5)
+"Building Location" = 2
+"Building Type" = 13
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat"
+_buildingTypeDirIdx = 13
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat02_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "texture32x64_base_stuccoFlat01_bot.png,texture32x64_base_stuccoFlat01_mid.png,texture32x64_base_stuccoFlat01_top.png,texture32x64_base_stuccoFlat02_bot.png,texture32x64_base_stuccoFlat02_mid.png,texture32x64_base_stuccoFlat02_top.png,texture32x64_base_stuccoFlat03_bot.png,texture32x64_base_stuccoFlat03_mid.png,texture32x64_base_stuccoFlat03_top.png"
+
+[node name="Building53" parent="Buildings" instance=ExtResource("3_ow0rb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 30)
+"Building Location" = 2
+"Building Type" = 7
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+_collapseTickDamagePercentage = 1.0
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat"
+_buildingTypeDirIdx = 7
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla02_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla02_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla02_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat02_top.png",
+6: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt04.png",
+7: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top.png",
+8: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top_alt01.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "32x_base_duplexFlat01_bot.png,32x_base_duplexFlat01_mid.png,32x_base_duplexFlat01_top.png,32x_base_duplexFlat02_bot.png,32x_base_duplexFlat02_mid.png,32x_base_duplexFlat02_top.png"
+
+[node name="Building54" parent="Buildings" instance=ExtResource("4_aqd0w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 27.5)
+"Building Location" = 2
+"Building Type" = 10
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled"
+_buildingTypeDirIdx = 10
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled02_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "32x64_base_apartmentAngled01_bot.png,32x64_base_apartmentAngled01_mid.png,32x64_base_apartmentAngled01_top.png,32x64_base_apartmentAngled02_bot.png,32x64_base_apartmentAngled02_mid.png,32x64_base_apartmentAngled02_top.png,32x64_base_apartmentAngled03_bot.png,32x64_base_apartmentAngled03_mid.png,32x64_base_apartmentAngled03_top.png"
+
+[node name="Building55" parent="Buildings" instance=ExtResource("13_yh2gs")]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -8, 0, 27.5)
+"Building Location" = 2
+"Floor 1" = 2
+"Floor 2" = 3
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo"
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo01_top.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_bot.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_top.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo03_bot.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo03_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo01.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo02.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo03.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 2,
+2: 3
+}
+_floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png,32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
+
+[node name="Building56" parent="Buildings" instance=ExtResource("13_yh2gs")]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -10.5, 0, 27.5)
+"Building Location" = 2
+"Building Type" = 1
+"Floor 1" = 2
+"Floor 2" = 3
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse"
+_buildingTypeDirIdx = 1
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse01_top.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse02_bot.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse02_top.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_bot.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse01.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse02.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse03.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 2,
+2: 3
+}
+_floorPropHint = "32x_base_lofthouse01_bot.png,32x_base_lofthouse01_top.png,32x_base_lofthouse02_bot.png,32x_base_lofthouse02_top.png,32x_base_lofthouse03_bot.png,32x_base_lofthouse03_top.png,32x_roof_lofthouse01.png,32x_roof_lofthouse02.png,32x_roof_lofthouse03.png"
+
+[node name="Building57" parent="Buildings" instance=ExtResource("2_0gng7")]
+transform = Transform3D(1, 0, -3.55271e-15, 0, 1, 0, 3.55271e-15, 0, 1, 2, 0, 35)
+"Building Location" = 2
+"Building Type" = 2
+"Floor 1" = 0
+"Floor 2" = 0
+_collapseTickDamagePercentage = 1.0
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential"
+_buildingTypeDirIdx = 2
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_tilehouse//32x_base_tilehouse01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_tilehouse//32x_base_tilehouse01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential01_top.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential02_bot.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential02_top.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential03_bot.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_base_residential03_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_roof_residential01.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_roof_residential02.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_residential//32x_roof_residential03.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 0,
+2: 0
+}
+_floorPropHint = "32x_base_residential01_bot.png,32x_base_residential01_top.png,32x_base_residential02_bot.png,32x_base_residential02_top.png,32x_base_residential03_bot.png,32x_base_residential03_top.png,32x_roof_residential01.png,32x_roof_residential02.png,32x_roof_residential03.png"
+
+[node name="Building58" parent="Buildings" instance=ExtResource("3_ow0rb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 35)
+"Building Location" = 2
+"Building Type" = 5
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+_collapseTickDamagePercentage = 1.0
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment"
+_buildingTypeDirIdx = 5
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment02_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "32x_base_apartment01_bot.png,32x_base_apartment01_mid.png,32x_base_apartment01_top.png,32x_base_apartment02_bot.png,32x_base_apartment02_mid.png,32x_base_apartment02_top.png,32x_base_apartment03_bot.png,32x_base_apartment03_mid.png,32x_base_apartment03_top.png"
+
+[node name="Building59" parent="Buildings" instance=ExtResource("4_aqd0w")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 0, 33.5)
+"Building Location" = 2
+"Building Type" = 13
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat"
+_buildingTypeDirIdx = 13
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat02_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_stuccoFlat//texture32x64_base_stuccoFlat03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "texture32x64_base_stuccoFlat01_bot.png,texture32x64_base_stuccoFlat01_mid.png,texture32x64_base_stuccoFlat01_top.png,texture32x64_base_stuccoFlat02_bot.png,texture32x64_base_stuccoFlat02_mid.png,texture32x64_base_stuccoFlat02_top.png,texture32x64_base_stuccoFlat03_bot.png,texture32x64_base_stuccoFlat03_mid.png,texture32x64_base_stuccoFlat03_top.png"
+
+[node name="Building60" parent="Buildings" instance=ExtResource("3_ow0rb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.499999, 0, 35)
+"Building Location" = 2
+"Building Type" = 7
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+_collapseTickDamagePercentage = 1.0
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat"
+_buildingTypeDirIdx = 7
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla02_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla02_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla02_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexFlat//32x_base_duplexFlat02_top.png",
+6: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt04.png",
+7: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top.png",
+8: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top_alt01.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "32x_base_duplexFlat01_bot.png,32x_base_duplexFlat01_mid.png,32x_base_duplexFlat01_top.png,32x_base_duplexFlat02_bot.png,32x_base_duplexFlat02_mid.png,32x_base_duplexFlat02_top.png"
+
+[node name="Building61" parent="Buildings" instance=ExtResource("4_aqd0w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 32.5)
+"Building Location" = 2
+"Building Type" = 10
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled"
+_buildingTypeDirIdx = 10
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled02_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_top.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "32x64_base_apartmentAngled01_bot.png,32x64_base_apartmentAngled01_mid.png,32x64_base_apartmentAngled01_top.png,32x64_base_apartmentAngled02_bot.png,32x64_base_apartmentAngled02_mid.png,32x64_base_apartmentAngled02_top.png,32x64_base_apartmentAngled03_bot.png,32x64_base_apartmentAngled03_mid.png,32x64_base_apartmentAngled03_top.png"
+
+[node name="Building62" parent="Buildings" instance=ExtResource("13_yh2gs")]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -8, 0, 32.5)
+"Building Location" = 2
+"Floor 1" = 2
+"Floor 2" = 3
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo"
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo01_top.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_bot.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_top.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo03_bot.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo03_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo01.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo02.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo03.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 2,
+2: 3
+}
+_floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png,32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
+
+[node name="Building63" parent="Buildings" instance=ExtResource("13_yh2gs")]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -10.5, 0, 32.5)
+"Building Location" = 2
+"Building Type" = 1
+"Floor 1" = 2
+"Floor 2" = 3
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse"
+_buildingTypeDirIdx = 1
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse01_top.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse02_bot.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse02_top.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_bot.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse01.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse02.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse03.png",
+9: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery01.png",
+10: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery02.png",
+11: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//32x_roof_montgomery04.png",
+12: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_bot.png",
+13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
+14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
+}
+_floorTextureIdxMap = {
+1: 2,
+2: 3
+}
+_floorPropHint = "32x_base_lofthouse01_bot.png,32x_base_lofthouse01_top.png,32x_base_lofthouse02_bot.png,32x_base_lofthouse02_top.png,32x_base_lofthouse03_bot.png,32x_base_lofthouse03_top.png,32x_roof_lofthouse01.png,32x_roof_lofthouse02.png,32x_roof_lofthouse03.png"
+
 [node name="Building45" parent="Buildings" instance=ExtResource("13_yh2gs")]
 transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 14.5, 0, 2.5)
 "Building Location" = 2
@@ -1349,6 +2485,100 @@ _floorTextureIdxMap = {
 }
 _floorPropHint = "32x_base_duplexAngled01_bot.png,32x_base_duplexAngled01_mid.png,32x_base_duplexAngled01_top.png,32x_base_duplexAngled02_bot.png,32x_base_duplexAngled02_mid.png,32x_base_duplexAngled02_top.png,32x_base_duplexAngled03_bot.png,32x_base_duplexAngled03_mid.png,32x_base_duplexAngled03_top.png"
 
+[node name="Building5" parent="Buildings" instance=ExtResource("3_ow0rb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5, 0, 15)
+"Building Location" = 2
+"Building Type" = 5
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment"
+_buildingTypeDirIdx = 5
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment02_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_apartment//32x_base_apartment03_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "32x_base_apartment01_bot.png,32x_base_apartment01_mid.png,32x_base_apartment01_top.png,32x_base_apartment02_bot.png,32x_base_apartment02_mid.png,32x_base_apartment02_top.png,32x_base_apartment03_bot.png,32x_base_apartment03_mid.png,32x_base_apartment03_top.png"
+
+[node name="Building74" parent="Buildings" instance=ExtResource("3_ow0rb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 27, 0, 17.5)
+"Building Location" = 2
+"Building Type" = 8
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla"
+_buildingTypeDirIdx = 8
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla02_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla02_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla02_top.png"
+}
+_availableFloorTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla01_bot.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla01_mid.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla01_top.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla02_bot.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla02_mid.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla02_top.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla03_bot.png",
+7: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla03_mid.png",
+8: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_urbanVilla//32x_base_urbanVilla03_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "32x_base_urbanVilla01_bot.png,32x_base_urbanVilla01_mid.png,32x_base_urbanVilla01_top.png,32x_base_urbanVilla02_bot.png,32x_base_urbanVilla02_mid.png,32x_base_urbanVilla02_top.png,32x_base_urbanVilla03_bot.png,32x_base_urbanVilla03_mid.png,32x_base_urbanVilla03_top.png"
+
+[node name="Building75" parent="Buildings" instance=ExtResource("3_ow0rb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0, 15)
+"Building Location" = 2
+"Building Type" = 6
+"Floor 1" = 6
+"Floor 2" = 7
+"Floor 3" = 8
+BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
+_buildingLocDirIdx = 2
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexAngled"
+_buildingTypeDirIdx = 6
+_buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
+_floorTextureMap = {
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexAngled//32x_base_duplexAngled01_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexAngled//32x_base_duplexAngled01_mid.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexAngled//32x_base_duplexAngled01_top.png"
+}
+_floorTextureIdxMap = {
+1: 6,
+2: 7,
+3: 8
+}
+_floorPropHint = "32x_base_duplexAngled01_bot.png,32x_base_duplexAngled01_mid.png,32x_base_duplexAngled01_top.png,32x_base_duplexAngled02_bot.png,32x_base_duplexAngled02_mid.png,32x_base_duplexAngled02_top.png,32x_base_duplexAngled03_bot.png,32x_base_duplexAngled03_mid.png,32x_base_duplexAngled03_top.png"
+
 [node name="Building43" parent="Buildings" instance=ExtResource("10_rwa2k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 5)
 "Building Location" = 2
@@ -1384,6 +2614,12 @@ _floorTextureIdxMap = {
 _floorPropHint = "32x_base_coittower_bot.png,32x_base_coittower_mid01.png,32x_base_coittower_mid02.png,32x_base_coittower_mid03.png,32x_base_coittower_mid04.png,32x_base_coittower_top.png"
 
 [node name="Environment" type="Node3D" parent="."]
+
+[node name="out of bounds shader" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(-6.33402e-06, 0, -29.952, 0, 38.44, 0, 144.905, 0, -1.30924e-06, -38.75, 16.5, -15)
+material_override = SubResource("ShaderMaterial_pf7o0")
+mesh = SubResource("BoxMesh_2f7g6")
+skeleton = NodePath("../../Buildings")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_x5b6y")
