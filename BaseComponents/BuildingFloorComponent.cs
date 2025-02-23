@@ -45,12 +45,46 @@ public partial class BuildingFloorComponent : MeshInstance3D
             SetTexture();
         }
     }
+    private CompressedTexture2D _normalMap;
+    public CompressedTexture2D NormalMap
+    {
+        get => _normalMap;
+        set
+        {
+            if (value == _normalMap || _standMat == null) { return; }
+            if (value == null)
+            {
+                _normalMap = null;
+                DisableNormalMap();
+                return;
+            }
+            _normalMap = value;
+            SetNormalMap();
+        }
+    }
     private void SetTexture()
     {
-        //MaterialOverride.ResourceLocalToScene = true;
-        
+        _standMat.ResourceLocalToScene = true;
+        //_standMat.AlbedoTexture.ResourceLocalToScene = true;
+
         _standMat.AlbedoTexture = Texture;
         _standMat.TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest;
+
+        //_standMat.ResourceLocalToScene = true;
+        _standMat.AlbedoTexture.ResourceLocalToScene = true;
+    }
+    private void SetNormalMap()
+    {
+        _standMat.ResourceLocalToScene = true;
+
+        _standMat.NormalEnabled = true;
+        _standMat.NormalTexture = NormalMap;
+
+        _standMat.NormalTexture.ResourceLocalToScene = true;
+    }
+    private void DisableNormalMap()
+    {
+        _standMat.NormalEnabled = false;
     }
     #endregion
     #region COMPONENT_UPDATES
@@ -65,7 +99,7 @@ public partial class BuildingFloorComponent : MeshInstance3D
         }
         MaterialOverride.ResourceLocalToScene = true;
         _standMat = MaterialOverride as StandardMaterial3D;
-        
+        _standMat.ResourceLocalToScene = true;
         //_standMat.AlbedoTexture.ResourceLocalToScene = true;
 
         if (FloorMaxHealth > 0f)
@@ -80,7 +114,7 @@ public partial class BuildingFloorComponent : MeshInstance3D
         _healthStateMap.Add(FloorHealthState.Crumbling, HealthComp.MaxHealth - _healthStateChangeAmt * 2);
         _healthStateMap.Add(FloorHealthState.Destroyed, 0f);
 
-        var ownerName = GetOwner().Name;
+        //var ownerName = GetOwner().Name;
         
         // IMPORTANT: ***GlobalTransform * Aabb != Aabb * GlobalTransform***
         var localAabb = Mesh.GetAabb();
@@ -93,24 +127,24 @@ public partial class BuildingFloorComponent : MeshInstance3D
         //var globalStartPos = (GlobalBasis * localAabb.Position) + GlobalPosition;
         //var globalSize = GlobalBasis * localAabb.Size;
         //var globalAabb = new Aabb(globalStartPos, globalSize);
-        if ((ownerName == "Testing" || ownerName == "Middle") && Name == "BuildingFloor")
-        {
-            GD.Print($"Global:" +
-                $"\nRotation: {GlobalRotation}" +
-                $"\nScale: {GlobalBasis.Scale}" +
-                $"\nTranslation: {GlobalPosition}" +
-                //$"\nTransform: {GlobalTransform}" +
-                //$"\nCreated Transform: {translatedTransform}" +
-                $"");
+        //if ((ownerName == "Testing" || ownerName == "Middle") && Name == "BuildingFloor")
+        //{
+        //    GD.Print($"Global:" +
+        //        $"\nRotation: {GlobalRotation}" +
+        //        $"\nScale: {GlobalBasis.Scale}" +
+        //        $"\nTranslation: {GlobalPosition}" +
+        //        //$"\nTransform: {GlobalTransform}" +
+        //        //$"\nCreated Transform: {translatedTransform}" +
+        //        $"");
 
-            GD.Print($"orig startPos {localAabb.Position}" +
-                $"\nmanual startPos {manualGlobalAabb.Position}" +
-                $"\nglobal startPos {globalAabb.Position}" +
-                $"\norig size {localAabb.Size}" +
-                $"\nmanual size {manualGlobalAabb.Size}" +
-                $"\nglobal size {globalAabb.Size}" +
-                $"");
-        }
+        //    GD.Print($"orig startPos {localAabb.Position}" +
+        //        $"\nmanual startPos {manualGlobalAabb.Position}" +
+        //        $"\nglobal startPos {globalAabb.Position}" +
+        //        $"\norig size {localAabb.Size}" +
+        //        $"\nmanual size {manualGlobalAabb.Size}" +
+        //        $"\nglobal size {globalAabb.Size}" +
+        //        $"");
+        //}
         //var globalAabb = GlobalTransform * Mesh.GetAabb();
 
         //define ycenter
@@ -128,10 +162,10 @@ public partial class BuildingFloorComponent : MeshInstance3D
                 (globalAabb.Position.X)/* * Scale.X) + GlobalPosition.X*/ + (baseSizeX * i) + (baseSizeX / 2f),
                 (globalAabb.End.Z)/* * Scale.Z) + GlobalPosition.Z*/
                 );
-            if ((ownerName == "Testing" || ownerName == "Middle") && Name == "BuildingFloor")
-            {
-                GD.Print($"x face {i + 1}/{xFaces}: {xFacePos}.");
-            }
+            //if ((ownerName == "Testing" || ownerName == "Middle") && Name == "BuildingFloor")
+            //{
+            //    GD.Print($"x face {i + 1}/{xFaces}: {xFacePos}.");
+            //}
             XFacePoses.Add(xFacePos);
             Vector3 wallCrackDLPosition = new Vector3(
                 xFacePos.X,
@@ -156,10 +190,10 @@ public partial class BuildingFloorComponent : MeshInstance3D
                 (globalAabb.Position.Z)/* * Scale.Z) + GlobalPosition.Z*/ + (baseSizeZ * i) + (baseSizeZ / 2f)
                 );
             ZFacePoses.Add(zFacePos);
-            if ((ownerName == "Testing" || ownerName == "Middle") && Name == "BuildingFloor")
-            {
-                GD.Print($"z face {i + 1}/{zFaces}: {zFacePos}.");
-            }
+            //if ((ownerName == "Testing" || ownerName == "Middle") && Name == "BuildingFloor")
+            //{
+            //    GD.Print($"z face {i + 1}/{zFaces}: {zFacePos}.");
+            //}
             Vector3 wallCrackDRPosition = new Vector3(
                 zFacePos.X + _crackOffset,
                 YCenter,

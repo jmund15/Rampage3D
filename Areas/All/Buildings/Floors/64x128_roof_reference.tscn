@@ -1,24 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvyg44nw1xn3r"]
+[gd_scene load_steps=5 format=3 uid="uid://bvyg44nw1xn3r"]
 
 [ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://BaseComponents/building_floor_component.tscn" id="1_52ke6"]
 [ext_resource type="Texture2D" uid="uid://dmncsywk7x8u8" path="res://Areas/All/Buildings/Textures/references/64x128_base_reference.png" id="2_bseoc"]
-[ext_resource type="Texture2D" uid="uid://fay0g1jvj1ph" path="res://Areas/All/Buildings/Textures/references/64x128_roof_reference.png" id="2_lg3ug"]
-[ext_resource type="ArrayMesh" uid="uid://8dxwvpqe0nt1" path="res://Areas/All/Buildings/Models/roof_64x128.obj" id="3_320r3"]
 [ext_resource type="ArrayMesh" uid="uid://dsqredt0h4xec" path="res://Areas/All/Buildings/Models/base_64x128.obj" id="3_ocfbd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4hoo3"]
+resource_local_to_scene = true
 albedo_texture = ExtResource("2_bseoc")
-texture_filter = 0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8lahc"]
-albedo_texture = ExtResource("2_lg3ug")
 texture_filter = 0
 
 [node name="BuildingFloor" instance=ExtResource("1_52ke6")]
 material_override = SubResource("StandardMaterial3D_4hoo3")
 mesh = ExtResource("3_ocfbd")
-
-[node name="buildingRoog" type="MeshInstance3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
-material_override = SubResource("StandardMaterial3D_8lahc")
-mesh = ExtResource("3_320r3")
