@@ -1,15 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://db2f1tplkqjp0"]
 
 [ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://BaseComponents/building_floor_component.tscn" id="1_58cx4"]
-[ext_resource type="Texture2D" uid="uid://chfw2wpuauyf5" path="res://Areas/All/Buildings/Textures/references/32x_base_reference.png" id="2_f475w"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ehnt"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q707s"]
+load_path = "res://.godot/imported/32x_base_reference.png-e488a62a0939280a31285401ee6258be.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i50ky"]
 resource_local_to_scene = true
-albedo_texture = ExtResource("2_f475w")
+albedo_texture = SubResource("CompressedTexture2D_q707s")
 texture_filter = 0
 
 [node name="BuildingFloor" instance=ExtResource("1_58cx4")]
-material_override = SubResource("StandardMaterial3D_8ehnt")
+material_override = SubResource("StandardMaterial3D_i50ky")
 
 [node name="floorDestruction32x" parent="." index="1"]
 visible = false

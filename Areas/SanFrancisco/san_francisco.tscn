@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://db3qdmpdrqbwh"]
+[gd_scene load_steps=23 format=3 uid="uid://db3qdmpdrqbwh"]
 
 [ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_b5jb8"]
+[ext_resource type="Script" path="res://Areas/Area.cs" id="1_p3btc"]
 [ext_resource type="PackedScene" uid="uid://bilhgl6nubni8" path="res://Areas/All/Buildings/Complete/1x1x2_base_reference.tscn" id="2_0gng7"]
 [ext_resource type="PackedScene" uid="uid://bd0dotu3315d" path="res://Vehicles/Implementation/sedan_navy.tscn" id="2_0teqx"]
 [ext_resource type="PackedScene" uid="uid://roik0rft634m" path="res://Areas/All/Buildings/Complete/1x1x3_base_reference.tscn" id="3_ow0rb"]
@@ -82,6 +83,7 @@ adjustment_contrast = 1.2
 size = Vector3(100, 1, 100)
 
 [node name="Sanfrancisco" type="Node3D"]
+script = ExtResource("1_p3btc")
 
 [node name="Players" type="Node3D" parent="."]
 
@@ -136,6 +138,7 @@ _floorTextureIdxMap = {
 3: 8
 }
 _floorPropHint = "32x64_base_mansion_bot.png,32x64_base_mansion_mid.png,32x64_base_mansion_top.png"
+_haveRoofProperty = false
 
 [node name="Building31" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -15)
@@ -144,8 +147,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -157,6 +160,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building32" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -17.5)
@@ -165,8 +169,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -178,6 +182,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building20" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -13, 0, -7.5)
@@ -221,8 +226,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -234,6 +239,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building35" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -17.5)
@@ -242,8 +248,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -255,6 +261,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building16" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, -3.55271e-15, 0, 1, 0, 3.55271e-15, 0, 1, 2, 0, 20)
@@ -293,7 +300,7 @@ _floorTextureIdxMap = {
 1: 0,
 2: 0
 }
-_floorPropHint = "32x_base_residential01_bot.png,32x_base_residential01_top.png,32x_base_residential02_bot.png,32x_base_residential02_top.png,32x_base_residential03_bot.png,32x_base_residential03_top.png,32x_roof_residential01.png,32x_roof_residential02.png,32x_roof_residential03.png"
+_floorPropHint = "32x_base_residential01_bot.png,32x_base_residential01_top.png,32x_base_residential02_bot.png,32x_base_residential02_top.png,32x_base_residential03_bot.png,32x_base_residential03_top.png"
 
 [node name="Building12" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -7.5)
@@ -419,8 +426,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -432,6 +439,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building9" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 12.5)
@@ -440,8 +448,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -453,6 +461,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building8" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 10)
@@ -461,8 +470,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -474,6 +483,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2, 0, 1.5)
@@ -515,6 +525,7 @@ _floorTextureIdxMap = {
 3: 8
 }
 _floorPropHint = "32x64_base_apartmentFlat01_bot.png,32x64_base_apartmentFlat01_mid.png,32x64_base_apartmentFlat01_top.png,32x64_base_apartmentFlat02_bot.png,32x64_base_apartmentFlat02_mid.png,32x64_base_apartmentFlat02_top.png,32x64_base_apartmentFlat03_bot.png,32x64_base_apartmentFlat03_mid.png,32x64_base_apartmentFlat03_top.png"
+_haveRoofProperty = false
 
 [node name="Building4" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24.5, 0, 19)
@@ -556,6 +567,7 @@ _floorTextureIdxMap = {
 3: 8
 }
 _floorPropHint = "32x64_base_apartmentFlat01_bot.png,32x64_base_apartmentFlat01_mid.png,32x64_base_apartmentFlat01_top.png,32x64_base_apartmentFlat02_bot.png,32x64_base_apartmentFlat02_mid.png,32x64_base_apartmentFlat02_top.png,32x64_base_apartmentFlat03_bot.png,32x64_base_apartmentFlat03_mid.png,32x64_base_apartmentFlat03_top.png"
+_haveRoofProperty = false
 
 [node name="Building37" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -12, 0, -20)
@@ -563,8 +575,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -576,6 +588,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_haveRoofProperty = false
 
 [node name="Building30" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.5, 0, -20)
@@ -583,8 +596,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -596,6 +609,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_haveRoofProperty = false
 
 [node name="Building6" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 0, 11.5)
@@ -603,8 +617,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -616,6 +630,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_haveRoofProperty = false
 
 [node name="Building3" parent="Buildings" instance=ExtResource("8_jjwty")]
 transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 9.5, 0, 1)
@@ -663,8 +678,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -676,6 +691,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building34" parent="Buildings" instance=ExtResource("8_jjwty")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -12, 0, -17.5)
@@ -684,8 +700,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -697,6 +713,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building11" parent="Buildings" instance=ExtResource("8_jjwty")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 0, -7.5)
@@ -743,8 +760,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -756,6 +773,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building64" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 27.5)
@@ -768,8 +786,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -781,6 +799,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building65" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 30)
@@ -793,8 +812,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -806,6 +825,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building66" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 27.5)
@@ -818,8 +838,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -831,6 +851,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building67" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 0, 29)
@@ -842,8 +863,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -855,6 +876,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_haveRoofProperty = false
 
 [node name="Building68" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 30)
@@ -867,8 +889,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -880,6 +902,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building69" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 35)
@@ -892,8 +915,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -905,6 +928,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building70" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, 37.5)
@@ -917,8 +941,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -930,6 +954,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building71" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 35)
@@ -942,8 +967,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -955,6 +980,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building72" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 0, 36.5)
@@ -966,8 +992,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -979,6 +1005,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_haveRoofProperty = false
 
 [node name="Building73" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 37.5)
@@ -991,8 +1018,8 @@ _availableFloorTexturePathMap = {
 0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
 1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
 2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x128_roof_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//references//64x_roof_reference.png",
 6: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 7: "res://Areas//SanFrancisco//Buildings//Textures//1x2x3_apartmentAngled//32x64_base_apartmentAngled03_mid.png",
@@ -1004,6 +1031,7 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="Building13" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 10)
@@ -1210,6 +1238,7 @@ _floorTextureIdxMap = {
 3: 8
 }
 _floorPropHint = "32x64_base_apartmentAngled01_bot.png,32x64_base_apartmentAngled01_mid.png,32x64_base_apartmentAngled01_top.png,32x64_base_apartmentAngled02_bot.png,32x64_base_apartmentAngled02_mid.png,32x64_base_apartmentAngled02_top.png,32x64_base_apartmentAngled03_bot.png,32x64_base_apartmentAngled03_mid.png,32x64_base_apartmentAngled03_top.png"
+_haveRoofProperty = false
 
 [node name="Building42" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 0, 18.5)
@@ -1251,12 +1280,14 @@ _floorTextureIdxMap = {
 3: 8
 }
 _floorPropHint = "texture32x64_base_stuccoFlat01_bot.png,texture32x64_base_stuccoFlat01_mid.png,texture32x64_base_stuccoFlat01_top.png,texture32x64_base_stuccoFlat02_bot.png,texture32x64_base_stuccoFlat02_mid.png,texture32x64_base_stuccoFlat02_top.png,texture32x64_base_stuccoFlat03_bot.png,texture32x64_base_stuccoFlat03_mid.png,texture32x64_base_stuccoFlat03_top.png"
+_haveRoofProperty = false
 
 [node name="Building19" parent="Buildings" instance=ExtResource("9_jtpy1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -24, 0, -6.5)
 "Building Location" = 2
 "Building Type" = 15
 "Floor 2" = 3
+Roof = 0
 _collapseTickDamagePercentage = 1.0
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
@@ -1288,13 +1319,22 @@ _floorTextureIdxMap = {
 1: 2,
 2: 3
 }
-_floorPropHint = "64x128_base_dockWarehouse01_bot.png,64x128_base_dockWarehouse01_top.png,64x128_base_dockWarehouse02_bot.png,64x128_base_dockWarehouse02_top.png,64x128_base_dockWarehouse03_bot.png,64x128_base_dockWarehouse03_top.png,64x128_roof_dockWarehouse01.png,64x128_roof_dockWarehouse02.png,64x128_roof_dockWarehouse03.png"
+_floorPropHint = "64x128_base_dockWarehouse01_bot.png,64x128_base_dockWarehouse01_top.png,64x128_base_dockWarehouse02_bot.png,64x128_base_dockWarehouse02_top.png,64x128_base_dockWarehouse03_bot.png,64x128_base_dockWarehouse03_top.png"
+_haveRoofProperty = true
+_roofTexture = "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse01.png"
+_availableRoofTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse01.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse02.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse03.png"
+}
+_roofPropHint = "64x128_roof_dockWarehouse01.png,64x128_roof_dockWarehouse02.png,64x128_roof_dockWarehouse03.png"
 
 [node name="Building29" parent="Buildings" instance=ExtResource("9_jtpy1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -24, 0, 3.5)
 "Building Location" = 2
 "Building Type" = 15
 "Floor 2" = 3
+Roof = 0
 _collapseTickDamagePercentage = 1.0
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
@@ -1326,7 +1366,15 @@ _floorTextureIdxMap = {
 1: 2,
 2: 3
 }
-_floorPropHint = "64x128_base_dockWarehouse01_bot.png,64x128_base_dockWarehouse01_top.png,64x128_base_dockWarehouse02_bot.png,64x128_base_dockWarehouse02_top.png,64x128_base_dockWarehouse03_bot.png,64x128_base_dockWarehouse03_top.png,64x128_roof_dockWarehouse01.png,64x128_roof_dockWarehouse02.png,64x128_roof_dockWarehouse03.png"
+_floorPropHint = "64x128_base_dockWarehouse01_bot.png,64x128_base_dockWarehouse01_top.png,64x128_base_dockWarehouse02_bot.png,64x128_base_dockWarehouse02_top.png,64x128_base_dockWarehouse03_bot.png,64x128_base_dockWarehouse03_top.png"
+_haveRoofProperty = true
+_roofTexture = "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse01.png"
+_availableRoofTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse01.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse02.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse03.png"
+}
+_roofPropHint = "64x128_roof_dockWarehouse01.png,64x128_roof_dockWarehouse02.png,64x128_roof_dockWarehouse03.png"
 
 [node name="Building36" parent="Buildings" instance=ExtResource("9_jtpy1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -24, 0, 13.5)
@@ -1334,6 +1382,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -24, 0
 "Building Type" = 15
 "Floor 1" = 0
 "Floor 2" = 0
+Roof = 0
 _collapseTickDamagePercentage = 1.0
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
@@ -1365,16 +1414,26 @@ _floorTextureIdxMap = {
 1: 0,
 2: 0
 }
-_floorPropHint = "64x128_base_dockWarehouse01_bot.png,64x128_base_dockWarehouse01_top.png,64x128_base_dockWarehouse02_bot.png,64x128_base_dockWarehouse02_top.png,64x128_base_dockWarehouse03_bot.png,64x128_base_dockWarehouse03_top.png,64x128_roof_dockWarehouse01.png,64x128_roof_dockWarehouse02.png,64x128_roof_dockWarehouse03.png"
+_floorPropHint = "64x128_base_dockWarehouse01_bot.png,64x128_base_dockWarehouse01_top.png,64x128_base_dockWarehouse02_bot.png,64x128_base_dockWarehouse02_top.png,64x128_base_dockWarehouse03_bot.png,64x128_base_dockWarehouse03_top.png"
+_haveRoofProperty = true
+_roofTexture = "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse01.png"
+_availableRoofTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse01.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse02.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse03.png"
+}
+_roofPropHint = "64x128_roof_dockWarehouse01.png,64x128_roof_dockWarehouse02.png,64x128_roof_dockWarehouse03.png"
 
 [node name="Building23" parent="Buildings" instance=ExtResource("13_yh2gs")]
 transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -8, 0, 17.5)
 "Building Location" = 2
+"Building Type" = 0
 "Floor 1" = 2
 "Floor 2" = 3
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
 BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo"
+_buildingTypeDirIdx = 0
 _buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
 _floorTextureMap = {
 1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_bot.png",
@@ -1401,16 +1460,25 @@ _floorTextureIdxMap = {
 1: 2,
 2: 3
 }
-_floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png,32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
+_floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png"
+_roofTexture = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo01.png"
+_availableRoofTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo01.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo02.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo03.png"
+}
+_roofPropHint = "32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
 
 [node name="Building44" parent="Buildings" instance=ExtResource("13_yh2gs")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14.5, 0, -5)
 "Building Location" = 2
+"Building Type" = 0
 "Floor 1" = 2
 "Floor 2" = 3
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
 BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo"
+_buildingTypeDirIdx = 0
 _buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
 _floorTextureMap = {
 1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_bot.png",
@@ -1437,18 +1505,25 @@ _floorTextureIdxMap = {
 1: 2,
 2: 3
 }
-_floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png,32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
+_floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png"
+_roofTexture = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo01.png"
+_availableRoofTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo01.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo02.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo03.png"
+}
+_roofPropHint = "32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
 
 [node name="Building24" parent="Buildings" instance=ExtResource("13_yh2gs")]
 transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -10.5, 0, 17.5)
 "Building Location" = 2
-"Building Type" = 1
+"Building Type" = 0
 "Floor 1" = 2
 "Floor 2" = 3
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
 BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse"
-_buildingTypeDirIdx = 1
+_buildingTypeDirIdx = 0
 _buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
 _floorTextureMap = {
 1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_bot.png",
@@ -1475,7 +1550,14 @@ _floorTextureIdxMap = {
 1: 2,
 2: 3
 }
-_floorPropHint = "32x_base_lofthouse01_bot.png,32x_base_lofthouse01_top.png,32x_base_lofthouse02_bot.png,32x_base_lofthouse02_top.png,32x_base_lofthouse03_bot.png,32x_base_lofthouse03_top.png,32x_roof_lofthouse01.png,32x_roof_lofthouse02.png,32x_roof_lofthouse03.png"
+_floorPropHint = "32x_base_lofthouse01_bot.png,32x_base_lofthouse01_top.png,32x_base_lofthouse02_bot.png,32x_base_lofthouse02_top.png,32x_base_lofthouse03_bot.png,32x_base_lofthouse03_top.png"
+_roofTexture = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse01.png"
+_availableRoofTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse01.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse02.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse03.png"
+}
+_roofPropHint = "32x_roof_lofthouse01.png,32x_roof_lofthouse02.png,32x_roof_lofthouse03.png"
 
 [node name="Building25" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, -3.55271e-15, 0, 1, 0, 3.55271e-15, 0, 1, 2, 0, 20)
@@ -1514,7 +1596,7 @@ _floorTextureIdxMap = {
 1: 0,
 2: 0
 }
-_floorPropHint = "32x_base_residential01_bot.png,32x_base_residential01_top.png,32x_base_residential02_bot.png,32x_base_residential02_top.png,32x_base_residential03_bot.png,32x_base_residential03_top.png,32x_roof_residential01.png,32x_roof_residential02.png,32x_roof_residential03.png"
+_floorPropHint = "32x_base_residential01_bot.png,32x_base_residential01_top.png,32x_base_residential02_bot.png,32x_base_residential02_top.png,32x_base_residential03_bot.png,32x_base_residential03_top.png"
 
 [node name="Building47" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 20)
@@ -1640,6 +1722,7 @@ _floorTextureIdxMap = {
 3: 8
 }
 _floorPropHint = "32x64_base_apartmentAngled01_bot.png,32x64_base_apartmentAngled01_mid.png,32x64_base_apartmentAngled01_top.png,32x64_base_apartmentAngled02_bot.png,32x64_base_apartmentAngled02_mid.png,32x64_base_apartmentAngled02_top.png,32x64_base_apartmentAngled03_bot.png,32x64_base_apartmentAngled03_mid.png,32x64_base_apartmentAngled03_top.png"
+_haveRoofProperty = false
 
 [node name="Building48" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 0, 18.5)
@@ -1681,15 +1764,18 @@ _floorTextureIdxMap = {
 3: 8
 }
 _floorPropHint = "texture32x64_base_stuccoFlat01_bot.png,texture32x64_base_stuccoFlat01_mid.png,texture32x64_base_stuccoFlat01_top.png,texture32x64_base_stuccoFlat02_bot.png,texture32x64_base_stuccoFlat02_mid.png,texture32x64_base_stuccoFlat02_top.png,texture32x64_base_stuccoFlat03_bot.png,texture32x64_base_stuccoFlat03_mid.png,texture32x64_base_stuccoFlat03_top.png"
+_haveRoofProperty = false
 
 [node name="Building40" parent="Buildings" instance=ExtResource("13_yh2gs")]
 transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -8, 0, 17.5)
 "Building Location" = 2
+"Building Type" = 0
 "Floor 1" = 2
 "Floor 2" = 3
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
 BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo"
+_buildingTypeDirIdx = 0
 _buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
 _floorTextureMap = {
 1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_bot.png",
@@ -1716,18 +1802,25 @@ _floorTextureIdxMap = {
 1: 2,
 2: 3
 }
-_floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png,32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
+_floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png"
+_roofTexture = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo01.png"
+_availableRoofTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo01.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo02.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo03.png"
+}
+_roofPropHint = "32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
 
 [node name="Building49" parent="Buildings" instance=ExtResource("13_yh2gs")]
 transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -10.5, 0, 17.5)
 "Building Location" = 2
-"Building Type" = 1
+"Building Type" = 0
 "Floor 1" = 2
 "Floor 2" = 3
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
 BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse"
-_buildingTypeDirIdx = 1
+_buildingTypeDirIdx = 0
 _buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
 _floorTextureMap = {
 1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_bot.png",
@@ -1754,7 +1847,14 @@ _floorTextureIdxMap = {
 1: 2,
 2: 3
 }
-_floorPropHint = "32x_base_lofthouse01_bot.png,32x_base_lofthouse01_top.png,32x_base_lofthouse02_bot.png,32x_base_lofthouse02_top.png,32x_base_lofthouse03_bot.png,32x_base_lofthouse03_top.png,32x_roof_lofthouse01.png,32x_roof_lofthouse02.png,32x_roof_lofthouse03.png"
+_floorPropHint = "32x_base_lofthouse01_bot.png,32x_base_lofthouse01_top.png,32x_base_lofthouse02_bot.png,32x_base_lofthouse02_top.png,32x_base_lofthouse03_bot.png,32x_base_lofthouse03_top.png"
+_roofTexture = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse01.png"
+_availableRoofTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse01.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse02.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse03.png"
+}
+_roofPropHint = "32x_roof_lofthouse01.png,32x_roof_lofthouse02.png,32x_roof_lofthouse03.png"
 
 [node name="Building50" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, -3.55271e-15, 0, 1, 0, 3.55271e-15, 0, 1, 2, 0, 30)
@@ -1793,7 +1893,7 @@ _floorTextureIdxMap = {
 1: 0,
 2: 0
 }
-_floorPropHint = "32x_base_residential01_bot.png,32x_base_residential01_top.png,32x_base_residential02_bot.png,32x_base_residential02_top.png,32x_base_residential03_bot.png,32x_base_residential03_top.png,32x_roof_residential01.png,32x_roof_residential02.png,32x_roof_residential03.png"
+_floorPropHint = "32x_base_residential01_bot.png,32x_base_residential01_top.png,32x_base_residential02_bot.png,32x_base_residential02_top.png,32x_base_residential03_bot.png,32x_base_residential03_top.png"
 
 [node name="Building51" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 30)
@@ -1877,6 +1977,7 @@ _floorTextureIdxMap = {
 3: 8
 }
 _floorPropHint = "texture32x64_base_stuccoFlat01_bot.png,texture32x64_base_stuccoFlat01_mid.png,texture32x64_base_stuccoFlat01_top.png,texture32x64_base_stuccoFlat02_bot.png,texture32x64_base_stuccoFlat02_mid.png,texture32x64_base_stuccoFlat02_top.png,texture32x64_base_stuccoFlat03_bot.png,texture32x64_base_stuccoFlat03_mid.png,texture32x64_base_stuccoFlat03_top.png"
+_haveRoofProperty = false
 
 [node name="Building53" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 30)
@@ -1960,15 +2061,18 @@ _floorTextureIdxMap = {
 3: 8
 }
 _floorPropHint = "32x64_base_apartmentAngled01_bot.png,32x64_base_apartmentAngled01_mid.png,32x64_base_apartmentAngled01_top.png,32x64_base_apartmentAngled02_bot.png,32x64_base_apartmentAngled02_mid.png,32x64_base_apartmentAngled02_top.png,32x64_base_apartmentAngled03_bot.png,32x64_base_apartmentAngled03_mid.png,32x64_base_apartmentAngled03_top.png"
+_haveRoofProperty = false
 
 [node name="Building55" parent="Buildings" instance=ExtResource("13_yh2gs")]
 transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -8, 0, 27.5)
 "Building Location" = 2
+"Building Type" = 0
 "Floor 1" = 2
 "Floor 2" = 3
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
 BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo"
+_buildingTypeDirIdx = 0
 _buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
 _floorTextureMap = {
 1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_bot.png",
@@ -1995,18 +2099,25 @@ _floorTextureIdxMap = {
 1: 2,
 2: 3
 }
-_floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png,32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
+_floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png"
+_roofTexture = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo01.png"
+_availableRoofTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo01.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo02.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo03.png"
+}
+_roofPropHint = "32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
 
 [node name="Building56" parent="Buildings" instance=ExtResource("13_yh2gs")]
 transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -10.5, 0, 27.5)
 "Building Location" = 2
-"Building Type" = 1
+"Building Type" = 0
 "Floor 1" = 2
 "Floor 2" = 3
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
 BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse"
-_buildingTypeDirIdx = 1
+_buildingTypeDirIdx = 0
 _buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
 _floorTextureMap = {
 1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_bot.png",
@@ -2033,7 +2144,14 @@ _floorTextureIdxMap = {
 1: 2,
 2: 3
 }
-_floorPropHint = "32x_base_lofthouse01_bot.png,32x_base_lofthouse01_top.png,32x_base_lofthouse02_bot.png,32x_base_lofthouse02_top.png,32x_base_lofthouse03_bot.png,32x_base_lofthouse03_top.png,32x_roof_lofthouse01.png,32x_roof_lofthouse02.png,32x_roof_lofthouse03.png"
+_floorPropHint = "32x_base_lofthouse01_bot.png,32x_base_lofthouse01_top.png,32x_base_lofthouse02_bot.png,32x_base_lofthouse02_top.png,32x_base_lofthouse03_bot.png,32x_base_lofthouse03_top.png"
+_roofTexture = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse01.png"
+_availableRoofTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse01.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse02.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse03.png"
+}
+_roofPropHint = "32x_roof_lofthouse01.png,32x_roof_lofthouse02.png,32x_roof_lofthouse03.png"
 
 [node name="Building57" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(1, 0, -3.55271e-15, 0, 1, 0, 3.55271e-15, 0, 1, 2, 0, 35)
@@ -2072,7 +2190,7 @@ _floorTextureIdxMap = {
 1: 0,
 2: 0
 }
-_floorPropHint = "32x_base_residential01_bot.png,32x_base_residential01_top.png,32x_base_residential02_bot.png,32x_base_residential02_top.png,32x_base_residential03_bot.png,32x_base_residential03_top.png,32x_roof_residential01.png,32x_roof_residential02.png,32x_roof_residential03.png"
+_floorPropHint = "32x_base_residential01_bot.png,32x_base_residential01_top.png,32x_base_residential02_bot.png,32x_base_residential02_top.png,32x_base_residential03_bot.png,32x_base_residential03_top.png"
 
 [node name="Building58" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 35)
@@ -2156,6 +2274,7 @@ _floorTextureIdxMap = {
 3: 8
 }
 _floorPropHint = "texture32x64_base_stuccoFlat01_bot.png,texture32x64_base_stuccoFlat01_mid.png,texture32x64_base_stuccoFlat01_top.png,texture32x64_base_stuccoFlat02_bot.png,texture32x64_base_stuccoFlat02_mid.png,texture32x64_base_stuccoFlat02_top.png,texture32x64_base_stuccoFlat03_bot.png,texture32x64_base_stuccoFlat03_mid.png,texture32x64_base_stuccoFlat03_top.png"
+_haveRoofProperty = false
 
 [node name="Building60" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.499999, 0, 35)
@@ -2239,15 +2358,18 @@ _floorTextureIdxMap = {
 3: 8
 }
 _floorPropHint = "32x64_base_apartmentAngled01_bot.png,32x64_base_apartmentAngled01_mid.png,32x64_base_apartmentAngled01_top.png,32x64_base_apartmentAngled02_bot.png,32x64_base_apartmentAngled02_mid.png,32x64_base_apartmentAngled02_top.png,32x64_base_apartmentAngled03_bot.png,32x64_base_apartmentAngled03_mid.png,32x64_base_apartmentAngled03_top.png"
+_haveRoofProperty = false
 
 [node name="Building62" parent="Buildings" instance=ExtResource("13_yh2gs")]
 transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -8, 0, 32.5)
 "Building Location" = 2
+"Building Type" = 0
 "Floor 1" = 2
 "Floor 2" = 3
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
 BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo"
+_buildingTypeDirIdx = 0
 _buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
 _floorTextureMap = {
 1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo02_bot.png",
@@ -2274,18 +2396,25 @@ _floorTextureIdxMap = {
 1: 2,
 2: 3
 }
-_floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png,32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
+_floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png"
+_roofTexture = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo01.png"
+_availableRoofTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo01.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo02.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo03.png"
+}
+_roofPropHint = "32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
 
 [node name="Building63" parent="Buildings" instance=ExtResource("13_yh2gs")]
 transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -10.5, 0, 32.5)
 "Building Location" = 2
-"Building Type" = 1
+"Building Type" = 0
 "Floor 1" = 2
 "Floor 2" = 3
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
 BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse"
-_buildingTypeDirIdx = 1
+_buildingTypeDirIdx = 0
 _buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
 _floorTextureMap = {
 1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_base_lofthouse03_bot.png",
@@ -2312,14 +2441,24 @@ _floorTextureIdxMap = {
 1: 2,
 2: 3
 }
-_floorPropHint = "32x_base_lofthouse01_bot.png,32x_base_lofthouse01_top.png,32x_base_lofthouse02_bot.png,32x_base_lofthouse02_top.png,32x_base_lofthouse03_bot.png,32x_base_lofthouse03_top.png,32x_roof_lofthouse01.png,32x_roof_lofthouse02.png,32x_roof_lofthouse03.png"
+_floorPropHint = "32x_base_lofthouse01_bot.png,32x_base_lofthouse01_top.png,32x_base_lofthouse02_bot.png,32x_base_lofthouse02_top.png,32x_base_lofthouse03_bot.png,32x_base_lofthouse03_top.png"
+_roofTexture = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse01.png"
+_availableRoofTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse01.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse02.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_lofthouse//32x_roof_lofthouse03.png"
+}
+_roofPropHint = "32x_roof_lofthouse01.png,32x_roof_lofthouse02.png,32x_roof_lofthouse03.png"
 
 [node name="Building45" parent="Buildings" instance=ExtResource("13_yh2gs")]
 transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 14.5, 0, 2.5)
 "Building Location" = 2
+"Building Type" = 0
+"Floor 1" = 0
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
 BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo"
+_buildingTypeDirIdx = 0
 _buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse"
 _floorTextureMap = {
 1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_base_condo01_bot.png",
@@ -2342,13 +2481,24 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
-_floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png,32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
+_floorTextureIdxMap = {
+1: 0,
+2: 1
+}
+_floorPropHint = "32x_base_condo01_bot.png,32x_base_condo01_top.png,32x_base_condo02_bot.png,32x_base_condo02_top.png,32x_base_condo03_bot.png,32x_base_condo03_top.png"
+_roofTexture = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo01.png"
+_availableRoofTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo01.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo02.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_condo//32x_roof_condo03.png"
+}
+_roofPropHint = "32x_roof_condo01.png,32x_roof_condo02.png,32x_roof_condo03.png"
 
 [node name="Building46" parent="Buildings" instance=ExtResource("13_yh2gs")]
 transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 12, 0, 2.5)
 "Building Location" = 2
 "Building Type" = 3
-"Floor 2" = 1
+"Floor 1" = 0
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
 BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_tilehouse"
@@ -2379,12 +2529,20 @@ _floorTextureIdxMap = {
 1: 0,
 2: 1
 }
-_floorPropHint = "32x_base_tilehouse01_bot.png,32x_base_tilehouse01_top.png,32x_base_tilehouse02_bot.png,32x_base_tilehouse02_top.png,32x_base_tilehouse03_bot.png,32x_base_tilehouse03_top.png,32x_roof_tilehouse01.png,32x_roof_tilehouse02.png,32x_roof_tilehouse03.png"
+_floorPropHint = "32x_base_tilehouse01_bot.png,32x_base_tilehouse01_top.png,32x_base_tilehouse02_bot.png,32x_base_tilehouse02_top.png,32x_base_tilehouse03_bot.png,32x_base_tilehouse03_top.png"
+_roofTexture = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_tilehouse//32x_roof_tilehouse01.png"
+_availableRoofTexturePathMap = {
+0: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_tilehouse//32x_roof_tilehouse01.png",
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_tilehouse//32x_roof_tilehouse02.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_tilehouse//32x_roof_tilehouse03.png"
+}
+_roofPropHint = "32x_roof_tilehouse01.png,32x_roof_tilehouse02.png,32x_roof_tilehouse03.png"
 
 [node name="Building14" parent="Buildings" instance=ExtResource("13_yh2gs")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2, 0, 12.5)
 "Building Location" = 2
 "Building Type" = 4
+"Floor 1" = 0
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
 BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x2_townhouse"
@@ -2411,7 +2569,12 @@ _availableFloorTexturePathMap = {
 13: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_mid.png",
 14: "res://Areas//SanFrancisco//Buildings//Textures//montgumery//texture32x64_base_montgomery05_top.png"
 }
+_floorTextureIdxMap = {
+1: 0,
+2: 1
+}
 _floorPropHint = "32x_base_townhouse01_bot.png,32x_base_townhouse01_top.png,32x_base_townhouse02_bot.png,32x_base_townhouse02_top.png,32x_base_townhouse03_bot.png,32x_base_townhouse03_top.png,32x_base_townhouse04_bot.png,32x_base_townhouse04_top.png"
+_haveRoofProperty = false
 
 [node name="Building2" parent="Buildings" instance=ExtResource("3_ow0rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -7.5)
@@ -2465,9 +2628,8 @@ _floorPropHint = "32x_base_urbanVilla01_bot.png,32x_base_urbanVilla01_mid.png,32
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -7.5)
 "Building Location" = 2
 "Building Type" = 6
-"Floor 1" = 6
-"Floor 2" = 7
-"Floor 3" = 8
+"Floor 1" = 0
+"Floor 3" = 2
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
 BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexAngled"
@@ -2479,9 +2641,9 @@ _floorTextureMap = {
 3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x3_duplexAngled//32x_base_duplexAngled01_top.png"
 }
 _floorTextureIdxMap = {
-1: 6,
-2: 7,
-3: 8
+1: 0,
+2: 1,
+3: 2
 }
 _floorPropHint = "32x_base_duplexAngled01_bot.png,32x_base_duplexAngled01_mid.png,32x_base_duplexAngled01_top.png,32x_base_duplexAngled02_bot.png,32x_base_duplexAngled02_mid.png,32x_base_duplexAngled02_top.png,32x_base_duplexAngled03_bot.png,32x_base_duplexAngled03_mid.png,32x_base_duplexAngled03_top.png"
 

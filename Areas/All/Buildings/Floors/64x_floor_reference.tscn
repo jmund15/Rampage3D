@@ -1,13 +1,16 @@
 [gd_scene load_steps=5 format=3 uid="uid://dysnk0gb6l8aj"]
 
 [ext_resource type="PackedScene" uid="uid://hukks8001cmk" path="res://BaseComponents/building_floor_component.tscn" id="1_8r6t3"]
-[ext_resource type="Texture2D" uid="uid://c655gmjs7x3lk" path="res://Areas/All/Buildings/Textures/references/64x_base_reference.png" id="2_i8iv2"]
 [ext_resource type="ArrayMesh" uid="uid://d2s47ph26msfc" path="res://Areas/All/Buildings/Models/base_64x.obj" id="3_xvk8d"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s3bw8"]
-albedo_texture = ExtResource("2_i8iv2")
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6lak8"]
+load_path = "res://.godot/imported/64x_base_reference.png-72ed0890146cf0aa1d85d0b68d1caea8.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wqs8k"]
+resource_local_to_scene = true
+albedo_texture = SubResource("CompressedTexture2D_6lak8")
 texture_filter = 0
 
 [node name="BuildingFloor" instance=ExtResource("1_8r6t3")]
-material_override = SubResource("StandardMaterial3D_s3bw8")
+material_override = SubResource("StandardMaterial3D_wqs8k")
 mesh = ExtResource("3_xvk8d")
