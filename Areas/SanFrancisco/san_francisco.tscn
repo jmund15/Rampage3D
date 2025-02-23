@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://db3qdmpdrqbwh"]
+[gd_scene load_steps=20 format=3 uid="uid://db3qdmpdrqbwh"]
 
 [ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_b5jb8"]
 [ext_resource type="PackedScene" uid="uid://bilhgl6nubni8" path="res://Areas/All/Buildings/Complete/1x1x2_base_reference.tscn" id="2_0gng7"]
@@ -11,18 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://dhr1cyrw2bckn" path="res://Areas/All/Buildings/Complete/2x4x2_roof_reference.tscn" id="9_jtpy1"]
 [ext_resource type="PackedScene" uid="uid://u01pn5rjsba0" path="res://Critters/critter.tscn" id="10_cx1pi"]
 [ext_resource type="PackedScene" uid="uid://bb5q626ca8fac" path="res://Areas/All/Buildings/Complete/1x1x6_base_reference.tscn" id="10_rwa2k"]
+[ext_resource type="Texture2D" uid="uid://n37uihct2qp4" path="res://Areas/SanFrancisco/Environmental/Breakables/breakable_foliage_tree01.png" id="11_2o43f"]
 [ext_resource type="PackedScene" uid="uid://ch47oeiqubnrc" path="res://Areas/SanFrancisco/CityFloor/Complete/sanfrancisco_floor.tscn" id="11_5csb4"]
-[ext_resource type="Shader" path="res://Shaders/outofbounds.gdshader" id="11_octjq"]
-[ext_resource type="Texture2D" uid="uid://cp36ktp0vvlem" path="res://Shaders/metro-vein-30-8x.png" id="12_1yewm"]
+[ext_resource type="Texture2D" uid="uid://jnpro4t0hqig" path="res://Areas/SanFrancisco/CityFloor/Textures/floor_sanfrancisco_background.png" id="13_br338"]
 [ext_resource type="PackedScene" uid="uid://biya3bal2bv5q" path="res://Areas/All/Buildings/Complete/1x1x2_roof_reference.tscn" id="13_yh2gs"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pf7o0"]
-render_priority = 0
-shader = ExtResource("11_octjq")
-shader_parameter/palette_size = 16
-shader_parameter/palette = ExtResource("12_1yewm")
-
-[sub_resource type="BoxMesh" id="BoxMesh_2f7g6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3whln"]
 
@@ -86,7 +78,7 @@ size = Vector3(100, 1, 100)
 [node name="Players" type="Node3D" parent="."]
 
 [node name="monster" parent="Players" instance=ExtResource("1_b5jb8")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 15.4909, -9.53674e-07, 11.1839)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -5.0091, 10.5, -10.8161)
 
 [node name="Vehicles" type="Node3D" parent="."]
 
@@ -2613,13 +2605,15 @@ _floorTextureIdxMap = {
 }
 _floorPropHint = "32x_base_coittower_bot.png,32x_base_coittower_mid01.png,32x_base_coittower_mid02.png,32x_base_coittower_mid03.png,32x_base_coittower_mid04.png,32x_base_coittower_top.png"
 
-[node name="Environment" type="Node3D" parent="."]
+[node name="Breakables" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
-[node name="out of bounds shader" type="MeshInstance3D" parent="Environment"]
-transform = Transform3D(-6.33402e-06, 0, -29.952, 0, 38.44, 0, 144.905, 0, -1.30924e-06, -38.75, 16.5, -15)
-material_override = SubResource("ShaderMaterial_pf7o0")
-mesh = SubResource("BoxMesh_2f7g6")
-skeleton = NodePath("../../Buildings")
+[node name="Sprite3D" type="Sprite3D" parent="Breakables"]
+transform = Transform3D(5.65685, 0, -5.65685, 0, 8, 0, 5.65685, 0, 5.65685, -4.5, 2, 9)
+texture_filter = 0
+texture = ExtResource("11_2o43f")
+
+[node name="Environment" type="Node3D" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_x5b6y")
@@ -2634,7 +2628,7 @@ shadow_blur = 0.781
 directional_shadow_blend_splits = true
 
 [node name="Camera3D" parent="Environment" node_paths=PackedStringArray("_playerContainer") instance=ExtResource("8_6pwtu")]
-transform = Transform3D(0.707107, -0.40558, 0.579228, 0, 0.819152, 0.573577, -0.707107, -0.40558, 0.579228, 10, 10, 10)
+transform = Transform3D(0.683013, -0.179748, 0.707944, 0.00623601, 0.970646, 0.240432, -0.73038, -0.159803, 0.664084, 0, 15.5, -5.5)
 _playerContainer = NodePath("../../Players")
 
 [node name="Floor" type="StaticBody3D" parent="Environment"]
@@ -2645,13 +2639,20 @@ shape = SubResource("BoxShape3D_m5tyw")
 [node name="Sanfrancisco Floor" parent="Environment/Floor" instance=ExtResource("11_5csb4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 
+[node name="Sprite3D" type="Sprite3D" parent="Environment"]
+transform = Transform3D(4.24264, -1.52043, 0.0739358, 0, 5.60148, 0.0401372, -4.24264, -1.52043, 0.0739358, -52.5, -5.5, -58)
+cast_shadow = 0
+texture_filter = 0
+render_priority = -2
+texture = ExtResource("13_br338")
+
 [node name="NPCs" type="Node3D" parent="."]
 
 [node name="BOOOO" parent="NPCs" instance=ExtResource("10_cx1pi")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 4.86789, 0, 0.48072)
 
 [node name="OOOOh" parent="NPCs" instance=ExtResource("10_cx1pi")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -6, 0, -6)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -6, 0, -4)
 
 [node name="OOOOh2" parent="NPCs" instance=ExtResource("10_cx1pi")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -3.2, 0, 3.7)
