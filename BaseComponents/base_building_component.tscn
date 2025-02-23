@@ -9,11 +9,16 @@
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_65lnb"]
 
-[node name="Building" type="StaticBody3D" groups=["FullNav"]]
+[node name="Building" type="RigidBody3D"]
 collision_layer = 2
-collision_mask = 63
+collision_mask = 3
+mass = 50.0
+sleeping = true
+freeze = true
 script = ExtResource("1_m5g2h")
 "Building Location" = 0
+"Building Type" = 0
+MinimumFloorsToCollapse = 0
 BuildingLocationDir = "res://Areas//All//Buildings//Textures"
 _buildingLocationDirMap = {
 0: "res://Areas//All//Buildings//Textures",
@@ -21,6 +26,24 @@ _buildingLocationDirMap = {
 2: "res://Areas//SanFrancisco//Buildings//Textures"
 }
 _buildingLocPropHint = "All,KentsHill,SanFrancisco"
+BuildingTypeDir = "res://Areas//All//Buildings//Textures//32x_brick01"
+_buildingTypeDirMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01",
+1: "res://Areas//All//Buildings//Textures//references"
+}
+_buildingTypePropHint = "32x_brick01,references"
+_availableFloorTexturePathMap = {
+0: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot.png",
+1: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot_alt01.png",
+2: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid.png",
+3: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt01.png",
+4: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt02.png",
+5: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt03.png",
+6: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt04.png",
+7: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top.png",
+8: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top_alt01.png"
+}
+_floorPropHint = "32x_brick01_bot.png,32x_brick01_bot_alt01.png,32x_brick01_mid.png,32x_brick01_mid_alt01.png,32x_brick01_mid_alt02.png,32x_brick01_mid_alt03.png,32x_brick01_mid_alt04.png,32x_brick01_top.png,32x_brick01_top_alt01.png"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.130737, 0)
@@ -49,7 +72,3 @@ visible = false
 frame_progress = 0.364956
 
 [node name="CollapseTicker" type="Timer" parent="."]
-
-[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
-affect_navigation_mesh = true
-avoidance_enabled = false

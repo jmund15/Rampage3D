@@ -1,91 +1,76 @@
-[gd_scene load_steps=8 format=3 uid="uid://roik0rft634m"]
+[gd_scene load_steps=10 format=3 uid="uid://roik0rft634m"]
 
 [ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://BaseComponents/base_building_component.tscn" id="1_gst1e"]
 [ext_resource type="PackedScene" uid="uid://db2f1tplkqjp0" path="res://Areas/All/Buildings/Floors/32x_floor_reference.tscn" id="2_4ctnt"]
-[ext_resource type="Texture2D" uid="uid://cwham6cs71fgq" path="res://Areas/All/Buildings/Textures/32x_brick01/32x_brick01_bot.png" id="3_hstqs"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5epuu"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2c41x"]
 points = PackedVector3Array(-1.25, 0, -1.25, 1.25, 0, -1.25, -1.25, 1.5, -1.25, 1.25, 1.5, -1.25, 1.25, 0, -1.25, 1.25, 0, 1.25, 1.25, 1.5, -1.25, 1.25, 1.5, 1.25, 1.25, 0, 1.25, -1.25, 0, 1.25, 1.25, 1.5, 1.25, -1.25, 1.5, 1.25, -1.25, 0, 1.25, -1.25, 0, -1.25, -1.25, 1.5, 1.25, -1.25, 1.5, -1.25, 1.25, 1.5, 1.25, -1.25, 1.5, 1.25, 1.25, 1.5, -1.25, -1.25, 1.5, -1.25, 1.25, 0, -1.25, -1.25, 0, -1.25, 1.25, 0, 1.25, -1.25, 0, 1.25, -1.25, 1.5, -1.25, 1.25, 1.5, -1.25, -1.25, 3, -1.25, 1.25, 3, -1.25, 1.25, 1.5, -1.25, 1.25, 1.5, 1.25, 1.25, 3, -1.25, 1.25, 3, 1.25, 1.25, 1.5, 1.25, -1.25, 1.5, 1.25, 1.25, 3, 1.25, -1.25, 3, 1.25, -1.25, 1.5, 1.25, -1.25, 1.5, -1.25, -1.25, 3, 1.25, -1.25, 3, -1.25, 1.25, 3, 1.25, -1.25, 3, 1.25, 1.25, 3, -1.25, -1.25, 3, -1.25, 1.25, 1.5, -1.25, -1.25, 1.5, -1.25, 1.25, 1.5, 1.25, -1.25, 1.5, 1.25, -1.25, 3, -1.25, 1.25, 3, -1.25, -1.25, 4.5, -1.25, 1.25, 4.5, -1.25, 1.25, 3, -1.25, 1.25, 3, 1.25, 1.25, 4.5, -1.25, 1.25, 4.5, 1.25, 1.25, 3, 1.25, -1.25, 3, 1.25, 1.25, 4.5, 1.25, -1.25, 4.5, 1.25, -1.25, 3, 1.25, -1.25, 3, -1.25, -1.25, 4.5, 1.25, -1.25, 4.5, -1.25, 1.25, 4.5, 1.25, -1.25, 4.5, 1.25, 1.25, 4.5, -1.25, -1.25, 4.5, -1.25, 1.25, 3, -1.25, -1.25, 3, -1.25, 1.25, 3, 1.25, -1.25, 3, 1.25)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k4hdh"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0ceo3"]
+load_path = "res://.godot/imported/32x_base_reference.png-e488a62a0939280a31285401ee6258be.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ewtcr"]
 resource_local_to_scene = true
-albedo_texture = ExtResource("3_hstqs")
+albedo_texture = SubResource("CompressedTexture2D_0ceo3")
 texture_filter = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18fk3"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m07rx"]
+load_path = "res://.godot/imported/32x_base_reference.png-e488a62a0939280a31285401ee6258be.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_coykk"]
 resource_local_to_scene = true
-albedo_texture = ExtResource("3_hstqs")
+albedo_texture = SubResource("CompressedTexture2D_m07rx")
 texture_filter = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t6xp8"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bi50x"]
+load_path = "res://.godot/imported/32x_base_reference.png-e488a62a0939280a31285401ee6258be.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dakdy"]
 resource_local_to_scene = true
-albedo_texture = ExtResource("3_hstqs")
+albedo_texture = SubResource("CompressedTexture2D_bi50x")
 texture_filter = 0
 
 [node name="Building" instance=ExtResource("1_gst1e")]
-"Building Location" = 0
-"Building Type" = 0
-"Floor 1" = 0
-"Floor 2" = 0
-"Floor 3" = 0
+"Building Type" = 1
+"Floor 1" = 1
+"Floor 2" = 1
+"Floor 3" = 1
 MinimumFloorsToCollapse = 2
 PercentageDamageToCollapse = 65.0
-BuildingLocationDir = "res://Areas//All//Buildings//Textures"
-_buildingLocationDirMap = {
-0: "res://Areas//All//Buildings//Textures",
-1: "res://Areas//KentsHill//Buildings//Textures",
-2: "res://Areas//SanFrancisco//Buildings//Textures"
-}
-_buildingLocPropHint = "All,KentsHill,SanFrancisco"
-BuildingTypeDir = "res://Areas//All//Buildings//Textures//32x_brick01"
-_buildingTypeDirMap = {
-0: "res://Areas//All//Buildings//Textures//32x_brick01",
-1: "res://Areas//All//Buildings//Textures//references"
-}
-_buildingTypePropHint = "32x_brick01,references"
+BuildingTypeDir = "res://Areas//All//Buildings//Textures//references"
+_buildingTypeDirIdx = 1
 _numFloors = 3
 _floorTextureMap = {
-1: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot.png",
-2: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot.png",
-3: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot.png"
-}
-_availableFloorTexturePathMap = {
-0: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot.png",
-1: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot_alt01.png",
-2: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid.png",
-3: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt01.png",
-4: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt02.png",
-5: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt03.png",
-6: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt04.png",
-7: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top.png",
-8: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top_alt01.png"
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png"
 }
 _floorTextureIdxMap = {
-1: 0,
-2: 0,
-3: 0
+1: 1,
+2: 1,
+3: 1
 }
-_floorPropHint = "32x_brick01_bot.png,32x_brick01_bot_alt01.png,32x_brick01_mid.png,32x_brick01_mid_alt01.png,32x_brick01_mid_alt02.png,32x_brick01_mid_alt03.png,32x_brick01_mid_alt04.png,32x_brick01_top.png,32x_brick01_top_alt01.png"
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="CollisionShape3D" parent="." index="0"]
-shape = SubResource("ConvexPolygonShape3D_5epuu")
+shape = SubResource("ConvexPolygonShape3D_2c41x")
 
-[node name="RoofComponent" parent="." index="2" node_paths=PackedStringArray("_roofMesh")]
-_roofMesh = NodePath("../BuildingFloor3")
+[node name="RoofComponent" parent="." index="2" node_paths=PackedStringArray("RoofMesh")]
+RoofMesh = NodePath("../BuildingFloor3")
 
 [node name="CollisionShape3D" parent="HurtboxComponent3D" index="0"]
-shape = SubResource("ConvexPolygonShape3D_5epuu")
+shape = SubResource("ConvexPolygonShape3D_2c41x")
 
 [node name="buildingDestructionSmokeCenter" parent="." index="5"]
 transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, 1.75, 0.130737, 1.75)
 
 [node name="BuildingFloor" parent="." index="7" instance=ExtResource("2_4ctnt")]
-material_override = SubResource("StandardMaterial3D_k4hdh")
+material_override = SubResource("StandardMaterial3D_ewtcr")
 
 [node name="BuildingFloor2" parent="." index="8" instance=ExtResource("2_4ctnt")]
 transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0, 1.5, 0)
-material_override = SubResource("StandardMaterial3D_18fk3")
+material_override = SubResource("StandardMaterial3D_coykk")
 
 [node name="BuildingFloor3" parent="." index="9" instance=ExtResource("2_4ctnt")]
 transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0, 3, 0)
-material_override = SubResource("StandardMaterial3D_t6xp8")
+material_override = SubResource("StandardMaterial3D_dakdy")

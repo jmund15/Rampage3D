@@ -3,12 +3,11 @@
 importer="Aseprite Sprite3D with AnimationPlayer"
 type="PackedScene"
 uid="uid://cmhopw800v66t"
-path="res://.godot/imported/grizzler.aseprite-d896ac0c665f62ac0d7c579a8b943832.scn"
+valid=false
 
 [deps]
 
 source_file="res://Monsters/grizzler.aseprite"
-dest_files=["res://.godot/imported/grizzler.aseprite-d896ac0c665f62ac0d7c579a8b943832.scn"]
 
 [params]
 

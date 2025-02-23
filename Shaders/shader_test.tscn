@@ -1,0 +1,89 @@
+[gd_scene load_steps=11 format=3 uid="uid://bhhiqhunxnhav"]
+
+[ext_resource type="Texture2D" uid="uid://cwham6cs71fgq" path="res://Areas/All/Buildings/Textures/32x_brick01/32x_brick01_bot.png" id="1_e2hqx"]
+[ext_resource type="Shader" uid="uid://dmolypg1ssrw" path="res://Shaders/buildingOutOfBounds.tres" id="1_k7lps"]
+[ext_resource type="ArrayMesh" uid="uid://cr7ka0otfrjo0" path="res://Areas/All/Buildings/Models/base_32x.obj" id="3_fv8jv"]
+[ext_resource type="Shader" path="res://Shaders/water.gdshader" id="4_flqfl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aoq2p"]
+albedo_texture = ExtResource("1_e2hqx")
+texture_filter = 0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rbur3"]
+render_priority = 0
+shader = ExtResource("1_k7lps")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ymkpw"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vepmm"]
+load_path = "res://.godot/imported/dcatyft-3d286c66-03cc-448e-b8d8-a4f0a3a2fc26.png-022ca7154b2acd32dc02f235fa50eb9e.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vtt88"]
+load_path = "res://.godot/imported/Calm_loop_tile_example.jpg0a84b6dc-99cb-4d55-a4d7-41245604a45eLarge.jpg-b117682aa27edfc25beb2ffbc2986301.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f3dsn"]
+render_priority = 0
+shader = ExtResource("4_flqfl")
+shader_parameter/speed = Vector2(0.1, 0)
+shader_parameter/displace_speed = Vector2(0.065, 0.1)
+shader_parameter/displacement_strength = 0.39
+shader_parameter/albedo_texture = SubResource("CompressedTexture2D_vepmm")
+shader_parameter/displacement_texture = SubResource("CompressedTexture2D_vtt88")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="outofbounds" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="outofbounds"]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_aoq2p")
+mesh = ExtResource("3_fv8jv")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="outofbounds"]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0, 2.5, 0)
+material_override = SubResource("StandardMaterial3D_aoq2p")
+mesh = ExtResource("3_fv8jv")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="outofbounds"]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0, 4, 0)
+material_override = SubResource("StandardMaterial3D_aoq2p")
+mesh = ExtResource("3_fv8jv")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="outofbounds"]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 4, 1, 0)
+material_override = SubResource("StandardMaterial3D_aoq2p")
+mesh = ExtResource("3_fv8jv")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="outofbounds"]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 4, 2.5, 0)
+material_override = SubResource("StandardMaterial3D_aoq2p")
+mesh = ExtResource("3_fv8jv")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="outofbounds"]
+transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 4, 4, 0)
+material_override = SubResource("StandardMaterial3D_aoq2p")
+mesh = ExtResource("3_fv8jv")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="outofbounds"]
+transform = Transform3D(2.80665, 0, 0, 0, 4.35402, 0, 0, 0, 2.5515, 0, 3.36054, 0)
+material_override = SubResource("ShaderMaterial_rbur3")
+mesh = SubResource("BoxMesh_ymkpw")
+skeleton = NodePath("../..")
+
+[node name="water" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="water"]
+transform = Transform3D(7.748, 0, 0, 0, 0.999999, 0, 0, 0, 7.70055, -11.5349, 2.15027, 11.0456)
+material_override = SubResource("ShaderMaterial_f3dsn")
+mesh = ExtResource("3_fv8jv")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="water"]
+transform = Transform3D(7.748, 0, 0, 0, 0.999999, 0, 0, 0, 7.70055, -1.31904, 1.9034, 11.0721)
+material_override = SubResource("ShaderMaterial_f3dsn")
+mesh = ExtResource("3_fv8jv")

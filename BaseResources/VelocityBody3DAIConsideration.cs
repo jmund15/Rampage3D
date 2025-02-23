@@ -40,7 +40,7 @@ public partial class VelocityBody3DAIConsideration : BaseAIConsideration, IAICon
                     //var distWeight = 1f - (collisionDist / castLength); 
                     var minWeight = 0.1f;
                     var k = 2.5f;
-                    var distDropThresh = NavDistThresh[navLayer.Key];//1.5f; 
+                    var distDropThresh = 1.0f;//NavDistThresh[navLayer.Key];//1.5f; 
                     float distWeight;
                     if (collDist <= distDropThresh)
                     {
@@ -52,7 +52,7 @@ public partial class VelocityBody3DAIConsideration : BaseAIConsideration, IAICon
                     }
                     //GD.Print($"Raycast found danger {navLayer.Key} @ dir {dir}!");
                     //var spatialAwarenessMod = SpatialAwarenessWeights[dir.GetAIFacing(_moveComp.GetFaceDirection())];
-                    var dangerAmt = NavWeights[navLayer.Key] * distWeight;
+                    var dangerAmt = 1.0f;//NavWeights[navLayer.Key] * distWeight;
                     //* spatialAwarenessMod;
 
                     considerVec[dir] += dangerAmt;

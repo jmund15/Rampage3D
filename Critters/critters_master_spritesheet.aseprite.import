@@ -3,12 +3,11 @@
 importer="Aseprite Sprite3D with AnimationPlayer"
 type="PackedScene"
 uid="uid://mcta2lb8bf4h"
-path="res://.godot/imported/critters_master_spritesheet.aseprite-9bfa15992f451aa94e97d9842224e755.scn"
+valid=false
 
 [deps]
 
 source_file="res://Critters/critters_master_spritesheet.aseprite"
-dest_files=["res://.godot/imported/critters_master_spritesheet.aseprite-9bfa15992f451aa94e97d9842224e755.scn"]
 
 [params]
 

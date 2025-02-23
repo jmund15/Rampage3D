@@ -1,25 +1,33 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsvmcd5mkuj1"]
+[gd_scene load_steps=10 format=3 uid="uid://dsvmcd5mkuj1"]
 
 [ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://BaseComponents/base_building_component.tscn" id="1_rqnn5"]
 [ext_resource type="PackedScene" uid="uid://brnec6op0nn7r" path="res://Areas/All/Buildings/Floors/32x64_floor_reference.tscn" id="2_g0fi3"]
-[ext_resource type="Texture2D" uid="uid://clcdjaq3jqp34" path="res://Areas/All/Buildings/Textures/references/32x64_base_reference.png" id="3_xfeus"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ysc65"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_76rrp"]
 points = PackedVector3Array(-2.75625, 0, -1.25, 2.24375, 0, -1.25, -2.75625, 1.5, -1.25, 2.24375, 1.5, -1.25, 2.24375, 0, -1.25, 2.24375, 0, 1.25, 2.24375, 1.5, -1.25, 2.24375, 1.5, 1.25, 2.24375, 0, 1.25, -2.75625, 0, 1.25, 2.24375, 1.5, 1.25, -2.75625, 1.5, 1.25, -2.75625, 0, 1.25, -2.75625, 0, -1.25, -2.75625, 1.5, 1.25, -2.75625, 1.5, -1.25, 2.24375, 1.5, 1.25, -2.75625, 1.5, 1.25, 2.24375, 1.5, -1.25, -2.75625, 1.5, -1.25, 2.24375, 0, -1.25, -2.75625, 0, -1.25, 2.24375, 0, 1.25, -2.75625, 0, 1.25, -2.75625, 1.5, -1.25, 2.24375, 1.5, -1.25, -2.75625, 3, -1.25, 2.24375, 3, -1.25, 2.24375, 1.5, -1.25, 2.24375, 1.5, 1.25, 2.24375, 3, -1.25, 2.24375, 3, 1.25, 2.24375, 1.5, 1.25, -2.75625, 1.5, 1.25, 2.24375, 3, 1.25, -2.75625, 3, 1.25, -2.75625, 1.5, 1.25, -2.75625, 1.5, -1.25, -2.75625, 3, 1.25, -2.75625, 3, -1.25, 2.24375, 3, 1.25, -2.75625, 3, 1.25, 2.24375, 3, -1.25, -2.75625, 3, -1.25, 2.24375, 1.5, -1.25, -2.75625, 1.5, -1.25, 2.24375, 1.5, 1.25, -2.75625, 1.5, 1.25, -2.75625, 3, -1.25, 2.24375, 3, -1.25, -2.75625, 4.5, -1.25, 2.24375, 4.5, -1.25, 2.24375, 3, -1.25, 2.24375, 3, 1.25, 2.24375, 4.5, -1.25, 2.24375, 4.5, 1.25, 2.24375, 3, 1.25, -2.75625, 3, 1.25, 2.24375, 4.5, 1.25, -2.75625, 4.5, 1.25, -2.75625, 3, 1.25, -2.75625, 3, -1.25, -2.75625, 4.5, 1.25, -2.75625, 4.5, -1.25, 2.24375, 4.5, 1.25, -2.75625, 4.5, 1.25, 2.24375, 4.5, -1.25, -2.75625, 4.5, -1.25, 2.24375, 3, -1.25, -2.75625, 3, -1.25, 2.24375, 3, 1.25, -2.75625, 3, 1.25)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ch5g"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_iie1k"]
+load_path = "res://.godot/imported/32x64_base_reference.png-abee7162d809aacf0e7b1ec3281fcfad.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwiop"]
 resource_local_to_scene = true
-albedo_texture = ExtResource("3_xfeus")
+albedo_texture = SubResource("CompressedTexture2D_iie1k")
 texture_filter = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trpn8"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vw056"]
+load_path = "res://.godot/imported/32x64_base_reference.png-abee7162d809aacf0e7b1ec3281fcfad.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cobmt"]
 resource_local_to_scene = true
-albedo_texture = ExtResource("3_xfeus")
+albedo_texture = SubResource("CompressedTexture2D_vw056")
 texture_filter = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_atw5a"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kexrc"]
+load_path = "res://.godot/imported/32x64_base_reference.png-abee7162d809aacf0e7b1ec3281fcfad.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jlaxi"]
 resource_local_to_scene = true
-albedo_texture = ExtResource("3_xfeus")
+albedo_texture = SubResource("CompressedTexture2D_kexrc")
 texture_filter = 0
 
 [node name="Building" instance=ExtResource("1_rqnn5")]
@@ -29,7 +37,6 @@ texture_filter = 0
 "Floor 3" = 0
 MinimumFloorsToCollapse = 2
 PercentageDamageToCollapse = 65.0
-_collapseTickDamagePercentage = 5.0
 BuildingTypeDir = "res://Areas//All//Buildings//Textures//references"
 _buildingTypeDirIdx = 1
 _numFloors = 3
@@ -43,27 +50,27 @@ _floorTextureIdxMap = {
 2: 0,
 3: 0
 }
-_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x128_roof_reference.png,64x_base_reference.png,64x_roof_reference.png,96x_base_reference.png"
+_floorPropHint = "32x64_base_reference.png,32x_base_reference.png,64x128_base_reference.png,64x_base_reference.png,96x_base_reference.png"
 
 [node name="CollisionShape3D" parent="." index="0"]
-shape = SubResource("ConvexPolygonShape3D_ysc65")
+shape = SubResource("ConvexPolygonShape3D_76rrp")
 
-[node name="RoofComponent" parent="." index="2" node_paths=PackedStringArray("_roofMesh")]
-_roofMesh = NodePath("../BuildingFloor3")
+[node name="RoofComponent" parent="." index="2" node_paths=PackedStringArray("RoofMesh")]
+RoofMesh = NodePath("../BuildingFloor3")
 
 [node name="CollisionShape3D" parent="HurtboxComponent3D" index="0"]
-shape = SubResource("ConvexPolygonShape3D_ysc65")
+shape = SubResource("ConvexPolygonShape3D_76rrp")
 
 [node name="buildingDestructionSmokeCenter" parent="." index="5"]
 transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, 2.74375, 0.130737, 1.75)
 
 [node name="BuildingFloor" parent="." index="7" instance=ExtResource("2_g0fi3")]
-material_override = SubResource("StandardMaterial3D_5ch5g")
+material_override = SubResource("StandardMaterial3D_kwiop")
 
 [node name="BuildingFloor2" parent="." index="8" instance=ExtResource("2_g0fi3")]
 transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, -0.1, 1.5, 0)
-material_override = SubResource("StandardMaterial3D_trpn8")
+material_override = SubResource("StandardMaterial3D_cobmt")
 
 [node name="BuildingFloor3" parent="." index="9" instance=ExtResource("2_g0fi3")]
 transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, -0.1, 3, 0)
-material_override = SubResource("StandardMaterial3D_atw5a")
+material_override = SubResource("StandardMaterial3D_jlaxi")

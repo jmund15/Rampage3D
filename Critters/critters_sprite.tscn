@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=4 uid="uid://hteo12rvoyxr"]
 
-[ext_resource type="Script" path="res://BaseComponents/SpriteOrthogComponent.cs" id="1_dalxa"]
+[ext_resource type="Script" path="res://BaseComponents/Sprite3DComponent.cs" id="1_urb7k"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_t2ka1"]
 _data = PackedByteArray("AAADAAUAAAABAAAAjAAAAB4AAAAoAwAAUklGRiADAABXRUJQVlA4TBMDAAAvi0AHEHegJgAIxgyggqoyySCGiwR+NdRGktowFGUj+q+DAoykyCoKAMIxSymnjhKeYqggwM35DwAAAP9/t03lkjGmjvbgpPSUXW3Q5QVmJjJBrqxta9w8S2b/Exm7nZGuwBBmZk5+jSu2FE7rNrizVZgrZsaaqfMVZLSTWUdJsRehH9aUPqL/Dty2jSQHc+1qACWYfMKZJeV6ntfielXKotFiNXBaXI3TXKpz0xi3pUXjZj6uxk02juckVo7ntjiWOG5ikri0mAbaWy065zgtrqHrtCjOVaxqTHvPdnINkRbDwDM7t87UdU0DT+vUMeLaTp4Rw8BRrOpX+9W1nbQ+LCdtHI7tZEywxWrgabgm2eKZukmU2LQh1pNmWp1zZkkxlSqlMGqMaahSSjO1R5RSgvGNGVOoM2+R7J90NEnDVOeO9W/8XUd/KCu6kDw9FxgXsDMu5WDOXFiVqZKdYc7kLH34YUDUJ2WdJhQdle+aiUolCOYWBDsLcUxRgHXQUkqTC6XRx6DMAbIGpGLrlEFl40k4fTQHZ4JAEMqyMOKXUhTlBFZOSt9gLz6uz1BUBpcSA723SGlM+F1E/bKAnnNyY4bocT1Wrvj4L6AMvjRtBaEMPiuDnfI68Ph6lsc3srD/xo2lXJKBSOIDP+fauUgzWIRWdoPB65sznGtaysqfADzJZLv6y5W4605wTNCVheoccy2Za0lysDIDXU1aVjYR7S/MBc7wH9R4nmndmbzGVcmvfAQv46wp9CdlpiKM8eaz1aJJGqYGF8dnqMiwLHShnXIdRAJY2VeGSrlEfywmvzNGH/rOHPNlwRAKyu+bOZMXsFMGKKPKoPVrZ0wJSZOz7ozGoe9M1HcGCIqxZZmCOlRvRmQeIj+2czt9Cfg1cOfGUogLAm4qAxmaQoPhfMW9aQZ5RpmWs/BYYOWix7FlZzaB+NcAd5o2GWO6+bhBcZuBxz8z7A8T9tyBHHR9qa/GCWBtEsAwyILKfVj5eRPcNT531jx6XBBdj+tj4MPcyXBdaLEbDPpzAZbCZ5tUVon2MlsKAA==")
@@ -601,7 +601,7 @@ centered = false
 offset = Vector2(-5, 0)
 texture_filter = 0
 texture = SubResource("AtlasTexture_lcohu")
-script = ExtResource("1_dalxa")
+script = ExtResource("1_urb7k")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
