@@ -83,6 +83,16 @@ transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -31.25, -5, -23.75)
 material_override = SubResource("StandardMaterial3D_nkm71")
 mesh = SubResource("ArrayMesh_pgpr4")
 
+[node name="Dock7" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 46.25, -5, -23.75)
+material_override = SubResource("StandardMaterial3D_nkm71")
+mesh = SubResource("ArrayMesh_pgpr4")
+
+[node name="Dock8" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 36.25, -5, -23.75)
+material_override = SubResource("StandardMaterial3D_nkm71")
+mesh = SubResource("ArrayMesh_pgpr4")
+
 [node name="Dock6" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -41.25, -5, -23.75)
 material_override = SubResource("StandardMaterial3D_txraa")
