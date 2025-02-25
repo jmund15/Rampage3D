@@ -14,12 +14,12 @@ public partial class Area : Node3D
 		{
 			foreach (var building in this.GetChildrenOfType<BuildingComponent>())
 			{
-                //EditorInterface.Singleton.CallDeferred(EditorInterface.MethodName.EditNode, child);
-                //EditorInterface.Singleton.EditNode(building);
+				//EditorInterface.Singleton.CallDeferred(EditorInterface.MethodName.EditNode, child);
+				//EditorInterface.Singleton.EditNode(building);
 				EditorInterface.Singleton.GetSelection().AddNode(building);
-                //GD.Print("editing building: ", building.Name);
-            }
-        }
+				//GD.Print("editing building: ", building.Name);
+			}
+		}
 	}
 	public override void _Process(double delta)
 	{

@@ -1,27 +1,36 @@
-[gd_scene load_steps=10 format=3 uid="uid://biya3bal2bv5q"]
+[gd_scene load_steps=11 format=3 uid="uid://biya3bal2bv5q"]
 
 [ext_resource type="PackedScene" uid="uid://b8ykeo37sw7gg" path="res://BaseComponents/base_building_component.tscn" id="1_slgh4"]
 [ext_resource type="PackedScene" uid="uid://db2f1tplkqjp0" path="res://Areas/All/Buildings/Floors/32x_floor_reference.tscn" id="2_bhfxw"]
-[ext_resource type="Texture2D" uid="uid://chfw2wpuauyf5" path="res://Areas/All/Buildings/Textures/references/32x_base_reference.png" id="3_jffci"]
-[ext_resource type="Texture2D" uid="uid://fay0g1jvj1ph" path="res://Areas/All/Buildings/Textures/references/64x128_roof_reference.png" id="4_5h1i4"]
 [ext_resource type="ArrayMesh" uid="uid://dv54t2i6s3yun" path="res://Areas/All/Buildings/Models/roof_32x.obj" id="4_n3q4i"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ublpa"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_sjn55"]
 points = PackedVector3Array(-1.25, 0, -1.25, 1.25, 0, -1.25, -1.25, 1.5, -1.25, 1.25, 1.5, -1.25, 1.25, 0, -1.25, 1.25, 0, 1.25, 1.25, 1.5, -1.25, 1.25, 1.5, 1.25, 1.25, 0, 1.25, -1.25, 0, 1.25, 1.25, 1.5, 1.25, -1.25, 1.5, 1.25, -1.25, 0, 1.25, -1.25, 0, -1.25, -1.25, 1.5, 1.25, -1.25, 1.5, -1.25, 1.25, 1.5, 1.25, -1.25, 1.5, 1.25, 1.25, 1.5, -1.25, -1.25, 1.5, -1.25, 1.25, 0, -1.25, -1.25, 0, -1.25, 1.25, 0, 1.25, -1.25, 0, 1.25, -1.25, 1.5, -1.25, 1.25, 1.5, -1.25, -1.25, 3, -1.25, 1.25, 3, -1.25, 1.25, 1.5, -1.25, 1.25, 1.5, 1.25, 1.25, 3, -1.25, 1.25, 3, 1.25, 1.25, 1.5, 1.25, -1.25, 1.5, 1.25, 1.25, 3, 1.25, -1.25, 3, 1.25, -1.25, 1.5, 1.25, -1.25, 1.5, -1.25, -1.25, 3, 1.25, -1.25, 3, -1.25, 1.25, 3, 1.25, -1.25, 3, 1.25, 1.25, 3, -1.25, -1.25, 3, -1.25, 1.25, 1.5, -1.25, -1.25, 1.5, -1.25, 1.25, 1.5, 1.25, -1.25, 1.5, 1.25, -1.90735e-05, 3.625, 1.25, -1.25, 3, 1.25, -1.90735e-05, 3.625, -1.25, -1.25, 3, -1.25, -1.90735e-05, 3.625, -1.25, 1.25, 3, -1.25, -1.90735e-05, 3.625, 1.25, 1.25, 3, 1.25, 1.25, 3, -1.25, -1.25, 3, -1.25, 1.25, 3, 1.25, -1.25, 3, 1.25, 1.25, 3, -1.25, -1.90735e-05, 3.625, -1.25, -1.25, 3, -1.25, 1.25, 3, 1.25, -1.25, 3, 1.25, -1.90735e-05, 3.625, 1.25)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1k680"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yoe4f"]
 resource_local_to_scene = true
-albedo_texture = ExtResource("3_jffci")
+load_path = "res://.godot/imported/32x_base_reference.png-e488a62a0939280a31285401ee6258be.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxggm"]
+resource_local_to_scene = true
+albedo_texture = SubResource("CompressedTexture2D_yoe4f")
 texture_filter = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tkw5d"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yk6kq"]
 resource_local_to_scene = true
-albedo_texture = ExtResource("3_jffci")
+load_path = "res://.godot/imported/32x_base_reference.png-e488a62a0939280a31285401ee6258be.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fuuwv"]
+resource_local_to_scene = true
+albedo_texture = SubResource("CompressedTexture2D_yk6kq")
 texture_filter = 0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k8ytn"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_825dl"]
+load_path = "res://.godot/imported/64x128_roof_reference.png-c08094e2539985194ce5f973779c372f.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_seo2y"]
 resource_local_to_scene = true
-albedo_texture = ExtResource("4_5h1i4")
+albedo_texture = SubResource("CompressedTexture2D_825dl")
 texture_filter = 0
 
 [node name="Building" instance=ExtResource("1_slgh4")]
@@ -50,25 +59,25 @@ _availableRoofTexturePathMap = {
 _roofPropHint = "64x128_roof_reference.png,64x_roof_reference.png"
 
 [node name="CollisionShape3D" parent="." index="0"]
-shape = SubResource("ConvexPolygonShape3D_ublpa")
+shape = SubResource("ConvexPolygonShape3D_sjn55")
 
 [node name="RoofComponent" parent="." index="2" node_paths=PackedStringArray("RoofMesh")]
 RoofMesh = NodePath("../MeshInstance3D")
 
 [node name="CollisionShape3D" parent="HurtboxComponent3D" index="0"]
-shape = SubResource("ConvexPolygonShape3D_ublpa")
+shape = SubResource("ConvexPolygonShape3D_sjn55")
 
 [node name="buildingDestructionSmokeCenter" parent="." index="5"]
 transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, 1.75, 0.130737, 1.75)
 
 [node name="BuildingFloor" parent="." index="7" instance=ExtResource("2_bhfxw")]
-material_override = SubResource("StandardMaterial3D_1k680")
+material_override = SubResource("StandardMaterial3D_fxggm")
 
 [node name="BuildingFloor2" parent="." index="8" instance=ExtResource("2_bhfxw")]
 transform = Transform3D(2.5, 0, 0, 0, 2.4, 0, 0, 0, 2.5, 0, 1.5, 0)
-material_override = SubResource("StandardMaterial3D_tkw5d")
+material_override = SubResource("StandardMaterial3D_fuuwv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="9"]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 3, 0)
-material_override = SubResource("StandardMaterial3D_k8ytn")
+material_override = SubResource("StandardMaterial3D_seo2y")
 mesh = ExtResource("4_n3q4i")

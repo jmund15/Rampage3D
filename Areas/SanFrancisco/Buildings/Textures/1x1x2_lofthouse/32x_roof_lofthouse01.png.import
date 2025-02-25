@@ -3,26 +3,25 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bui76aikwlx3y"
-path.s3tc="res://.godot/imported/32x_roof_lofthouse01.png-d570924385ec7bbef021fc8bd22a775e.s3tc.ctex"
+path="res://.godot/imported/32x_roof_lofthouse01.png-d570924385ec7bbef021fc8bd22a775e.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Areas/SanFrancisco/Buildings/Textures/1x1x2_lofthouse/32x_roof_lofthouse01.png"
-dest_files=["res://.godot/imported/32x_roof_lofthouse01.png-d570924385ec7bbef021fc8bd22a775e.s3tc.ctex"]
+dest_files=["res://.godot/imported/32x_roof_lofthouse01.png-d570924385ec7bbef021fc8bd22a775e.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=2
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=1
 roughness/src_normal=""

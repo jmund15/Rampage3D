@@ -25,7 +25,7 @@ project/assembly_name="Clonepage"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-4-importality/addons/nklbdev.importality/plugin.cfg")
+enabled=PackedStringArray()
 
 [filesystem]
 
@@ -70,4 +70,4 @@ sattack_test={
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="forward_plus"
