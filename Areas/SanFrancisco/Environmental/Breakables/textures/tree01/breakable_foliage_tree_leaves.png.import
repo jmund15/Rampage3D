@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bev3x8873ja22"
-path.s3tc="res://.godot/imported/breakable_foliage_tree_leaves.png-9c8ffc2c36c27b2586747a84cda9a7db.s3tc.ctex"
+path.s3tc="res://.godot/imported/breakable_foliage_tree_leaves.png-83c50a614b55bd868b4ec91580a89c06.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Areas/SanFrancisco/Environmental/Breakables/breakable_foliage_tree_leaves.png"
-dest_files=["res://.godot/imported/breakable_foliage_tree_leaves.png-9c8ffc2c36c27b2586747a84cda9a7db.s3tc.ctex"]
+source_file="res://Areas/SanFrancisco/Environmental/Breakables/textures/tree01/breakable_foliage_tree_leaves.png"
+dest_files=["res://.godot/imported/breakable_foliage_tree_leaves.png-83c50a614b55bd868b4ec91580a89c06.s3tc.ctex"]
 
 [params]
 

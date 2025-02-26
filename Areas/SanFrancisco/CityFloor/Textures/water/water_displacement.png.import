@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtxituqck6d30"
-path="res://.godot/imported/water_highlights_export.png-e6a5a6991ceca42c484ca09ef416a6e2.ctex"
+uid="uid://ce5i67caayr5x"
+path="res://.godot/imported/water_displacement.png-4840226478672c7a77f56e248c4453ba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Areas/SanFrancisco/CityFloor/Textures/water_highlights_export.png"
-dest_files=["res://.godot/imported/water_highlights_export.png-e6a5a6991ceca42c484ca09ef416a6e2.ctex"]
+source_file="res://Areas/SanFrancisco/CityFloor/Textures/water/water_displacement.png"
+dest_files=["res://.godot/imported/water_displacement.png-4840226478672c7a77f56e248c4453ba.ctex"]
 
 [params]
 

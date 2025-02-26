@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://db3qdmpdrqbwh"]
+[gd_scene load_steps=22 format=3 uid="uid://db3qdmpdrqbwh"]
 
 [ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_b5jb8"]
 [ext_resource type="Script" path="res://Areas/Area.cs" id="1_eax7w"]
@@ -15,32 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://ch47oeiqubnrc" path="res://Areas/SanFrancisco/CityFloor/Complete/sanfrancisco_floor.tscn" id="11_5csb4"]
 [ext_resource type="PackedScene" uid="uid://cu4dcip0nk23x" path="res://Areas/All/Buildings/Complete/1x1x4_base_reference.tscn" id="12_xup07"]
 [ext_resource type="Texture2D" uid="uid://jnpro4t0hqig" path="res://Areas/SanFrancisco/CityFloor/Textures/floor_sanfrancisco_background.png" id="13_br338"]
+[ext_resource type="PackedScene" uid="uid://blojdtas0s7vn" path="res://Areas/SanFrancisco/Environmental/Breakables/Complete/tree_01.tscn" id="13_k637o"]
 [ext_resource type="PackedScene" uid="uid://biya3bal2bv5q" path="res://Areas/All/Buildings/Complete/1x1x2_roof_reference.tscn" id="13_yh2gs"]
-[ext_resource type="Texture2D" uid="uid://q8430em8rr2h" path="res://Areas/SanFrancisco/Environmental/Breakables/breakable_foliage_tree_wood_n.png" id="14_ss6y7"]
-[ext_resource type="Texture2D" uid="uid://cgqp3ylm8n6ot" path="res://Areas/SanFrancisco/Environmental/Breakables/breakable_foliage_tree_wood.png" id="15_ghwd0"]
-[ext_resource type="Texture2D" uid="uid://bev3x8873ja22" path="res://Areas/SanFrancisco/Environmental/Breakables/breakable_foliage_tree_leaves.png" id="16_2bmt3"]
-[ext_resource type="Texture2D" uid="uid://dbgl5xqyobucq" path="res://Areas/SanFrancisco/Environmental/Breakables/breakable_foliage_tree_leaves_n.png" id="16_ci542"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sl4k0"]
-transparency = 1
-albedo_texture = ExtResource("15_ghwd0")
-normal_enabled = true
-normal_texture = ExtResource("14_ss6y7")
-texture_filter = 0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ne8q"]
-transparency = 1
-albedo_texture = ExtResource("16_2bmt3")
-normal_enabled = true
-normal_texture = ExtResource("16_ci542")
-texture_filter = 0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_34cm0"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_5iog8"]
-top_radius = 1.5
-bottom_radius = 1.5
-height = 0.875
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3whln"]
 
@@ -8547,26 +8523,8 @@ _roofPropHint = "64x128_roof_dockWarehouse00.png,64x128_roof_dockWarehouse01.png
 [node name="Breakables" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
-[node name="tree" type="Node3D" parent="Breakables"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 9.2)
-
-[node name="Sprite3D2" type="Sprite3D" parent="Breakables/tree"]
-transform = Transform3D(-5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, -5.65685, 0.35, 2, 0.15)
-material_override = SubResource("StandardMaterial3D_sl4k0")
-texture_filter = 0
-texture = ExtResource("15_ghwd0")
-
-[node name="Sprite3D3" type="Sprite3D" parent="Breakables/tree"]
-transform = Transform3D(-5.81228, -3.83675, 3.9366, -0.306252, 5.94616, 5.34316, -5.4885, 3.73129, -4.46697, 0.5, 2, 0)
-material_override = SubResource("StandardMaterial3D_2ne8q")
-texture_filter = 0
-texture = ExtResource("16_2bmt3")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Breakables/tree"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0.35)
-material_override = SubResource("StandardMaterial3D_34cm0")
-transparency = 1.0
-mesh = SubResource("CylinderMesh_5iog8")
+[node name="tree01" parent="Breakables" instance=ExtResource("13_k637o")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.4, 0, 4.9)
 
 [node name="Environment" type="Node3D" parent="."]
 
