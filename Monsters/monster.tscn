@@ -70,7 +70,7 @@ radius = 1.5
 [sub_resource type="SphereShape3D" id="SphereShape3D_x1l46"]
 
 [node name="monster" type="CharacterBody3D"]
-collision_mask = 55
+collision_mask = 119
 floor_max_angle = 1.0472
 script = ExtResource("1_g3eh5")
 
@@ -225,6 +225,7 @@ script = ExtResource("5_4d0qn")
 [node name="HitboxComponent" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 visible = false
+collision_mask = 95
 monitoring = false
 monitorable = false
 script = ExtResource("14_kkv0a")

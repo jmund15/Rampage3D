@@ -48,27 +48,27 @@ shader_parameter/normal_texture = ExtResource("10_xtfhm")
 
 [node name="Sanfrancisco Floor" type="Node3D"]
 
-[node name="Base Floor" type="MeshInstance3D" parent="."]
+[node name="Base Floor" type="MeshInstance3D" parent="." groups=["FullNav"]]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, -5, 0)
 material_override = SubResource("StandardMaterial3D_rk3el")
 mesh = ExtResource("2_njhku")
 
-[node name="Dock1" type="MeshInstance3D" parent="."]
+[node name="Dock1" type="MeshInstance3D" parent="." groups=["FullNav"]]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 6.25, -5, -23.75)
 material_override = SubResource("StandardMaterial3D_2risg")
 mesh = SubResource("ArrayMesh_pgpr4")
 
-[node name="Dock2" type="MeshInstance3D" parent="."]
+[node name="Dock2" type="MeshInstance3D" parent="." groups=["FullNav"]]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -3.75, -5, -23.75)
 material_override = SubResource("StandardMaterial3D_2risg")
 mesh = SubResource("ArrayMesh_pgpr4")
 
-[node name="Dock3" type="MeshInstance3D" parent="."]
+[node name="Dock3" type="MeshInstance3D" parent="." groups=["FullNav"]]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -13.75, -5, -23.75)
 material_override = SubResource("StandardMaterial3D_2risg")
 mesh = SubResource("ArrayMesh_pgpr4")
 
-[node name="Dock4" type="MeshInstance3D" parent="."]
+[node name="Dock4" type="MeshInstance3D" parent="." groups=["FullNav"]]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 16.25, -5, -23.75)
 material_override = SubResource("StandardMaterial3D_2risg")
 mesh = SubResource("ArrayMesh_pgpr4")

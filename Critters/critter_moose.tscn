@@ -7,3 +7,6 @@
 
 [node name="moose" parent="." index="0" instance=ExtResource("2_uafwq")]
 EditorPlayAnimName = "idleUp"
+
+[node name="AINav3DComponent" parent="." index="5"]
+EntityConsiderations = Array[Resource]([])

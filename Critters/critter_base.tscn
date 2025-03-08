@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cqbbrnjnrh7n2"]
+[gd_scene load_steps=28 format=3 uid="uid://cqbbrnjnrh7n2"]
 
 [ext_resource type="Script" path="res://Critters/Critter.cs" id="1_inyqc"]
 [ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="3_wj2f5"]
@@ -19,7 +19,9 @@
 [ext_resource type="Script" path="res://Critters/AISM/Actions/WaitIdle.cs" id="16_pm0hc"]
 [ext_resource type="Script" path="res://JmoAI/BT/Decorators/TimeLimitRange.cs" id="17_43q6s"]
 [ext_resource type="PackedScene" uid="uid://dahmcs8u2k547" path="res://BaseComponents/ai_nav_3d_component.tscn" id="18_1kdwb"]
+[ext_resource type="Script" path="res://BaseResources/VelocityBody3DAIConsideration.cs" id="19_3cdey"]
 [ext_resource type="PackedScene" uid="uid://cqs6mpegfeb2d" path="res://BaseComponents/ai_rays_16dir.tscn" id="19_58r4k"]
+[ext_resource type="Script" path="res://BaseResources/StaticBody3DAIConsideration.cs" id="20_t5soh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sn03u"]
 size = Vector3(0.6, 0.6, 0.25)
@@ -31,6 +33,19 @@ script = ExtResource("17_43q6s")
 LimitMin = 1.5
 LimitMax = 3.0
 SucceedTaskOnExit = true
+
+[sub_resource type="Resource" id="Resource_uev8w"]
+script = ExtResource("19_3cdey")
+_collLayer = 1
+_avoidancePositionVelocityBalance = 0.0
+_chasePositionVelocityBalance = 0.0
+Consideration = -2.0
+
+[sub_resource type="Resource" id="Resource_38j51"]
+script = ExtResource("20_t5soh")
+_collLayer = 2
+_distThresh = 1.0
+Consideration = -1.0
 
 [node name="Critter" type="CharacterBody3D"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
@@ -106,9 +121,10 @@ script = ExtResource("15_xxhh0")
 script = ExtResource("16_pm0hc")
 Conditions = [SubResource("Resource_gx6x8")]
 
-[node name="AINav3DComponent" parent="." node_paths=PackedStringArray("ParentAgent", "_rays") instance=ExtResource("18_1kdwb")]
+[node name="AINav3DComponent" parent="." node_paths=PackedStringArray("ParentAgent", "Rays") instance=ExtResource("18_1kdwb")]
 ParentAgent = NodePath("..")
-_rays = NodePath("../AIRays16Dir")
+Rays = NodePath("../AIRays16Dir")
+EntityConsiderations = Array[Resource]([SubResource("Resource_uev8w"), SubResource("Resource_38j51")])
 
 [node name="AIRays16Dir" parent="." instance=ExtResource("19_58r4k")]
 

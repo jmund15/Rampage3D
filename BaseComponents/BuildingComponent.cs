@@ -55,6 +55,10 @@ public partial class BuildingComponent : RigidBody3D
 	{
 		base._Ready();
         //RequestReady();
+		if (!IsInGroup("FullNav"))
+		{
+			AddToGroup("FullNav");
+		}
 
         _roofComp = GetNode<RoofComponent>("RoofComponent");
 

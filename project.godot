@@ -62,12 +62,9 @@ sattack_test={
 3d_navigation/layer_4="GroundChaos"
 3d_physics/layer_5="vehicle"
 3d_physics/layer_6="floor"
+3d_physics/layer_7="military"
 
 [physics]
 
 3d/physics_engine="JoltPhysics3D"
 3d/default_gravity=19.6
-
-[rendering]
-
-renderer/rendering_method="mobile"

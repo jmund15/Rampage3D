@@ -57,11 +57,6 @@ public partial class HealthComponent : Node
             LastHealthUpdate = new HealthUpdate(_health, prevHealth, MaxHealth, _damageAttack);
             EmitSignal(SignalName.HealthChanged, LastHealthUpdate);
 
-            if (LastHealthUpdate.HealthChange < 0) 
-            { Damaged?.Invoke(this, LastHealthUpdate); }
-            else 
-            { Healed?.Invoke(this, LastHealthUpdate); }
-
             if (_health == 0f)
             {
                 if (!IsDead)
@@ -74,7 +69,11 @@ public partial class HealthComponent : Node
             {
                 IsDead = false;
             }
-            
+
+            if (LastHealthUpdate.HealthChange < 0) 
+            { Damaged?.Invoke(this, LastHealthUpdate); }
+            else 
+            { Healed?.Invoke(this, LastHealthUpdate); }
         }
     }
 

@@ -13,3 +13,11 @@ public interface IBlackboard
     public T? GetPrimVar<T>(BBDataSig bbPrimVar) where T : struct;
     public Error SetPrimVar<T>(BBDataSig bbPrimVar, T val) where T : struct;
 }
+/*
+public interface IBlackboard<TKey> where TKey : Enum
+{
+    public T GetVar<T>(TKey bbVar) where T : class;
+    public Error SetVar<T>(TKey bbVar, T value) where T : class;
+    public T? GetPrimVar<T>(TKey bbVar) where T : struct;
+    public Error SetPrimVar<T>(TKey bbVar, T val) where T : struct;
+} */
