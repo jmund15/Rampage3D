@@ -40,12 +40,14 @@ public enum BBDataSig
     WallNormalAttack,
     WallSpecialAttack,
     EaterComp,
-    EatableComp
+    EatableComp,
 
+    #endregion
+    #region BREAKABLE_SIGS
     #endregion
 }
 [GlobalClass, Tool]
-public partial class Blackboard : Node, IBlackboard
+public partial class Blackboard : Node, IBlackboard//<BBDataSig>
 {
     #region TASK_VARIABLES
     protected IBlackboard ParentBB { get; set; }

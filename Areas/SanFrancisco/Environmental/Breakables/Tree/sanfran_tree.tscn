@@ -1,0 +1,80 @@
+[gd_scene load_steps=14 format=3 uid="uid://d0r2ifk2ncdk5"]
+
+[ext_resource type="Texture2D" uid="uid://hgr2m3jchbfo" path="res://Areas/SanFrancisco/Environmental/Breakables/Tree/breakable_foliage_tree_leaves.png" id="1_t5nuj"]
+[ext_resource type="Script" path="res://BaseComponents/Sprite3DComponent.cs" id="2_mm28r"]
+[ext_resource type="Texture2D" uid="uid://b8k077cxksfsa" path="res://Areas/SanFrancisco/Environmental/Breakables/Tree/breakable_foliage_tree_wood.png" id="3_51osd"]
+[ext_resource type="Script" path="res://BaseComponents/Breakable3DComponent.cs" id="4_egjd2"]
+[ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="5_p4qmi"]
+[ext_resource type="Script" path="res://BaseResources/StaticShake3DOnDamageStrategy.cs" id="5_wm3lv"]
+[ext_resource type="Script" path="res://BaseResources/FreeOnDestroyStrategy.cs" id="6_0b6xo"]
+[ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="6_fh1ff"]
+[ext_resource type="Script" path="res://JmoAI/Blackboard/Blackboard.cs" id="7_sbf8h"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_s5st8"]
+radius = 0.25
+
+[sub_resource type="Resource" id="Resource_kteul"]
+script = ExtResource("5_wm3lv")
+ShakeDist = 0.5
+ShakeCycles = 2
+PerShakeTime = 0.1
+ShakeY = false
+TweenEase = 2
+TweenTransition = 6
+
+[sub_resource type="Resource" id="Resource_q0al6"]
+script = ExtResource("6_0b6xo")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ifptx"]
+radius = 1.0
+
+[node name="Tree" type="StaticBody3D"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 1.82, 0)
+collision_layer = 4
+collision_mask = 91
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134213, -1.72, 0.0272005)
+shape = SubResource("SphereShape3D_s5st8")
+
+[node name="VisualParent" type="Node3D" parent="."]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
+
+[node name="Foliage" type="Sprite3D" parent="VisualParent"]
+texture_filter = 0
+texture = ExtResource("1_t5nuj")
+script = ExtResource("2_mm28r")
+
+[node name="Stump" type="Sprite3D" parent="VisualParent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16, 0)
+offset = Vector2(0, 16)
+texture_filter = 0
+texture = ExtResource("3_51osd")
+script = ExtResource("2_mm28r")
+
+[node name="Breakable3DComponent" type="Node3D" parent="." node_paths=PackedStringArray("BreakableParent", "BB", "HealthComp", "HurtboxComp")]
+script = ExtResource("4_egjd2")
+BreakableParent = NodePath("../VisualParent")
+BB = NodePath("../Blackboard")
+HealthComp = NodePath("../HealthComponent")
+HurtboxComp = NodePath("../HurtboxComponent3D")
+OnDamageStrategy = SubResource("Resource_kteul")
+OnDestroyStrategy = SubResource("Resource_q0al6")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("5_p4qmi")
+MaxHealth = 2.0
+
+[node name="HurtboxComponent3D" type="Area3D" parent="." node_paths=PackedStringArray("HealthComponent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24, 0)
+collision_layer = 4
+collision_mask = 81
+script = ExtResource("6_fh1ff")
+HealthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)
+shape = SubResource("SphereShape3D_ifptx")
+
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource("7_sbf8h")

@@ -205,6 +205,14 @@ public static partial class MovementExtensions
 
         return (Dir16)directionIndex;
     }
+    public static Dir16 GetDir16(this Vector2 vec)
+    {
+        return GetDir16FromXY(vec.X, vec.Y);
+    }
+    public static Dir16 GetDir16(this Vector3 vec)
+    {
+        return GetDir16FromXY(vec.X, vec.Z);
+    }
     public static Dir4 GetOrthogDirection(this Vector2 dir)
     {
         return GetDir4FromXY(dir.X, dir.Y);

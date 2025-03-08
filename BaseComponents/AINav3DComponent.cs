@@ -96,8 +96,10 @@ public partial class AINav3DComponent : NavigationAgent3D
     public float FindPathInterval { get; private set; } = 0.25f;
     private bool _baseAvoidanceEnabled;
     public bool NavigationEnabled { get; private set; } = false;
-
+    public bool HasPath { get; private set; } = true;
     public Vector3 WeightedNextPathDirection { get; private set; } = Vector3.Zero;
+    [Export]
+    public GDCol.Array<AIEntityConsideration> EntityConsiderations { get; private set; }
     public static Dictionary<AINavWeight, uint> NavLayerMap { get; private set; } = new Dictionary<AINavWeight, uint>()
     {
         { AINavWeight.Monster, 1 },
@@ -139,7 +141,7 @@ public partial class AINav3DComponent : NavigationAgent3D
     //    { EightDirection.Up, 0f },
     //    { EightDirection.UpRight, 0f }
     //};
-    public Dictionary<Dir16, float> DangerWeights { get; private set; } = new Dictionary<Dir16, float>();
+    public Dictionary<Dir16, float> ConsiderationWeights { get; private set; } = new Dictionary<Dir16, float>();
     public Dictionary<Dir8, float> DirectionWeights { get; private set; } = new Dictionary<Dir8, float>() {
         { Dir8.Right, 0f },
         { Dir8.DownRight, 0f },
@@ -188,7 +190,7 @@ public partial class AINav3DComponent : NavigationAgent3D
         }
         foreach (var dir in Global.GetEnumValues<Dir16>())
         {
-            DangerWeights.Add(dir, 0f);
+            ConsiderationWeights.Add(dir, 0f);
         }
         _moveComp = ParentAgent as IMovementComponent;
         _bb = ParentAgent.GetFirstChildOfInterface<IBlackboard>();
@@ -206,14 +208,14 @@ public partial class AINav3DComponent : NavigationAgent3D
     private void OnDebugTimeout()
     {
         GD.Print($"Danger Weights:\n" +
-            $"Up: {DangerWeights[Dir16.U]:F2} " +
-            $"UpRight: {DangerWeights[Dir16.UR]:F2} " +
-            $"Right: {DangerWeights[Dir16.R]:F2} " +
-            $"DownRight: {DangerWeights[Dir16.DR]:F2} " +
-            $"Down: {DangerWeights[Dir16.D]:F2} " +
-            $"DownLeft: {DangerWeights[Dir16.DL]:F2} " +
-            $"Left: {DangerWeights[Dir16.L]:F2} " +
-            $"UpLeft: {DangerWeights[Dir16.UL]:F2} "
+            $"Up: {ConsiderationWeights[Dir16.U]:F2} " +
+            $"UpRight: {ConsiderationWeights[Dir16.UR]:F2} " +
+            $"Right: {ConsiderationWeights[Dir16.R]:F2} " +
+            $"DownRight: {ConsiderationWeights[Dir16.DR]:F2} " +
+            $"Down: {ConsiderationWeights[Dir16.D]:F2} " +
+            $"DownLeft: {ConsiderationWeights[Dir16.DL]:F2} " +
+            $"Left: {ConsiderationWeights[Dir16.L]:F2} " +
+            $"UpLeft: {ConsiderationWeights[Dir16.UL]:F2} "
             );
 
         GD.Print($"Direction Weights:\n" +
@@ -296,16 +298,20 @@ public partial class AINav3DComponent : NavigationAgent3D
     //TODO: ADD PROCESSING FOR FLYING/Y-ENABLED NAV AGENTS
     protected virtual Vector3 GetWeightedPathPosition()
     {
+        Vector3 normVec = Vector3.Zero;
         //INITIAL PATH
-        var globalPathP = GetNextPathPosition();
-        var unweightedPathPoint = ParentAgent.ToLocal(globalPathP);
-        //GD.Print("global path p: ", globalPathP);
-        //GD.Print("local path p: ", unweightedPathPoint);
-        //GD.Print("parent global p: ", ParentAgent.GlobalPosition);
-        var normVec = unweightedPathPoint.Normalized();
+        if (HasPath)
+        {
+            var globalPathP = GetNextPathPosition();
+            var unweightedPathPoint = ParentAgent.ToLocal(globalPathP);
+            //GD.Print("global path p: ", globalPathP);
+            //GD.Print("local path p: ", unweightedPathPoint);
+            //GD.Print("parent global p: ", ParentAgent.GlobalPosition);
+            normVec = unweightedPathPoint.Normalized();
+        }
+        
         List<Dir8> dirs = Global.GetEnumValues<Dir8>().ToList();
-
-        DangerWeights = GetDangerVector();
+        ConsiderationWeights = GetConsiderationVector();
 
         float maxWeight = float.MinValue;
         Vector3 weightedDir = Vector3.Zero;
@@ -316,9 +322,9 @@ public partial class AINav3DComponent : NavigationAgent3D
             DirectionWeights[dir] = normVec.Dot(new Vector3(eightDirVec.X, 0f, eightDirVec.Y));
             var neighborDirs = dir.GetNeighboring16Dirs();
             var weight = 0.5f;
-            DirectionWeights[dir] -= DangerWeights[dir.GetDir16()] * weight;
-            DirectionWeights[dir] -= DangerWeights[neighborDirs.Item1] * weight * weight;
-            DirectionWeights[dir] -= DangerWeights[neighborDirs.Item2] * weight * weight;
+            DirectionWeights[dir] += ConsiderationWeights[dir.GetDir16()] * weight;
+            DirectionWeights[dir] += ConsiderationWeights[neighborDirs.Item1] * weight * weight;
+            DirectionWeights[dir] += ConsiderationWeights[neighborDirs.Item2] * weight * weight;
             if (UseOrthogNavOnly)
             {
                 if (_eightToOrthogMap[dir]) // add neighboring dir weights for better orthog weighted movement
@@ -334,7 +340,7 @@ public partial class AINav3DComponent : NavigationAgent3D
             }
             if (DirectionWeights[dir] > maxWeight)
             {
-                weightedDir = new Vector3(eightDirVec.X, unweightedPathPoint.Y, eightDirVec.Y);
+                weightedDir = new Vector3(eightDirVec.X, normVec.Y, eightDirVec.Y);
                 maxWeight = DirectionWeights[dir];
             }
         }
@@ -352,7 +358,7 @@ public partial class AINav3DComponent : NavigationAgent3D
         //var result = Enumerable.Zip(DirectionWeights, DirectionWeights, (a, b) => (a.Key, a.Value + b.Value));
         return weightedDir;//unweightedPathPoint;//
     }
-    protected virtual Dictionary<Dir16, float> GetDangerVector()
+    protected virtual Dictionary<Dir16, float> GetConsiderationVector()
     {
         var dangerVector = new Dictionary<Dir16, float>()
         {
@@ -361,86 +367,94 @@ public partial class AINav3DComponent : NavigationAgent3D
             { Dir16.D, 0f }, { Dir16.DDL, 0f }, { Dir16.DL, 0f }, { Dir16.DLL, 0f },
             { Dir16.L, 0f }, { Dir16.ULL, 0f }, { Dir16.UL, 0f }, { Dir16.UUL, 0f }
         };
-        foreach (var pair in Rays.Raycasts)
+        foreach (var entityConsid in EntityConsiderations)
         {
-            var dir = pair.Key;
-            var raycast = pair.Value;
-            var castLength = raycast.TargetPosition.Length();
-            if (raycast.IsColliding())
+            var entityConsidVec = entityConsid.GetConsiderationVector(_bb);
+            foreach (var dir in Global.GetEnumValues<Dir16>())
             {
-                var rayCollision = raycast.GetCollider() as CollisionObject3D;
-                if (rayCollision == ParentAgent) { continue; } //TODO: better fix
-                
-
-                //GD.Print($"Raycast colliding with {rayCollision.Name} @ dir {dir}!" +
-                //    $"\n\tColl layer val: {rayCollision.CollisionLayer}" +
-                //    $"\n\tColl Dist: {collDist}, weight: {distWeight}");
-                foreach (var navLayer in NavLayerMap)
-                {
-                    if (rayCollision.GetCollisionLayerValue((int)navLayer.Value))
-                    {
-                        var collDist = (raycast.GetCollisionPoint() - raycast.GlobalPosition).Length();
-                        // the closer the collision is to the raycast, the higher the "danger" weight
-                        // at max dist, weight is 0. TODO: change s.t. it's not zero, just lower (i.e. 0.1)
-                        // at dist 0, weight is 1.0. TODO: change s.t. weight being 0 occurs not only at dist 0, since that is impossible and too late
-                        //var distWeight = 1f - (collisionDist / castLength); 
-                        var minWeight = 0.1f;
-                        var k = 2.5f;
-                        var distDropThresh = NavDistThresh[navLayer.Key];//1.5f; 
-                        float distWeight;
-                        if (collDist <= distDropThresh)
-                        {
-                            distWeight = 1.0f;  // Ensure max weight
-                        }
-                        else
-                        {
-                            distWeight = minWeight + (1.0f - minWeight) * (float)Math.Exp(-k * (collDist - distDropThresh) / (castLength - distDropThresh));
-                        }
-                        //GD.Print($"Raycast found danger {navLayer.Key} @ dir {dir}!");
-                        //var spatialAwarenessMod = SpatialAwarenessWeights[dir.GetAIFacing(_moveComp.GetFaceDirection())];
-                        var dangerAmt = NavWeights[navLayer.Key] * distWeight;
-                            //* spatialAwarenessMod;
-
-                        dangerVector[dir] += dangerAmt;
-
-                        //PROPOGATE DANGER OUT
-                        var propogateNum = 3;
-                        var propLDir = dir;
-                        var propRDir = dir;
-                        var weightDrop = 0.75f;
-                        var propWeight = 0.5f;
-                        while (propogateNum > 0)
-                        {
-                            propLDir = propLDir.GetLeftDir();
-                            propRDir = propRDir.GetRightDir();
-                            dangerVector[propLDir] += dangerAmt * propWeight;
-                            dangerVector[propRDir] += dangerAmt * propWeight;
-
-                            propWeight *= weightDrop;
-                            propogateNum--;
-                        }
-
-
-                        // add danger to any danger dir in a 45 degree sweep
-                        //TODO: to increase performance, static these comparisons for quicker calcs
-                        //foreach (var dir8 in dangerVector.Keys)
-                        //{
-                            //var angle = Mathf.Abs(dir8.GetVector2().GetAngleToVector(dir.GetVector2()));
-                            //var dangerAngle = 30f;
-                            //if (angle <= dangerAngle)
-                            //{
-                            //    // base is 0.5, max is 1
-                            //    var angleDangerMod = 1.0f - ((angle / 2) / dangerAngle);
-                            //    //GD.Print($"{dir8} danger amt for cast {dir}: {NavWeights[navLayer.Key]} * {distWeight} " +
-                            //    //    $"* {spatialAwarenessMod} * {angleDangerMod}");
-                            //    dangerVector[dir8] += dangerAmt * angleDangerMod;
-                            //}
-                        //}
-                        
-                    }
-                }
+                dangerVector[dir] += entityConsidVec[dir];
             }
         }
+        //foreach (var pair in Rays.Raycasts)
+        //{
+        //    var dir = pair.Key;
+        //    var raycast = pair.Value;
+        //    var castLength = raycast.TargetPosition.Length();
+        //    if (raycast.IsColliding())
+        //    {
+        //        var rayCollision = raycast.GetCollider() as CollisionObject3D;
+        //        if (rayCollision == ParentAgent) { continue; } //TODO: better fix
+
+
+        //        //GD.Print($"Raycast colliding with {rayCollision.Name} @ dir {dir}!" +
+        //        //    $"\n\tColl layer val: {rayCollision.CollisionLayer}" +
+        //        //    $"\n\tColl Dist: {collDist}, weight: {distWeight}");
+        //        foreach (var navLayer in NavLayerMap)
+        //        {
+        //            if (rayCollision.GetCollisionLayerValue((int)navLayer.Value))
+        //            {
+        //                var collDist = (raycast.GetCollisionPoint() - raycast.GlobalPosition).Length();
+        //                // the closer the collision is to the raycast, the higher the "danger" weight
+        //                // at max dist, weight is 0. TODO: change s.t. it's not zero, just lower (i.e. 0.1)
+        //                // at dist 0, weight is 1.0. TODO: change s.t. weight being 0 occurs not only at dist 0, since that is impossible and too late
+        //                //var distWeight = 1f - (collisionDist / castLength); 
+        //                var minWeight = 0.1f;
+        //                var k = 2.5f;
+        //                var distDropThresh = NavDistThresh[navLayer.Key];//1.5f; 
+        //                float distWeight;
+        //                if (collDist <= distDropThresh)
+        //                {
+        //                    distWeight = 1.0f;  // Ensure max weight
+        //                }
+        //                else
+        //                {
+        //                    distWeight = minWeight + (1.0f - minWeight) * (float)Math.Exp(-k * (collDist - distDropThresh) / (castLength - distDropThresh));
+        //                }
+        //                //GD.Print($"Raycast found danger {navLayer.Key} @ dir {dir}!");
+        //                //var spatialAwarenessMod = SpatialAwarenessWeights[dir.GetAIFacing(_moveComp.GetFaceDirection())];
+        //                var dangerAmt = NavWeights[navLayer.Key] * distWeight;
+        //                    //* spatialAwarenessMod;
+
+        //                dangerVector[dir] += dangerAmt;
+
+        //                //PROPOGATE DANGER OUT
+        //                var propogateNum = 3;
+        //                var propLDir = dir;
+        //                var propRDir = dir;
+        //                var weightDrop = 0.75f;
+        //                var propWeight = 0.5f;
+        //                while (propogateNum > 0)
+        //                {
+        //                    propLDir = propLDir.GetLeftDir();
+        //                    propRDir = propRDir.GetRightDir();
+        //                    dangerVector[propLDir] += dangerAmt * propWeight;
+        //                    dangerVector[propRDir] += dangerAmt * propWeight;
+
+        //                    propWeight *= weightDrop;
+        //                    propogateNum--;
+        //                }
+
+
+        //                // add danger to any danger dir in a 45 degree sweep
+        //                //TODO: to increase performance, static these comparisons for quicker calcs
+        //                //foreach (var dir8 in dangerVector.Keys)
+        //                //{
+        //                    //var angle = Mathf.Abs(dir8.GetVector2().GetAngleToVector(dir.GetVector2()));
+        //                    //var dangerAngle = 30f;
+        //                    //if (angle <= dangerAngle)
+        //                    //{
+        //                    //    // base is 0.5, max is 1
+        //                    //    var angleDangerMod = 1.0f - ((angle / 2) / dangerAngle);
+        //                    //    //GD.Print($"{dir8} danger amt for cast {dir}: {NavWeights[navLayer.Key]} * {distWeight} " +
+        //                    //    //    $"* {spatialAwarenessMod} * {angleDangerMod}");
+        //                    //    dangerVector[dir8] += dangerAmt * angleDangerMod;
+        //                    //}
+        //                //}
+
+        //            }
+        //        }
+        //    }
+        //}
 
         return dangerVector;
     }
