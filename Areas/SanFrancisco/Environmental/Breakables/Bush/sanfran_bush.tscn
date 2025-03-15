@@ -1,0 +1,84 @@
+[gd_scene load_steps=15 format=3 uid="uid://my6dv11l4sdy"]
+
+[ext_resource type="Script" path="res://Areas/SanFrancisco/Environmental/Breakables/Bush/SanfranBush.cs" id="1_77rrn"]
+[ext_resource type="Script" path="res://BaseComponents/Sprite3DComponent.cs" id="1_uy5rd"]
+[ext_resource type="Texture2D" uid="uid://dbihmscpk0st" path="res://Areas/SanFrancisco/Environmental/Breakables/Bush/03/breakable_foliage_bush_small03.png" id="2_4rv2m"]
+[ext_resource type="Script" path="res://BaseComponents/Breakable3DComponent.cs" id="2_wp0j1"]
+[ext_resource type="Script" path="res://BaseResources/StaticShake3DOnDamageStrategy.cs" id="3_l77lo"]
+[ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="5_r64y3"]
+[ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="6_ht1a3"]
+[ext_resource type="PackedScene" uid="uid://cv2nfrot6qhcb" path="res://Areas/SanFrancisco/Environmental/Breakables/breakable_piece.tscn" id="6_khden"]
+[ext_resource type="Script" path="res://BaseResources/PiecesOnDestroy.cs" id="7_2v88w"]
+[ext_resource type="Script" path="res://JmoAI/Blackboard/Blackboard.cs" id="7_kff7w"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_s5st8"]
+radius = 0.25
+
+[sub_resource type="Resource" id="Resource_kteul"]
+script = ExtResource("3_l77lo")
+ShakeDist = 0.5
+ShakeCycles = 2
+PerShakeTime = 0.05
+ShakeY = false
+TweenEase = 2
+TweenTransition = 6
+
+[sub_resource type="Resource" id="Resource_u2u6u"]
+script = ExtResource("7_2v88w")
+PieceScene = ExtResource("6_khden")
+PieceTextures = PackedStringArray("res://Areas/SanFrancisco/Environmental/Breakables/Bush/02/breakable_foliage_bush_particles_onbreak02_01.png", "res://Areas/SanFrancisco/Environmental/Breakables/Bush/02/breakable_foliage_bush_particles_onbreak02_02.png", "res://Areas/SanFrancisco/Environmental/Breakables/Bush/02/breakable_foliage_bush_particles_onbreak02_03.png", "res://Areas/SanFrancisco/Environmental/Breakables/Bush/02/breakable_foliage_bush_particles_onbreak02_04.png")
+PieceSpawnRange = Vector2i(2, 4)
+PieceFadeTime = 2.5
+PieceFadeDelay = 2.5
+PieceForceRange = Vector2(10, 25)
+PieceForceRandRange = Vector2(0.5, 0.75)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ifptx"]
+
+[node name="Bush" type="StaticBody3D"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0)
+collision_layer = 4
+collision_mask = 91
+script = ExtResource("1_77rrn")
+BushColor = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.134213, 0.28, 0.0272005)
+shape = SubResource("SphereShape3D_s5st8")
+
+[node name="VisualParent" type="Node3D" parent="."]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
+
+[node name="Sprite3DComponent" type="Sprite3D" parent="VisualParent"]
+offset = Vector2(0, 8)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("2_4rv2m")
+script = ExtResource("1_uy5rd")
+
+[node name="Breakable3DComponent" type="Node3D" parent="." node_paths=PackedStringArray("Visuals", "BB", "HealthComp", "HurtboxComp")]
+script = ExtResource("2_wp0j1")
+Visuals = NodePath("../VisualParent")
+BB = NodePath("../Blackboard")
+HealthComp = NodePath("../HealthComponent")
+HurtboxComp = NodePath("../HurtboxComponent3D")
+OnDamageStrategy = SubResource("Resource_kteul")
+OnDestroyStrategy = SubResource("Resource_u2u6u")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("5_r64y3")
+MaxHealth = 1.0
+
+[node name="HurtboxComponent3D" type="Area3D" parent="." node_paths=PackedStringArray("HealthComponent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24, 0)
+collision_layer = 4
+collision_mask = 81
+script = ExtResource("6_ht1a3")
+HealthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64, 0)
+shape = SubResource("SphereShape3D_ifptx")
+
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource("7_kff7w")

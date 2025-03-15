@@ -1,32 +1,32 @@
 [gd_scene load_steps=6 format=4 uid="uid://cpwrfkitw8jy3"]
 
-[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_a5my0"]
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_ynu7y"]
 _data = PackedByteArray("AAADAAUAAAABAAAAYAAAACAAAACYAAAAUklGRpAAAABXRUJQVlA4TIQAAAAvX8AHEC8QEWQBpsl57A0ghBAKbjowim07TchBDZCB4L6ooPn+vQTLuInovwK3bZTxDkevQD8lynFstoRysACTJulINFnFEGAqNDkA6AYtjltChEUciAWHU4qkTYZRzjEYkgnEkDiyMG6yGHgcB42ghQDZ9iK/3Kxd3vza+r5vMFfXgAg=")
 size_override = Vector2(96, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_digf6"]
-atlas = SubResource("PortableCompressedTexture2D_a5my0")
+[sub_resource type="AtlasTexture" id="AtlasTexture_qy1t1"]
+atlas = SubResource("PortableCompressedTexture2D_ynu7y")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jy307"]
-atlas = SubResource("PortableCompressedTexture2D_a5my0")
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbh8l"]
+atlas = SubResource("PortableCompressedTexture2D_ynu7y")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vopse"]
-atlas = SubResource("PortableCompressedTexture2D_a5my0")
+[sub_resource type="AtlasTexture" id="AtlasTexture_87mcm"]
+atlas = SubResource("PortableCompressedTexture2D_ynu7y")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_g1rme"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_stepy"]
 animations = [{
 "frames": [{
 "duration": 0.1,
-"texture": SubResource("AtlasTexture_digf6")
+"texture": SubResource("AtlasTexture_qy1t1")
 }, {
 "duration": 0.1,
-"texture": SubResource("AtlasTexture_jy307")
+"texture": SubResource("AtlasTexture_kbh8l")
 }, {
 "duration": 0.1,
-"texture": SubResource("AtlasTexture_vopse")
+"texture": SubResource("AtlasTexture_87mcm")
 }],
 "loop": true,
 "name": &"default",
@@ -35,4 +35,4 @@ animations = [{
 
 [node name="shadow_rambucho_med" type="AnimatedSprite3D"]
 texture_filter = 0
-sprite_frames = SubResource("SpriteFrames_g1rme")
+sprite_frames = SubResource("SpriteFrames_stepy")

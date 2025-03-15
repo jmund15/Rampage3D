@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dhr1cyrw2bckn" path="res://Areas/All/Buildings/Complete/2x4x2_roof_reference.tscn" id="9_jtpy1"]
 [ext_resource type="PackedScene" uid="uid://bb5q626ca8fac" path="res://Areas/All/Buildings/Complete/1x1x6_base_reference.tscn" id="10_rwa2k"]
 [ext_resource type="PackedScene" uid="uid://ch47oeiqubnrc" path="res://Areas/SanFrancisco/CityFloor/Complete/sanfrancisco_floor.tscn" id="11_5csb4"]
-[ext_resource type="PackedScene" uid="uid://d0r2ifk2ncdk5" path="res://Areas/SanFrancisco/Environmental/Breakables/Tree/sanfran_tree.tscn" id="12_53xjy"]
+[ext_resource type="PackedScene" uid="uid://my6dv11l4sdy" path="res://Areas/SanFrancisco/Environmental/Breakables/Bush/sanfran_bush.tscn" id="12_b5ljr"]
 [ext_resource type="Texture2D" uid="uid://jnpro4t0hqig" path="res://Areas/SanFrancisco/CityFloor/Textures/floor_sanfrancisco_background.png" id="13_br338"]
 [ext_resource type="PackedScene" uid="uid://biya3bal2bv5q" path="res://Areas/All/Buildings/Complete/1x1x2_roof_reference.tscn" id="13_yh2gs"]
 
@@ -2667,8 +2667,10 @@ _floorPropHint = "32x_base_coittower_bot.png,32x_base_coittower_mid01.png,32x_ba
 [node name="Breakables" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
-[node name="Tree" parent="Breakables" instance=ExtResource("12_53xjy")]
-transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -6, 1.82, 5)
+[node name="Bush" parent="Breakables" instance=ExtResource("12_b5ljr")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -5.77554, 0, 6.11252)
+BushSize = 2
+BushColor = 1
 
 [node name="Environment" type="Node3D" parent="."]
 

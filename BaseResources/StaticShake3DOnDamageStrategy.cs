@@ -60,5 +60,21 @@ public partial class StaticShake3DOnDamageStrategy : BreakableOnDamageStrategy
             shakeTween.Parallel().TweenProperty(shakeable3D, "position:y",
                 shakeable3D.Position.Y, PerShakeTime).SetEase(TweenEase).SetTrans(TweenTransition);
         }
+
+        /*
+        var scaleMult = damage * 0.5f;
+        var posMult = ((damage + 0.2f) / 2f) * 10f;
+
+        var scaleShift = scaleMult * hitDirection;
+        var posShift = posMult * hitDirection;
+        //WIGGLE
+        foreach (var shakeNode in _nodesToShakeOnDamage)
+        {
+            var scaleTween = CreateTween();
+            scaleTween.TweenProperty(shakeNode, "scale", shakeNode.Scale - scaleShift, 0.1f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+            scaleTween.TweenProperty(shakeNode, "scale", shakeNode.Scale + (scaleShift / 2), 0.1f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+            scaleTween.TweenProperty(shakeNode, "scale", shakeNode.Scale, 0.1f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Elastic);
+        } 
+        */
     }
 }
