@@ -63,6 +63,7 @@ sattack_test={
 3d_physics/layer_5="vehicle"
 3d_physics/layer_6="floor"
 3d_physics/layer_7="military"
+3d_physics/layer_8="rubble"
 
 [physics]
 
