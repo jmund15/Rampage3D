@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://clgcu1ltgh53j"]
+
+[ext_resource type="Script" path="res://BaseComponents/Breakable3DComponent.cs" id="1_feoo1"]
+[ext_resource type="Script" path="res://JmoAI/Blackboard/Blackboard.cs" id="2_owra8"]
+[ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="3_54i5t"]
+[ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="4_ngkdo"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ybllm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_muwxq"]
+
+[node name="RigidBody3D" type="RigidBody3D"]
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_ybllm")
+
+[node name="Breakable3DComponent" type="Node3D" parent="." node_paths=PackedStringArray("Visuals", "BB", "HealthComp", "HurtboxComp")]
+script = ExtResource("1_feoo1")
+Visuals = NodePath("../Visuals")
+BB = NodePath("../Blackboard")
+HealthComp = NodePath("../HealthComponent")
+HurtboxComp = NodePath("../HurtboxComponent3D")
+
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource("2_owra8")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_54i5t")
+
+[node name="HurtboxComponent3D" type="Area3D" parent="."]
+script = ExtResource("4_ngkdo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent3D"]
+shape = SubResource("CapsuleShape3D_muwxq")

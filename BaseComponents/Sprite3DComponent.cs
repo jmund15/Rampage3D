@@ -9,24 +9,32 @@ public partial class Sprite3DComponent : Sprite3D, ISpriteComponent
 
 	public override void _Ready()
 	{
-		if (Texture is AtlasTexture atlasText)
-		{
-			SpriteHeight = atlasText.Region.Size.Y * PixelSize * Scale.Y;
+        TextureChanged += OnTextureChanged;
+        TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest;
+        OnTextureChanged();
+		//GD.Print("SpriteOrthogComp Sprite Height: ", SpriteHeight);
+	}
+    public override void _Process(double delta)
+	{
+	}
+    private void OnTextureChanged()
+    {
+        if (Texture is AtlasTexture atlasText)
+        {
+            SpriteHeight = atlasText.Region.Size.Y * PixelSize * Scale.Y;
             SpriteWidth = atlasText.Region.Size.X * PixelSize * Scale.X;
         }
-		else
-		{
+        else if (Texture is CompressedTexture2D compText)
+        {
+            SpriteHeight = compText.GetSize().Y * PixelSize * Scale.Y;
+            SpriteWidth = compText.GetSize().X * PixelSize * Scale.X;
+        }
+        else
+        {
             SpriteHeight = RegionRect.Size.Y * PixelSize * Scale.Y;
             SpriteWidth = RegionRect.Size.X * PixelSize * Scale.X;
         }
-		//GD.Print("SpriteOrthogComp Sprite Height: ", SpriteHeight);
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
+    }
     public float GetSpriteHeight()
     {
         return SpriteHeight;
