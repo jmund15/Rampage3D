@@ -37,7 +37,7 @@ static func modify_context(
 	#var packed_scene = PackedScene.new()
 	#packed_scene.pack(animated_sprite_2d)
 	#context.resource = packed_scene
-	var sprite: Sprite3D = (context.resource as PackedScene).instantiate() as Sprite3D
+	var sprite: Sprite3DComponent = (context.resource as PackedScene).instantiate() as Sprite3DComponent
 	#sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	var parent = MultiAnimPlayerComponent.new()
