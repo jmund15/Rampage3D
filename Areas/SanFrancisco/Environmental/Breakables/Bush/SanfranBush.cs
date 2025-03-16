@@ -51,7 +51,7 @@ public partial class SanfranBush : StaticBody3D
 		{
 			if (_bushComp == value) { return; }
 			_bushComp = value;
-			SetBushTexture();
+			SetTexture();
 		}
 	}
 
@@ -101,7 +101,7 @@ public partial class SanfranBush : StaticBody3D
 				return;
 		}
 		BushComp = new Vector2I(BushSize, BushColor);
-		SetBushTexture();
+		SetTexture();
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -109,15 +109,40 @@ public partial class SanfranBush : StaticBody3D
 	{
 	}
 
-	public void SetBushTexture()
+	public void SetTexture()
 	{
 		if (_sprite == null) { return; }
-		if (_breakableComp.OnDestroyStrategy is not PiecesOnDestroy pod) { return; }
+
+		PiecesOnDamage poDamage = null;
+        PiecesBaseOnDestroy poDestroy = null;
+        foreach (var damageStrat in _breakableComp.OnDamageStrategies)
+		{
+			if (damageStrat is PiecesOnDamage podStrat)
+			{
+                poDamage = podStrat;
+				break;
+			}
+		}
+        foreach (var destroyStrat in _breakableComp.OnDestroyStrategies)
+        {
+            if (destroyStrat is PiecesBaseOnDestroy podStrat)
+            {
+                poDestroy = podStrat;
+                break;
+            }
+        }
 
         _sprite.Texture.ResourceLocalToScene = true;
         var bushText = ResourceLoader.Load<CompressedTexture2D>(_bushTextureMap[BushComp]);
 		_sprite.Texture = bushText;
 
-		pod.PieceTextures = _bushPieceMap[BushColor];
+		if (poDamage != null)
+		{
+			poDamage.PieceTextures = _bushPieceMap[BushColor];
+		}
+		if (poDestroy != null)
+		{
+            poDestroy.PieceTextures = _bushPieceMap[BushColor];
+        }
     }
 }

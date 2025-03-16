@@ -16,9 +16,9 @@ public partial class Breakable3DComponent : Node3D
 	[Export]
 	public HurtboxComponent3D HurtboxComp { get; set; }
 	[Export]
-	public BreakableOnDamageStrategy OnDamageStrategy { get; set; }
+	public Godot.Collections.Array<BreakableOnDamageStrategy> OnDamageStrategies { get; set; }
 	[Export]
-	public BreakableOnDestroyStrategy OnDestroyStrategy { get; set; }
+	public Godot.Collections.Array<BreakableOnDestroyStrategy> OnDestroyStrategies { get; set; }
 	#endregion
 	#region COMPONENT_UPDATES
 	public override void _Ready()
@@ -30,10 +30,16 @@ public partial class Breakable3DComponent : Node3D
 		BB.SetVar(BBDataSig.HealthComp, HealthComp);
 		BB.SetVar(BBDataSig.HurtboxComp, HurtboxComp);
 
-		OnDamageStrategy.BB = BB;
-		OnDamageStrategy.Breakable = this;
-		OnDestroyStrategy.BB = BB;
-		OnDestroyStrategy.Breakable = this;
+		foreach (var damageStrat in OnDamageStrategies)
+		{
+            damageStrat.BB = BB;
+            damageStrat.Breakable = this;
+        }
+        foreach (var destroyStrat in OnDestroyStrategies)
+        {
+            destroyStrat.BB = BB;
+            destroyStrat.Breakable = this;
+        }
 
 		HealthComp.Damaged += OnDamaged;
         HealthComp.Destroyed += OnDestroyed;
@@ -52,17 +58,21 @@ public partial class Breakable3DComponent : Node3D
     #region SIGNAL_LISTENERS
     private void OnDamaged(object sender, HealthUpdate e)
     {
-        //BB.SetVar(BBDataSig.)
-        GD.Print("ON DAMAGED BREAKABLE");
         if (HealthComp.IsDead) { return; }
-        OnDamageStrategy.Damage();
+        foreach (var damageStrat in OnDamageStrategies)
+        {
+            damageStrat.Damage();
+        }
     }
     private void OnDestroyed(HealthUpdate destroyUpdate)
     {
         //BB.SetVar(BBDataSig.)
         HurtboxComp.SetDeferred(Area3D.PropertyName.Monitorable, false);
         HurtboxComp.SetDeferred(Area3D.PropertyName.Monitoring, false);
-        OnDestroyStrategy.Destroy();
+        foreach (var destroyStrat in OnDestroyStrategies)
+        {
+            destroyStrat.Destroy();
+        }
     }
     #endregion
     #region HELPER_CLASSES

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://my6dv11l4sdy"]
+[gd_scene load_steps=19 format=3 uid="uid://my6dv11l4sdy"]
 
 [ext_resource type="Script" path="res://Areas/SanFrancisco/Environmental/Breakables/Bush/SanfranBush.cs" id="1_77rrn"]
 [ext_resource type="Script" path="res://BaseComponents/Sprite3DComponent.cs" id="1_uy5rd"]
@@ -6,31 +6,48 @@
 [ext_resource type="Script" path="res://BaseComponents/Breakable3DComponent.cs" id="2_wp0j1"]
 [ext_resource type="Script" path="res://BaseResources/StaticShake3DOnDamageStrategy.cs" id="3_l77lo"]
 [ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="5_r64y3"]
+[ext_resource type="Script" path="res://BaseResources/PiecesOnDamage.cs" id="6_03t7p"]
 [ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="6_ht1a3"]
 [ext_resource type="PackedScene" uid="uid://cv2nfrot6qhcb" path="res://Areas/SanFrancisco/Environmental/Breakables/breakable_piece.tscn" id="6_khden"]
-[ext_resource type="Script" path="res://BaseResources/PiecesOnDestroy.cs" id="7_2v88w"]
 [ext_resource type="Script" path="res://JmoAI/Blackboard/Blackboard.cs" id="7_kff7w"]
+[ext_resource type="Script" path="res://BaseResources/PiecesRndOnDestroy.cs" id="8_kugop"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_s5st8"]
 radius = 0.25
 
-[sub_resource type="Resource" id="Resource_kteul"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6qgf6"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7dtat"]
+radius = 0.04
+height = 0.1
+
+[sub_resource type="Resource" id="Resource_o3763"]
+script = ExtResource("6_03t7p")
+PieceScene = ExtResource("6_khden")
+PieceTextures = PackedStringArray("res://Areas/SanFrancisco/Environmental/Breakables/Bush/01/breakable_foliage_bush_particles_onbreak01_01.png", "res://Areas/SanFrancisco/Environmental/Breakables/Bush/01/breakable_foliage_bush_particles_onbreak01_02.png", "res://Areas/SanFrancisco/Environmental/Breakables/Bush/01/breakable_foliage_bush_particles_onbreak01_03.png", "res://Areas/SanFrancisco/Environmental/Breakables/Bush/01/breakable_foliage_bush_particles_onbreak01_04.png")
+PieceSpawnRange = Vector2i(1, 3)
+PieceFadeTime = 2.5
+PieceFadeDelay = 2.5
+PieceForceRange = Vector2(10, 20)
+PieceForceRandRange = Vector2(0.5, 0.75)
+
+[sub_resource type="Resource" id="Resource_c2sax"]
 script = ExtResource("3_l77lo")
-ShakeDist = 0.5
+ShakeDist = 0.25
 ShakeCycles = 2
 PerShakeTime = 0.05
 ShakeY = false
 TweenEase = 2
 TweenTransition = 6
 
-[sub_resource type="Resource" id="Resource_u2u6u"]
-script = ExtResource("7_2v88w")
+[sub_resource type="Resource" id="Resource_ueudw"]
+script = ExtResource("8_kugop")
+PieceSpawnRange = Vector2i(4, 8)
 PieceScene = ExtResource("6_khden")
-PieceTextures = PackedStringArray("res://Areas/SanFrancisco/Environmental/Breakables/Bush/02/breakable_foliage_bush_particles_onbreak02_01.png", "res://Areas/SanFrancisco/Environmental/Breakables/Bush/02/breakable_foliage_bush_particles_onbreak02_02.png", "res://Areas/SanFrancisco/Environmental/Breakables/Bush/02/breakable_foliage_bush_particles_onbreak02_03.png", "res://Areas/SanFrancisco/Environmental/Breakables/Bush/02/breakable_foliage_bush_particles_onbreak02_04.png")
-PieceSpawnRange = Vector2i(2, 4)
+PieceTextures = PackedStringArray("res://Areas/SanFrancisco/Environmental/Breakables/Bush/01/breakable_foliage_bush_particles_onbreak01_01.png", "res://Areas/SanFrancisco/Environmental/Breakables/Bush/01/breakable_foliage_bush_particles_onbreak01_02.png", "res://Areas/SanFrancisco/Environmental/Breakables/Bush/01/breakable_foliage_bush_particles_onbreak01_03.png", "res://Areas/SanFrancisco/Environmental/Breakables/Bush/01/breakable_foliage_bush_particles_onbreak01_04.png")
 PieceFadeTime = 2.5
 PieceFadeDelay = 2.5
-PieceForceRange = Vector2(10, 25)
+PieceForceRange = Vector2(15, 30)
 PieceForceRandRange = Vector2(0.5, 0.75)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ifptx"]
@@ -56,14 +73,21 @@ texture_filter = 0
 texture = ExtResource("2_4rv2m")
 script = ExtResource("1_uy5rd")
 
+[node name="ShadowMesh" type="MeshInstance3D" parent="VisualParent"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.0311843, 0)
+material_override = SubResource("StandardMaterial3D_6qgf6")
+cast_shadow = 3
+gi_mode = 2
+mesh = SubResource("CapsuleMesh_7dtat")
+
 [node name="Breakable3DComponent" type="Node3D" parent="." node_paths=PackedStringArray("Visuals", "BB", "HealthComp", "HurtboxComp")]
 script = ExtResource("2_wp0j1")
 Visuals = NodePath("../VisualParent")
 BB = NodePath("../Blackboard")
 HealthComp = NodePath("../HealthComponent")
 HurtboxComp = NodePath("../HurtboxComponent3D")
-OnDamageStrategy = SubResource("Resource_kteul")
-OnDestroyStrategy = SubResource("Resource_u2u6u")
+OnDamageStrategies = Array[Object]([SubResource("Resource_o3763"), SubResource("Resource_c2sax")])
+OnDestroyStrategies = Array[Object]([SubResource("Resource_ueudw")])
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("5_r64y3")

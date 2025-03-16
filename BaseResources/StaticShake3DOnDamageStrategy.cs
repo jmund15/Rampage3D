@@ -22,7 +22,8 @@ public partial class StaticShake3DOnDamageStrategy : BreakableOnDamageStrategy
     }
     public override void Damage()
     {
-        if (Breakable is not Node3D shakeable3D)
+        var visuals = BB.GetVar<Node3D>(BBDataSig.Sprite);
+        if (visuals is not Node3D shakeable3D)
         {
             throw new Exception("Breakable OnDamage ERROR || Breakable is not Node3D!");
         }
