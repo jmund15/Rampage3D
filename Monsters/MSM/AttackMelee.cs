@@ -22,6 +22,8 @@ public partial class AttackMelee : BehaviorAction
 
     protected Shape3D PrevHitboxShape;
     protected Vector3 PrevHitboxLocation;
+
+    private bool _canQueue;
     #endregion
     #region TASK_UPDATES
     public override void Init(Node agent, IBlackboard bb)
@@ -83,6 +85,23 @@ public partial class AttackMelee : BehaviorAction
                 AttackInfo.BuildingEffect
         );
 
+        //if (AttackInfo.QueueTime < 0)
+        //{
+        //    _canQueue = false;
+        //}
+        //else if (AttackInfo.QueueTime > 0)
+        //{
+        //    GetTree().CreateTimer(AttackInfo.QueueTime).Timeout += () =>
+        //    {
+        //        _canQueue = true;
+        //    };
+        //}
+        //else
+        //{
+        //    _canQueue = true;
+        //}
+
+
         //TODO: REPLACE WITH ANIM
         HitboxComp.HitboxActivate();
     }
@@ -104,6 +123,11 @@ public partial class AttackMelee : BehaviorAction
     {
         base.ProcessFrame(delta);
         InputDir = MoveComp.GetDesiredDirection();
+
+        //if (_canQueue && MoveComp.WantsAttack())
+        //{
+        //    BB.SetPrimVar(BBDataSig.QueuedNextAttack, true);
+        //}
     }
     public override void ProcessPhysics(float delta)
     {

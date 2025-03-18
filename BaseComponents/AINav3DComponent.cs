@@ -329,9 +329,10 @@ public partial class AINav3DComponent : NavigationAgent3D
             {
                 if (_eightToOrthogMap[dir]) // add neighboring dir weights for better orthog weighted movement
                 {
-                    //var neighborDirs = dir.GetNeighboringDirs();
-                    //DirectionWeights[dir] += DirectionWeights[neighborDirs.Item1] * 0.5f;
-                    //DirectionWeights[dir] += DirectionWeights[neighborDirs.Item2] * 0.5f;
+                    var orthogAddWeight = 0.5f;
+                    var orthogNeighbors = dir.GetNeighboringDirs();
+                    DirectionWeights[dir] += DirectionWeights[orthogNeighbors.Item1] * orthogAddWeight;
+                    DirectionWeights[dir] += DirectionWeights[orthogNeighbors.Item2] * orthogAddWeight;
                 }
                 else
                 {
@@ -360,7 +361,7 @@ public partial class AINav3DComponent : NavigationAgent3D
     }
     protected virtual Dictionary<Dir16, float> GetConsiderationVector()
     {
-        var dangerVector = new Dictionary<Dir16, float>()
+        var considerationVec = new Dictionary<Dir16, float>()
         {
             { Dir16.U, 0f }, { Dir16.UUR, 0f }, { Dir16.UR, 0f }, { Dir16.URR, 0f },
             { Dir16.R, 0f }, { Dir16.DRR, 0f }, { Dir16.DR, 0f }, { Dir16.DDR, 0f },
@@ -372,7 +373,7 @@ public partial class AINav3DComponent : NavigationAgent3D
             var entityConsidVec = entityConsid.GetConsiderationVector(_bb);
             foreach (var dir in Global.GetEnumValues<Dir16>())
             {
-                dangerVector[dir] += entityConsidVec[dir];
+                considerationVec[dir] += entityConsidVec[dir];
             }
         }
         //foreach (var pair in Rays.Raycasts)
@@ -456,7 +457,7 @@ public partial class AINav3DComponent : NavigationAgent3D
         //    }
         //}
 
-        return dangerVector;
+        return considerationVec;
     }
     protected virtual Dictionary<Dir8, float> GetInterestVector()
     {

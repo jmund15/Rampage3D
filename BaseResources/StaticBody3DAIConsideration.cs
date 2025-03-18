@@ -10,7 +10,13 @@ public partial class StaticBody3DAIConsideration : AIEntityConsideration
     [Export]
     private int _collLayer;
     [Export]
-    private float _distThresh;
+    private Vector2 _distDiminishRange;
+    [Export]
+    private int _dirsToPropogate = 2;
+    [Export]
+    private float _initPropWeight = 0.75f;
+    [Export]
+    private float _propDiminishWeight = 0.5f;
 
     private AINav3DComponent _aiNav;
     public StaticBody3DAIConsideration()
@@ -22,6 +28,11 @@ public partial class StaticBody3DAIConsideration : AIEntityConsideration
         BB = bb;
         _aiNav = BB.GetVar<AINav3DComponent>(BBDataSig.AINavComp);
         var considerVec = new Dictionary<Dir16, float>();
+        foreach (var dir in Global.GetEnumValues<Dir16>())
+        {
+            considerVec.Add(dir, 0f);
+        }
+
         foreach (var pair in _aiNav.Rays.Raycasts)
         {
             var dir = pair.Key;
@@ -36,6 +47,7 @@ public partial class StaticBody3DAIConsideration : AIEntityConsideration
             if (!rayCollision.GetCollisionLayerValue(_collLayer)) { continue; }
             
             var distWeight = GetDistanceConsideration(raycast);
+            //GD.Print($"{dir} dist weight: {distWeight}");
             //GD.Print($"Raycast found danger {navLayer.Key} @ dir {dir}!");
             //var spatialAwarenessMod = SpatialAwarenessWeights[dir.GetAIFacing(_moveComp.GetFaceDirection())];
             var dangerAmt = Consideration * distWeight;
@@ -56,38 +68,44 @@ public partial class StaticBody3DAIConsideration : AIEntityConsideration
         var minWeight = 0.1f;
         var k = 2.5f;
         float distWeight;
-        if (collDist <= _distThresh)
+        if (collDist <= _distDiminishRange.X)
         {
             distWeight = 1.0f;  // Ensure max weight
         }
         else
         {
             distWeight = minWeight + (1.0f - minWeight) *
-                (float)Math.Exp(-k * (collDist - _distThresh) / (castLength - _distThresh));
+                (float)Math.Exp(-k * (collDist - _distDiminishRange.X) / (_distDiminishRange.Y/*castLength*/ - _distDiminishRange.X));
         }
         return distWeight;
     }
 
     public Dictionary<Dir16, float> PropogateConsiderations(Dictionary<Dir16, float> considerations)
     {
-        foreach (var consid in considerations)
+        var preConsiderations = new Dictionary<Dir16, float>(considerations);
+        foreach (var preConsid in preConsiderations)
         {
-            var dir = consid.Key;
-            var dangerAmt = consid.Value;
+            var dir = preConsid.Key;
+            var dangerAmt = preConsid.Value;
+            if (dangerAmt == 0.0f)
+            {
+                continue;
+            }
             //PROPOGATE DANGER OUT
-            var propogateNum = 3;
+            var propogateNum = _dirsToPropogate;
             var propLDir = dir;
             var propRDir = dir;
-            var weightDrop = 0.75f;
-            var propWeight = 0.5f;
+            var propWeight = _initPropWeight;
             while (propogateNum > 0)
             {
                 propLDir = propLDir.GetLeftDir();
                 propRDir = propRDir.GetRightDir();
                 considerations[propLDir] += dangerAmt * propWeight;
                 considerations[propRDir] += dangerAmt * propWeight;
+                //GD.Print($"orig dir: {dir}; left dir: {propLDir}; right dir: {propRDir}; tbmb: {propWeight}" +
+                //    $"\norig left: {preConsiderations[propLDir]}; new left: {considerations[propLDir]}");
 
-                propWeight *= weightDrop;
+                propWeight *= _propDiminishWeight;
                 propogateNum--;
             }
         }

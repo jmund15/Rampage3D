@@ -47,12 +47,12 @@ public partial class BehaviorTask : Node
             condition.Init(agent, bb);
             TaskName += condition.ConditionName;
         }
-        
+        //GD.Print("INIT TASK: ", TaskName);
     }
     public virtual void Enter()
     {
-        //Status = TaskStatus.FRESH;
-        Status = TaskStatus.RUNNING;
+        Status = TaskStatus.FRESH;
+        //Status = TaskStatus.RUNNING;
         //TODO: make sure is ok? currently deferring to allow proper entering and exiting of tasks.
         //But if conditions fail, do you really want them to even enter?
         //Solution could be for enter to return a enum (Enter_success, enter_failure, enter_running)?
@@ -89,8 +89,17 @@ public partial class BehaviorTask : Node
         foreach (var condition in Conditions)
         {
             condition.ExitTaskEvent += OnConditionExit;
+            if (Status != TaskStatus.FRESH)
+            {
+                continue;
+            }
             condition.Enter();
-            GD.Print("entered condition: ", condition.ResourceName);
+            GD.Print("entered condition: ", condition.ConditionName);
+        }
+        if (Status == TaskStatus.FRESH) // if status didn't exit from conditions, change to running
+        {
+            GD.Print("After entering conditions, still at fresh, so running now.");
+            Status = TaskStatus.RUNNING;
         }
     }
     private void ExitConditions()
@@ -113,7 +122,7 @@ public partial class BehaviorTask : Node
         {
             Status = TaskStatus.FAILURE;
         }
-        GD.Print("EXITED TASK DUE TO CONDITION");
+        GD.Print($"EXITED TASK ON {Status} DUE TO CONDITION: {((BTCondition)sender).ConditionName}");
     }
 
     public override string[] _GetConfigurationWarnings()

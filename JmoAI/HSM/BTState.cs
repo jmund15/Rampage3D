@@ -57,6 +57,7 @@ public partial class BTState : State
 	#region STATE_HELPER
 	protected virtual void OnTreeFinishLoop(TaskStatus treeStatus)
 	{
+		GD.Print("TREE FINISHED LOOP!");
 		switch (treeStatus)
 		{
 			case TaskStatus.FAILURE:

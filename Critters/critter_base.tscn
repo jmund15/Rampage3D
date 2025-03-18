@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://JmoAI/HSM/BTState.cs" id="11_slmta"]
 [ext_resource type="Script" path="res://JmoAI/BT/BehaviorTree.cs" id="12_g80jc"]
 [ext_resource type="Script" path="res://JmoAI/BT/Composites/Sequence.cs" id="13_ec5hv"]
-[ext_resource type="Script" path="res://Critters/AISM/Actions/GetRandomNavPoint.cs" id="14_ndph4"]
+[ext_resource type="Script" path="res://Critters/AISM/Actions/SetNavPoint.cs" id="14_xx6wd"]
 [ext_resource type="Script" path="res://Critters/AISM/Actions/TravelToNavPoint.cs" id="15_xxhh0"]
 [ext_resource type="Script" path="res://Critters/AISM/Actions/WaitIdle.cs" id="16_pm0hc"]
 [ext_resource type="Script" path="res://JmoAI/BT/Decorators/TimeLimitRange.cs" id="17_43q6s"]
@@ -27,6 +27,7 @@
 size = Vector3(0.6, 0.6, 0.25)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6for4"]
+radius = 0.2
 
 [sub_resource type="Resource" id="Resource_gx6x8"]
 script = ExtResource("17_43q6s")
@@ -44,7 +45,10 @@ Consideration = -2.0
 [sub_resource type="Resource" id="Resource_38j51"]
 script = ExtResource("20_t5soh")
 _collLayer = 2
-_distThresh = 1.0
+_distDiminishRange = Vector2(0, 0)
+_dirsToPropogate = 2
+_initPropWeight = 0.75
+_propDiminishWeight = 0.5
 Consideration = -1.0
 
 [node name="Critter" type="CharacterBody3D"]
@@ -61,7 +65,7 @@ shape = SubResource("BoxShape3D_sn03u")
 script = ExtResource("3_wj2f5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 shape = SubResource("SphereShape3D_6for4")
 
 [node name="EatableComponent" parent="HurtboxComponent3D" node_paths=PackedStringArray("Body", "_hurtboxComp") instance=ExtResource("4_uq2js")]
@@ -80,6 +84,7 @@ _onNotOnFloorState = NodePath("../Fall")
 
 [node name="Walk" type="Node" parent="CSM" node_paths=PackedStringArray("_onNoInputState")]
 script = ExtResource("7_xudxj")
+_turnAngPerSec = 1.5708
 _onNoInputState = NodePath("../Idle")
 
 [node name="Fall" type="Node" parent="CSM" node_paths=PackedStringArray("_landFloorState")]
@@ -111,8 +116,9 @@ script = ExtResource("12_g80jc")
 [node name="Sequence" type="Node" parent="AISM/NavTestBT/BehaviorTree"]
 script = ExtResource("13_ec5hv")
 
-[node name="GetRandomNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/Sequence"]
-script = ExtResource("14_ndph4")
+[node name="SetNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/Sequence"]
+script = ExtResource("14_xx6wd")
+_navPoint = Vector3(10.515, 0.5, -14)
 
 [node name="TravelToNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/Sequence"]
 script = ExtResource("15_xxhh0")

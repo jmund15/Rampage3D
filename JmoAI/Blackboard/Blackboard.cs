@@ -25,12 +25,12 @@ public enum BBDataSig
     Affinities,
     CombatComp,
     MovementSM,
-    AISM, 
+    AISM,
+    QueuedNextAttack,
     //TargetPosition,
     SelfInteruptible,
     #region ROBBER_SIGS
     RobberBag, RobberEffects,
-    QueuedNextAttack,
     #endregion
     #region RAMPAGE_SIGS
     ClimberComp,

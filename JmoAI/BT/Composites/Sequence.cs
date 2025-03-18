@@ -66,6 +66,9 @@ public partial class Sequence : CompositeTask
 			case TaskStatus.RUNNING:
 				Status = TaskStatus.RUNNING;
                 break;
+			case TaskStatus.FRESH:
+				Status = TaskStatus.RUNNING; //TODO: CONFIRM?
+				break;
 		}
 		
     }

@@ -1,12 +1,34 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgrnqh6ibmvyk"]
+[gd_scene load_steps=7 format=3 uid="uid://bgrnqh6ibmvyk"]
 
 [ext_resource type="PackedScene" uid="uid://cqbbrnjnrh7n2" path="res://Critters/critter_base.tscn" id="1_6vrue"]
 [ext_resource type="PackedScene" uid="uid://72nho6ruyfld" path="res://Critters/test_moose.tscn" id="2_uafwq"]
+[ext_resource type="Script" path="res://BaseResources/VelocityBody3DAIConsideration.cs" id="3_0h7e5"]
+[ext_resource type="Script" path="res://BaseResources/StaticBody3DAIConsideration.cs" id="4_reley"]
+
+[sub_resource type="Resource" id="Resource_kf1tv"]
+script = ExtResource("3_0h7e5")
+_collLayer = 1
+_avoidancePositionVelocityBalance = 0.0
+_chasePositionVelocityBalance = 0.0
+Consideration = 0.0
+
+[sub_resource type="Resource" id="Resource_7d0ve"]
+script = ExtResource("4_reley")
+_collLayer = 2
+_distDiminishRange = Vector2(0.2, 0.3)
+_dirsToPropogate = 1
+_initPropWeight = 0.5
+_propDiminishWeight = 0.5
+Consideration = -1.0
 
 [node name="Critter" instance=ExtResource("1_6vrue")]
 
 [node name="moose" parent="." index="0" instance=ExtResource("2_uafwq")]
 EditorPlayAnimName = "idleUp"
 
+[node name="Walk" parent="CSM" index="1"]
+_turnAngPerSec = 1.5708
+
 [node name="AINav3DComponent" parent="." index="5"]
-EntityConsiderations = Array[Resource]([])
+path_desired_distance = 1.0
+EntityConsiderations = Array[Resource]([SubResource("Resource_kf1tv"), SubResource("Resource_7d0ve")])

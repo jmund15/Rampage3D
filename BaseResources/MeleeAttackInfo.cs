@@ -13,6 +13,8 @@ public partial class MeleeAttackInfo : Resource
 {
     [Export]
     public string AnimName { get; private set; }
+    //[Export] // anything negative is no queue, 0 is always can queue
+    //public float QueueTime { get; private set; }
     //[Export] // This could be a forward momentum or backwards recoil during the attack
     //public Vector2 Velocity { get; private set; }
     [Export] // This could be a forward momentum or backwards recoil during the attack
@@ -42,6 +44,7 @@ public partial class MeleeAttackInfo : Resource
     public MeleeAttackInfo()
     {
         AnimName = "";
+        //QueueTime = 0f;
         Velocity = 0f;// Vector2.Zero;
         Damage = 0f;
         Knockback = 0f;
