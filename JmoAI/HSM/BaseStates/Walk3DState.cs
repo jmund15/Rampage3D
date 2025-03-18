@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using static Godot.TextServer;
 
 [Tool]
 public partial class Walk3DState : Base3DState
@@ -7,14 +8,24 @@ public partial class Walk3DState : Base3DState
 	#region STATE_VARIABLES
 	[Export]
 	public string AnimName { get; protected set; } = "walk";
-    
-	[Export(PropertyHint.NodeType, "State")]
+
+    [Export]
+    private Timer _reactionTimer;
+    [Export]
+    private Timer _changeFaceDirTimer;
+    [Export]
+    private float _reactionTime = 0.2f;
+    [Export(PropertyHint.Range, "0,180,0.1,radians_as_degrees")]
+    private float _turnAngPerSec = Mathf.Pi * 2;
+
+    [Export(PropertyHint.NodeType, "State")]
 	private State _onNoInputState;
     [Export(PropertyHint.NodeType, "State")]
     private State _onJumpInputState;
     [Export(PropertyHint.NodeType, "State")]
     private State _onNotOnFloorState;
 
+    private Vector2 _direction;
     private Vector2 _inputDirection = new Vector2();
     private Dir4 _orthogDir;
     private AnimDirection _currAnimDir;
@@ -27,14 +38,14 @@ public partial class Walk3DState : Base3DState
 	public override void Enter(Dictionary<State, bool> parallelStates)
 	{
 		base.Enter(parallelStates);
-
+        _direction = MoveComp.GetDesiredDirectionNormalized();
         AnimPlayer.StartAnim(AnimName +
             MoveComp.GetAnimDirection().GetAnimationString());
     }
 	public override void Exit()
 	{
 		base.Exit();
-	}
+    }
 	public override void ProcessFrame(float delta)
 	{
 		base.ProcessFrame(delta);
@@ -52,6 +63,8 @@ public partial class Walk3DState : Base3DState
 		base.ProcessPhysics(delta);
         Vector3 velocity = Body.Velocity;
 
+        
+
         //if (!Body.IsOnFloor())
         //{
         //    EmitSignal(SignalName.TransitionState, this, _onNotOnFloorState);
@@ -63,7 +76,35 @@ public partial class Walk3DState : Base3DState
             return;
         }
 
-        _orthogDir = _inputDirection.GetOrthogDirection();
+        var desiredDirection = MoveComp.GetDesiredDirectionNormalized();
+        var diff = desiredDirection - _direction;
+        var diffAngle = _direction.AngleTo(diff);
+        while (diffAngle > Mathf.Pi)
+        {
+            diffAngle -= 2 * Mathf.Pi;
+        }
+        while (diffAngle < -Mathf.Pi)
+        {
+            diffAngle += 2 * Mathf.Pi;
+        }
+
+        GD.Print($"desired dir: {desiredDirection}; curr dir: {_direction}");
+        var angPerPhysics = _turnAngPerSec * delta;
+        if (diffAngle > angPerPhysics)
+        {
+            _direction = _direction.Rotated(angPerPhysics);
+        }
+        else if (diffAngle < -angPerPhysics)
+        {
+            _direction = _direction.Rotated(-angPerPhysics);
+        }
+        else
+        {
+            _direction = desiredDirection;
+        }
+        GD.Print($"new dir: {_direction}");
+
+        _orthogDir = _direction.GetOrthogDirection();
         var animDir = _orthogDir.GetAnimDir();
         if (_currAnimDir != animDir)
         {

@@ -46,6 +46,7 @@ public abstract partial class BTCondition : Resource
     }
     public virtual void Enter()
 	{
+		//GD.Print($"Entered Decorator '{ConditionName}'.");
 	}
 	public virtual void Exit()
 	{

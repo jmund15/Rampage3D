@@ -88,7 +88,7 @@ script = ExtResource("1_eax7w")
 [node name="Players" type="Node3D" parent="."]
 
 [node name="monster" parent="Players" instance=ExtResource("1_b5jb8")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.292919, 0, -6.99652)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.485455, 9.53674e-07, -7.42358)
 
 [node name="Vehicles" type="Node3D" parent="."]
 
@@ -100,6 +100,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 
 
 [node name="Testing" parent="Buildings" instance=ExtResource("4_aqd0w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -7.5)
+visible = false
 "Building Location" = 2
 "Building Type" = 12
 "Floor 2" = 1
@@ -182,6 +183,7 @@ _availableFloorTexturePathMap = {
 
 [node name="Building20" parent="Buildings" instance=ExtResource("2_0gng7")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -13, 0, -7.5)
+visible = false
 "Building Location" = 2
 "Building Type" = 2
 "Floor 1" = 0

@@ -146,12 +146,14 @@ public partial class BehaviorTree : Node
     #region TREE_HELPER
     private void OnRootTaskStatusChanged(TaskStatus newStatus)
     {
+        GD.Print($"Tree root node {RootTask.Name} status changed to {newStatus}");
         switch (newStatus)
         {
-            case TaskStatus.RUNNING:
+            case TaskStatus.RUNNING or TaskStatus.FRESH:
                 break;
             case TaskStatus.SUCCESS:
                 EmitSignal(SignalName.TreeFinishedLoop, Variant.From(TaskStatus.SUCCESS));
+                GD.Print("EMITTED TREE FINISHED WITH SUCCESS");
                 if (Enabled)
                 {
                     RootTask.Exit();
@@ -161,6 +163,7 @@ public partial class BehaviorTree : Node
                 break;
             case TaskStatus.FAILURE:
                 EmitSignal(SignalName.TreeFinishedLoop, Variant.From(TaskStatus.FAILURE));
+                GD.Print("EMITTED TREE FINISHED WITH FAILURE");
                 if (Enabled)
                 {
                     RootTask.Exit();

@@ -37,7 +37,7 @@ public partial class HungerBarComponent : Control
         _hungerBar.MaxValue = HungerSatiationIndex[TimesSatiated];
         _hungerBar.MinValue = 0f;
         _hungerBar.SetValueNoSignal(0f);
-		GD.Print("current hb value: ", _hungerBar.Value);
+		//GD.Print("current hb value: ", _hungerBar.Value);
     }
     public override void _Process(double delta)
 	{

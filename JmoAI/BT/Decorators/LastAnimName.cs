@@ -10,7 +10,7 @@ public partial class LastAnimName : BTCondition
 	[Export]
 	private string _lastAnimName;
 	private AnimationPlayer _animPlayer;
-
+	private string _lastAnimFinished;
 	public LastAnimName(string lastAnimName) // REAL????
 	{
         _lastAnimName = lastAnimName;
@@ -25,14 +25,23 @@ public partial class LastAnimName : BTCondition
 	{
 		base.Init(agent, bb);
 		_animPlayer = BB.GetVar<AnimationPlayer>(BBDataSig.Anim);
+		_animPlayer.AnimationStarted += OnAnimationStarted;
         ConditionName = $"_LastAnimName:{_lastAnimName}";
+		GD.Print("OOOOOH INITIALIZED last anim name condition!");
     }
+
+    private void OnAnimationStarted(StringName animName)
+    {
+		SetDeferred(PropertyName._lastAnimFinished, animName);
+		//_lastAnimFinished = animName;
+    }
+
     public override void Enter()
 	{
 		base.Enter();
-		var assignedAnim = _animPlayer.AssignedAnimation;
-		GD.Print("assigned anim name: ", assignedAnim, "\nlast anim key: ", _lastAnimName);
-		if (assignedAnim.Contains(_lastAnimName))
+		//var assignedAnim = _animPlayer.AssignedAnimation;
+		GD.Print("last anim finished name: ", _lastAnimFinished, "\nlast anim key: ", _lastAnimName);
+		if (_lastAnimFinished.Contains(_lastAnimName))
 		{
 			GD.Print("LAST ANIM KEY MATCHES, EXITING...");
             OnExitTask();

@@ -128,6 +128,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         OrthogDirectionChanged += OnOrthogDirChanged;
 
         BB = this.GetFirstChildOfType<Blackboard>();
+        BB.SetPrimVar(BBDataSig.QueuedNextAttack, false);
         BB.SetPrimVar(BBDataSig.SelfInteruptible, true);
         BB.SetVar(BBDataSig.Agent, this);
         BB.SetVar(BBDataSig.MoveComp, this); //since we implement "IMovementComponent" within this class we just send this object
@@ -335,11 +336,11 @@ public partial class Monster : CharacterBody3D, IMovementComponent
 
     public bool WantsAttack()
     {
-        if (Input.IsActionPressed("attack_test"))
+        if (Input.IsActionJustPressed("attack_test"))
         {
             return true;
         }
-        else if (Input.IsActionPressed("sattack_test"))
+        else if (Input.IsActionJustPressed("sattack_test"))
         {
             return true;
         }
