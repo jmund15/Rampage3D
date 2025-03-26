@@ -16,7 +16,7 @@ public partial class Walk3DState : Base3DState
     [Export]
     private float _reactionTime = 0.2f;
     [Export(PropertyHint.Range, "0,180,0.1,radians_as_degrees")]
-    private float _turnAngPerSec = Mathf.Pi * 2;
+    private float _turnAngPerSec = 360f;//Mathf.Pi * 4;
 
     [Export(PropertyHint.NodeType, "State")]
 	private State _onNoInputState;
@@ -29,6 +29,8 @@ public partial class Walk3DState : Base3DState
     private Vector2 _inputDirection = new Vector2();
     private Dir4 _orthogDir;
     private AnimDirection _currAnimDir;
+
+    private bool _useTurnSpeed = true;
     #endregion
     #region STATE_UPDATES
     public override void Init(Node agent, IBlackboard bb)
@@ -77,32 +79,40 @@ public partial class Walk3DState : Base3DState
         }
 
         var desiredDirection = MoveComp.GetDesiredDirectionNormalized();
-        var diff = desiredDirection - _direction;
-        var diffAngle = _direction.AngleTo(diff);
-        while (diffAngle > Mathf.Pi)
+        if (_useTurnSpeed)
         {
-            diffAngle -= 2 * Mathf.Pi;
-        }
-        while (diffAngle < -Mathf.Pi)
-        {
-            diffAngle += 2 * Mathf.Pi;
-        }
+            var diff = desiredDirection - _direction;
+            var diffAngle = _direction.AngleTo(diff);
+            while (diffAngle > Mathf.Pi)
+            {
+                diffAngle -= 2 * Mathf.Pi;
+            }
+            while (diffAngle < -Mathf.Pi)
+            {
+                diffAngle += 2 * Mathf.Pi;
+            }
 
-        GD.Print($"desired dir: {desiredDirection}; curr dir: {_direction}");
-        var angPerPhysics = _turnAngPerSec * delta;
-        if (diffAngle > angPerPhysics)
-        {
-            _direction = _direction.Rotated(angPerPhysics);
-        }
-        else if (diffAngle < -angPerPhysics)
-        {
-            _direction = _direction.Rotated(-angPerPhysics);
+            //GD.Print($"desired dir: {desiredDirection}; curr dir: {_direction}");
+            var angPerPhysics = _turnAngPerSec * delta;
+            if (diffAngle > angPerPhysics)
+            {
+                _direction = _direction.Rotated(angPerPhysics);
+            }
+            else if (diffAngle < -angPerPhysics)
+            {
+                _direction = _direction.Rotated(-angPerPhysics);
+            }
+            else
+            {
+                _direction = desiredDirection;
+            }
+            //GD.Print($"new dir: {_direction}");
         }
         else
         {
             _direction = desiredDirection;
         }
-        GD.Print($"new dir: {_direction}");
+        
 
         _orthogDir = _direction.GetOrthogDirection();
         var animDir = _orthogDir.GetAnimDir();

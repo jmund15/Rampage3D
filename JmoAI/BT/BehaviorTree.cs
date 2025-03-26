@@ -76,10 +76,14 @@ public partial class BehaviorTree : Node
             //CallDeferred(MethodName.Init, AgentNode, bb);
             //CallDeferred(MethodName.Enter);
 
-            Init(AgentNode, bb);
-            Enter();
-
+            CallDeferred(MethodName.InitTreeAndEnter);
         }
+    }
+    private void InitTreeAndEnter()
+    {
+        Init(AgentNode, _exportedBB as IBlackboard);
+        Enter();
+        GD.Print("entered self enabled BT!");
     }
     public override void _Process(double delta)
     {
@@ -88,7 +92,7 @@ public partial class BehaviorTree : Node
             return; 
         }
         base._Process(delta);
-        if (Enabled)
+        if (Enabled && Initialized)
         {
             ProcessFrame((float)delta);
         }
@@ -97,7 +101,7 @@ public partial class BehaviorTree : Node
     {
         if (Engine.IsEditorHint()) { return; }
         base._PhysicsProcess(delta);
-        if (Enabled)
+        if (Enabled && Initialized)
         {
             ProcessPhysics((float)delta);
         }

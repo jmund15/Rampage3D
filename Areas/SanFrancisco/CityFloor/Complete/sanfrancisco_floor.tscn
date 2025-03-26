@@ -1,13 +1,8 @@
-[gd_scene load_steps=13 format=4 uid="uid://ch47oeiqubnrc"]
+[gd_scene load_steps=7 format=4 uid="uid://ch47oeiqubnrc"]
 
 [ext_resource type="Texture2D" uid="uid://bfy2n84prf8h8" path="res://Areas/SanFrancisco/CityFloor/Textures/floor_sanfrancisco_base.png" id="1_672an"]
 [ext_resource type="ArrayMesh" uid="uid://dfl61w13yvjoa" path="res://Areas/SanFrancisco/CityFloor/Models/floor_sanfrancisco_base.obj" id="2_njhku"]
 [ext_resource type="Texture2D" uid="uid://cc3w0er3853nd" path="res://Areas/SanFrancisco/CityFloor/Textures/64x128_floor_sanfrancisco_docks.png" id="3_s1lsb"]
-[ext_resource type="Shader" path="res://Shaders/water.gdshader" id="7_kpbcx"]
-[ext_resource type="Texture2D" uid="uid://tat6xngniraa" path="res://Areas/SanFrancisco/CityFloor/Textures/water.png" id="8_xnrkq"]
-[ext_resource type="Texture2D" uid="uid://ce5i67caayr5x" path="res://Areas/SanFrancisco/CityFloor/Textures/water_displacement.png" id="10_lf0vp"]
-[ext_resource type="Texture2D" uid="uid://r1btaysubwsd" path="res://Areas/SanFrancisco/CityFloor/Textures/water_normal_export.png" id="10_xtfhm"]
-[ext_resource type="ArrayMesh" uid="uid://bwghepums4es5" path="res://Areas/SanFrancisco/CityFloor/Models/64x_floor_sanfrancisco_water.obj" id="11_avakq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rk3el"]
 albedo_texture = ExtResource("1_672an")
@@ -33,18 +28,6 @@ _surfaces = [{
 "vertex_data": PackedByteArray("/////////7//////AAD/v///AAD///+///8AAAAA/78AAP//////vwAAAAD///+/AAD//wAA/78AAAAAAAD/v/////////+/AAD//////7//////AAD/vwAA//8AAP+/////////AID//wAA//8AgAAA/////wCAAAAAAP//AID/////AAD//wAA//8AAP////8AAAAA//8AAAAAAAD///9/AAD/fwAA/38AAP9/AAD/f////3////9/////f///////f////3////9/////f/9/////f////3////9/////f////3////9/////f///")
 }]
 blend_shape_mode = 0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3qxlh"]
-render_priority = 0
-shader = ExtResource("7_kpbcx")
-shader_parameter/speed = Vector2(0.03, 0.05)
-shader_parameter/displace_speed = Vector2(0.03, -0.01)
-shader_parameter/normal_speed = Vector2(0.03, -0.01)
-shader_parameter/normal_speed2 = Vector2(0.05, 0.05)
-shader_parameter/displacement_strength = 0.245
-shader_parameter/albedo_texture = ExtResource("8_xnrkq")
-shader_parameter/displacement_texture = ExtResource("10_lf0vp")
-shader_parameter/normal_texture = ExtResource("10_xtfhm")
 
 [node name="Sanfrancisco Floor" type="Node3D"]
 
@@ -72,103 +55,3 @@ mesh = SubResource("ArrayMesh_pgpr4")
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 16.25, -5, -23.75)
 material_override = SubResource("StandardMaterial3D_2risg")
 mesh = SubResource("ArrayMesh_pgpr4")
-
-[node name="64xFloorSanfranciscoWater" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, -43.75, -2.5, -23.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater2" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, -43.75, -2.5, -33.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater3" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, -33.75, -2.5, -33.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater4" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, -33.75, -2.5, -23.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater5" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, -23.75, -2.5, -23.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater6" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, -23.75, -2.5, -33.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater7" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, -13.75, -2.5, -33.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater8" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, -13.75, -2.5, -23.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater9" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, -3.75, -2.5, -23.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater10" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, -3.75, -2.5, -33.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater11" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, 6.25, -2.5, -33.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater12" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, 6.25, -2.5, -23.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater13" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, 16.25, -2.5, -23.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater14" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, 16.25, -2.5, -33.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater15" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, 26.25, -2.5, -33.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater16" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, 26.25, -2.5, -23.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater17" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, 36.25, -2.5, -23.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater18" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, 36.25, -2.5, -33.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater19" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, 46.25, -2.5, -33.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")
-
-[node name="64xFloorSanfranciscoWater20" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, 46.25, -2.5, -23.75)
-material_override = SubResource("ShaderMaterial_3qxlh")
-mesh = ExtResource("11_avakq")

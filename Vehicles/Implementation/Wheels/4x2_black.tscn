@@ -7,14 +7,7 @@
 albedo_texture = ExtResource("1_l20mn")
 texture_filter = 0
 
-[node name="4x2BlackWheel" type="VehicleWheel3D"]
-wheel_roll_influence = 0.0
-wheel_radius = 0.125
-wheel_rest_length = 0.0
-wheel_friction_slip = 0.0
-suspension_stiffness = 50.0
-damping_compression = 1.9
-damping_relaxation = 2.0
+[node name="4x2BlackWheel" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, -0.062, -0.125, 0)
