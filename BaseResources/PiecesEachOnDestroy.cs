@@ -22,8 +22,8 @@ public partial class PiecesEachOnDestroy : PiecesBaseOnDestroy
     }
     public void GetPieceList()
     {
-        GD.Print("PackedScene path: ", PieceScene.ResourcePath);
-        GD.Print("NUMBER OF PIECE TEXTS AVAILABLE: ", PieceTextures.Length);
+        //GD.Print("PackedScene path: ", PieceScene.ResourcePath);
+        //GD.Print("NUMBER OF PIECE TEXTS AVAILABLE: ", PieceTextures.Length);
 
         _pieceList = new List<string>();
         foreach (var piece in PieceTextures)

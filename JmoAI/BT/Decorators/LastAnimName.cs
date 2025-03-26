@@ -26,8 +26,8 @@ public partial class LastAnimName : BTCondition
 		base.Init(agent, bb);
 		_animPlayer = BB.GetVar<AnimationPlayer>(BBDataSig.Anim);
 		_animPlayer.AnimationStarted += OnAnimationStarted;
-        ConditionName = $"_LastAnimName:{_lastAnimName}";
-		GD.Print("OOOOOH INITIALIZED last anim name condition!");
+        //ConditionName = $"_LastAnimName:{_lastAnimName}";
+		GD.Print("OOOOOH INITIALIZED last anim name condition! \nName: ", ConditionName);
     }
 
     private void OnAnimationStarted(StringName animName)

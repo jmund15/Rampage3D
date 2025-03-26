@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cqbbrnjnrh7n2"]
+[gd_scene load_steps=29 format=3 uid="uid://cqbbrnjnrh7n2"]
 
 [ext_resource type="Script" path="res://Critters/Critter.cs" id="1_inyqc"]
 [ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="3_wj2f5"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://JmoAI/BT/BehaviorTree.cs" id="12_g80jc"]
 [ext_resource type="Script" path="res://JmoAI/BT/Composites/Sequence.cs" id="13_ec5hv"]
 [ext_resource type="Script" path="res://Critters/AISM/Actions/SetNavPoint.cs" id="14_xx6wd"]
+[ext_resource type="Script" path="res://Critters/AISM/Actions/SetRandomNavPoint.cs" id="15_b1q00"]
 [ext_resource type="Script" path="res://Critters/AISM/Actions/TravelToNavPoint.cs" id="15_xxhh0"]
 [ext_resource type="Script" path="res://Critters/AISM/Actions/WaitIdle.cs" id="16_pm0hc"]
 [ext_resource type="Script" path="res://JmoAI/BT/Decorators/TimeLimitRange.cs" id="17_43q6s"]
@@ -38,7 +39,7 @@ SucceedTaskOnExit = true
 [sub_resource type="Resource" id="Resource_uev8w"]
 script = ExtResource("19_3cdey")
 _collLayer = 1
-_avoidancePositionVelocityBalance = 0.0
+_avoidancePositionVelocityBalance = 0.4
 _chasePositionVelocityBalance = 0.0
 Consideration = -2.0
 
@@ -119,6 +120,9 @@ script = ExtResource("13_ec5hv")
 [node name="SetNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/Sequence"]
 script = ExtResource("14_xx6wd")
 _navPoint = Vector3(10.515, 0.5, -14)
+
+[node name="SetRandomNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/Sequence"]
+script = ExtResource("15_b1q00")
 
 [node name="TravelToNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/Sequence"]
 script = ExtResource("15_xxhh0")

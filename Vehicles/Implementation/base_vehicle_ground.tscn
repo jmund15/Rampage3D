@@ -1,8 +1,55 @@
-[gd_scene load_steps=2 format=3 uid="uid://bk2raes43i7w6"]
+[gd_scene load_steps=10 format=3 uid="uid://bk2raes43i7w6"]
 
 [ext_resource type="Script" path="res://BaseComponents/GroundVehicleComponent.cs" id="1_0wb2f"]
+[ext_resource type="PackedScene" uid="uid://dahmcs8u2k547" path="res://BaseComponents/ai_nav_3d_component.tscn" id="2_ty43o"]
+[ext_resource type="Script" path="res://JmoAI/BT/BehaviorTree.cs" id="3_l5hbq"]
+[ext_resource type="Script" path="res://JmoAI/BT/Composites/Sequence.cs" id="4_6bttt"]
+[ext_resource type="Script" path="res://Critters/AISM/Actions/SetRandomNavPoint.cs" id="5_ru4bh"]
+[ext_resource type="Script" path="res://Critters/AISM/Actions/TravelToNavPoint.cs" id="6_i5iie"]
+[ext_resource type="Script" path="res://JmoAI/Blackboard/Blackboard.cs" id="6_jtv6f"]
+[ext_resource type="Script" path="res://JmoAI/BT/Actions/Lag.cs" id="7_ppths"]
 
-[node name="BaseGroundVehicle" type="VehicleBody3D"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i6i2g"]
+friction = 0.25
+
+[node name="BaseGroundVehicle" type="RigidBody3D"]
+collision_layer = 16
+collision_mask = 119
+physics_material_override = SubResource("PhysicsMaterial_i6i2g")
+linear_damp = 1.0
+angular_damp = 1.0
 script = ExtResource("1_0wb2f")
+_maxSpeed = 100.0
 
 [node name="VehicleMesh" type="MeshInstance3D" parent="."]
+
+[node name="AINav3DComponent" parent="." node_paths=PackedStringArray("ParentAgent") instance=ExtResource("2_ty43o")]
+path_desired_distance = 3.0
+target_desired_distance = 2.0
+path_max_distance = 5.01
+ParentAgent = NodePath("..")
+EntityConsiderations = Array[Object]([])
+UseOrthogNavOnly = false
+
+[node name="BehaviorTree" type="Node" parent="." node_paths=PackedStringArray("_exportedBB", "AgentNode")]
+script = ExtResource("3_l5hbq")
+_exportedBB = NodePath("../Blackboard")
+AgentNode = NodePath("..")
+Enabled = true
+SelfSuffecient = true
+
+[node name="Sequence" type="Node" parent="BehaviorTree"]
+script = ExtResource("4_6bttt")
+
+[node name="SetRandomNavPoint" type="Node" parent="BehaviorTree/Sequence"]
+script = ExtResource("5_ru4bh")
+
+[node name="TravelToNavPoint" type="Node" parent="BehaviorTree/Sequence"]
+script = ExtResource("6_i5iie")
+
+[node name="Lag" type="Node" parent="BehaviorTree/Sequence"]
+script = ExtResource("7_ppths")
+LagTime = 2.0
+
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource("6_jtv6f")
