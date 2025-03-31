@@ -11,6 +11,7 @@ public partial class FallState : State
 
     private Monster _body;
     private IMovementComponent _moveComp;
+    private IVelocityChar3DComponent _velComp;
 
     [Export(PropertyHint.NodeType, "State")]
     private State _landFloorState;
@@ -34,6 +35,7 @@ public partial class FallState : State
         base.Init(agent, bb);
         _body = Agent as Monster;
         _moveComp = BB.GetVar<IMovementComponent>(BBDataSig.MoveComp);
+        _velComp = BB.GetVar<IVelocityChar3DComponent>(BBDataSig.VelComp);
         _animPlayer = BB.GetVar<IAnimPlayerComponent>(BBDataSig.Anim);
         _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
     }
@@ -73,7 +75,7 @@ public partial class FallState : State
             var landHeight = _body.Position.Y;
             var fallDist = _fallHeight - landHeight;
             //GD.Print("jump fall dist: ", fallDist);
-            if (fallDist > Monster.FallHeight)
+            if (fallDist > _velComp.MaxLandVelocity)
             {
                 EmitSignal(SignalName.TransitionState, this, _landFallState);
             }
@@ -94,31 +96,49 @@ public partial class FallState : State
                 _animPlayer.UpdateAnim(_animName + velDir.GetAnimDir());
             }
         }
-        
+        Vector3 direction;
+        if (_inputDir.IsZeroApprox())
+        {
+            direction = Vector3.Zero;
+        }
+        else
+        {
+            var orthogDir = _inputDir.GetOrthogDirection();
+            direction = orthogDir.GetVector3();
+        }
+        _velComp.SetHorizantalMovement(delta, direction, VelocityType.Air);
+        _velComp.ApplyGravity(delta);
+        _velComp.Move();
 
-        Vector3 velocity = _body.Velocity;
-        
+        //// GAWKUS GLIDE!!!!
+        //var glideForce = _moveComp.GetFaceDirection().GetVector3();
+        //_velComp.ApplyImpulse(glideForce, ImpulseType.Glide); // depending on face direction should ALWAYS be gliding forwards
+        //_velComp.ApplyGravity(delta); // should start gliding downward FASTER as he goes down
+        //// TODO: custom apply gravity function for custom gravity value and weight value
+        //_velComp.Move();
 
-        velocity += _body.GetWeightedGravity() * delta;
-        //GD.Print("body velocity after gravity: ", velocity);
+        //Vector3 velocity = _body.Velocity;
 
-        if (_inputDir.IsZeroApprox()) {
-            velocity.X = Mathf.MoveToward(_body.Velocity.X, 0, Monster.AirHorizontalFriction);
-            velocity.Z = Mathf.MoveToward(_body.Velocity.Z, 0, Monster.AirHorizontalFriction);
-            _body.Velocity = velocity;
-            _body.MoveAndSlide();
-            return; }
-        var orthogDir = _inputDir.GetOrthogDirection();
-        Vector3 direction = orthogDir.GetVector3();
+        //velocity += _body.GetWeightedGravity() * delta;
+        ////GD.Print("body velocity after gravity: ", velocity);
 
-        //velocity.X = direction.X * Monster.AirSpeed;
-        //velocity.Z = direction.Z * Monster.AirSpeed;
-        velocity.X = Mathf.MoveToward(_body.Velocity.X, direction.X * Monster.AirMaxSpeed, Monster.AirAcceleration);
-        velocity.Z = Mathf.MoveToward(_body.Velocity.Z, direction.Z * Monster.AirMaxSpeed, Monster.AirAcceleration);
+        //if (_inputDir.IsZeroApprox()) {
+        //    velocity.X = Mathf.MoveToward(_body.Velocity.X, 0, Monster.AirHorizontalFriction);
+        //    velocity.Z = Mathf.MoveToward(_body.Velocity.Z, 0, Monster.AirHorizontalFriction);
+        //    _body.Velocity = velocity;
+        //    _body.MoveAndSlide();
+        //    return; }
+        //var orthogDir = _inputDir.GetOrthogDirection();
+        //Vector3 direction = orthogDir.GetVector3();
+
+        ////velocity.X = direction.X * Monster.AirSpeed;
+        ////velocity.Z = direction.Z * Monster.AirSpeed;
+        //velocity.X = Mathf.MoveToward(_body.Velocity.X, direction.X * Monster.AirMaxSpeed, Monster.AirAcceleration);
+        //velocity.Z = Mathf.MoveToward(_body.Velocity.Z, direction.Z * Monster.AirMaxSpeed, Monster.AirAcceleration);
 
 
-        _body.Velocity = velocity;
-        _body.MoveAndSlide();
+        //_body.Velocity = velocity;
+        //_body.MoveAndSlide();
     }
     public override void HandleInput(InputEvent @event)
     {

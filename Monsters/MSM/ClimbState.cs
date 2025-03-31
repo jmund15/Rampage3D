@@ -9,6 +9,7 @@ public partial class ClimbState : Base3DState
     private string _animName = "climb";
 	private CharacterBody3D _body;
     private float _bodyHeight;
+    private IVelocityChar3DComponent _velComp;
 
     [Export(PropertyHint.NodeType, "State")]
     private State _climbIdleState;
@@ -30,6 +31,7 @@ public partial class ClimbState : Base3DState
 		base.Init(agent, bb);
         _body = Agent as CharacterBody3D;
         _bodySprite = BB.GetVar<Sprite3DComponent>(BBDataSig.Sprite);
+        _velComp = BB.GetVar<IVelocityChar3DComponent>(BBDataSig.VelComp);
     }
 	public override void Enter(Dictionary<State, bool> parallelStates)
 	{
@@ -82,7 +84,14 @@ public partial class ClimbState : Base3DState
 
         CheckIfOnRoof();
 
-        HandleClimbVelocity();
+        if (_inputDir.GetOrthogDirection() != _climberComp.ClimbingDir)
+        {
+            return;
+        }
+        var climbInput = _inputDir.Length();
+        _velComp.SetHorizantalMovement(delta, new Vector3(0, climbInput, 0), VelocityType.Climb);
+        _velComp.Move();
+        //HandleClimbVelocity();
     }
 	public override void HandleInput(InputEvent @event)
 	{
@@ -90,30 +99,31 @@ public partial class ClimbState : Base3DState
 	}
     #endregion
     #region STATE_HELPER
-    private void HandleClimbVelocity()
-    {
-        Vector3 velocity = _body.Velocity;
-        velocity.X = 0; velocity.Z = 0;
+    //private void HandleClimbVelocity()
+    //{
+       
+    //    Vector3 velocity = _body.Velocity;
+    //    velocity.X = 0; velocity.Z = 0;
 
-        if (_inputDir.GetOrthogDirection() != _climberComp.ClimbingDir)
-        {
-            return;
-        }
-        var climbInput = _inputDir.Length();//Mathf.Abs(_inputDir.Y);
-        //GD.Print("climb input: ", climbInput);
+    //    if (_inputDir.GetOrthogDirection() != _climberComp.ClimbingDir)
+    //    {
+    //        return;
+    //    }
+    //    var climbInput = _inputDir.Length();//Mathf.Abs(_inputDir.Y);
+    //    //GD.Print("climb input: ", climbInput);
 
-        if (_body.Position.Y + (_topBodyDistFromPos / 4) < _climberComp.ClimbableComp.MaxClimbHeight) 
-        {
-            velocity.Y = climbInput * Monster.ClimbSpeed;
-        }
-        else { 
-            GD.Print("climb max height: ",  _climberComp.ClimbableComp.MaxClimbHeight, 
-                "\nbody curr height: ", _body.Position.Y);
-            velocity.Y = 0; }
+    //    if (_body.Position.Y + (_topBodyDistFromPos / 4) < _climberComp.ClimbableComp.MaxClimbHeight) 
+    //    {
+    //        velocity.Y = climbInput * Monster.ClimbMaxSpeed;
+    //    }
+    //    else { 
+    //        GD.Print("climb max height: ",  _climberComp.ClimbableComp.MaxClimbHeight, 
+    //            "\nbody curr height: ", _body.Position.Y);
+    //        velocity.Y = 0; }
 
-        _body.Velocity = velocity;
-        _body.MoveAndSlide();
-    }
+    //    _body.Velocity = velocity;
+    //    _body.MoveAndSlide();
+    //}
 
     private void CheckIfOnRoof()
     {

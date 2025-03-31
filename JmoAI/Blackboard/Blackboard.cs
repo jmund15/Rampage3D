@@ -16,6 +16,7 @@ public enum BBDataSig
     Anim,
     CurrentTarget,
     MoveComp,
+    VelComp,
     HealthComp,
     HurtboxComp,
     HitboxComp,

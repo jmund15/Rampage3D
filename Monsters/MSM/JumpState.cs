@@ -13,6 +13,7 @@ public partial class JumpState : State
     public string AnimName { get; protected set; }
     private Monster _body;
     private IMovementComponent _moveComp;
+    private IVelocityChar3DComponent _velComp;
 
     [Export(PropertyHint.NodeType, "State")]
     private State _jumpFallState;
@@ -36,6 +37,7 @@ public partial class JumpState : State
         base.Init(agent, bb);
         _body = Agent as Monster;
         _moveComp = BB.GetVar<IMovementComponent>(BBDataSig.MoveComp);
+        _velComp = BB.GetVar<IVelocityChar3DComponent>(BBDataSig.VelComp);
         _animPlayer = BB.GetVar<IAnimPlayerComponent>(BBDataSig.Anim);
         _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
     }
@@ -116,41 +118,43 @@ public partial class JumpState : State
 
         if (!_velocitySet) { return; }
         Vector3 velocity = _body.Velocity;
-        
 
-        velocity += _body.GetWeightedGravity() * delta;
+        //velocity += _body.GetWeightedGravity() * delta;
 
         if (!_startedDescent && velocity.Y < 0)
         {
             EmitSignal(SignalName.TransitionState, this, _jumpFallState);
             return;
         }
-
+        Vector3 direction;
         if (_inputDir.IsZeroApprox())
         {
-            _body.Velocity = velocity;
-            _body.MoveAndSlide();
-            return;
-        }
-
-        var orthogDir = _inputDir.GetOrthogDirection();
-        Vector3 direction = orthogDir.GetVector3();
-        if (direction != Vector3.Zero)
-        {
-            velocity.X = Mathf.MoveToward(_body.Velocity.X, direction.X * Monster.AirMaxSpeed, Monster.AirAcceleration);
-            velocity.Z = Mathf.MoveToward(_body.Velocity.Z, direction.Z * Monster.AirMaxSpeed, Monster.AirAcceleration);
-            //direction.X * Monster.AirSpeed;
-            //velocity.Z = direction.Z * Monster.AirSpeed;
+            direction = Vector3.Zero;
         }
         else
         {
-            velocity.X = Mathf.MoveToward(_body.Velocity.X, 0, Monster.AirHorizontalFriction);
-            velocity.Z = Mathf.MoveToward(_body.Velocity.Z, 0, Monster.AirHorizontalFriction);
+            var orthogDir = _inputDir.GetOrthogDirection();
+            direction = orthogDir.GetVector3();
         }
+        _velComp.SetHorizantalMovement(delta, direction, VelocityType.Air);
+        _velComp.ApplyGravity(delta);
+        _velComp.Move();
+        //if (direction != Vector3.Zero)
+        //{
+        //    velocity.X = Mathf.MoveToward(_body.Velocity.X, direction.X * Monster.AirMaxSpeed, Monster.AirAcceleration);
+        //    velocity.Z = Mathf.MoveToward(_body.Velocity.Z, direction.Z * Monster.AirMaxSpeed, Monster.AirAcceleration);
+        //    //direction.X * Monster.AirSpeed;
+        //    //velocity.Z = direction.Z * Monster.AirSpeed;
+        //}
+        //else
+        //{
+        //    velocity.X = Mathf.MoveToward(_body.Velocity.X, 0, Monster.AirHorizontalFriction);
+        //    velocity.Z = Mathf.MoveToward(_body.Velocity.Z, 0, Monster.AirHorizontalFriction);
+        //}
 
-        _body.Velocity = velocity;
+        //_body.Velocity = velocity;
         
-        _body.MoveAndSlide();
+        //_body.MoveAndSlide();
     }
     public override void HandleInput(InputEvent @event)
     {
@@ -171,17 +175,21 @@ public partial class JumpState : State
             _currAnimDir = orthogDir.GetAnimDir();
             BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = orthogDir.GetFlipH();
 
+            var orthogVec3 = orthogDir.GetVector3();
+            _velComp.ApplyImpulse(orthogVec3, ImpulseType.WallJump);
             var orthogVec = orthogDir.GetVector2();
-            velocity.X += Monster.ClimbJumpPushOff * orthogVec.X;
-            velocity.Z += Monster.ClimbJumpPushOff * orthogVec.Y;
+            //velocity.X += Monster.ClimbJumpPushOff * orthogVec.X;
+            //velocity.Z += Monster.ClimbJumpPushOff * orthogVec.Y;
 
             _climberComp.EjectRequested = false;
         }
-        velocity.Y = Monster.JumpVelocity;
+        _velComp.ApplyImpulse(Vector3.Up, ImpulseType.Jump);
+        _velComp.Move();
+        //velocity.Y = Monster.JumpVelocity;
 
-        _body.Velocity = velocity;
-        //GD.Print("body velocity: ", _body.Velocity);
-        _body.MoveAndSlide();
+        //_body.Velocity = velocity;
+        ////GD.Print("body velocity: ", _body.Velocity);
+        //_body.MoveAndSlide();
         _velocitySet = true;
     }
     private void OnFoundClimbable(object sender, ClimbableComponent e)

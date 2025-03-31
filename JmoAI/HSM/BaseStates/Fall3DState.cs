@@ -7,6 +7,7 @@ public partial class Fall3DState : Base3DState
 	#region STATE_VARIABLES
 	[Export]
     public string AnimName = "fall";
+    private IVelocityChar3DComponent _velComp;
 
     [Export(PropertyHint.NodeType, "State")]
     private State _landFloorState;
@@ -16,7 +17,7 @@ public partial class Fall3DState : Base3DState
     private State _landFallState;
 
 
-    private Vector2 _inputDirection = new Vector2();
+    private Vector2 _inputDir = new Vector2();
     private AnimDirection _currAnimDir;
 
     private float _fallHeight;
@@ -25,6 +26,7 @@ public partial class Fall3DState : Base3DState
     public override void Init(Node agent, IBlackboard bb)
 	{
 		base.Init(agent, bb);
+        _velComp = BB.GetVar<IVelocityChar3DComponent>(BBDataSig.VelComp);
 	}
 	public override void Enter(Dictionary<State, bool> parallelStates)
 	{
@@ -41,7 +43,7 @@ public partial class Fall3DState : Base3DState
 	public override void ProcessFrame(float delta)
 	{
 		base.ProcessFrame(delta);
-        _inputDirection = MoveComp.GetDesiredDirection();
+        _inputDir = MoveComp.GetDesiredDirection();
 
 
         
@@ -54,7 +56,7 @@ public partial class Fall3DState : Base3DState
             var landHeight = Body.Position.Y;
             var fallDist = _fallHeight - landHeight;
             //GD.Print("jump fall dist: ", fallDist);
-            if (fallDist > Monster.FallHeight)
+            if (fallDist > _velComp.MaxLandVelocity)
             {
                 EmitSignal(SignalName.TransitionState, this, _landFallState);
             }
@@ -82,28 +84,43 @@ public partial class Fall3DState : Base3DState
         Vector3 velocity = Body.Velocity;
 
 
-        velocity += Body.GetWeightedGravity() * delta;
+        //velocity += Body.GetWeightedGravity() * delta;
+
         //GD.Print("body velocity after gravity: ", velocity);
 
-        if (_inputDirection.IsZeroApprox())
+        //if (_inputDirection.IsZeroApprox())
+        //{
+        //    velocity.X = Mathf.MoveToward(Body.Velocity.X, 0, Monster.AirHorizontalFriction);
+        //    velocity.Z = Mathf.MoveToward(Body.Velocity.Z, 0, Monster.AirHorizontalFriction);
+        //    Body.Velocity = velocity;
+        //    Body.MoveAndSlide();
+        //    return;
+        //}
+        //var orthogDir = _inputDir.GetOrthogDirection();
+        //Vector3 direction = orthogDir.GetVector3();
+
+        Vector3 direction;
+        if (_inputDir.IsZeroApprox())
         {
-            velocity.X = Mathf.MoveToward(Body.Velocity.X, 0, Monster.AirHorizontalFriction);
-            velocity.Z = Mathf.MoveToward(Body.Velocity.Z, 0, Monster.AirHorizontalFriction);
-            Body.Velocity = velocity;
-            Body.MoveAndSlide();
-            return;
+            direction = Vector3.Zero;
         }
-        var orthogDir = _inputDirection.GetOrthogDirection();
-        Vector3 direction = orthogDir.GetVector3();
+        else
+        {
+            var orthogDir = _inputDir.GetOrthogDirection();
+            direction = orthogDir.GetVector3();
+        }
+        _velComp.SetHorizantalMovement(delta, direction, VelocityType.Air);
+        _velComp.ApplyGravity(delta);
+        _velComp.Move();
 
-        //velocity.X = direction.X * Monster.AirSpeed;
-        //velocity.Z = direction.Z * Monster.AirSpeed;
-        velocity.X = Mathf.MoveToward(Body.Velocity.X, direction.X * Monster.AirMaxSpeed, Monster.AirAcceleration);
-        velocity.Z = Mathf.MoveToward(Body.Velocity.Z, direction.Z * Monster.AirMaxSpeed, Monster.AirAcceleration);
+        ////velocity.X = direction.X * Monster.AirSpeed;
+        ////velocity.Z = direction.Z * Monster.AirSpeed;
+        //velocity.X = Mathf.MoveToward(Body.Velocity.X, direction.X * Monster.AirMaxSpeed, Monster.AirAcceleration);
+        //velocity.Z = Mathf.MoveToward(Body.Velocity.Z, direction.Z * Monster.AirMaxSpeed, Monster.AirAcceleration);
 
 
-        Body.Velocity = velocity;
-        Body.MoveAndSlide();
+        //Body.Velocity = velocity;
+        //Body.MoveAndSlide();
     }
 	public override void HandleInput(InputEvent @event)
 	{

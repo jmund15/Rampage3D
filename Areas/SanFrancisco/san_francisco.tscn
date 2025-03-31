@@ -1,9 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://db3qdmpdrqbwh"]
+[gd_scene load_steps=27 format=3 uid="uid://db3qdmpdrqbwh"]
 
 [ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_b5jb8"]
 [ext_resource type="Script" path="res://Areas/Area.cs" id="1_eax7w"]
 [ext_resource type="PackedScene" uid="uid://bilhgl6nubni8" path="res://Areas/All/Buildings/Complete/1x1x2_base_reference.tscn" id="2_0gng7"]
-[ext_resource type="PackedScene" uid="uid://bd0dotu3315d" path="res://Vehicles/Implementation/sedan_navy.tscn" id="2_0teqx"]
 [ext_resource type="PackedScene" uid="uid://roik0rft634m" path="res://Areas/All/Buildings/Complete/1x1x3_base_reference.tscn" id="3_ow0rb"]
 [ext_resource type="PackedScene" uid="uid://dsvmcd5mkuj1" path="res://Areas/All/Buildings/Complete/1x2x3_base_reference.tscn" id="4_aqd0w"]
 [ext_resource type="PackedScene" uid="uid://djo53nhfpike4" path="res://Areas/All/Buildings/Complete/2x2x2_base_reference.tscn" id="6_byd3a"]
@@ -108,12 +107,6 @@ script = ExtResource("1_eax7w")
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.485455, 9.53674e-07, -7.42358)
 
 [node name="Vehicles" type="Node3D" parent="."]
-
-[node name="SedanNavy" parent="Vehicles" instance=ExtResource("2_0teqx")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.93864, 9.53674e-07, -6.36658)
-linear_damp = 0.0
-angular_damp = 0.0
-_maxSpeed = 800.0
 
 [node name="Buildings" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)

@@ -12,7 +12,7 @@ public class OrthogDirChangedArgs : EventArgs
         NewDir = newDir;
     }
 }
-public partial class Monster : CharacterBody3D, IMovementComponent
+public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityChar3DComponent
 {
     public int PlayerNumber { get; set; }
     public bool InputAllowed { get; set; } = true;
@@ -88,15 +88,15 @@ public partial class Monster : CharacterBody3D, IMovementComponent
             OrthogDirectionChanged?.Invoke(this, new OrthogDirChangedArgs(oldDir, _currOrthogDir));
         }
     }
-    public static float Speed { get; private set; } = 6.0f;
-    public static float AirMaxSpeed { get; private set; } = 3.75f;
-    public static float AirHorizontalFriction { get; private set; } = 0.2f;
-    public static float AirAcceleration { get; private set; } = 0.5f;
-    public static float ClimbSpeed { get; private set; } = 4.5f;
-    public static float JumpVelocity { get; private set; } = 7.5f;
-    public static float ClimbJumpPushOff { get; private set; } = 5.0f;
-    public static float FallHeight { get; private set; } = 3f;
-    public static float SkidFriction { get; private set; } = 1f;
+    //public static float Speed { get; private set; } = 6.0f;
+    //public static float AirMaxSpeed { get; private set; } = 3.75f;
+    //public static float AirHorizontalFriction { get; private set; } = 0.2f;
+    //public static float AirAcceleration { get; private set; } = 0.5f;
+    //public static float ClimbSpeed { get; private set; } = 4.5f;
+    //public static float JumpVelocity { get; private set; } = 7.5f;
+    //public static float ClimbJumpPushOff { get; private set; } = 5.0f;
+    //public static float FallHeight { get; private set; } = 3f;
+    //public static float SkidFriction { get; private set; } = 1f;
     public float LastFrameVelocity { get; private set; } = 0f;
     [Export]
     private float _pushForce = 200f;
@@ -120,8 +120,30 @@ public partial class Monster : CharacterBody3D, IMovementComponent
     public override void _Ready()
     {
         base._Ready();
-        AnimationPlayer animPlayer;
-        AnimatedSprite3D animSprite;
+        VelocityMap[VelocityType.Ground] =
+            GroundVelocity.GetVelocityID();
+        VelocityMap[VelocityType.Air] =
+            AirVelocity.GetVelocityID();
+        VelocityMap[VelocityType.Climb] =
+            ClimbVelocity.GetVelocityID();
+        VelocityMap[VelocityType.Swim] =
+            SwimVelocity.GetVelocityID();
+
+
+        //GD.Print($"Ground Velocity ID: \n{GroundVelocity.GetVelocityID().ToString()}");
+        //GD.Print($"Ground Velocity MAP ID: \n{VelocityMap[VelocityType.Ground]}");
+        foreach (var velType in Global.GetEnumValues<VelocityType>())
+        {
+            VelAddModMap[velType] = new VelocityID();
+            VelMultModMap[velType] = new VelocityID(1,1,1);
+        }
+
+        ImpulseMap[ImpulseType.Jump] = JumpForce;
+        ImpulseMap[ImpulseType.WallJump] = WallJumpForce;
+        foreach (var forceType in Global.GetEnumValues<ImpulseType>())
+        {
+            ImpulseModMap[forceType] = 0f;
+        }
 
         MonsterF = MonsterFormStart;
         MonsterId = new MonsterIdentifier(MonsterT, MonsterF);
@@ -132,6 +154,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         BB.SetPrimVar(BBDataSig.SelfInteruptible, true);
         BB.SetVar(BBDataSig.Agent, this);
         BB.SetVar(BBDataSig.MoveComp, this); //since we implement "IMovementComponent" within this class we just send this object
+        BB.SetVar(BBDataSig.VelComp, this); //same as above
         HealthComp = this.GetFirstChildOfType<HealthComponent>();
         BB.SetVar(BBDataSig.HealthComp, HealthComp);
 
@@ -346,20 +369,257 @@ public partial class Monster : CharacterBody3D, IMovementComponent
         }
         return false;
     }
-
-    public float TimeSinceAttackRequest()
-    {
-        throw new NotImplementedException();
-    }
-
     public bool WantsStrafe()
     {
         throw new NotImplementedException();
     }
 
-    public float GetRunSpeedMult()
+
+    [ExportGroup("Velocity Properties")]
+    [Export]
+    protected VelocityIDResource GroundVelocity { get; set; }
+    [Export]
+    protected VelocityIDResource AirVelocity { get; set; }
+    [Export]
+    protected VelocityIDResource ClimbVelocity { get; set; }
+    //[Export]
+    //protected float ClimbSkidFriction { get; set; }
+    [Export]
+    protected VelocityIDResource SwimVelocity { get; set; }
+
+    [Export]
+    protected float JumpForce { get; set; }
+    [Export]
+    protected float WallJumpForce { get; set; }
+
+    public System.Collections.Generic.Dictionary<VelocityType, VelocityID> VelocityMap { get; private set; } 
+        = new System.Collections.Generic.Dictionary<VelocityType, VelocityID>();
+    //{ get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public System.Collections.Generic.Dictionary<VelocityType, VelocityID> VelAddModMap { get; private set; } 
+        = new System.Collections.Generic.Dictionary<VelocityType, VelocityID>();
+    public System.Collections.Generic.Dictionary<VelocityType, VelocityID> VelMultModMap { get; private set; }
+        = new System.Collections.Generic.Dictionary<VelocityType, VelocityID>();
+    public System.Collections.Generic.Dictionary<ImpulseType, float> ImpulseMap { get; private set; }
+        = new System.Collections.Generic.Dictionary<ImpulseType, float>();
+    public System.Collections.Generic.Dictionary<ImpulseType, float> ImpulseModMap { get; private set; }
+        = new System.Collections.Generic.Dictionary<ImpulseType, float>();
+    //{ get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    [Export]
+    public int JumpsAllowed { get; set; }
+    [Export]
+    public float MaxLandVelocity { get; set; }
+
+    public Node GetInterfaceNode()
+    {
+        return this;
+    }
+
+    //public Vector3 GetVelocity()
+    //{
+    //    return Velocity;
+    //}
+    
+    public void SetHorizantalMovement(float delta, Vector3 direction, VelocityType velType)
+    {
+        var velId = (VelocityMap[velType] * VelMultModMap[velType]) + VelAddModMap[velType];
+        GD.Print($"Setting Movement for {velType} with velID of: {velId}");
+        //GD.Print($"Ground Velocity MAP ID: \n{VelocityMap[VelocityType.Ground]}");
+
+        Vector3 velocity = Velocity;
+        if (velId.InstantMaxSpeed)
+        {
+            velocity = direction * velId.MaxSpeed;
+        }
+        else
+        {
+            velocity.X -= Velocity.X * velId.Friction * delta;
+            //velocity.Y -= Velocity.Y * velId.Friction * delta;
+            velocity.Z -= Velocity.Z * velId.Friction * delta;
+            
+            velocity.X += direction.X * velId.Acceleration * delta;
+            //velocity.Y += direction.Y * velId.Acceleration * delta;
+            velocity.Z += direction.Z * velId.Acceleration * delta;
+
+            //velocity -= Velocity * velId.Friction * delta;
+            //velocity += direction * velId.Acceleration * delta;
+        }
+
+        //if (direction == Vector3.Zero)
+        //{
+        //    if (velType != VelocityType.Air)
+        //    {
+        //        velocity.X = Mathf.MoveToward(Velocity.X, 0, totalVelocity);
+        //        velocity.Y = Mathf.MoveToward(Velocity.Y, 0, totalVelocity);
+        //        velocity.Z = Mathf.MoveToward(Velocity.Z, 0, totalVelocity);
+        //    }
+        //    else
+        //    {
+        //        velocity.X = Mathf.MoveToward(Velocity.X, 0, AirFriction);
+        //        //velocity.Y = Mathf.MoveToward(Velocity.Y, 0, AirFriction);
+        //        velocity.Z = Mathf.MoveToward(Velocity.Z, 0, AirFriction);
+        //    }
+        //}
+        //else
+        //{
+        //    if (velType != VelocityType.Air)
+        //    {
+        //        velocity = direction * totalVelocity;
+        //    }
+        //    else
+        //    {
+        //        velocity.X = Mathf.MoveToward(Velocity.X, direction.X * totalVelocity, AirAcceleration);
+        //        velocity.Y = Mathf.MoveToward(Velocity.Y, direction.Y * totalVelocity, AirAcceleration);
+        //        velocity.Z = Mathf.MoveToward(Velocity.Z, direction.Z * totalVelocity, AirAcceleration);
+        //    }
+        //}
+        Velocity = velocity;
+        GD.Print("Set Velocity: ", Velocity);
+    }
+    public void ApplyGravity(float delta)
+    {
+        Velocity += this.GetWeightedGravity() * delta;
+    }
+    public void ApplyCustomGravity(float delta, Vector3 customGrav, float weightPercentage = 0)
+    {
+        Velocity += this.GetCustomWeightedGravity(customGrav, weightPercentage) * delta;
+    }
+    public void ApplyImpulse(Vector3 direction, ImpulseType impulseType)
+    {
+        var totalForce = ImpulseMap[impulseType] + ImpulseModMap[impulseType];
+        Velocity += (direction * totalForce);
+    }
+    public void ApplyCustomVelocity(Vector3 velocity)
+    {
+        Velocity += velocity;
+    }
+    public void Move()
+    {
+        MoveAndSlide();
+    }
+    public void CustomMove(Vector3 velocity)
+    {
+        Velocity = velocity;
+        MoveAndSlide();
+    }
+    public void AppendAddVelocityMod(VelocityType velType, VelocityID mod)
+    {
+        if (!VelAddModMap.ContainsKey(velType))
+        {
+            VelAddModMap[velType] = mod;
+        }
+        VelAddModMap[velType] += mod;
+    }
+    public void SetAddVelocityMod(VelocityType velType, VelocityID mod)
+    {
+        VelAddModMap[velType] = mod;
+    }
+    public void AppendMultVelocityMod(VelocityType velType, VelocityID mod)
+    {
+        if (!VelMultModMap.ContainsKey(velType))
+        {
+            VelMultModMap[velType] = mod;
+        }
+        VelMultModMap[velType] *= mod;
+    }
+    public void SetMultVelocityMod(VelocityType velType, VelocityID mod)
+    {
+        VelMultModMap[velType] = mod;
+    }
+    public void AppendAllAddVelocityMods(VelocityID mod)
+    {
+        foreach (var modType in Global.GetEnumValues<VelocityType>())
+        {
+            if (!VelAddModMap.ContainsKey(modType))
+            {
+                VelAddModMap[modType] = mod;
+            }
+            VelAddModMap[modType] += mod;
+        }
+    }
+    public void SetAllAddVelocityMods(VelocityID mod)
+    {
+        foreach (var modType in Global.GetEnumValues<VelocityType>())
+        {
+            VelAddModMap[modType] = mod;
+        }
+    }
+    public void AppendAllMultVelocityMods(VelocityID mod)
+    {
+        foreach (var modType in Global.GetEnumValues<VelocityType>())
+        {
+            if (!VelMultModMap.ContainsKey(modType))
+            {
+                VelMultModMap[modType] = mod;
+            }
+            VelMultModMap[modType] *= mod;
+        }
+    }
+    public void SetAllMultVelocityMods(VelocityID mod)
+    {
+        foreach (var modType in Global.GetEnumValues<VelocityType>())
+        {
+            VelMultModMap[modType] = mod;
+        }
+    }
+    public System.Collections.Generic.Dictionary<VelocityType, VelocityID> GetBaseVelocityMap()
+    {
+        return VelocityMap;
+    }
+    public System.Collections.Generic.Dictionary<VelocityType, VelocityID> GetVelAddModMap()
+    {
+        return VelAddModMap;
+    }
+    public System.Collections.Generic.Dictionary<VelocityType, VelocityID> GetVelMultModMap()
+    {
+        return VelMultModMap;
+    }
+    public System.Collections.Generic.Dictionary<VelocityType, VelocityID> GetAllTotalVelocities()
+    {
+        var totalVels = new System.Collections.Generic.Dictionary<VelocityType, VelocityID>();
+        foreach (var velType in Global.GetEnumValues<VelocityType>())
+        {
+            if (VelocityMap.ContainsKey(velType))
+            {
+                totalVels[velType] = VelocityMap[velType];
+                if (VelAddModMap.ContainsKey(velType))
+                {
+                    totalVels[velType] += VelAddModMap[velType];
+                }
+            }
+            else if (VelAddModMap.ContainsKey(velType))
+            {
+                totalVels[velType] = VelAddModMap[velType];
+            }
+            else
+            {
+                totalVels[velType] = new VelocityID();
+            }
+        }
+        return totalVels;
+    }
+    public VelocityID GetBaseVelocityID(VelocityType type)
+    {
+        return GetBaseVelocityMap()[type];
+    }
+    public VelocityID GetVelocityAddModID(VelocityType modType)
+    {
+        return GetVelAddModMap()[modType];
+    }
+    public VelocityID GetVelocityMultModID(VelocityType modType)
+    {
+        return GetVelMultModMap()[modType];
+    }
+    public VelocityID GetTotalVelocityID(VelocityType type)
+    {
+        return GetAllTotalVelocities()[type];
+    }
+    public void ResetVelocity()
+    {
+        Velocity = Vector3.Zero;
+    }
+
+    public float TimeSinceAttackRequest()
     {
         throw new NotImplementedException();
     }
-
 }
