@@ -57,8 +57,6 @@ public interface IMovementComponent
     //public bool WantsSpecialAttack();
     public float TimeSinceAttackRequest(); // for buffering Attack
     public bool WantsStrafe();
-    public float GetRunSpeedMult();
-    //public Vector2 GetVelocity();
     public static Dir4 GetOrthogDirection(AnimDirection animDir, bool flippedH)
     {
         if (animDir == AnimDirection.Down)
@@ -266,17 +264,33 @@ public static partial class MovementExtensions
     }
     #endregion
     #region VELOCITY_EXTENSIONS
-    public static Vector3 GetWeightedGravity(this CharacterBody3D body)
+    const float DEFAULT_WEIGHT_PERCENTAGE = 0.075f;
+    public static Vector3 GetWeightedGravity(this CharacterBody3D body, 
+        float weightPercentage = DEFAULT_WEIGHT_PERCENTAGE)
     {
-        const float WEIGHT_PERCENTAGE = 0.075f;
         Vector3 weightedGrav;
         if (body.Velocity.Y < 0)
         {
-            weightedGrav = body.GetGravity() - (body.Velocity * body.GetGravity() * WEIGHT_PERCENTAGE);
+            weightedGrav = body.GetGravity() - (body.Velocity * body.GetGravity() * weightPercentage);
         }
         else
         {
             weightedGrav = body.GetGravity();
+        }
+        //GD.Print("weighted grav: ", weightedGrav);
+        return weightedGrav;
+    }
+    public static Vector3 GetCustomWeightedGravity(this CharacterBody3D body,
+        Vector3 customGravity, float weightPercentage)
+    {
+        Vector3 weightedGrav;
+        if (body.Velocity.Y < 0)
+        {
+            weightedGrav = customGravity - (body.Velocity * customGravity * weightPercentage);
+        }
+        else
+        {
+            weightedGrav = customGravity;
         }
         //GD.Print("weighted grav: ", weightedGrav);
         return weightedGrav;

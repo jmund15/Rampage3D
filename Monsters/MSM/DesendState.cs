@@ -8,6 +8,7 @@ public partial class DesendState : Base3DState
     [Export]
     private string _animName = "desend";
     private CharacterBody3D _body;
+    private IVelocityChar3DComponent _velComp;
 
     [Export(PropertyHint.NodeType, "State")]
     private State _climbIdleState;
@@ -25,6 +26,7 @@ public partial class DesendState : Base3DState
     {
         base.Init(agent, bb);
         _body = Agent as CharacterBody3D;
+        _velComp = BB.GetVar<IVelocityChar3DComponent>(BBDataSig.VelComp);
     }
     public override void Enter(Dictionary<State, bool> parallelStates)
     {
@@ -80,15 +82,18 @@ public partial class DesendState : Base3DState
         {
             return;
         }
-
-        Vector3 velocity = _body.Velocity;
-        velocity.X = 0; velocity.Z = 0;
         var descendInput = -_inputDir.Length();//Mathf.Abs(_inputDir.Y);
+        Vector3 descendDir = new Vector3(0, descendInput, 0);
+        _velComp.SetHorizantalMovement(delta, descendDir, VelocityType.Climb);
+        _velComp.Move();
+        //Vector3 velocity = _body.Velocity;
+        //velocity.X = 0; velocity.Z = 0;
+        //var descendInput = -_inputDir.Length();//Mathf.Abs(_inputDir.Y);
 
-        velocity.Y = descendInput * Monster.ClimbSpeed;
+        //velocity.Y = descendInput * Monster.ClimbSpeed;
 
-        _body.Velocity = velocity;
-        _body.MoveAndSlide();
+        //_body.Velocity = velocity;
+        //_body.MoveAndSlide();
     }
     public override void HandleInput(InputEvent @event)
     {

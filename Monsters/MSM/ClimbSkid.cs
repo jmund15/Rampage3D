@@ -9,8 +9,11 @@ public partial class ClimbSkid : BehaviorAction
     #region TASK_VARIABLES
     [Export]
     private string _skidAnimName;
+    [Export]
+    private float _skidFriction = 1f;
 
     private CharacterBody3D _body;
+    private IVelocityChar3DComponent _velComp;
     private ClimberComponent _climberComp;
     private IAnimComponent _animPlayer;
     #endregion
@@ -19,6 +22,7 @@ public partial class ClimbSkid : BehaviorAction
     {
         base.Init(agent, bb);
         _body = Agent as CharacterBody3D;
+        _velComp = BB.GetVar<IVelocityChar3DComponent>(BBDataSig.VelComp);
         _animPlayer = BB.GetVar<IAnimComponent>(BBDataSig.Anim);
     }
     public override void Enter()
@@ -50,7 +54,7 @@ public partial class ClimbSkid : BehaviorAction
         var velocity = _body.Velocity;
         if (velocity.Y < 0)
         {
-            velocity.Y = Mathf.MoveToward(velocity.Y, 0, Monster.SkidFriction);
+            velocity.Y = Mathf.MoveToward(velocity.Y, 0, _skidFriction);
             GD.Print("CLIMB INIT SKIDDING VEL: ", velocity.Y);
         }
         else if (velocity.Y > 0)

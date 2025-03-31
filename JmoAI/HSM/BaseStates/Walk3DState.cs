@@ -8,6 +8,7 @@ public partial class Walk3DState : Base3DState
 	#region STATE_VARIABLES
 	[Export]
 	public string AnimName { get; protected set; } = "walk";
+    private IVelocityChar3DComponent _velComp;
 
     [Export]
     private Timer _reactionTimer;
@@ -36,7 +37,8 @@ public partial class Walk3DState : Base3DState
     public override void Init(Node agent, IBlackboard bb)
 	{
 		base.Init(agent, bb);
-	}
+        _velComp = BB.GetVar<IVelocityChar3DComponent>(BBDataSig.VelComp);
+    }
 	public override void Enter(Dictionary<State, bool> parallelStates)
 	{
 		base.Enter(parallelStates);
@@ -124,20 +126,21 @@ public partial class Walk3DState : Base3DState
         BB.GetVar<ISpriteComponent>(BBDataSig.Sprite).FlipH = _orthogDir.GetFlipH();
 
         Vector3 direction = _orthogDir.GetVector3();
+        _velComp.SetHorizantalMovement(delta, direction, VelocityType.Ground);
+        _velComp.Move();
+        //if (direction != Vector3.Zero)
+        //{
+        //    velocity.X = direction.X * (Monster.Speed / 2);
+        //    velocity.Z = direction.Z * (Monster.Speed / 2);
+        //}
+        //else
+        //{
+        //    velocity.X = Mathf.MoveToward(Body.Velocity.X, 0, (Monster.Speed / 2));
+        //    velocity.Z = Mathf.MoveToward(Body.Velocity.Z, 0, (Monster.Speed / 2));
+        //}
 
-        if (direction != Vector3.Zero)
-        {
-            velocity.X = direction.X * (Monster.Speed / 2);
-            velocity.Z = direction.Z * (Monster.Speed / 2);
-        }
-        else
-        {
-            velocity.X = Mathf.MoveToward(Body.Velocity.X, 0, (Monster.Speed / 2));
-            velocity.Z = Mathf.MoveToward(Body.Velocity.Z, 0, (Monster.Speed / 2));
-        }
-
-        Body.Velocity = velocity;
-        Body.MoveAndSlide();
+        //Body.Velocity = velocity;
+        //Body.MoveAndSlide();
     }
 	public override void HandleInput(InputEvent @event)
 	{

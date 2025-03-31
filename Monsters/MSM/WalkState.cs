@@ -10,6 +10,7 @@ public partial class WalkState : State
     public string AnimName { get; protected set; }
     private Monster _body;
     private IMovementComponent _moveComp;
+    private IVelocityChar3DComponent _velComp;
     private ClimberComponent _climberComp;
 
     [Export(PropertyHint.NodeType, "State")]
@@ -35,6 +36,7 @@ public partial class WalkState : State
         base.Init(agent, bb);
         _body = Agent as Monster;
         _moveComp = BB.GetVar<IMovementComponent>(BBDataSig.MoveComp);
+        _velComp = BB.GetVar<IVelocityChar3DComponent>(BBDataSig.VelComp);
         _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
     }
     public override void Enter(Dictionary<State, bool> parallelStates)
@@ -111,19 +113,21 @@ public partial class WalkState : State
             EmitSignal(SignalName.TransitionState, this, _fallState);
         }
 
-        if (direction != Vector3.Zero)
-        {
-            velocity.X = direction.X * Monster.Speed;
-            velocity.Z = direction.Z * Monster.Speed;
-        }
-        else
-        {
-            velocity.X = Mathf.MoveToward(_body.Velocity.X, 0, Monster.Speed);
-            velocity.Z = Mathf.MoveToward(_body.Velocity.Z, 0, Monster.Speed);
-        }
+        _velComp.SetHorizantalMovement(delta, direction, VelocityType.Ground);
+        _velComp.Move();
+        //if (direction != Vector3.Zero)
+        //{
+        //    velocity.X = direction.X * Monster.Speed;
+        //    velocity.Z = direction.Z * Monster.Speed;
+        //}
+        //else
+        //{
+        //    velocity.X = Mathf.MoveToward(_body.Velocity.X, 0, Monster.Speed);
+        //    velocity.Z = Mathf.MoveToward(_body.Velocity.Z, 0, Monster.Speed);
+        //}
 
-        _body.Velocity = velocity;
-        _body.MoveAndSlide();
+        //_body.Velocity = velocity;
+        //_body.MoveAndSlide();
         //GD.Print("curr mosnter vel: ", _body.Velocity);
     }
     public override void HandleInput(InputEvent @event)

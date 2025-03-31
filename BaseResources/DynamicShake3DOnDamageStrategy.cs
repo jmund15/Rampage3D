@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+//[GlobalClass, Tool]
 public abstract partial class DynamicShake3DOnDamageStrategy : BreakableOnDamageStrategy
 {
     [Export]
