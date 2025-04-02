@@ -4,184 +4,16 @@
 [ext_resource type="Script" path="res://BaseComponents/Sprite3DComponent.cs" id="2_j4337"]
 [ext_resource type="Script" path="res://BaseComponents/AnimationPlayerComponent.cs" id="3_k5uee"]
 
-[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_6wm3t"]
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_xi0qs"]
 _data = PackedByteArray("AAADAAUAAAABAAAAqgAAAIIAAAC2BgAAUklGRq4GAABXRUJQVlA4TKEGAAAvqUAgEI/ANACANFQSL1BdGtdzkTtM31AbyVbyJUJSJ9QWKJMaqeHHfEWRJDUX4YWEU4AJ3ONlFZCZ/wBAANBfP+QrE4Z+zJ3AP0J6gJLdGyw3uAV3t/KzJeC1kKYDLNu22jZPMUISQoX5z7a8++7DdvpHRP8luG0kSVLkVM+ePbSzq/IP02e6PtSqAt+iVNNAS/87S+DRs6r3mQafkOCzmwkKnjSAPn30ho4xEaNfm08xmgJpmpWxTJ2lpxiCRtUqFAe3MeF3atO/aoGGOuYDDWEx9FMPoXdG64GgH1LVCKhQaybPdHqIZWbCSt0LjFgF/Xhf0EwY0qnwRhMD2MQ7wR9AWzq5EnQePR9IUKf9jnppivf4J2p0+f17PueffKZL2sr1VYCAWkjFC7Lskm1fZ6GWN5qPtOeMBICKBEhFC/K2b9uWN8MiuVlQdAchw9dt2z1/18KJiBawbZC+fe4Em9RUj20WpOoB2lLdc+1eR7IIHf9Rm1FSzx7qcFpAtYFULkGNRlq2ppemh0HsTPPcU+dOCgb6EEsLfB3M4hKIIAtIuVGtmYQxi/ORHTx1kfqNNszM+2g1YvIC0+9ReVAuv1Ebf1dAJi3wtDbLqy98Z45MOsubrq39uf6wbfJ9XVkyEnh9nAABts1nmbcx6bPszjtmzltGArsNy8cJFOCRxWOpkgyD4Dqy7O3knPsbYUYyIrtUXkYCrg3aJ3MnQADkQ4ANWewg0hF2pUBqcg+ZLeba8D+V2EeDKxNXB7mDMPvLrm3YE3d2EfGmP+EslrdY3Y3C7/TMCT6DrvZ5eMr5W37q6Idytn3N8owKfKQ9ZyQAVCRAKlqQ131d17waFsnNgqI7CBm+ruvu+bsWTkS0gG2D9O1LJ1ilpnqsiyBVD9CW6l5q9zqSRej4j9qMknr2UIfTAqoNpHIJajTSsja9ND0MYmdalp66dFIw0IdYWuDrYBGXQARZQMqVas0kjFmcj+zgqYvUr7RhYd5HqxGTF5h+j8qDcvmN2vi7AjJpgae1RV594TtzZNJF3nSt7c/1h22VMetbfoIjwLr6LMs6Jn2W3XnHLHnNSGC3Yfk4gQI8sngsVZJhEFxHlr2dnEt/IyxIRmSXystIwLVB+2TpBAiAfAiwIosdRDrCrhRITe4hs8VcG/6nEvtocGXi6iB3EGZ/2bUOe+IuLiLe9CecxfIWq7tR+J1eOMFn0NW+DE+5yH/ddR2cZcQcl5Nyvdocl99yHbA1g3A0ipJezHVg/HiBu+mL/DGXNmmB0aan6edckOq9PJgDdfL/6Wz08C5u3vFs9D34+znq4QjF+rx88ROH5xzUxh0H7ANYLqFY1zgB7GDgl8N1yD+ddZ+cZcSct5Nyv9qct99yn7A1g3A2ipLezHVi/HiBu+mb/DG3NmmB0aan6edckOq9PJgTdvLv6Wz08G5u3vFs9D34+znr4QjF+rx88ROH55zUxp0n7ANYbqFY9zgB7GDgl8N1ys9xxVQneSa9yCSUY5zPKkYJYjRVKVZOGjIx4q4dxhQrCwmINny+liZGkAxYUrLCJipHywhYCE9dKSpnYyEBMCFBRD5GoPlNQFiittSBMSWBYpKWJtPM7W4EqGhEw23oRC5zRAKhEqWk8RIBXwOhGUwSGC6iSIzA1YFEbGG691kiTEShRVGSZRlyiXAqbCaGzj0MI7D7H+VKX82kF74pIpffsCRH8AjeKKWoZDFxRUIeELh9ySGNlQB95kkXDaoepAJlVQFuE7SG9EiAUlIdRIdUajRkUawWF6oASzQrJs1Tviawd9XIFpGAawOohJOis5HxRYG9MFWCRPCjqKGVB82gNSCgUmKfRyAibguYGM1EIhw0UqroFCTGEjmz0xJZ3+/bCqVO8Ux5kSkoxzifVYwShGCqSqicMmRCwF07jCVUFhIQbfh8LU0IIBmwlGKFLVSOlhGwEJ66SlDOxkICYEKCgHyMQPObgLAEbakDY0oBxRQtLaaZ290AUMGIhtvQiVzmgARCJSpF4yUAvgZCM5giMFxAkRiBqwMJ2MJ077MEmIhCi6IUyzLkEuFU2EwMnXsYRmD3P8pVvpopL3xTBC6/YSmO4AG8USlByULhioQ8IHD7ikMaKgH6zJMuGFQ9SAXKqgLcJmgN6ZEApaQ6CA6p1GjIolgtLlQBlmhWKJqnfE1g76qRLSAB1wZQCSdFZyPjCwJ7YaoEieBHUUMrD5pBa0BApcQ+j0BE3BYwIZiJRDhooFTBKSiMJXBmpyWwvq9pCQA=")
 size_override = Vector2(170, 130)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_734cj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxgmx"]
 resource_local_to_scene = true
-atlas = SubResource("PortableCompressedTexture2D_6wm3t")
-region = Rect2(110, 20, 10, 10)
+atlas = SubResource("PortableCompressedTexture2D_xi0qs")
+region = Rect2(130, 0, 10, 130)
 
-[sub_resource type="Animation" id="Animation_pt6mf"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(110, 20, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_p7ssh"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(110, 40, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_xdow7"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(110, 10, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_07tfj"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(110, 30, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_64luf"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(100, 20, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_0kn2j"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(100, 40, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_jtct8"]
+[sub_resource type="Animation" id="Animation_paaf2"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -209,7 +41,7 @@ tracks/1/keys = {
 "values": [Rect2(100, 10, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_85fv6"]
+[sub_resource type="Animation" id="Animation_13wio"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -234,10 +66,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(100, 30, 10, 10)]
+"values": [Rect2(100, 20, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_x4lim"]
+[sub_resource type="Animation" id="Animation_en05f"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -262,10 +94,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(150, 20, 10, 10)]
+"values": [Rect2(110, 10, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_2d5qi"]
+[sub_resource type="Animation" id="Animation_jx0i4"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -290,10 +122,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(150, 40, 10, 10)]
+"values": [Rect2(110, 20, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_qrs5g"]
+[sub_resource type="Animation" id="Animation_p35ac"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -321,7 +153,7 @@ tracks/1/keys = {
 "values": [Rect2(150, 10, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_1lih4"]
+[sub_resource type="Animation" id="Animation_gav0q"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -346,66 +178,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(150, 30, 10, 10)]
+"values": [Rect2(150, 20, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_v2p3f"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(130, 20, 10, 10), Rect2(140, 20, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_2tq0s"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(130, 40, 10, 10), Rect2(140, 40, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_cjev8"]
+[sub_resource type="Animation" id="Animation_bxbnm"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -433,7 +209,7 @@ tracks/1/keys = {
 "values": [Rect2(130, 10, 10, 10), Rect2(140, 10, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_miexg"]
+[sub_resource type="Animation" id="Animation_2xlyq"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -458,66 +234,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Rect2(130, 30, 10, 10), Rect2(140, 30, 10, 10)]
+"values": [Rect2(130, 20, 10, 10), Rect2(140, 20, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_rfhmg"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(160, 20, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_fsvcg"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(160, 40, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_uinik"]
+[sub_resource type="Animation" id="Animation_lesda"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -545,7 +265,7 @@ tracks/1/keys = {
 "values": [Rect2(160, 10, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_7kvo2"]
+[sub_resource type="Animation" id="Animation_mydqa"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -570,66 +290,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(160, 30, 10, 10)]
+"values": [Rect2(160, 20, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_fho6k"]
-length = 0.301
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Rect2(10, 20, 10, 10), Rect2(20, 20, 10, 10), Rect2(30, 20, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_4bh5r"]
-length = 0.301
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Rect2(10, 40, 10, 10), Rect2(20, 40, 10, 10), Rect2(30, 40, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_vd3go"]
+[sub_resource type="Animation" id="Animation_cgrso"]
 length = 0.301
 loop_mode = 1
 tracks/0/type = "value"
@@ -657,7 +321,7 @@ tracks/1/keys = {
 "values": [Rect2(10, 10, 10, 10), Rect2(20, 10, 10, 10), Rect2(30, 10, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_y2lvl"]
+[sub_resource type="Animation" id="Animation_r1cgf"]
 length = 0.301
 loop_mode = 1
 tracks/0/type = "value"
@@ -682,66 +346,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Rect2(10, 30, 10, 10), Rect2(20, 30, 10, 10), Rect2(30, 30, 10, 10)]
+"values": [Rect2(10, 20, 10, 10), Rect2(20, 20, 10, 10), Rect2(30, 20, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_1c5ki"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 20, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_se2e7"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 40, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_rghla"]
+[sub_resource type="Animation" id="Animation_hfek8"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -769,7 +377,7 @@ tracks/1/keys = {
 "values": [Rect2(0, 10, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_7rm4r"]
+[sub_resource type="Animation" id="Animation_h6l75"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -794,66 +402,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(0, 30, 10, 10)]
+"values": [Rect2(0, 20, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_wr31o"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(60, 20, 10, 10), Rect2(70, 20, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_utd11"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(60, 40, 10, 10), Rect2(70, 40, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_5f7bm"]
+[sub_resource type="Animation" id="Animation_ngtof"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -881,7 +433,7 @@ tracks/1/keys = {
 "values": [Rect2(60, 10, 10, 10), Rect2(70, 10, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_bsbxh"]
+[sub_resource type="Animation" id="Animation_3j72t"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -906,66 +458,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Rect2(60, 30, 10, 10), Rect2(70, 30, 10, 10)]
+"values": [Rect2(60, 20, 10, 10), Rect2(70, 20, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_mrm8e"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(80, 20, 10, 10), Rect2(90, 20, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_6ykhl"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(80, 40, 10, 10), Rect2(90, 40, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_jp015"]
+[sub_resource type="Animation" id="Animation_kc0e1"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -993,7 +489,7 @@ tracks/1/keys = {
 "values": [Rect2(80, 10, 10, 10), Rect2(90, 10, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_wmsdw"]
+[sub_resource type="Animation" id="Animation_4j1p3"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -1018,66 +514,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Rect2(80, 30, 10, 10), Rect2(90, 30, 10, 10)]
+"values": [Rect2(80, 20, 10, 10), Rect2(90, 20, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_6svpr"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(120, 20, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_j7q08"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(120, 40, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_vldeg"]
+[sub_resource type="Animation" id="Animation_sk0qj"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -1105,7 +545,7 @@ tracks/1/keys = {
 "values": [Rect2(120, 10, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_ssgh1"]
+[sub_resource type="Animation" id="Animation_ndfgn"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -1130,66 +570,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(120, 30, 10, 10)]
+"values": [Rect2(120, 20, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_fygm3"]
-length = 0.481
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.24),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(40, 20, 10, 10), Rect2(50, 20, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_xb0p4"]
-length = 0.481
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.24),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(40, 40, 10, 10), Rect2(50, 40, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_weq70"]
+[sub_resource type="Animation" id="Animation_5hqay"]
 length = 0.481
 loop_mode = 1
 tracks/0/type = "value"
@@ -1217,7 +601,595 @@ tracks/1/keys = {
 "values": [Rect2(40, 10, 10, 10), Rect2(50, 10, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_t1s47"]
+[sub_resource type="Animation" id="Animation_c52s2"]
+length = 0.481
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.24),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(40, 20, 10, 10), Rect2(50, 20, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_4mnsl"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(100, 30, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_6pn3c"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(100, 40, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_50lek"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(110, 30, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_nrdl1"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(110, 40, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_axfbf"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(150, 30, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_h31ca"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(150, 40, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_yhg5l"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(130, 30, 10, 10), Rect2(140, 30, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_ndl4p"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(130, 40, 10, 10), Rect2(140, 40, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_u6wye"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(160, 30, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_1y6sb"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(160, 40, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_tskpj"]
+length = 0.301
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(10, 30, 10, 10), Rect2(20, 30, 10, 10), Rect2(30, 30, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_ch425"]
+length = 0.301
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(10, 40, 10, 10), Rect2(20, 40, 10, 10), Rect2(30, 40, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_0o48i"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 30, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_kytm8"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 40, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_2e5sj"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(60, 30, 10, 10), Rect2(70, 30, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_n2qor"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(60, 40, 10, 10), Rect2(70, 40, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_0pquj"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(80, 30, 10, 10), Rect2(90, 30, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_88uc2"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(80, 40, 10, 10), Rect2(90, 40, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_2c0w8"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(120, 30, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_aikjp"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(120, 40, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_4ie5s"]
 length = 0.481
 loop_mode = 1
 tracks/0/type = "value"
@@ -1245,228 +1217,88 @@ tracks/1/keys = {
 "values": [Rect2(40, 30, 10, 10), Rect2(50, 30, 10, 10)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_wfipu"]
+[sub_resource type="Animation" id="Animation_id1kf"]
+length = 0.481
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.24),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(40, 40, 10, 10), Rect2(50, 40, 10, 10)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tx0gr"]
 _data = {
-"cower2DownA": SubResource("Animation_pt6mf"),
-"cower2DownB": SubResource("Animation_p7ssh"),
-"cower2UpA": SubResource("Animation_xdow7"),
-"cower2UpB": SubResource("Animation_07tfj"),
-"cowerDownA": SubResource("Animation_64luf"),
-"cowerDownB": SubResource("Animation_0kn2j"),
-"cowerUpA": SubResource("Animation_jtct8"),
-"cowerUpB": SubResource("Animation_85fv6"),
-"fallenDownA": SubResource("Animation_x4lim"),
-"fallenDownB": SubResource("Animation_2d5qi"),
-"fallenUpA": SubResource("Animation_qrs5g"),
-"fallenUpB": SubResource("Animation_1lih4"),
-"fallingDownA": SubResource("Animation_v2p3f"),
-"fallingDownB": SubResource("Animation_2tq0s"),
-"fallingUpA": SubResource("Animation_cjev8"),
-"fallingUpB": SubResource("Animation_miexg"),
-"getupDownA": SubResource("Animation_rfhmg"),
-"getupDownB": SubResource("Animation_fsvcg"),
-"getupUpA": SubResource("Animation_uinik"),
-"getupUpB": SubResource("Animation_7kvo2"),
-"idleDownA": SubResource("Animation_fho6k"),
-"idleDownB": SubResource("Animation_4bh5r"),
-"idleUpA": SubResource("Animation_vd3go"),
-"idleUpB": SubResource("Animation_y2lvl"),
-"referenceDownA": SubResource("Animation_1c5ki"),
-"referenceDownB": SubResource("Animation_se2e7"),
-"referenceUpA": SubResource("Animation_rghla"),
-"referenceUpB": SubResource("Animation_7rm4r"),
-"run1DownA": SubResource("Animation_wr31o"),
-"run1DownB": SubResource("Animation_utd11"),
-"run1UpA": SubResource("Animation_5f7bm"),
-"run1UpB": SubResource("Animation_bsbxh"),
-"run2DownA": SubResource("Animation_mrm8e"),
-"run2DownB": SubResource("Animation_6ykhl"),
-"run2UpA": SubResource("Animation_jp015"),
-"run2UpB": SubResource("Animation_wmsdw"),
-"tripDownA": SubResource("Animation_6svpr"),
-"tripDownB": SubResource("Animation_j7q08"),
-"tripUpA": SubResource("Animation_vldeg"),
-"tripUpB": SubResource("Animation_ssgh1"),
-"walkDownA": SubResource("Animation_fygm3"),
-"walkDownB": SubResource("Animation_xb0p4"),
-"walkUpA": SubResource("Animation_weq70"),
-"walkUpB": SubResource("Animation_t1s47")
+"cower2DownA": SubResource("Animation_jx0i4"),
+"cower2DownB": SubResource("Animation_nrdl1"),
+"cower2UpA": SubResource("Animation_en05f"),
+"cower2UpB": SubResource("Animation_50lek"),
+"cowerDownA": SubResource("Animation_13wio"),
+"cowerDownB": SubResource("Animation_6pn3c"),
+"cowerUpA": SubResource("Animation_paaf2"),
+"cowerUpB": SubResource("Animation_4mnsl"),
+"fallenDownA": SubResource("Animation_gav0q"),
+"fallenDownB": SubResource("Animation_h31ca"),
+"fallenUpA": SubResource("Animation_p35ac"),
+"fallenUpB": SubResource("Animation_axfbf"),
+"fallingDownA": SubResource("Animation_2xlyq"),
+"fallingDownB": SubResource("Animation_ndl4p"),
+"fallingUpA": SubResource("Animation_bxbnm"),
+"fallingUpB": SubResource("Animation_yhg5l"),
+"getupDownA": SubResource("Animation_mydqa"),
+"getupDownB": SubResource("Animation_1y6sb"),
+"getupUpA": SubResource("Animation_lesda"),
+"getupUpB": SubResource("Animation_u6wye"),
+"idleDownA": SubResource("Animation_r1cgf"),
+"idleDownB": SubResource("Animation_ch425"),
+"idleUpA": SubResource("Animation_cgrso"),
+"idleUpB": SubResource("Animation_tskpj"),
+"referenceDownA": SubResource("Animation_h6l75"),
+"referenceDownB": SubResource("Animation_kytm8"),
+"referenceUpA": SubResource("Animation_hfek8"),
+"referenceUpB": SubResource("Animation_0o48i"),
+"run1DownA": SubResource("Animation_3j72t"),
+"run1DownB": SubResource("Animation_n2qor"),
+"run1UpA": SubResource("Animation_ngtof"),
+"run1UpB": SubResource("Animation_2e5sj"),
+"run2DownA": SubResource("Animation_4j1p3"),
+"run2DownB": SubResource("Animation_88uc2"),
+"run2UpA": SubResource("Animation_kc0e1"),
+"run2UpB": SubResource("Animation_0pquj"),
+"tripDownA": SubResource("Animation_ndfgn"),
+"tripDownB": SubResource("Animation_aikjp"),
+"tripUpA": SubResource("Animation_sk0qj"),
+"tripUpB": SubResource("Animation_2c0w8"),
+"walkDownA": SubResource("Animation_c52s2"),
+"walkDownB": SubResource("Animation_id1kf"),
+"walkUpA": SubResource("Animation_5hqay"),
+"walkUpB": SubResource("Animation_4ie5s")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0rkdf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xm3k3"]
 resource_local_to_scene = true
-atlas = SubResource("PortableCompressedTexture2D_6wm3t")
-region = Rect2(110, 60, 10, 10)
+atlas = SubResource("PortableCompressedTexture2D_xi0qs")
+region = Rect2(130, 0, 10, 130)
 
-[sub_resource type="Animation" id="Animation_4d8lq"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(110, 60, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_7athj"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(110, 80, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_2snke"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(110, 50, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_2td7x"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(110, 70, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_rsidv"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(100, 60, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_oegud"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(100, 80, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_bt1at"]
+[sub_resource type="Animation" id="Animation_3q61p"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -1494,7 +1326,7 @@ tracks/1/keys = {
 "values": [Rect2(100, 50, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_616kp"]
+[sub_resource type="Animation" id="Animation_pjdqu"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -1519,10 +1351,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(100, 70, 10, 10)]
+"values": [Rect2(100, 60, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_r8icj"]
+[sub_resource type="Animation" id="Animation_tkdqw"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -1547,10 +1379,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(150, 60, 10, 10)]
+"values": [Rect2(110, 50, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_7hxqg"]
+[sub_resource type="Animation" id="Animation_vkaaa"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -1575,10 +1407,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(150, 80, 10, 10)]
+"values": [Rect2(110, 60, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_5wcjw"]
+[sub_resource type="Animation" id="Animation_bywba"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -1606,7 +1438,7 @@ tracks/1/keys = {
 "values": [Rect2(150, 50, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_wcwyv"]
+[sub_resource type="Animation" id="Animation_b460q"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -1631,66 +1463,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(150, 70, 10, 10)]
+"values": [Rect2(150, 60, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_us62g"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(130, 60, 10, 10), Rect2(140, 60, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_328od"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(130, 80, 10, 10), Rect2(140, 80, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_xemks"]
+[sub_resource type="Animation" id="Animation_awuxi"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -1718,7 +1494,7 @@ tracks/1/keys = {
 "values": [Rect2(130, 50, 10, 10), Rect2(140, 50, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_0p7my"]
+[sub_resource type="Animation" id="Animation_en1j5"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -1743,66 +1519,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Rect2(130, 70, 10, 10), Rect2(140, 70, 10, 10)]
+"values": [Rect2(130, 60, 10, 10), Rect2(140, 60, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_hfing"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(160, 60, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_0kodx"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(160, 80, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_kkeu8"]
+[sub_resource type="Animation" id="Animation_i5s5i"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -1830,7 +1550,7 @@ tracks/1/keys = {
 "values": [Rect2(160, 50, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_136hq"]
+[sub_resource type="Animation" id="Animation_pafp8"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -1855,66 +1575,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(160, 70, 10, 10)]
+"values": [Rect2(160, 60, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_wg1qh"]
-length = 0.301
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Rect2(10, 60, 10, 10), Rect2(20, 60, 10, 10), Rect2(30, 60, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_5eh06"]
-length = 0.301
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Rect2(10, 80, 10, 10), Rect2(20, 80, 10, 10), Rect2(30, 80, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_x1fyn"]
+[sub_resource type="Animation" id="Animation_j0oye"]
 length = 0.301
 loop_mode = 1
 tracks/0/type = "value"
@@ -1942,7 +1606,7 @@ tracks/1/keys = {
 "values": [Rect2(10, 50, 10, 10), Rect2(20, 50, 10, 10), Rect2(30, 50, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_1tldh"]
+[sub_resource type="Animation" id="Animation_yec5s"]
 length = 0.301
 loop_mode = 1
 tracks/0/type = "value"
@@ -1967,66 +1631,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Rect2(10, 70, 10, 10), Rect2(20, 70, 10, 10), Rect2(30, 70, 10, 10)]
+"values": [Rect2(10, 60, 10, 10), Rect2(20, 60, 10, 10), Rect2(30, 60, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_mbuvd"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 60, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_aw4by"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 80, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_m37r2"]
+[sub_resource type="Animation" id="Animation_6ey83"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -2054,7 +1662,7 @@ tracks/1/keys = {
 "values": [Rect2(0, 50, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_g64hj"]
+[sub_resource type="Animation" id="Animation_qlnj5"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -2079,66 +1687,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(0, 70, 10, 10)]
+"values": [Rect2(0, 60, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_jbqfw"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(60, 60, 10, 10), Rect2(70, 60, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_fs0v6"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(60, 80, 10, 10), Rect2(70, 80, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_syqe1"]
+[sub_resource type="Animation" id="Animation_htonc"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -2166,7 +1718,7 @@ tracks/1/keys = {
 "values": [Rect2(60, 50, 10, 10), Rect2(70, 50, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_m8mhb"]
+[sub_resource type="Animation" id="Animation_dfgvn"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -2191,66 +1743,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Rect2(60, 70, 10, 10), Rect2(70, 70, 10, 10)]
+"values": [Rect2(60, 60, 10, 10), Rect2(70, 60, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_xq4ml"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(80, 60, 10, 10), Rect2(90, 60, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_eptsl"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(80, 80, 10, 10), Rect2(90, 80, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_tuxsa"]
+[sub_resource type="Animation" id="Animation_oixgp"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -2278,7 +1774,7 @@ tracks/1/keys = {
 "values": [Rect2(80, 50, 10, 10), Rect2(90, 50, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_j21av"]
+[sub_resource type="Animation" id="Animation_4leti"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -2303,66 +1799,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Rect2(80, 70, 10, 10), Rect2(90, 70, 10, 10)]
+"values": [Rect2(80, 60, 10, 10), Rect2(90, 60, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_w3b0x"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(120, 60, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_7kvae"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(120, 80, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_h1vgf"]
+[sub_resource type="Animation" id="Animation_4lycv"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -2390,7 +1830,7 @@ tracks/1/keys = {
 "values": [Rect2(120, 50, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_gslsq"]
+[sub_resource type="Animation" id="Animation_oo84o"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -2415,66 +1855,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(120, 70, 10, 10)]
+"values": [Rect2(120, 60, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_38s5t"]
-length = 0.481
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.24),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(40, 60, 10, 10), Rect2(50, 60, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_htj3j"]
-length = 0.481
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.24),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(40, 80, 10, 10), Rect2(50, 80, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_b3g1i"]
+[sub_resource type="Animation" id="Animation_54w66"]
 length = 0.481
 loop_mode = 1
 tracks/0/type = "value"
@@ -2502,7 +1886,595 @@ tracks/1/keys = {
 "values": [Rect2(40, 50, 10, 10), Rect2(50, 50, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_dshni"]
+[sub_resource type="Animation" id="Animation_ppd6o"]
+length = 0.481
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.24),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(40, 60, 10, 10), Rect2(50, 60, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_0h0t8"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(100, 70, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_iuj3c"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(100, 80, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_bosad"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(110, 70, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_qvut3"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(110, 80, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_nrfae"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(150, 70, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_35u8q"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(150, 80, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_ycd0j"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(130, 70, 10, 10), Rect2(140, 70, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_t533a"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(130, 80, 10, 10), Rect2(140, 80, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_q3qu4"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(160, 70, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_7ake2"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(160, 80, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_iltf8"]
+length = 0.301
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(10, 70, 10, 10), Rect2(20, 70, 10, 10), Rect2(30, 70, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_5kpqa"]
+length = 0.301
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(10, 80, 10, 10), Rect2(20, 80, 10, 10), Rect2(30, 80, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_hwyfr"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 70, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_p502u"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 80, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_iadqw"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(60, 70, 10, 10), Rect2(70, 70, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_b6vdq"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(60, 80, 10, 10), Rect2(70, 80, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_jggse"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(80, 70, 10, 10), Rect2(90, 70, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_ilppg"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(80, 80, 10, 10), Rect2(90, 80, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_x2syf"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(120, 70, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_4uetp"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(120, 80, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_gnrpp"]
 length = 0.481
 loop_mode = 1
 tracks/0/type = "value"
@@ -2530,228 +2502,88 @@ tracks/1/keys = {
 "values": [Rect2(40, 70, 10, 10), Rect2(50, 70, 10, 10)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_gymr4"]
+[sub_resource type="Animation" id="Animation_wumsn"]
+length = 0.481
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.24),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(40, 80, 10, 10), Rect2(50, 80, 10, 10)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yt4dq"]
 _data = {
-"cower2DownA": SubResource("Animation_4d8lq"),
-"cower2DownB": SubResource("Animation_7athj"),
-"cower2UpA": SubResource("Animation_2snke"),
-"cower2UpB": SubResource("Animation_2td7x"),
-"cowerDownA": SubResource("Animation_rsidv"),
-"cowerDownB": SubResource("Animation_oegud"),
-"cowerUpA": SubResource("Animation_bt1at"),
-"cowerUpB": SubResource("Animation_616kp"),
-"fallenDownA": SubResource("Animation_r8icj"),
-"fallenDownB": SubResource("Animation_7hxqg"),
-"fallenUpA": SubResource("Animation_5wcjw"),
-"fallenUpB": SubResource("Animation_wcwyv"),
-"fallingDownA": SubResource("Animation_us62g"),
-"fallingDownB": SubResource("Animation_328od"),
-"fallingUpA": SubResource("Animation_xemks"),
-"fallingUpB": SubResource("Animation_0p7my"),
-"getupDownA": SubResource("Animation_hfing"),
-"getupDownB": SubResource("Animation_0kodx"),
-"getupUpA": SubResource("Animation_kkeu8"),
-"getupUpB": SubResource("Animation_136hq"),
-"idleDownA": SubResource("Animation_wg1qh"),
-"idleDownB": SubResource("Animation_5eh06"),
-"idleUpA": SubResource("Animation_x1fyn"),
-"idleUpB": SubResource("Animation_1tldh"),
-"referenceDownA": SubResource("Animation_mbuvd"),
-"referenceDownB": SubResource("Animation_aw4by"),
-"referenceUpA": SubResource("Animation_m37r2"),
-"referenceUpB": SubResource("Animation_g64hj"),
-"run1DownA": SubResource("Animation_jbqfw"),
-"run1DownB": SubResource("Animation_fs0v6"),
-"run1UpA": SubResource("Animation_syqe1"),
-"run1UpB": SubResource("Animation_m8mhb"),
-"run2DownA": SubResource("Animation_xq4ml"),
-"run2DownB": SubResource("Animation_eptsl"),
-"run2UpA": SubResource("Animation_tuxsa"),
-"run2UpB": SubResource("Animation_j21av"),
-"tripDownA": SubResource("Animation_w3b0x"),
-"tripDownB": SubResource("Animation_7kvae"),
-"tripUpA": SubResource("Animation_h1vgf"),
-"tripUpB": SubResource("Animation_gslsq"),
-"walkDownA": SubResource("Animation_38s5t"),
-"walkDownB": SubResource("Animation_htj3j"),
-"walkUpA": SubResource("Animation_b3g1i"),
-"walkUpB": SubResource("Animation_dshni")
+"cower2DownA": SubResource("Animation_vkaaa"),
+"cower2DownB": SubResource("Animation_qvut3"),
+"cower2UpA": SubResource("Animation_tkdqw"),
+"cower2UpB": SubResource("Animation_bosad"),
+"cowerDownA": SubResource("Animation_pjdqu"),
+"cowerDownB": SubResource("Animation_iuj3c"),
+"cowerUpA": SubResource("Animation_3q61p"),
+"cowerUpB": SubResource("Animation_0h0t8"),
+"fallenDownA": SubResource("Animation_b460q"),
+"fallenDownB": SubResource("Animation_35u8q"),
+"fallenUpA": SubResource("Animation_bywba"),
+"fallenUpB": SubResource("Animation_nrfae"),
+"fallingDownA": SubResource("Animation_en1j5"),
+"fallingDownB": SubResource("Animation_t533a"),
+"fallingUpA": SubResource("Animation_awuxi"),
+"fallingUpB": SubResource("Animation_ycd0j"),
+"getupDownA": SubResource("Animation_pafp8"),
+"getupDownB": SubResource("Animation_7ake2"),
+"getupUpA": SubResource("Animation_i5s5i"),
+"getupUpB": SubResource("Animation_q3qu4"),
+"idleDownA": SubResource("Animation_yec5s"),
+"idleDownB": SubResource("Animation_5kpqa"),
+"idleUpA": SubResource("Animation_j0oye"),
+"idleUpB": SubResource("Animation_iltf8"),
+"referenceDownA": SubResource("Animation_qlnj5"),
+"referenceDownB": SubResource("Animation_p502u"),
+"referenceUpA": SubResource("Animation_6ey83"),
+"referenceUpB": SubResource("Animation_hwyfr"),
+"run1DownA": SubResource("Animation_dfgvn"),
+"run1DownB": SubResource("Animation_b6vdq"),
+"run1UpA": SubResource("Animation_htonc"),
+"run1UpB": SubResource("Animation_iadqw"),
+"run2DownA": SubResource("Animation_4leti"),
+"run2DownB": SubResource("Animation_ilppg"),
+"run2UpA": SubResource("Animation_oixgp"),
+"run2UpB": SubResource("Animation_jggse"),
+"tripDownA": SubResource("Animation_oo84o"),
+"tripDownB": SubResource("Animation_4uetp"),
+"tripUpA": SubResource("Animation_4lycv"),
+"tripUpB": SubResource("Animation_x2syf"),
+"walkDownA": SubResource("Animation_ppd6o"),
+"walkDownB": SubResource("Animation_wumsn"),
+"walkUpA": SubResource("Animation_54w66"),
+"walkUpB": SubResource("Animation_gnrpp")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6d2so"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mp0fs"]
 resource_local_to_scene = true
-atlas = SubResource("PortableCompressedTexture2D_6wm3t")
-region = Rect2(110, 100, 10, 10)
+atlas = SubResource("PortableCompressedTexture2D_xi0qs")
+region = Rect2(130, 0, 10, 130)
 
-[sub_resource type="Animation" id="Animation_ec3ql"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(110, 100, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_4yfkt"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(110, 120, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_dkw50"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(110, 90, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_okgub"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(110, 110, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_ytgaj"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(100, 100, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_fp2ac"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(100, 120, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_7bbyv"]
+[sub_resource type="Animation" id="Animation_hao0n"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -2779,7 +2611,7 @@ tracks/1/keys = {
 "values": [Rect2(100, 90, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_wtw6k"]
+[sub_resource type="Animation" id="Animation_qyvtt"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -2804,10 +2636,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(100, 110, 10, 10)]
+"values": [Rect2(100, 100, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_u2bdd"]
+[sub_resource type="Animation" id="Animation_8qsjq"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -2832,10 +2664,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(150, 100, 10, 10)]
+"values": [Rect2(110, 90, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_vf0mi"]
+[sub_resource type="Animation" id="Animation_wxm2t"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -2860,10 +2692,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(150, 120, 10, 10)]
+"values": [Rect2(110, 100, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_ihovs"]
+[sub_resource type="Animation" id="Animation_vx8sj"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -2891,7 +2723,7 @@ tracks/1/keys = {
 "values": [Rect2(150, 90, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_0iy0s"]
+[sub_resource type="Animation" id="Animation_6erba"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -2916,66 +2748,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(150, 110, 10, 10)]
+"values": [Rect2(150, 100, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_ast7a"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(130, 100, 10, 10), Rect2(140, 100, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_h3frh"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(130, 120, 10, 10), Rect2(140, 120, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_fi7v5"]
+[sub_resource type="Animation" id="Animation_pn3ng"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -3003,7 +2779,7 @@ tracks/1/keys = {
 "values": [Rect2(130, 90, 10, 10), Rect2(140, 90, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_snjo7"]
+[sub_resource type="Animation" id="Animation_qk6u4"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -3028,66 +2804,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Rect2(130, 110, 10, 10), Rect2(140, 110, 10, 10)]
+"values": [Rect2(130, 100, 10, 10), Rect2(140, 100, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_fim4l"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(160, 100, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_biggg"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(160, 120, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_twt71"]
+[sub_resource type="Animation" id="Animation_say3w"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -3115,7 +2835,7 @@ tracks/1/keys = {
 "values": [Rect2(160, 90, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_s3l54"]
+[sub_resource type="Animation" id="Animation_bfvom"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -3140,66 +2860,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(160, 110, 10, 10)]
+"values": [Rect2(160, 100, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_18ntn"]
-length = 0.301
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Rect2(10, 100, 10, 10), Rect2(20, 100, 10, 10), Rect2(30, 100, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_kooj7"]
-length = 0.301
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Rect2(10, 120, 10, 10), Rect2(20, 120, 10, 10), Rect2(30, 120, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_e0rjy"]
+[sub_resource type="Animation" id="Animation_i3s5s"]
 length = 0.301
 loop_mode = 1
 tracks/0/type = "value"
@@ -3227,7 +2891,7 @@ tracks/1/keys = {
 "values": [Rect2(10, 90, 10, 10), Rect2(20, 90, 10, 10), Rect2(30, 90, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_kw6a2"]
+[sub_resource type="Animation" id="Animation_ed8r2"]
 length = 0.301
 loop_mode = 1
 tracks/0/type = "value"
@@ -3252,66 +2916,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Rect2(10, 110, 10, 10), Rect2(20, 110, 10, 10), Rect2(30, 110, 10, 10)]
+"values": [Rect2(10, 100, 10, 10), Rect2(20, 100, 10, 10), Rect2(30, 100, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_0iqsv"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 100, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_05tee"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 120, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_6auik"]
+[sub_resource type="Animation" id="Animation_ls7wd"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -3339,7 +2947,7 @@ tracks/1/keys = {
 "values": [Rect2(0, 90, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_teyl8"]
+[sub_resource type="Animation" id="Animation_sk5ne"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -3364,66 +2972,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(0, 110, 10, 10)]
+"values": [Rect2(0, 100, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_p4a0c"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(60, 100, 10, 10), Rect2(70, 100, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_jm3l0"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(60, 120, 10, 10), Rect2(70, 120, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_e5yb0"]
+[sub_resource type="Animation" id="Animation_0fg8d"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -3451,7 +3003,7 @@ tracks/1/keys = {
 "values": [Rect2(60, 90, 10, 10), Rect2(70, 90, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_ps07p"]
+[sub_resource type="Animation" id="Animation_dcgey"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -3476,66 +3028,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Rect2(60, 110, 10, 10), Rect2(70, 110, 10, 10)]
+"values": [Rect2(60, 100, 10, 10), Rect2(70, 100, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_iq0fh"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(80, 100, 10, 10), Rect2(90, 100, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_w4qli"]
-length = 0.201
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(80, 120, 10, 10), Rect2(90, 120, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_nne2m"]
+[sub_resource type="Animation" id="Animation_s16j7"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -3563,7 +3059,7 @@ tracks/1/keys = {
 "values": [Rect2(80, 90, 10, 10), Rect2(90, 90, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_78upi"]
+[sub_resource type="Animation" id="Animation_6ovsp"]
 length = 0.201
 loop_mode = 1
 tracks/0/type = "value"
@@ -3588,66 +3084,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Rect2(80, 110, 10, 10), Rect2(90, 110, 10, 10)]
+"values": [Rect2(80, 100, 10, 10), Rect2(90, 100, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_2j2ho"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(120, 100, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_dprcr"]
-length = 0.101
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(120, 120, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_8d2vk"]
+[sub_resource type="Animation" id="Animation_h74v8"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -3675,7 +3115,7 @@ tracks/1/keys = {
 "values": [Rect2(120, 90, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_5ut77"]
+[sub_resource type="Animation" id="Animation_6428i"]
 length = 0.101
 loop_mode = 1
 tracks/0/type = "value"
@@ -3700,66 +3140,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Rect2(120, 110, 10, 10)]
+"values": [Rect2(120, 100, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_gtmja"]
-length = 0.481
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.24),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(40, 100, 10, 10), Rect2(50, 100, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_8f10s"]
-length = 0.481
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.24),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(40, 120, 10, 10), Rect2(50, 120, 10, 10)]
-}
-
-[sub_resource type="Animation" id="Animation_i1wku"]
+[sub_resource type="Animation" id="Animation_s1i5n"]
 length = 0.481
 loop_mode = 1
 tracks/0/type = "value"
@@ -3787,7 +3171,595 @@ tracks/1/keys = {
 "values": [Rect2(40, 90, 10, 10), Rect2(50, 90, 10, 10)]
 }
 
-[sub_resource type="Animation" id="Animation_2p8cl"]
+[sub_resource type="Animation" id="Animation_mhjx0"]
+length = 0.481
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.24),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(40, 100, 10, 10), Rect2(50, 100, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_uspdf"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(100, 110, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_17aam"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(100, 120, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_v6rok"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(110, 110, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_dsr07"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(110, 120, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_e6apw"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(150, 110, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_bbijf"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(150, 120, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_bg6uh"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(130, 110, 10, 10), Rect2(140, 110, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_yifjt"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(130, 120, 10, 10), Rect2(140, 120, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_gd52t"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(160, 110, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_1n7nq"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(160, 120, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_v58qn"]
+length = 0.301
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(10, 110, 10, 10), Rect2(20, 110, 10, 10), Rect2(30, 110, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_pql1y"]
+length = 0.301
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Rect2(10, 120, 10, 10), Rect2(20, 120, 10, 10), Rect2(30, 120, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_oblwo"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 110, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_rhbq3"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 120, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_2uovv"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(60, 110, 10, 10), Rect2(70, 110, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_hwogf"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(60, 120, 10, 10), Rect2(70, 120, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_wh02m"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(80, 110, 10, 10), Rect2(90, 110, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_q6cu7"]
+length = 0.201
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(80, 120, 10, 10), Rect2(90, 120, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_kx0e5"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(120, 110, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_2r8yp"]
+length = 0.101
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(120, 120, 10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_5cxw8"]
 length = 0.481
 loop_mode = 1
 tracks/0/type = "value"
@@ -3815,98 +3787,117 @@ tracks/1/keys = {
 "values": [Rect2(40, 110, 10, 10), Rect2(50, 110, 10, 10)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_4v5gd"]
+[sub_resource type="Animation" id="Animation_plba3"]
+length = 0.481
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.24),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(40, 120, 10, 10), Rect2(50, 120, 10, 10)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6lhxw"]
 _data = {
-"cower2DownA": SubResource("Animation_ec3ql"),
-"cower2DownB": SubResource("Animation_4yfkt"),
-"cower2UpA": SubResource("Animation_dkw50"),
-"cower2UpB": SubResource("Animation_okgub"),
-"cowerDownA": SubResource("Animation_ytgaj"),
-"cowerDownB": SubResource("Animation_fp2ac"),
-"cowerUpA": SubResource("Animation_7bbyv"),
-"cowerUpB": SubResource("Animation_wtw6k"),
-"fallenDownA": SubResource("Animation_u2bdd"),
-"fallenDownB": SubResource("Animation_vf0mi"),
-"fallenUpA": SubResource("Animation_ihovs"),
-"fallenUpB": SubResource("Animation_0iy0s"),
-"fallingDownA": SubResource("Animation_ast7a"),
-"fallingDownB": SubResource("Animation_h3frh"),
-"fallingUpA": SubResource("Animation_fi7v5"),
-"fallingUpB": SubResource("Animation_snjo7"),
-"getupDownA": SubResource("Animation_fim4l"),
-"getupDownB": SubResource("Animation_biggg"),
-"getupUpA": SubResource("Animation_twt71"),
-"getupUpB": SubResource("Animation_s3l54"),
-"idleDownA": SubResource("Animation_18ntn"),
-"idleDownB": SubResource("Animation_kooj7"),
-"idleUpA": SubResource("Animation_e0rjy"),
-"idleUpB": SubResource("Animation_kw6a2"),
-"referenceDownA": SubResource("Animation_0iqsv"),
-"referenceDownB": SubResource("Animation_05tee"),
-"referenceUpA": SubResource("Animation_6auik"),
-"referenceUpB": SubResource("Animation_teyl8"),
-"run1DownA": SubResource("Animation_p4a0c"),
-"run1DownB": SubResource("Animation_jm3l0"),
-"run1UpA": SubResource("Animation_e5yb0"),
-"run1UpB": SubResource("Animation_ps07p"),
-"run2DownA": SubResource("Animation_iq0fh"),
-"run2DownB": SubResource("Animation_w4qli"),
-"run2UpA": SubResource("Animation_nne2m"),
-"run2UpB": SubResource("Animation_78upi"),
-"tripDownA": SubResource("Animation_2j2ho"),
-"tripDownB": SubResource("Animation_dprcr"),
-"tripUpA": SubResource("Animation_8d2vk"),
-"tripUpB": SubResource("Animation_5ut77"),
-"walkDownA": SubResource("Animation_gtmja"),
-"walkDownB": SubResource("Animation_8f10s"),
-"walkUpA": SubResource("Animation_i1wku"),
-"walkUpB": SubResource("Animation_2p8cl")
+"cower2DownA": SubResource("Animation_wxm2t"),
+"cower2DownB": SubResource("Animation_dsr07"),
+"cower2UpA": SubResource("Animation_8qsjq"),
+"cower2UpB": SubResource("Animation_v6rok"),
+"cowerDownA": SubResource("Animation_qyvtt"),
+"cowerDownB": SubResource("Animation_17aam"),
+"cowerUpA": SubResource("Animation_hao0n"),
+"cowerUpB": SubResource("Animation_uspdf"),
+"fallenDownA": SubResource("Animation_6erba"),
+"fallenDownB": SubResource("Animation_bbijf"),
+"fallenUpA": SubResource("Animation_vx8sj"),
+"fallenUpB": SubResource("Animation_e6apw"),
+"fallingDownA": SubResource("Animation_qk6u4"),
+"fallingDownB": SubResource("Animation_yifjt"),
+"fallingUpA": SubResource("Animation_pn3ng"),
+"fallingUpB": SubResource("Animation_bg6uh"),
+"getupDownA": SubResource("Animation_bfvom"),
+"getupDownB": SubResource("Animation_1n7nq"),
+"getupUpA": SubResource("Animation_say3w"),
+"getupUpB": SubResource("Animation_gd52t"),
+"idleDownA": SubResource("Animation_ed8r2"),
+"idleDownB": SubResource("Animation_pql1y"),
+"idleUpA": SubResource("Animation_i3s5s"),
+"idleUpB": SubResource("Animation_v58qn"),
+"referenceDownA": SubResource("Animation_sk5ne"),
+"referenceDownB": SubResource("Animation_rhbq3"),
+"referenceUpA": SubResource("Animation_ls7wd"),
+"referenceUpB": SubResource("Animation_oblwo"),
+"run1DownA": SubResource("Animation_dcgey"),
+"run1DownB": SubResource("Animation_hwogf"),
+"run1UpA": SubResource("Animation_0fg8d"),
+"run1UpB": SubResource("Animation_2uovv"),
+"run2DownA": SubResource("Animation_6ovsp"),
+"run2DownB": SubResource("Animation_q6cu7"),
+"run2UpA": SubResource("Animation_s16j7"),
+"run2UpB": SubResource("Animation_wh02m"),
+"tripDownA": SubResource("Animation_6428i"),
+"tripDownB": SubResource("Animation_2r8yp"),
+"tripUpA": SubResource("Animation_h74v8"),
+"tripUpB": SubResource("Animation_kx0e5"),
+"walkDownA": SubResource("Animation_mhjx0"),
+"walkDownB": SubResource("Animation_plba3"),
+"walkUpA": SubResource("Animation_s1i5n"),
+"walkUpB": SubResource("Animation_5cxw8")
 }
 
 [node name="moose" type="Node3D"]
 script = ExtResource("1_3o13u")
 
 [node name="body" type="Sprite3D" parent="."]
-transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
-offset = Vector2(0, 5)
 texture_filter = 0
-texture = SubResource("AtlasTexture_734cj")
+texture = SubResource("AtlasTexture_nxgmx")
 script = ExtResource("2_j4337")
 
 [node name="bodyAnimationPlayer" type="AnimationPlayer" parent="body"]
 libraries = {
-"": SubResource("AnimationLibrary_wfipu")
+"": SubResource("AnimationLibrary_tx0gr")
 }
 script = ExtResource("3_k5uee")
 _configOptions = ["A", "B"]
-ConfigLabel = "A"
 
 [node name="pants" type="Sprite3D" parent="."]
-transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
-offset = Vector2(0, 5)
 texture_filter = 0
-texture = SubResource("AtlasTexture_0rkdf")
+texture = SubResource("AtlasTexture_xm3k3")
 script = ExtResource("2_j4337")
 
 [node name="pantsAnimationPlayer" type="AnimationPlayer" parent="pants"]
 libraries = {
-"": SubResource("AnimationLibrary_gymr4")
+"": SubResource("AnimationLibrary_yt4dq")
 }
 script = ExtResource("3_k5uee")
 _configOptions = ["A", "B"]
-ConfigLabel = "A"
 
 [node name="shirt" type="Sprite3D" parent="."]
-transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
-offset = Vector2(0, 5)
 texture_filter = 0
-texture = SubResource("AtlasTexture_6d2so")
+texture = SubResource("AtlasTexture_mp0fs")
 script = ExtResource("2_j4337")
 
 [node name="shirtAnimationPlayer" type="AnimationPlayer" parent="shirt"]
 libraries = {
-"": SubResource("AnimationLibrary_4v5gd")
+"": SubResource("AnimationLibrary_6lhxw")
 }
 script = ExtResource("3_k5uee")
 _configOptions = ["A", "B"]
-ConfigLabel = "A"

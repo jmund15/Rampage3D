@@ -126,7 +126,7 @@ public partial class Walk3DState : Base3DState
         BB.GetVar<ISpriteComponent>(BBDataSig.Sprite).FlipH = _orthogDir.GetFlipH();
 
         Vector3 direction = _orthogDir.GetVector3();
-        _velComp.SetHorizantalMovement(delta, direction, VelocityType.Ground);
+        _velComp.SetMovement(delta, direction, VelocityType.Ground);
         _velComp.Move();
         //if (direction != Vector3.Zero)
         //{

@@ -1,0 +1,137 @@
+[gd_scene load_steps=19 format=3 uid="uid://ddhmhdqht1qwi"]
+
+[ext_resource type="Script" path="res://Monsters/MSM/MSM.cs" id="1_x3qid"]
+[ext_resource type="Script" path="res://Monsters/MSM/IdleState.cs" id="2_k8dx1"]
+[ext_resource type="Script" path="res://Monsters/MSM/WalkState.cs" id="3_fff3w"]
+[ext_resource type="Script" path="res://Monsters/MSM/JumpState.cs" id="4_sxqrj"]
+[ext_resource type="Script" path="res://Monsters/MSM/FallState.cs" id="5_oxnug"]
+[ext_resource type="Script" path="res://Monsters/MSM/AnimState.cs" id="6_rg188"]
+[ext_resource type="Script" path="res://Monsters/MSM/ClimbInitBTState.cs" id="7_gbxps"]
+[ext_resource type="Script" path="res://JmoAI/BT/BehaviorTree.cs" id="8_2x8vy"]
+[ext_resource type="Script" path="res://JmoAI/BT/Composites/Sequence.cs" id="9_llfwi"]
+[ext_resource type="Script" path="res://Monsters/MSM/ClimbSkid.cs" id="10_o1ed1"]
+[ext_resource type="Script" path="res://JmoAI/BT/Actions/PlayAnim.cs" id="11_6k43t"]
+[ext_resource type="Script" path="res://Monsters/MSM/ClimbIdleState.cs" id="12_pst8l"]
+[ext_resource type="Script" path="res://Monsters/MSM/ClimbState.cs" id="13_gbhql"]
+[ext_resource type="Script" path="res://Monsters/MSM/DesendState.cs" id="14_oy116"]
+[ext_resource type="Script" path="res://Monsters/MSM/AttackState.cs" id="15_gf772"]
+[ext_resource type="PackedScene" uid="uid://ckjqfkhvrt3vr" path="res://Monsters/MonsterAttacks/grizzle_2_gna.tscn" id="16_w58dt"]
+[ext_resource type="Script" path="res://Monsters/MSM/WallAttackState.cs" id="17_lrlmn"]
+[ext_resource type="Script" path="res://Monsters/MSM/EatState.cs" id="18_qawl1"]
+
+[node name="MSM" type="Node" node_paths=PackedStringArray("AttackState", "WallAttackState", "OnEjectClimberState", "InitialSubState")]
+script = ExtResource("1_x3qid")
+AttackState = NodePath("Attack")
+WallAttackState = NodePath("WallAttack")
+OnEjectClimberState = NodePath("Jump")
+InitialSubState = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="." node_paths=PackedStringArray("_walkState", "_jumpState", "_fallState")]
+script = ExtResource("2_k8dx1")
+AnimName = "idle"
+_walkState = NodePath("../Walk")
+_jumpState = NodePath("../Jump")
+_fallState = NodePath("../Fall")
+SelfInteruptible = 0
+
+[node name="Walk" type="Node" parent="." node_paths=PackedStringArray("_idleState", "_jumpState", "_fallState", "_startClimbState")]
+script = ExtResource("3_fff3w")
+AnimName = "walk"
+_idleState = NodePath("../Idle")
+_jumpState = NodePath("../Jump")
+_fallState = NodePath("../Fall")
+_startClimbState = NodePath("../ClimbInit")
+SelfInteruptible = 0
+
+[node name="Jump" type="Node" parent="." node_paths=PackedStringArray("_jumpFallState", "_landFloorState", "_landWallState")]
+script = ExtResource("4_sxqrj")
+AnimName = "jump"
+_jumpFallState = NodePath("../Fall")
+_landFloorState = NodePath("../LandFloor")
+_landWallState = NodePath("../ClimbInit")
+SelfInteruptible = 0
+
+[node name="Fall" type="Node" parent="." node_paths=PackedStringArray("_landFloorState", "_landWallState", "_landFallState")]
+script = ExtResource("5_oxnug")
+_landFloorState = NodePath("../LandFloor")
+_landWallState = NodePath("../ClimbInit")
+_landFallState = NodePath("../LandFall")
+SelfInteruptible = 0
+
+[node name="LandFloor" type="Node" parent="." node_paths=PackedStringArray("AnimTransitionState")]
+script = ExtResource("6_rg188")
+AnimName = "land"
+AnimTransitionState = NodePath("../Idle")
+SelfInteruptible = 1
+
+[node name="LandFall" type="Node" parent="." node_paths=PackedStringArray("AnimTransitionState")]
+script = ExtResource("6_rg188")
+AnimName = "land2"
+AnimTransitionState = NodePath("../Idle")
+SelfInteruptible = 1
+
+[node name="ClimbInit" type="Node" parent="." node_paths=PackedStringArray("OnTreeSuccessState", "OnTreeFailureState")]
+script = ExtResource("7_gbxps")
+OnTreeSuccessState = NodePath("../ClimbIdle")
+OnTreeFailureState = NodePath("../Idle")
+
+[node name="BehaviorTree" type="Node" parent="ClimbInit"]
+script = ExtResource("8_2x8vy")
+
+[node name="Sequence" type="Node" parent="ClimbInit/BehaviorTree"]
+script = ExtResource("9_llfwi")
+
+[node name="ClimbInitSkid" type="Node" parent="ClimbInit/BehaviorTree/Sequence"]
+script = ExtResource("10_o1ed1")
+_skidAnimName = "desend"
+SelfInteruptible = 1
+
+[node name="ClimbLatchOn" type="Node" parent="ClimbInit/BehaviorTree/Sequence"]
+script = ExtResource("11_6k43t")
+AnimName = "lift"
+SelfInteruptible = 1
+
+[node name="ClimbIdle" type="Node" parent="." node_paths=PackedStringArray("_climbState", "_descendState")]
+script = ExtResource("12_pst8l")
+_animName = "wallIdle"
+_climbState = NodePath("../Climbing")
+_descendState = NodePath("../Desending")
+SelfInteruptible = 0
+
+[node name="Climbing" type="Node" parent="." node_paths=PackedStringArray("_climbIdleState", "_jumpState", "_descendState")]
+script = ExtResource("13_gbhql")
+_climbIdleState = NodePath("../ClimbIdle")
+_jumpState = NodePath("../Jump")
+_descendState = NodePath("../Desending")
+SelfInteruptible = 0
+
+[node name="Desending" type="Node" parent="." node_paths=PackedStringArray("_climbIdleState", "_landState", "_climbState")]
+script = ExtResource("14_oy116")
+_climbIdleState = NodePath("../ClimbIdle")
+_landState = NodePath("../LandFloor")
+_climbState = NodePath("../Climbing")
+SelfInteruptible = 0
+
+[node name="Attack" type="Node" parent="." node_paths=PackedStringArray("PostAttackState", "OnEatableHitState", "OnTreeSuccessState", "OnTreeFailureState")]
+script = ExtResource("15_gf772")
+PostAttackState = NodePath("../Idle")
+OnEatableHitState = NodePath("../Eat")
+OnTreeSuccessState = NodePath(".")
+OnTreeFailureState = NodePath("../Idle")
+
+[node name="BehaviorTree" parent="Attack" instance=ExtResource("16_w58dt")]
+
+[node name="WallAttack" type="Node" parent="." node_paths=PackedStringArray("PostAttackState", "OnEatableHitState", "OnTreeSuccessState", "OnTreeFailureState")]
+script = ExtResource("17_lrlmn")
+PostAttackState = NodePath("../ClimbIdle")
+OnEatableHitState = NodePath("../Eat")
+OnTreeSuccessState = NodePath(".")
+OnTreeFailureState = NodePath("../ClimbIdle")
+
+[node name="BehaviorTree" parent="WallAttack" instance=ExtResource("16_w58dt")]
+
+[node name="Grab" type="Node" parent="."]
+
+[node name="Eat" type="Node" parent="." node_paths=PackedStringArray("_onFinishedEatingState")]
+script = ExtResource("18_qawl1")
+_onFinishedEatingState = NodePath("../Idle")

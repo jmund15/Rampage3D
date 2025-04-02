@@ -37,7 +37,14 @@ static func modify_context(
 	#var packed_scene = PackedScene.new()
 	#packed_scene.pack(animated_sprite_2d)
 	#context.resource = packed_scene
-	var sprite: Sprite3DComponent = (context.resource as PackedScene).instantiate() as Sprite3DComponent
+	var sprite: Sprite3D = (context.resource as PackedScene).instantiate() as Sprite3D
+	var sprite_comp : Sprite3DComponent = Sprite3DComponent.new()
+	sprite_comp.name = sprite.name
+	sprite_comp.texture = sprite.texture
+	#sprite_init.replace_by(sprite_comp, true)
+	#sprite_init.queue_free()
+	#var sprite = sprite_init
+	
 	#sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	var parent = MultiAnimPlayerComponent.new()
@@ -54,5 +61,5 @@ static func modify_context(
 			push_error("An error occurred while saving the scene to disk.")
 	
 	context.resource = packed_scene
-	#print(sprite.texture_filter)
+	#print(sprite_comp.texture_filter)
 	return OK

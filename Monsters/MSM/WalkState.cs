@@ -113,7 +113,7 @@ public partial class WalkState : State
             EmitSignal(SignalName.TransitionState, this, _fallState);
         }
 
-        _velComp.SetHorizantalMovement(delta, direction, VelocityType.Ground);
+        _velComp.SetMovement(delta, direction, VelocityType.Ground);
         _velComp.Move();
         //if (direction != Vector3.Zero)
         //{

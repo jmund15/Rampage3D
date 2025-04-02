@@ -40,6 +40,7 @@ public partial class JumpState : State
         _velComp = BB.GetVar<IVelocityChar3DComponent>(BBDataSig.VelComp);
         _animPlayer = BB.GetVar<IAnimPlayerComponent>(BBDataSig.Anim);
         _climberComp = BB.GetVar<ClimberComponent>(BBDataSig.ClimberComp);
+        BB.SetPrimVar(BBDataSig.JumpsLeft, _velComp.JumpsAllowed);
     }
     public override void Enter(Dictionary<State, bool> parallelStates)
     {
@@ -82,6 +83,10 @@ public partial class JumpState : State
     {
         base.Exit();
         _climberComp.FoundClimbable -= OnFoundClimbable;
+        if (!_moveComp.WantsJump())
+        {
+            BB.SetPrimVar(BBDataSig.JumpsLeft, _velComp.JumpsAllowed);
+        }
     }
     public override void ProcessFrame(float delta)
     {
@@ -97,6 +102,13 @@ public partial class JumpState : State
             EmitSignal(SignalName.TransitionState, this, _landWallState);
             return;
         }
+
+        if (_moveComp.WantsJump() && BB.GetPrimVar<int>(BBDataSig.JumpsLeft) > 1)
+        {
+            BB.SetPrimVar(BBDataSig.JumpsLeft, BB.GetPrimVar<int>(BBDataSig.JumpsLeft).Value - 1);
+            EmitSignal(SignalName.TransitionState, this, this);
+        }
+
         if (Mathf.Abs(_body.Velocity.X) > Global.CHANGE_DIR_VEL_REQ || Mathf.Abs(_body.Velocity.Z) > Global.CHANGE_DIR_VEL_REQ)
         {
             var velDir = _body.Velocity.GetOrthogDirection();
@@ -136,7 +148,7 @@ public partial class JumpState : State
             var orthogDir = _inputDir.GetOrthogDirection();
             direction = orthogDir.GetVector3();
         }
-        _velComp.SetHorizantalMovement(delta, direction, VelocityType.Air);
+        _velComp.SetMovement(delta, direction, VelocityType.Air);
         _velComp.ApplyGravity(delta);
         _velComp.Move();
         //if (direction != Vector3.Zero)
@@ -168,7 +180,7 @@ public partial class JumpState : State
     #region STATE_HELPER
     private void SetJumpVelocity()
     {
-        var velocity = _body.Velocity;
+        _velComp.ResetVelocity();
         if (_climberComp.EjectRequested)
         {
             var orthogDir = _climberComp.EjectDir;

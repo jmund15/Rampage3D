@@ -85,10 +85,10 @@ public partial class FallState : State
             }
         }
 
-        if (_body.Velocity.X > Global.CHANGE_DIR_VEL_REQ || _body.Velocity.Z > Global.CHANGE_DIR_VEL_REQ)
+        if (Mathf.Abs(_body.Velocity.X) > Global.CHANGE_DIR_VEL_REQ || Mathf.Abs(_body.Velocity.Z) > Global.CHANGE_DIR_VEL_REQ)
         {
             var velDir = _body.Velocity.GetOrthogDirection();
-            //GD.Print("velDir: ", velDir, "; curr dir: ", _moveComp.GetFaceDirection());
+            //GD.Print("vel: ", _body., "\nvelDir: ", velDir, "; curr dir: ", _moveComp.GetFaceDirection());
             if (velDir != _moveComp.GetFaceDirection())
             {
                 //GD.Print("Velocity when changing dirs: ", _body.Velocity);
@@ -106,7 +106,7 @@ public partial class FallState : State
             var orthogDir = _inputDir.GetOrthogDirection();
             direction = orthogDir.GetVector3();
         }
-        _velComp.SetHorizantalMovement(delta, direction, VelocityType.Air);
+        _velComp.SetMovement(delta, direction, VelocityType.Air);
         _velComp.ApplyGravity(delta);
         _velComp.Move();
 
