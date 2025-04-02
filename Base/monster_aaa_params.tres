@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="AAAParameters" load_steps=2 format=3 uid="uid://dy4d1j6q71ftk"]
+
+[ext_resource type="Script" path="res://Base/AAAParameters.cs" id="1_wojpu"]
+
+[resource]
+script = ExtResource("1_wojpu")
+SpriteTypePixelMap = {
+0: 32,
+1: 10
+}
+AnimLoopMap = {
+"eat": 0,
+"grab": 0,
+"idle": 1,
+"jump": 0,
+"land": 0,
+"land2": 0,
+"lift": 0,
+"punch1": 0,
+"punch2": 0,
+"punchStartup": 0,
+"run": 1,
+"special": 0,
+"swimLand": 0,
+"swimSurface": 0,
+"walk": 1,
+"wallKick": 0,
+"wallPunch": 0
+}
+SavePath = "res://Monsters/gawkgawk.tscn"
+SpriteType = 0
+BodyParts = {
+"body": 1
+}
+PartConfigLabels = {}
+AnimDirections = [1, 0]

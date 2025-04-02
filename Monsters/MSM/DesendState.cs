@@ -84,7 +84,7 @@ public partial class DesendState : Base3DState
         }
         var descendInput = -_inputDir.Length();//Mathf.Abs(_inputDir.Y);
         Vector3 descendDir = new Vector3(0, descendInput, 0);
-        _velComp.SetHorizantalMovement(delta, descendDir, VelocityType.Climb);
+        _velComp.SetMovement(delta, descendDir, VelocityType.Climb);
         _velComp.Move();
         //Vector3 velocity = _body.Velocity;
         //velocity.X = 0; velocity.Z = 0;

@@ -89,7 +89,7 @@ public partial class ClimbState : Base3DState
             return;
         }
         var climbInput = _inputDir.Length();
-        _velComp.SetHorizantalMovement(delta, new Vector3(0, climbInput, 0), VelocityType.Climb);
+        _velComp.SetMovement(delta, new Vector3(0, climbInput, 0), VelocityType.Climb);
         _velComp.Move();
         //HandleClimbVelocity();
     }

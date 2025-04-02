@@ -51,7 +51,7 @@ public partial class AAA : EditorScript
         }
     }
 
-    private static string _aaaParamsPath = "res://Base/aaa_params.tres";
+    private static string _aaaParamsPath = "res://Base/monster_aaa_params.tres";//"res://Base/critter_aaa_params.tres";
     private AAAParameters _aaaParams;
     private int _initOffset;// = 32;//10
     private int _frameHeight;// = 32;
@@ -119,14 +119,14 @@ public partial class AAA : EditorScript
         //CallDeferred(MethodName.SaveThisSceneAs, SavePath);
 
 
-        if (_aaaParams.BodyParts.Count > 1)
-        {
+        //if (_aaaParams.BodyParts.Count > 1)
+        //{
             OpenAndSaveScene(_aaaParams.SavePath);
-        }
-        else
-        {
-            SaveNodeAsScene(_sprite, _aaaParams.SavePath);
-        }
+        //}
+        //else
+        //{
+        //    SaveNodeAsScene(_sprite, _aaaParams.SavePath);
+        //}
         //EditorInterface.Singleton.SaveScene();
         //CallDeferred(MethodName.OpenAndSaveScene, _aaaParams.SavePath);
         //GD.Print($"Finished Animation Automation!");
@@ -203,6 +203,11 @@ public partial class AAA : EditorScript
             partSprite.Name = part;
             partPlayer.Name = part + "AnimationPlayer";
             GD.Print($"children count of {partSprite}'s node: {partSprite.GetChildCount()}");
+
+            //Set properties of sprite
+            partSprite.Centered = false;
+            partSprite.Offset = new Vector2(-_frameHeight / 2, 0);
+            partSprite.Scale = new Vector3(8, 8, 8);
 
             //GD.Print($"part anim library anims: {partLibrary.GetAnimationList()}");
             //GD.Print($"blobal anim library anims: {globalAnimLibrary.GetAnimationList()}");

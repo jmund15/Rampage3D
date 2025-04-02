@@ -13,6 +13,7 @@ public partial struct VelocityID
     public float Acceleration { get; set; }
     //[Export]
     public float Friction { get; set; }
+    public float BrakeFrictionMod { get; set; }
     //[Export]
     public bool InstantMaxSpeed { get; set; }
     public VelocityID()
@@ -20,13 +21,15 @@ public partial struct VelocityID
         MaxSpeed = 0;
         Acceleration = 0;
         Friction = 0;
+        BrakeFrictionMod = 1;
         InstantMaxSpeed = false;
     }
-    public VelocityID(float maxSpeed, float acceleration, float friction)
+    public VelocityID(float maxSpeed, float acceleration, float friction, float brakeFrictMod = 1)
     {
         MaxSpeed = maxSpeed;
         Acceleration = acceleration;
         Friction = friction;
+        BrakeFrictionMod = brakeFrictMod;
         InstantMaxSpeed = false;
     }
     public VelocityID(float maxSpeed/*, bool instantMovement = true*/)
@@ -36,6 +39,7 @@ public partial struct VelocityID
         //{
         Acceleration = -1;
         Friction = -1;
+        BrakeFrictionMod = -1;
         //}
         //else
         //{
@@ -55,7 +59,8 @@ public partial struct VelocityID
         return new VelocityID(
             a.MaxSpeed + b.MaxSpeed,
             a.Acceleration + b.Acceleration,
-            a.Friction + b.Friction
+            a.Friction + b.Friction,
+            a.BrakeFrictionMod//(a.BrakeFrictionMod + b.BrakeFrictionMod) / 2
         );
     }
     public static VelocityID operator *(VelocityID a, VelocityID b)
@@ -67,7 +72,21 @@ public partial struct VelocityID
         return new VelocityID(
             a.MaxSpeed * b.MaxSpeed,
             a.Acceleration * b.Acceleration,
-            a.Friction * b.Friction
+            a.Friction * b.Friction,
+            a.BrakeFrictionMod * b.BrakeFrictionMod
+        );
+    }
+    public static VelocityID operator *(VelocityID a, float mod)
+    {
+        if (a.InstantMaxSpeed)
+        {
+            return new VelocityID(a.MaxSpeed * mod);
+        }
+        return new VelocityID(
+            a.MaxSpeed * mod,
+            a.Acceleration * mod,
+            a.Friction * mod,
+            a.BrakeFrictionMod
         );
     }
 
@@ -104,7 +123,7 @@ public partial struct VelocityID
     // ToString for debugging
     public override string ToString()
     {
-        return $"(MaxSpeed: {MaxSpeed}, Acceleration: {Acceleration}, Friction: {Friction}); InstantMaxSpeed: {InstantMaxSpeed}";
+        return $"(MaxSpeed: {MaxSpeed}, Acceleration: {Acceleration}, Friction: {Friction}, BrakeFrictMod: {BrakeFrictionMod}); InstantMaxSpeed: {InstantMaxSpeed}";
     }
 }
 public enum VelocityType
@@ -125,7 +144,8 @@ public enum ImpulseType // TODO: remove if unnecessary?
 }
 public interface IVelocity3DComponent//<VelocityT> // i.e. <MonsterVelocityType>, etc.
 {
-   
+    // TODO: ADD MOD's ON HERE THAT ONLY TAKE FLOATS!!!
+    //public void SetMultMod(VelocityType velType, float mod);
     public Vector3 GetVelocity();
     //public bool AxisLockLinearX { get; set; }
     //public bool AxisLockLinearY { get; set; }

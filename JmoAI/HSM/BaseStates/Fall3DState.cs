@@ -109,7 +109,7 @@ public partial class Fall3DState : Base3DState
             var orthogDir = _inputDir.GetOrthogDirection();
             direction = orthogDir.GetVector3();
         }
-        _velComp.SetHorizantalMovement(delta, direction, VelocityType.Air);
+        _velComp.SetMovement(delta, direction, VelocityType.Air);
         _velComp.ApplyGravity(delta);
         _velComp.Move();
 

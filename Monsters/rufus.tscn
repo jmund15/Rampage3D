@@ -1,0 +1,28 @@
+[gd_scene load_steps=9 format=3 uid="uid://d05pbqeemoa5l"]
+
+[ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_lx2a6"]
+[ext_resource type="PackedScene" uid="uid://ydo5ot03dv" path="res://Monsters/gawkgawk.tscn" id="2_85xps"]
+[ext_resource type="Resource" uid="uid://b0tc2itcse6j0" path="res://Monsters/MonsterVelocityIDs/rufus_med_ground.tres" id="2_0555t"]
+[ext_resource type="Resource" uid="uid://bycj14qlkv0bp" path="res://Monsters/MonsterVelocityIDs/rufus_med_air.tres" id="3_gqbhk"]
+[ext_resource type="Shape3D" uid="uid://bmpwyjckkxcwe" path="res://Monsters/rambucho2_capsuleshape_smaller.tres" id="3_t1s7y"]
+[ext_resource type="Resource" uid="uid://ccb3hfbsre35x" path="res://Monsters/MonsterVelocityIDs/rufus_med_climb.tres" id="4_7da8f"]
+[ext_resource type="Resource" uid="uid://c1itft3f8207y" path="res://Monsters/MonsterVelocityIDs/rambucho_swim.tres" id="5_srlyc"]
+[ext_resource type="PackedScene" uid="uid://rn75xfbu7l1d" path="res://Monsters/MSM/rufus_msm.tscn" id="6_yx53u"]
+
+[node name="Rufus" instance=ExtResource("1_lx2a6")]
+GroundVelocity = ExtResource("2_0555t")
+AirVelocity = ExtResource("3_gqbhk")
+ClimbVelocity = ExtResource("4_7da8f")
+SwimVelocity = ExtResource("5_srlyc")
+JumpForce = 6.0
+WallJumpForce = 8.0
+JumpsAllowed = 3
+
+[node name="MSM" parent="." index="0" instance=ExtResource("6_yx53u")]
+
+[node name="GAWKGAWK" parent="." index="1" instance=ExtResource("2_85xps")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+EditorPlayAnimName = "idleDown"
+
+[node name="CollisionShape3D" parent="." index="4"]
+shape = ExtResource("3_t1s7y")

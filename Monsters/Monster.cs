@@ -12,6 +12,13 @@ public class OrthogDirChangedArgs : EventArgs
         NewDir = newDir;
     }
 }
+/* TODO:
+ * Add exported properties for -
+ * * State Machine
+ * Add Monster form dictionaries for -
+ * * Coll shapes (main, hitbox, hurtbox)
+ *
+ */
 public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityChar3DComponent
 {
     public int PlayerNumber { get; set; }
@@ -130,7 +137,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
             SwimVelocity.GetVelocityID();
 
 
-        //GD.Print($"Ground Velocity ID: \n{GroundVelocity.GetVelocityID().ToString()}");
+        GD.Print($"Air Velocity ID: \n{AirVelocity.GetVelocityID().ToString()}");
         //GD.Print($"Ground Velocity MAP ID: \n{VelocityMap[VelocityType.Ground]}");
         foreach (var velType in Global.GetEnumValues<VelocityType>())
         {
@@ -140,6 +147,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
 
         ImpulseMap[ImpulseType.Jump] = JumpForce;
         ImpulseMap[ImpulseType.WallJump] = WallJumpForce;
+        ImpulseMap[ImpulseType.Glide] = 0.5f; // TODO: MAKE VARIABLE
         foreach (var forceType in Global.GetEnumValues<ImpulseType>())
         {
             ImpulseModMap[forceType] = 0f;
@@ -157,7 +165,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
         BB.SetVar(BBDataSig.VelComp, this); //same as above
         HealthComp = this.GetFirstChildOfType<HealthComponent>();
         BB.SetVar(BBDataSig.HealthComp, HealthComp);
-
+        
         GD.Print("Before set sprite.");
         CollisionShape = this.GetFirstChildOfType<CollisionShape3D>();
         Sprite = this.GetFirstChildOfType<Sprite3DComponent>();
@@ -419,10 +427,10 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
     //    return Velocity;
     //}
     
-    public void SetHorizantalMovement(float delta, Vector3 direction, VelocityType velType)
+    public void SetMovement(float delta, Vector3 direction, VelocityType velType, bool useYFriction = false)
     {
         var velId = (VelocityMap[velType] * VelMultModMap[velType]) + VelAddModMap[velType];
-        GD.Print($"Setting Movement for {velType} with velID of: {velId}");
+        //GD.Print($"Setting Movement for {velType} with velID of: {velId}");
         //GD.Print($"Ground Velocity MAP ID: \n{VelocityMap[VelocityType.Ground]}");
 
         Vector3 velocity = Velocity;
@@ -432,12 +440,30 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
         }
         else
         {
-            velocity.X -= Velocity.X * velId.Friction * delta;
-            //velocity.Y -= Velocity.Y * velId.Friction * delta;
-            velocity.Z -= Velocity.Z * velId.Friction * delta;
+            //GD.Print("direction: ", direction, "dir is zero: ", direction.IsZeroApprox());
+            if (direction.IsZeroApprox())
+            {
+                //GD.Print("USING BRAKE FRICTION");
+                velocity.X -= Velocity.X * velId.Friction * velId.BrakeFrictionMod * delta;
+                if (useYFriction)
+                {
+                    velocity.Y -= Velocity.Y * velId.Friction * velId.BrakeFrictionMod * delta;
+                }
+                velocity.Z -= Velocity.Z * velId.Friction * velId.BrakeFrictionMod * delta;
+            }
+            else
+            {
+                velocity.X -= Velocity.X * velId.Friction * delta;
+                if (useYFriction)
+                {
+                    velocity.Y -= Velocity.Y * velId.Friction * delta;
+                }
+                velocity.Z -= Velocity.Z * velId.Friction * delta;
+            }
+            
             
             velocity.X += direction.X * velId.Acceleration * delta;
-            //velocity.Y += direction.Y * velId.Acceleration * delta;
+            velocity.Y += direction.Y * velId.Acceleration * delta;
             velocity.Z += direction.Z * velId.Acceleration * delta;
 
             //velocity -= Velocity * velId.Friction * delta;
@@ -485,8 +511,11 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
     }
     public void ApplyImpulse(Vector3 direction, ImpulseType impulseType)
     {
+        GD.Print($"Impulse of type {impulseType} applied for {direction}");
         var totalForce = ImpulseMap[impulseType] + ImpulseModMap[impulseType];
+        GD.Print("vel before impulse: ", Velocity);
         Velocity += (direction * totalForce);
+        GD.Print("vel after impulse: ", Velocity);
     }
     public void ApplyCustomVelocity(Vector3 velocity)
     {

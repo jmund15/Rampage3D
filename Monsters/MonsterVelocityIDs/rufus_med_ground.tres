@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="VelocityIDResource" load_steps=2 format=3 uid="uid://b0tc2itcse6j0"]
+
+[ext_resource type="Script" path="res://BaseResources/VelocityIDResource.cs" id="1_ry8st"]
+
+[resource]
+script = ExtResource("1_ry8st")
+MaxSpeed = 5.0
+Acceleration = -1.0
+Friction = -1.0
+BrakingFrictionMod = -1.0
+InstantMovement = true

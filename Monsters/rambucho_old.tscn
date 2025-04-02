@@ -1,0 +1,291 @@
+[gd_scene load_steps=45 format=3 uid="uid://j8irnfls7mj"]
+
+[ext_resource type="Script" path="res://Monsters/Monster.cs" id="1_5i8pw"]
+[ext_resource type="Script" path="res://BaseResources/VelocityIDResource.cs" id="2_jswdh"]
+[ext_resource type="PackedScene" uid="uid://b2ggfqqshmwa5" path="res://Monsters/grizzler.tscn" id="3_qtf43"]
+[ext_resource type="Shape3D" uid="uid://bmpwyjckkxcwe" path="res://Monsters/rambucho2_capsuleshape_smaller.tres" id="4_d7ld6"]
+[ext_resource type="Script" path="res://Monsters/MSM/MSM.cs" id="5_gfc4j"]
+[ext_resource type="Script" path="res://Monsters/MSM/IdleState.cs" id="6_qloa7"]
+[ext_resource type="Script" path="res://Monsters/MSM/WalkState.cs" id="7_1kees"]
+[ext_resource type="Script" path="res://Monsters/MSM/JumpState.cs" id="8_kmw8a"]
+[ext_resource type="Script" path="res://Monsters/MSM/FallState.cs" id="9_tv0rc"]
+[ext_resource type="Script" path="res://Monsters/MSM/AnimState.cs" id="10_wnm8k"]
+[ext_resource type="Script" path="res://Monsters/MSM/ClimbInitBTState.cs" id="11_l5nmr"]
+[ext_resource type="Script" path="res://JmoAI/BT/BehaviorTree.cs" id="12_pitbb"]
+[ext_resource type="Script" path="res://JmoAI/BT/Composites/Sequence.cs" id="13_8chbn"]
+[ext_resource type="Script" path="res://Monsters/MSM/ClimbSkid.cs" id="14_va6of"]
+[ext_resource type="Script" path="res://JmoAI/BT/Actions/PlayAnim.cs" id="15_8072k"]
+[ext_resource type="Script" path="res://Monsters/MSM/ClimbIdleState.cs" id="16_vqv0d"]
+[ext_resource type="Script" path="res://Monsters/MSM/ClimbState.cs" id="17_f4104"]
+[ext_resource type="Script" path="res://Monsters/MSM/DesendState.cs" id="18_cda60"]
+[ext_resource type="Script" path="res://Monsters/MSM/AttackState.cs" id="19_scn04"]
+[ext_resource type="PackedScene" uid="uid://ckjqfkhvrt3vr" path="res://Monsters/MonsterAttacks/grizzle_2_gna.tscn" id="20_yyoxw"]
+[ext_resource type="Script" path="res://Monsters/MSM/WallAttackState.cs" id="21_it8ix"]
+[ext_resource type="Script" path="res://Monsters/MSM/EatState.cs" id="22_e7b6x"]
+[ext_resource type="PackedScene" uid="uid://b5ldfx76gk45" path="res://BaseComponents/hunger_bar_component.tscn" id="23_3robb"]
+[ext_resource type="Script" path="res://BaseComponents/ClimberComponent.cs" id="24_bh1gi"]
+[ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="25_71k3j"]
+[ext_resource type="Script" path="res://BaseComponents/HitboxComponent3D.cs" id="26_ueprc"]
+[ext_resource type="Script" path="res://BaseComponents/EaterComponent.cs" id="27_ncef6"]
+[ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="28_pl4s0"]
+[ext_resource type="Script" path="res://JmoAI/Blackboard/Blackboard.cs" id="29_gfisa"]
+
+[sub_resource type="Resource" id="Resource_0lsb2"]
+script = ExtResource("2_jswdh")
+MaxSpeed = 6.0
+Acceleration = -1.0
+Friction = -1.0
+BrakingFrictionMod = -1.0
+InstantMovement = true
+
+[sub_resource type="Resource" id="Resource_l618l"]
+script = ExtResource("2_jswdh")
+MaxSpeed = 3.5
+Acceleration = 28.0
+Friction = 8.0
+BrakingFrictionMod = 0.5
+InstantMovement = false
+
+[sub_resource type="Resource" id="Resource_45tr1"]
+script = ExtResource("2_jswdh")
+MaxSpeed = 4.5
+Acceleration = -1.0
+Friction = -1.0
+BrakingFrictionMod = -1.0
+InstantMovement = true
+
+[sub_resource type="Resource" id="Resource_0f03l"]
+script = ExtResource("2_jswdh")
+MaxSpeed = 3.0
+Acceleration = 1.2
+Friction = 0.4
+BrakingFrictionMod = 0.0
+InstantMovement = false
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_clvei"]
+size_override = Vector2(1984, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sapgd"]
+resource_local_to_scene = true
+atlas = SubResource("PortableCompressedTexture2D_clvei")
+region = Rect2(544, 32, 32, 32)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vc3fb"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2x4ng"]
+radius = 0.75
+height = 1.5
+
+[sub_resource type="Animation" id="Animation_uvjyr"]
+resource_name = "punch1"
+
+[sub_resource type="Animation" id="Animation_b2uam"]
+resource_name = "punch2"
+
+[sub_resource type="Animation" id="Animation_ayl6s"]
+resource_name = "wallKick"
+
+[sub_resource type="Animation" id="Animation_ranyj"]
+resource_name = "wallPunch"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j6d7f"]
+_data = {
+"punch1": SubResource("Animation_uvjyr"),
+"punch2": SubResource("Animation_b2uam"),
+"wallKick": SubResource("Animation_ayl6s"),
+"wallPunch": SubResource("Animation_ranyj")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gfrke"]
+radius = 1.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_x1l46"]
+
+[node name="monster" type="CharacterBody3D"]
+collision_mask = 119
+floor_max_angle = 1.0472
+script = ExtResource("1_5i8pw")
+GroundVelocity = SubResource("Resource_0lsb2")
+AirVelocity = SubResource("Resource_l618l")
+ClimbVelocity = SubResource("Resource_45tr1")
+SwimVelocity = SubResource("Resource_0f03l")
+JumpForce = 8.0
+WallJumpForce = 10.0
+JumpsAllowed = 1
+MaxLandVelocity = 5.0
+
+[node name="grizzler" parent="." instance=ExtResource("3_qtf43")]
+texture = SubResource("AtlasTexture_sapgd")
+
+[node name="ShadowCapsule" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.8, -1)
+material_override = SubResource("StandardMaterial3D_vc3fb")
+cast_shadow = 3
+gi_mode = 2
+mesh = SubResource("CapsuleMesh_2x4ng")
+
+[node name="AttackAnim" type="AnimationPlayer" parent="."]
+root_node = NodePath("")
+libraries = {
+"": SubResource("AnimationLibrary_j6d7f")
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-3.09086e-08, -0.707107, 0.707107, 1, -4.37114e-08, 0, 3.09086e-08, 0.707107, 0.707107, 0, 0.8, 0)
+shape = ExtResource("4_d7ld6")
+
+[node name="MSM" type="Node" parent="." node_paths=PackedStringArray("AttackState", "WallAttackState", "OnEjectClimberState", "InitialSubState")]
+script = ExtResource("5_gfc4j")
+AttackState = NodePath("Attack")
+WallAttackState = NodePath("WallAttack")
+OnEjectClimberState = NodePath("Jump")
+InitialSubState = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="MSM" node_paths=PackedStringArray("_walkState", "_jumpState", "_fallState")]
+script = ExtResource("6_qloa7")
+AnimName = "idle"
+_walkState = NodePath("../Walk")
+_jumpState = NodePath("../Jump")
+_fallState = NodePath("../Fall")
+SelfInteruptible = 0
+
+[node name="Walk" type="Node" parent="MSM" node_paths=PackedStringArray("_idleState", "_jumpState", "_fallState", "_startClimbState")]
+script = ExtResource("7_1kees")
+AnimName = "walk"
+_idleState = NodePath("../Idle")
+_jumpState = NodePath("../Jump")
+_fallState = NodePath("../Fall")
+_startClimbState = NodePath("../ClimbInit")
+SelfInteruptible = 0
+
+[node name="Jump" type="Node" parent="MSM" node_paths=PackedStringArray("_jumpFallState", "_landFloorState", "_landWallState")]
+script = ExtResource("8_kmw8a")
+AnimName = "jump"
+_jumpFallState = NodePath("../Fall")
+_landFloorState = NodePath("../LandFloor")
+_landWallState = NodePath("../ClimbInit")
+SelfInteruptible = 0
+
+[node name="Fall" type="Node" parent="MSM" node_paths=PackedStringArray("_landFloorState", "_landWallState", "_landFallState")]
+script = ExtResource("9_tv0rc")
+_landFloorState = NodePath("../LandFloor")
+_landWallState = NodePath("../ClimbInit")
+_landFallState = NodePath("../LandFall")
+SelfInteruptible = 0
+
+[node name="LandFloor" type="Node" parent="MSM" node_paths=PackedStringArray("AnimTransitionState")]
+script = ExtResource("10_wnm8k")
+AnimName = "land"
+AnimTransitionState = NodePath("../Idle")
+SelfInteruptible = 1
+
+[node name="LandFall" type="Node" parent="MSM" node_paths=PackedStringArray("AnimTransitionState")]
+script = ExtResource("10_wnm8k")
+AnimName = "land2"
+AnimTransitionState = NodePath("../Idle")
+SelfInteruptible = 1
+
+[node name="ClimbInit" type="Node" parent="MSM" node_paths=PackedStringArray("OnTreeSuccessState")]
+script = ExtResource("11_l5nmr")
+OnTreeSuccessState = NodePath("../ClimbIdle")
+
+[node name="BehaviorTree" type="Node" parent="MSM/ClimbInit"]
+script = ExtResource("12_pitbb")
+
+[node name="Sequence" type="Node" parent="MSM/ClimbInit/BehaviorTree"]
+script = ExtResource("13_8chbn")
+
+[node name="ClimbInitSkid" type="Node" parent="MSM/ClimbInit/BehaviorTree/Sequence"]
+script = ExtResource("14_va6of")
+_skidAnimName = "desend"
+SelfInteruptible = 1
+
+[node name="ClimbLatchOn" type="Node" parent="MSM/ClimbInit/BehaviorTree/Sequence"]
+script = ExtResource("15_8072k")
+AnimName = "lift"
+SelfInteruptible = 1
+
+[node name="ClimbIdle" type="Node" parent="MSM" node_paths=PackedStringArray("_climbState", "_descendState")]
+script = ExtResource("16_vqv0d")
+_animName = "wallIdle"
+_climbState = NodePath("../Climbing")
+_descendState = NodePath("../Desending")
+SelfInteruptible = 0
+
+[node name="Climbing" type="Node" parent="MSM" node_paths=PackedStringArray("_climbIdleState", "_jumpState", "_descendState")]
+script = ExtResource("17_f4104")
+_climbIdleState = NodePath("../ClimbIdle")
+_jumpState = NodePath("../Jump")
+_descendState = NodePath("../Desending")
+SelfInteruptible = 0
+
+[node name="Desending" type="Node" parent="MSM" node_paths=PackedStringArray("_climbIdleState", "_landState", "_climbState")]
+script = ExtResource("18_cda60")
+_climbIdleState = NodePath("../ClimbIdle")
+_landState = NodePath("../LandFloor")
+_climbState = NodePath("../Climbing")
+SelfInteruptible = 0
+
+[node name="Attack" type="Node" parent="MSM" node_paths=PackedStringArray("PostAttackState", "OnEatableHitState", "OnTreeSuccessState", "OnTreeFailureState")]
+script = ExtResource("19_scn04")
+PostAttackState = NodePath("../Idle")
+OnEatableHitState = NodePath("../Eat")
+OnTreeSuccessState = NodePath(".")
+OnTreeFailureState = NodePath("../Idle")
+
+[node name="BehaviorTree" parent="MSM/Attack" instance=ExtResource("20_yyoxw")]
+
+[node name="WallAttack" type="Node" parent="MSM" node_paths=PackedStringArray("PostAttackState", "OnEatableHitState", "OnTreeSuccessState", "OnTreeFailureState")]
+script = ExtResource("21_it8ix")
+PostAttackState = NodePath("../ClimbIdle")
+OnEatableHitState = NodePath("../Eat")
+OnTreeSuccessState = NodePath(".")
+OnTreeFailureState = NodePath("../ClimbIdle")
+
+[node name="BehaviorTree" parent="MSM/WallAttack" instance=ExtResource("20_yyoxw")]
+
+[node name="Grab" type="Node" parent="MSM"]
+
+[node name="Eat" type="Node" parent="MSM" node_paths=PackedStringArray("_onFinishedEatingState")]
+script = ExtResource("22_e7b6x")
+_onFinishedEatingState = NodePath("../Idle")
+
+[node name="HungerBarComponent" parent="." node_paths=PackedStringArray("_followTarget", "_eaterComp") instance=ExtResource("23_3robb")]
+_followTarget = NodePath("..")
+_eaterComp = NodePath("../HitboxComponent/EaterComponent")
+HungerSatiationIndex = [10.0, 500.0]
+
+[node name="ClimberComponent" type="Node" parent="." node_paths=PackedStringArray("_body")]
+script = ExtResource("24_bh1gi")
+_body = NodePath("..")
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("25_71k3j")
+
+[node name="HitboxComponent" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+visible = false
+collision_mask = 95
+monitoring = false
+monitorable = false
+script = ExtResource("26_ueprc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("SphereShape3D_gfrke")
+
+[node name="EaterComponent" type="Node" parent="HitboxComponent" node_paths=PackedStringArray("Body")]
+script = ExtResource("27_ncef6")
+Body = NodePath("../..")
+
+[node name="HurtboxComponent" type="Area3D" parent="."]
+visible = false
+monitoring = false
+monitorable = false
+script = ExtResource("28_pl4s0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent"]
+shape = SubResource("SphereShape3D_x1l46")
+
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource("29_gfisa")

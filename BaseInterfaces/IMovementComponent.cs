@@ -264,7 +264,7 @@ public static partial class MovementExtensions
     }
     #endregion
     #region VELOCITY_EXTENSIONS
-    const float DEFAULT_WEIGHT_PERCENTAGE = 0.075f;
+    public const float DEFAULT_WEIGHT_PERCENTAGE = 0.075f;
     public static Vector3 GetWeightedGravity(this CharacterBody3D body, 
         float weightPercentage = DEFAULT_WEIGHT_PERCENTAGE)
     {
