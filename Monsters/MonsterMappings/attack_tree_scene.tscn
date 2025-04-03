@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhyfedxys8u65"]
+
+[ext_resource type="Script" path="res://Monsters/MonsterAttacks/MonsterAttackMapping.cs" id="1_kka55"]
+
+[node name="AttackTreeScene" type="Node"]
+script = ExtResource("1_kka55")

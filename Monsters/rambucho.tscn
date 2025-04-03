@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=4 uid="uid://w1mve7x43xck"]
+[gd_scene load_steps=14 format=4 uid="uid://w1mve7x43xck"]
 
 [ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_pqbg7"]
 [ext_resource type="Resource" uid="uid://dc2vjtqpsrrs8" path="res://Monsters/MonsterVelocityIDs/rambucho_ground.tres" id="2_goioy"]
+[ext_resource type="Resource" uid="uid://bxvcr2jllrc3h" path="res://Monsters/MonsterVelocityIDs/rambucho_med_velocity_props.tres" id="2_j7jnu"]
 [ext_resource type="Resource" uid="uid://bp31xlv2m5gyr" path="res://Monsters/MonsterVelocityIDs/rambucho_air.tres" id="3_osjku"]
 [ext_resource type="PackedScene" uid="uid://b2ggfqqshmwa5" path="res://Monsters/grizzler.tscn" id="3_wm8dx"]
 [ext_resource type="PackedScene" uid="uid://ddhmhdqht1qwi" path="res://Monsters/MSM/rambucho_msm.tscn" id="4_81l2j"]
@@ -24,7 +25,7 @@ radius = 1.5
 [sub_resource type="SphereShape3D" id="SphereShape3D_2ogc2"]
 
 [node name="Rambucho" instance=ExtResource("1_pqbg7")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+VelocityProperties = ExtResource("2_j7jnu")
 GroundVelocity = ExtResource("2_goioy")
 AirVelocity = ExtResource("3_osjku")
 ClimbVelocity = ExtResource("4_84utn")

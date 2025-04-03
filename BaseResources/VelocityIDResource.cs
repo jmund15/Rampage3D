@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 [GlobalClass, Tool]
 public partial class VelocityIDResource : Resource
 {
+    [Export]
+    public VelocityType VelocityType { get; private set; }
     private float _maxSpeed;
     [Export]
     public float MaxSpeed
@@ -109,6 +111,7 @@ public partial class VelocityIDResource : Resource
 
     public VelocityIDResource()
     {
+        VelocityType = VelocityType.Ground;
         MaxSpeed = 0f;
         Acceleration = 0f;
         Friction = 0f;

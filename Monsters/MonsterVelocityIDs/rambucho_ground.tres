@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_xynn6")
+VelocityType = 0
 MaxSpeed = 6.0
 Acceleration = -1.0
 Friction = -1.0

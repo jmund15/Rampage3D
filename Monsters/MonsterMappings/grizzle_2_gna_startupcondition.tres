@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="LastAnimName" load_steps=2 format=3 uid="uid://bofp745jqmc20"]
+
+[ext_resource type="Script" path="res://JmoAI/BT/Decorators/LastAnimName.cs" id="1_v2023"]
+
+[resource]
+script = ExtResource("1_v2023")
+_lastAnimName = "punch2"
+SucceedTaskOnExit = true

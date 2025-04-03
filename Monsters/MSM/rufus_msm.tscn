@@ -16,7 +16,7 @@
 [ext_resource type="Script" path="res://Monsters/MSM/ClimbState.cs" id="14_5ab05"]
 [ext_resource type="Script" path="res://Monsters/MSM/DesendState.cs" id="15_aan5y"]
 [ext_resource type="Script" path="res://Monsters/MSM/AttackState.cs" id="16_t8m2k"]
-[ext_resource type="PackedScene" uid="uid://ckjqfkhvrt3vr" path="res://Monsters/MonsterAttacks/grizzle_2_gna.tscn" id="17_gy4oo"]
+[ext_resource type="PackedScene" path="res://Monsters/MonsterAttacks/grizzle_2_gna.tscn" id="17_gy4oo"]
 [ext_resource type="Script" path="res://Monsters/MSM/WallAttackState.cs" id="18_2bwdr"]
 [ext_resource type="Script" path="res://Monsters/MSM/EatState.cs" id="19_20hg2"]
 
