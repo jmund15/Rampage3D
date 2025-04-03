@@ -163,5 +163,25 @@ public partial class MonsterVelocity3DStrategy : CharacterBody3D, IVelocity3DCom
     {
         throw new NotImplementedException();
     }
+
+    public void AppendAddMod(float mod)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AppendMultMod(float mod)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetAddMod(float mod)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetMultMod(float mod)
+    {
+        throw new NotImplementedException();
+    }
 }
 
