@@ -539,7 +539,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
         Velocity = velocity;
         MoveAndSlide();
     }
-    public void AppendAddVelocityMod(VelocityType velType, VelocityID mod)
+    public void AppendAddVelocityIDMod(VelocityType velType, VelocityID mod)
     {
         if (!VelAddModMap.ContainsKey(velType))
         {
@@ -547,11 +547,11 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
         }
         VelAddModMap[velType] += mod;
     }
-    public void SetAddVelocityMod(VelocityType velType, VelocityID mod)
+    public void SetAddVelocityIDMod(VelocityType velType, VelocityID mod)
     {
         VelAddModMap[velType] = mod;
     }
-    public void AppendMultVelocityMod(VelocityType velType, VelocityID mod)
+    public void AppendMultVelocityIDMod(VelocityType velType, VelocityID mod)
     {
         if (!VelMultModMap.ContainsKey(velType))
         {
@@ -559,11 +559,11 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
         }
         VelMultModMap[velType] *= mod;
     }
-    public void SetMultVelocityMod(VelocityType velType, VelocityID mod)
+    public void SetMultVelocityIDMod(VelocityType velType, VelocityID mod)
     {
         VelMultModMap[velType] = mod;
     }
-    public void AppendAllAddVelocityMods(VelocityID mod)
+    public void AppendAllAddVelocityIDMods(VelocityID mod)
     {
         foreach (var modType in Global.GetEnumValues<VelocityType>())
         {
@@ -574,14 +574,14 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
             VelAddModMap[modType] += mod;
         }
     }
-    public void SetAllAddVelocityMods(VelocityID mod)
+    public void SetAllAddVelocityIDMods(VelocityID mod)
     {
         foreach (var modType in Global.GetEnumValues<VelocityType>())
         {
             VelAddModMap[modType] = mod;
         }
     }
-    public void AppendAllMultVelocityMods(VelocityID mod)
+    public void AppendAllMultVelocityIDMods(VelocityID mod)
     {
         foreach (var modType in Global.GetEnumValues<VelocityType>())
         {
@@ -592,7 +592,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
             VelMultModMap[modType] *= mod;
         }
     }
-    public void SetAllMultVelocityMods(VelocityID mod)
+    public void SetAllMultVelocityIDMods(VelocityID mod)
     {
         foreach (var modType in Global.GetEnumValues<VelocityType>())
         {
@@ -657,6 +657,26 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
     }
 
     public float TimeSinceAttackRequest()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AppendAddMod(float mod)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AppendMultMod(float mod)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetAddMod(float mod)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetMultMod(float mod)
     {
         throw new NotImplementedException();
     }
