@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Godot;
 
+// TODO: ADD VELOCITY TYPE TO PROPERTIES?
 public partial struct VelocityID
 {
     //[Export]

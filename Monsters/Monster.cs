@@ -127,14 +127,22 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
     public override void _Ready()
     {
         base._Ready();
-        VelocityMap[VelocityType.Ground] =
-            GroundVelocity.GetVelocityID();
-        VelocityMap[VelocityType.Air] =
-            AirVelocity.GetVelocityID();
-        VelocityMap[VelocityType.Climb] =
-            ClimbVelocity.GetVelocityID();
-        VelocityMap[VelocityType.Swim] =
-            SwimVelocity.GetVelocityID();
+        foreach (var velProp in VelocityProperties.VelocityIds)
+        {
+            VelocityMap[velProp.VelocityType] = velProp.GetVelocityID();
+        }
+        foreach (var impProp in VelocityProperties.ImpulseIds)
+        {
+            ImpulseMap[impProp.ImpulseType] = impProp.ImpulseForce;
+        }
+        //VelocityMap[VelocityType.Ground] =
+        //    GroundVelocity.GetVelocityID();
+        //VelocityMap[VelocityType.Air] =
+        //    AirVelocity.GetVelocityID();
+        //VelocityMap[VelocityType.Climb] =
+        //    ClimbVelocity.GetVelocityID();
+        //VelocityMap[VelocityType.Swim] =
+        //    SwimVelocity.GetVelocityID();
 
 
         GD.Print($"Air Velocity ID: \n{AirVelocity.GetVelocityID().ToString()}");
@@ -145,13 +153,13 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
             VelMultModMap[velType] = new VelocityID(1,1,1);
         }
 
-        ImpulseMap[ImpulseType.Jump] = JumpForce;
-        ImpulseMap[ImpulseType.WallJump] = WallJumpForce;
-        ImpulseMap[ImpulseType.Glide] = 0.5f; // TODO: MAKE VARIABLE
-        foreach (var forceType in Global.GetEnumValues<ImpulseType>())
-        {
-            ImpulseModMap[forceType] = 0f;
-        }
+        //ImpulseMap[ImpulseType.Jump] = JumpForce;
+        //ImpulseMap[ImpulseType.WallJump] = WallJumpForce;
+        //ImpulseMap[ImpulseType.Glide] = 0.5f; // TODO: MAKE VARIABLE
+        //foreach (var forceType in Global.GetEnumValues<ImpulseType>())
+        //{
+        //    ImpulseModMap[forceType] = 0f;
+        //}
 
         MonsterF = MonsterFormStart;
         MonsterId = new MonsterIdentifier(MonsterT, MonsterF);
@@ -382,7 +390,8 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
         throw new NotImplementedException();
     }
 
-
+    [Export]
+    protected Char3DVelocityProperties VelocityProperties { get; set; }
     [ExportGroup("Velocity Properties")]
     [Export]
     protected VelocityIDResource GroundVelocity { get; set; }

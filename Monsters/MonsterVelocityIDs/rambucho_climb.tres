@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_vcgo0")
+VelocityType = 4
 MaxSpeed = 4.5
 Acceleration = -1.0
 Friction = -1.0

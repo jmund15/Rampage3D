@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Char3DVelocityProperties" load_steps=9 format=3 uid="uid://bxvcr2jllrc3h"]
+
+[ext_resource type="Script" path="res://BaseResources/ImpulseIDResource.cs" id="1_l2e86"]
+[ext_resource type="Resource" uid="uid://dc2vjtqpsrrs8" path="res://Monsters/MonsterVelocityIDs/rambucho_ground.tres" id="2_12sjd"]
+[ext_resource type="Resource" uid="uid://bp31xlv2m5gyr" path="res://Monsters/MonsterVelocityIDs/rambucho_air.tres" id="3_4euxo"]
+[ext_resource type="Resource" uid="uid://c5hdknecfl4s3" path="res://Monsters/MonsterVelocityIDs/rambucho_climb.tres" id="4_7hwil"]
+[ext_resource type="Resource" uid="uid://c1itft3f8207y" path="res://Monsters/MonsterVelocityIDs/rambucho_swim.tres" id="5_gk35l"]
+[ext_resource type="Script" path="res://BaseResources/Char3DVelocityProperties.cs" id="6_uiqqg"]
+
+[sub_resource type="Resource" id="Resource_seuea"]
+script = ExtResource("1_l2e86")
+ImpulseType = 0
+ImpulseForce = 8.0
+
+[sub_resource type="Resource" id="Resource_a2d2b"]
+script = ExtResource("1_l2e86")
+ImpulseType = 1
+ImpulseForce = 10.0
+
+[resource]
+script = ExtResource("6_uiqqg")
+ImpulseIds = [SubResource("Resource_seuea"), SubResource("Resource_a2d2b"), null]
+VelocityIds = [ExtResource("2_12sjd"), ExtResource("3_4euxo"), ExtResource("4_7hwil"), ExtResource("5_gk35l")]
