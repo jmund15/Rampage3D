@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=4 uid="uid://hukks8001cmk"]
 
-[ext_resource type="Script" path="res://BaseComponents/BuildingFloorComponent.cs" id="2_p1mb1"]
-[ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="3_d4lqj"]
+[ext_resource type="Script" uid="uid://c34immip4vqkc" path="res://BaseComponents/BuildingFloorComponent.cs" id="2_p1mb1"]
+[ext_resource type="Script" uid="uid://0l0oqomn3l7v" path="res://BaseComponents/HealthComponent.cs" id="3_d4lqj"]
 [ext_resource type="PackedScene" uid="uid://7rxr0u3eirrr" path="res://Areas/All/Buildings/Effects/floorDestruction32x.tscn" id="4_cddi3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gir3g"]

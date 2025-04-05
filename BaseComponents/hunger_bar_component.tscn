@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b5ldfx76gk45"]
 
-[ext_resource type="Script" path="res://BaseComponents/HungerBarComponent.cs" id="1_7pdff"]
+[ext_resource type="Script" uid="uid://c00p3x51e0ena" path="res://BaseComponents/HungerBarComponent.cs" id="1_7pdff"]
 
 [node name="HungerBarComponent" type="Control"]
 layout_mode = 3

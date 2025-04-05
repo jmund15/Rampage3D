@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="VelocityIDResource" load_steps=2 format=3 uid="uid://dc2vjtqpsrrs8"]
 
-[ext_resource type="Script" path="res://BaseResources/VelocityIDResource.cs" id="1_xynn6"]
+[ext_resource type="Script" uid="uid://c1dbvjkfhfcrc" path="res://BaseResources/VelocityIDResource.cs" id="1_xynn6"]
 
 [resource]
 script = ExtResource("1_xynn6")

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="MonsterIDResource" load_steps=2 format=3 uid="uid://c8w6rnwvm7smx"]
 
-[ext_resource type="Script" path="res://Monsters/MonsterMappings/MonsterIDResource.cs" id="1_lisg5"]
+[ext_resource type="Script" uid="uid://dxbtdst6miusf" path="res://Monsters/MonsterMappings/MonsterIDResource.cs" id="1_lisg5"]
 
 [resource]
 script = ExtResource("1_lisg5")

@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://d3yn3y4dxlc5r"]
 
-[ext_resource type="Script" path="res://JmoAI/BT/BehaviorTree.cs" id="1_8f275"]
-[ext_resource type="Script" path="res://JmoAI/BT/Composites/Sequence.cs" id="2_qdecq"]
-[ext_resource type="Script" path="res://Monsters/MSM/AttackMelee.cs" id="3_1phof"]
-[ext_resource type="Resource" uid="uid://dt2at0vidq432" path="res://Monsters/MonsterAttacks/grizzle_2_WSA_K.tres" id="4_eqkvx"]
-[ext_resource type="Script" path="res://JmoAI/BT/Actions/Lag.cs" id="5_p66ok"]
+[ext_resource type="Script" uid="uid://bv2i7fxxpwow6" path="res://JmoAI/BT/BehaviorTree.cs" id="1_8f275"]
+[ext_resource type="Script" uid="uid://cn8me6e5muwxv" path="res://JmoAI/BT/Composites/Sequence.cs" id="2_qdecq"]
+[ext_resource type="Script" uid="uid://cby262iwkyk0g" path="res://Monsters/MSM/AttackMelee.cs" id="3_1phof"]
+[ext_resource type="Resource" uid="uid://dt2at0vidq432" path="res://Monsters/MonsterMappings/grizzle_2_WSA_K.tres" id="4_eqkvx"]
+[ext_resource type="Script" uid="uid://qn23uwu7owk6" path="res://JmoAI/BT/Actions/Lag.cs" id="5_p66ok"]
 
 [node name="Grizzle_2_WSA" type="Node"]
 script = ExtResource("1_8f275")

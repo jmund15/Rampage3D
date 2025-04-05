@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://d3orlasyxkxwi"]
 
-[ext_resource type="PackedScene" uid="uid://drr5x78s0ad1u" path="res://Agents/test_agent.tscn" id="2_ood4s"]
+[sub_resource type="Resource" id="Resource_3uiwb"]
+metadata/__load_path__ = "res://Agents/test_agent.tscn"
 
 [node name="TestAI" type="Node2D"]
 
@@ -9,5 +10,5 @@
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 
-[node name="TestAgent" parent="." instance=ExtResource("2_ood4s")]
+[node name="TestAgent" parent="."]
 position = Vector2(50, 300)

@@ -26,9 +26,14 @@ public static partial class NodeExts
     }
     #endregion
     #region SEARCH_EXTENSIONS
-    public static T GetFirstNodeOfTypeInScene<T>(bool includeSubChildren = true) where T : Node
+    public static T GetFirstNodeOfTypeInScene<T>(bool includeScene = true, bool includeSubChildren = true) where T : Node
     {
-        return (Engine.GetMainLoop() as SceneTree)?.CurrentScene.GetFirstChildOfType<T>(includeSubChildren);
+        var scene = (Engine.GetMainLoop() as SceneTree);
+        if (includeScene && scene.CurrentScene is T tScene)
+        {
+            return tScene;
+        }
+        return scene?.CurrentScene.GetFirstChildOfType<T>(includeSubChildren);
     }
     public static T GetFirstChildOfType<T>(this Node root, bool includeSubChildren = true) where T : Node
     {

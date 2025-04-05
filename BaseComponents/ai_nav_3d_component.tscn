@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dahmcs8u2k547"]
 
-[ext_resource type="Script" path="res://BaseComponents/AINav3DComponent.cs" id="1_6k4a4"]
+[ext_resource type="Script" uid="uid://deynqwpe1r4fx" path="res://BaseComponents/AINav3DComponent.cs" id="1_6k4a4"]
 
 [node name="AINav3DComponent" type="NavigationAgent3D"]
 path_desired_distance = 1.5

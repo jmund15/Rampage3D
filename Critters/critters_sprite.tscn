@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=4 uid="uid://hteo12rvoyxr"]
 
-[ext_resource type="Script" path="res://BaseComponents/Sprite3DComponent.cs" id="1_urb7k"]
+[ext_resource type="Script" uid="uid://bui2c50m4f2t2" path="res://BaseComponents/Sprite3DComponent.cs" id="1_urb7k"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_t2ka1"]
 _data = PackedByteArray("AAADAAUAAAABAAAAjAAAAB4AAAAoAwAAUklGRiADAABXRUJQVlA4TBMDAAAvi0AHEHegJgAIxgyggqoyySCGiwR+NdRGktowFGUj+q+DAoykyCoKAMIxSymnjhKeYqggwM35DwAAAP9/t03lkjGmjvbgpPSUXW3Q5QVmJjJBrqxta9w8S2b/Exm7nZGuwBBmZk5+jSu2FE7rNrizVZgrZsaaqfMVZLSTWUdJsRehH9aUPqL/Dty2jSQHc+1qACWYfMKZJeV6ntfielXKotFiNXBaXI3TXKpz0xi3pUXjZj6uxk02juckVo7ntjiWOG5ikri0mAbaWy065zgtrqHrtCjOVaxqTHvPdnINkRbDwDM7t87UdU0DT+vUMeLaTp4Rw8BRrOpX+9W1nbQ+LCdtHI7tZEywxWrgabgm2eKZukmU2LQh1pNmWp1zZkkxlSqlMGqMaahSSjO1R5RSgvGNGVOoM2+R7J90NEnDVOeO9W/8XUd/KCu6kDw9FxgXsDMu5WDOXFiVqZKdYc7kLH34YUDUJ2WdJhQdle+aiUolCOYWBDsLcUxRgHXQUkqTC6XRx6DMAbIGpGLrlEFl40k4fTQHZ4JAEMqyMOKXUhTlBFZOSt9gLz6uz1BUBpcSA723SGlM+F1E/bKAnnNyY4bocT1Wrvj4L6AMvjRtBaEMPiuDnfI68Ph6lsc3srD/xo2lXJKBSOIDP+fauUgzWIRWdoPB65sznGtaysqfADzJZLv6y5W4605wTNCVheoccy2Za0lysDIDXU1aVjYR7S/MBc7wH9R4nmndmbzGVcmvfAQv46wp9CdlpiKM8eaz1aJJGqYGF8dnqMiwLHShnXIdRAJY2VeGSrlEfywmvzNGH/rOHPNlwRAKyu+bOZMXsFMGKKPKoPVrZ0wJSZOz7ozGoe9M1HcGCIqxZZmCOlRvRmQeIj+2czt9Cfg1cOfGUogLAm4qAxmaQoPhfMW9aQZ5RpmWs/BYYOWix7FlZzaB+NcAd5o2GWO6+bhBcZuBxz8z7A8T9tyBHHR9qa/GCWBtEsAwyILKfVj5eRPcNT531jx6XBBdj+tj4MPcyXBdaLEbDPpzAZbCZ5tUVon2MlsKAA==")
@@ -573,26 +573,26 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6ulve"]
 _data = {
-"cower2Down": SubResource("Animation_x4l8k"),
-"cower2Up": SubResource("Animation_7qtg3"),
-"cowerDown": SubResource("Animation_rard8"),
-"cowerUp": SubResource("Animation_jyqo3"),
-"fallenDown": SubResource("Animation_m5uhv"),
-"fallenUp": SubResource("Animation_53hqr"),
-"fallingDown": SubResource("Animation_n1f6o"),
-"fallingUp": SubResource("Animation_tbfry"),
-"getupDown": SubResource("Animation_st75y"),
-"getupUp": SubResource("Animation_dvtt8"),
-"idleDown": SubResource("Animation_4h5is"),
-"idleUp": SubResource("Animation_uugka"),
-"referenceDown": SubResource("Animation_quqkf"),
-"referenceUp": SubResource("Animation_pqiy7"),
-"run1Down": SubResource("Animation_jjrxs"),
-"run1Up": SubResource("Animation_i4f2g"),
-"run2Down": SubResource("Animation_qrhms"),
-"run2Up": SubResource("Animation_p4qhm"),
-"tripDown": SubResource("Animation_t6woc"),
-"tripUp": SubResource("Animation_o7tmf")
+&"cower2Down": SubResource("Animation_x4l8k"),
+&"cower2Up": SubResource("Animation_7qtg3"),
+&"cowerDown": SubResource("Animation_rard8"),
+&"cowerUp": SubResource("Animation_jyqo3"),
+&"fallenDown": SubResource("Animation_m5uhv"),
+&"fallenUp": SubResource("Animation_53hqr"),
+&"fallingDown": SubResource("Animation_n1f6o"),
+&"fallingUp": SubResource("Animation_tbfry"),
+&"getupDown": SubResource("Animation_st75y"),
+&"getupUp": SubResource("Animation_dvtt8"),
+&"idleDown": SubResource("Animation_4h5is"),
+&"idleUp": SubResource("Animation_uugka"),
+&"referenceDown": SubResource("Animation_quqkf"),
+&"referenceUp": SubResource("Animation_pqiy7"),
+&"run1Down": SubResource("Animation_jjrxs"),
+&"run1Up": SubResource("Animation_i4f2g"),
+&"run2Down": SubResource("Animation_qrhms"),
+&"run2Up": SubResource("Animation_p4qhm"),
+&"tripDown": SubResource("Animation_t6woc"),
+&"tripUp": SubResource("Animation_o7tmf")
 }
 
 [node name="critters_sprite" type="Sprite3D"]

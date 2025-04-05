@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://bk2raes43i7w6"]
 
-[ext_resource type="Script" path="res://BaseComponents/GroundVehicleComponent.cs" id="1_0wb2f"]
+[ext_resource type="Script" uid="uid://dcfgdp5lkgxq2" path="res://BaseComponents/GroundVehicleComponent.cs" id="1_0wb2f"]
 [ext_resource type="PackedScene" uid="uid://dahmcs8u2k547" path="res://BaseComponents/ai_nav_3d_component.tscn" id="2_ty43o"]
-[ext_resource type="Script" path="res://JmoAI/BT/BehaviorTree.cs" id="3_l5hbq"]
-[ext_resource type="Script" path="res://JmoAI/BT/Composites/Sequence.cs" id="4_6bttt"]
-[ext_resource type="Script" path="res://Critters/AISM/Actions/SetRandomNavPoint.cs" id="5_ru4bh"]
-[ext_resource type="Script" path="res://Critters/AISM/Actions/TravelToNavPoint.cs" id="6_i5iie"]
-[ext_resource type="Script" path="res://JmoAI/Blackboard/Blackboard.cs" id="6_jtv6f"]
-[ext_resource type="Script" path="res://JmoAI/BT/Actions/Lag.cs" id="7_ppths"]
+[ext_resource type="Script" uid="uid://bv2i7fxxpwow6" path="res://JmoAI/BT/BehaviorTree.cs" id="3_l5hbq"]
+[ext_resource type="Script" uid="uid://cn8me6e5muwxv" path="res://JmoAI/BT/Composites/Sequence.cs" id="4_6bttt"]
+[ext_resource type="Script" uid="uid://bb3mfjludhtb8" path="res://Critters/AISM/Actions/SetRandomNavPoint.cs" id="5_ru4bh"]
+[ext_resource type="Script" uid="uid://cfahexo6jy6c5" path="res://Critters/AISM/Actions/TravelToNavPoint.cs" id="6_i5iie"]
+[ext_resource type="Script" uid="uid://dh38hetgqf68m" path="res://JmoAI/Blackboard/Blackboard.cs" id="6_jtv6f"]
+[ext_resource type="Script" uid="uid://qn23uwu7owk6" path="res://JmoAI/BT/Actions/Lag.cs" id="7_ppths"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i6i2g"]
 friction = 0.25

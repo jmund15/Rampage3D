@@ -1,13 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8ykeo37sw7gg"]
+[gd_scene load_steps=9 format=3 uid="uid://b8ykeo37sw7gg"]
 
-[ext_resource type="Script" path="res://BaseComponents/BuildingComponent.cs" id="1_m5g2h"]
+[ext_resource type="Script" uid="uid://vgym2qqw13y7" path="res://BaseComponents/BuildingComponent.cs" id="1_m5g2h"]
 [ext_resource type="PackedScene" uid="uid://cbct72jw70cm4" path="res://BaseComponents/climbable_component.tscn" id="2_hg7kd"]
-[ext_resource type="Script" path="res://BaseComponents/RoofComponent.cs" id="3_pmm0q"]
-[ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="4_pyuhd"]
+[ext_resource type="Script" uid="uid://cw8ak7b26v01m" path="res://BaseComponents/RoofComponent.cs" id="3_pmm0q"]
+[ext_resource type="Script" uid="uid://bdrd1amqp41cn" path="res://BaseComponents/HurtboxComponent3D.cs" id="4_pyuhd"]
 [ext_resource type="PackedScene" uid="uid://bt85nwj2gb1b3" path="res://Areas/All/Buildings/Effects/buildingDestructionSmokeDirectional.tscn" id="5_mcnb2"]
 [ext_resource type="PackedScene" uid="uid://denn1dumyw2kq" path="res://Areas/All/Buildings/Effects/buildingDestructionSmokeCenter.tscn" id="6_rnavw"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_65lnb"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_58ln7"]
+lightmap_size_hint = Vector2i(9, 5)
+radius = 0.236673
+height = 0.473346
+radial_segments = 32
+rings = 16
 
 [node name="Building" type="RigidBody3D"]
 collision_layer = 2
@@ -16,34 +23,33 @@ mass = 50.0
 sleeping = true
 freeze = true
 script = ExtResource("1_m5g2h")
-"Building Location" = 0
-"Building Type" = 0
-MinimumFloorsToCollapse = 0
 BuildingLocationDir = "res://Areas//All//Buildings//Textures"
-_buildingLocationDirMap = {
+_buildingLocationDirMap = Dictionary[int, String]({
 0: "res://Areas//All//Buildings//Textures",
 1: "res://Areas//KentsHill//Buildings//Textures",
 2: "res://Areas//SanFrancisco//Buildings//Textures"
-}
+})
 _buildingLocPropHint = "All,KentsHill,SanFrancisco"
 BuildingTypeDir = "res://Areas//All//Buildings//Textures//32x_brick01"
-_buildingTypeDirMap = {
+_buildingTypeDirMap = Dictionary[int, String]({
 0: "res://Areas//All//Buildings//Textures//32x_brick01",
 1: "res://Areas//All//Buildings//Textures//references"
-}
+})
 _buildingTypePropHint = "32x_brick01,references"
-_availableFloorTexturePathMap = {
-0: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot.png",
-1: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot_alt01.png",
-2: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid.png",
-3: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt01.png",
-4: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt02.png",
+_availableFloorTexturePathMap = Dictionary[int, String]({
+0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
+1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
+2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
+3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
+4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
 5: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt03.png",
 6: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt04.png",
 7: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top.png",
 8: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top_alt01.png"
-}
+})
 _floorPropHint = "32x_brick01_bot.png,32x_brick01_bot_alt01.png,32x_brick01_mid.png,32x_brick01_mid_alt01.png,32x_brick01_mid_alt02.png,32x_brick01_mid_alt03.png,32x_brick01_mid_alt04.png,32x_brick01_top.png,32x_brick01_top_alt01.png"
+"Building Location" = 0
+"Building Type" = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.130737, 0)
@@ -70,5 +76,9 @@ transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, -3.4
 top_level = true
 visible = false
 frame_progress = 0.364956
+
+[node name="DoorEntranceIndicator" type="MeshInstance3D" parent="."]
+sorting_offset = 10.0
+mesh = SubResource("SphereMesh_58ln7")
 
 [node name="CollapseTicker" type="Timer" parent="."]

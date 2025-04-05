@@ -365,6 +365,11 @@ public static partial class MovementExtensions
                 return Vector2.Zero;
         }
     }
+    public static Vector3 GetVector3(this Dir8 direction)
+    {
+        var dirVec2 = direction.GetVector2();
+        return new Vector3(dirVec2.X, 0, dirVec2.Y);
+    }
     public static (Dir16, Dir16) GetNeighboring16Dirs(this Dir16 dir)
     {
         switch (dir) //RETURN NORMALIZED VECTOR
