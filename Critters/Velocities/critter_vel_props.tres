@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="Char3DVelocityProperties" load_steps=6 format=3 uid="uid://dxm311nsjksd2"]
+[gd_resource type="Resource" script_class="Char3DVelocityProperties" load_steps=8 format=3 uid="uid://dxm311nsjksd2"]
 
+[ext_resource type="Script" uid="uid://bds5ojs2wkd4a" path="res://BaseResources/ImpulseIDResource.cs" id="1_46fvb"]
 [ext_resource type="Resource" uid="uid://b2mablhx6ybfi" path="res://Critters/Velocities/critter_ground.tres" id="1_sy3s6"]
+[ext_resource type="Script" uid="uid://c1dbvjkfhfcrc" path="res://BaseResources/VelocityIDResource.cs" id="2_1124e"]
 [ext_resource type="Resource" uid="uid://c3cvgjsp45so7" path="res://Critters/Velocities/critter_run.tres" id="2_fqj46"]
 [ext_resource type="Resource" uid="uid://e3tcq6rej5te" path="res://Critters/Velocities/critter_air.tres" id="3_vbc0k"]
 [ext_resource type="Resource" uid="uid://c1itft3f8207y" path="res://Monsters/MonsterVelocityIDs/rambucho_swim.tres" id="4_hofo1"]
-[ext_resource type="Script" path="res://BaseResources/Char3DVelocityProperties.cs" id="5_ckga3"]
+[ext_resource type="Script" uid="uid://dygwyddjwbtfu" path="res://BaseResources/Char3DVelocityProperties.cs" id="5_ckga3"]
 
 [resource]
 script = ExtResource("5_ckga3")
-ImpulseIds = []
-VelocityIds = [ExtResource("1_sy3s6"), ExtResource("2_fqj46"), ExtResource("3_vbc0k"), ExtResource("4_hofo1")]
+ImpulseIds = Array[ExtResource("1_46fvb")]([])
+VelocityIds = Array[ExtResource("2_1124e")]([ExtResource("1_sy3s6"), ExtResource("2_fqj46"), ExtResource("3_vbc0k"), ExtResource("4_hofo1")])

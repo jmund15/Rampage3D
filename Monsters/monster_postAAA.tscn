@@ -1,8 +1,8 @@
 [gd_scene load_steps=75 format=4 uid="uid://bgif81p2apa72"]
 
-[ext_resource type="Script" path="res://BaseComponents/MultiAnimPlayerComponent.cs" id="1_l13si"]
-[ext_resource type="Script" path="res://BaseComponents/Sprite3DComponent.cs" id="2_fqpi2"]
-[ext_resource type="Script" path="res://BaseComponents/AnimationPlayerComponent.cs" id="3_03cjc"]
+[ext_resource type="Script" uid="uid://v7px6dh6dj46" path="res://BaseComponents/MultiAnimPlayerComponent.cs" id="1_l13si"]
+[ext_resource type="Script" uid="uid://bui2c50m4f2t2" path="res://BaseComponents/Sprite3DComponent.cs" id="2_fqpi2"]
+[ext_resource type="Script" uid="uid://dxew2yt2po4il" path="res://BaseComponents/AnimationPlayerComponent.cs" id="3_03cjc"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_xw3jq"]
 _data = PackedByteArray("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")
@@ -337,60 +337,6 @@ tracks/1/keys = {
 "values": [Rect2(1600, 64, 32, 32)]
 }
 
-[sub_resource type="Animation" id="Animation_xfuds"]
-length = 0.201
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(2112, 32, 32, 32)]
-}
-
-[sub_resource type="Animation" id="Animation_lmsxd"]
-length = 0.201
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(2112, 64, 32, 32)]
-}
-
 [sub_resource type="Animation" id="Animation_nan01"]
 length = 0.201
 tracks/0/type = "value"
@@ -443,6 +389,60 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Rect2(2144, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_xfuds"]
+length = 0.201
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(2112, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_lmsxd"]
+length = 0.201
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(2112, 64, 32, 32)]
 }
 
 [sub_resource type="Animation" id="Animation_orl4e"]
@@ -555,60 +555,6 @@ tracks/1/keys = {
 "values": [Rect2(704, 64, 32, 32), Rect2(736, 64, 32, 32)]
 }
 
-[sub_resource type="Animation" id="Animation_xys6g"]
-length = 0.121
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(768, 32, 32, 32)]
-}
-
-[sub_resource type="Animation" id="Animation_ohcr3"]
-length = 0.121
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(768, 64, 32, 32)]
-}
-
 [sub_resource type="Animation" id="Animation_elhkb"]
 length = 0.221
 tracks/0/type = "value"
@@ -661,6 +607,60 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Rect2(2176, 64, 32, 32), Rect2(2208, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_xys6g"]
+length = 0.121
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(768, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_ohcr3"]
+length = 0.121
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(768, 64, 32, 32)]
 }
 
 [sub_resource type="Animation" id="Animation_dst0h"]
@@ -960,33 +960,6 @@ tracks/1/keys = {
 "values": [Rect2(1312, 32, 32, 32), Rect2(1344, 32, 32, 32)]
 }
 
-[sub_resource type="Animation" id="Animation_njthk"]
-length = 0.321
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(1312, 64, 32, 32), Rect2(1344, 64, 32, 32)]
-}
-
 [sub_resource type="Animation" id="Animation_vupo5"]
 length = 0.261
 tracks/0/type = "value"
@@ -1093,6 +1066,33 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Rect2(1376, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_njthk"]
+length = 0.321
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(1312, 64, 32, 32), Rect2(1344, 64, 32, 32)]
 }
 
 [sub_resource type="Animation" id="Animation_iktfk"]
@@ -1718,33 +1718,6 @@ tracks/1/keys = {
 "values": [Rect2(1824, 32, 32, 32), Rect2(1856, 32, 32, 32)]
 }
 
-[sub_resource type="Animation" id="Animation_pubpy"]
-length = 0.321
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture:margin")
-tracks/0/interp = 0
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Rect2(0, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture:region")
-tracks/1/interp = 0
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Rect2(1824, 64, 32, 32), Rect2(1856, 64, 32, 32)]
-}
-
 [sub_resource type="Animation" id="Animation_o4vqv"]
 length = 0.121
 tracks/0/type = "value"
@@ -1853,76 +1826,103 @@ tracks/1/keys = {
 "values": [Rect2(1888, 64, 32, 32)]
 }
 
+[sub_resource type="Animation" id="Animation_pubpy"]
+length = 0.321
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:margin")
+tracks/0/interp = 0
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Rect2(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 0
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(1824, 64, 32, 32), Rect2(1856, 64, 32, 32)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uri61"]
 _data = {
-"climbDown": SubResource("Animation_0q2js"),
-"climbUp": SubResource("Animation_eks15"),
-"desendDown": SubResource("Animation_xxn3e"),
-"desendUp": SubResource("Animation_r3ovd"),
-"eat1Down": SubResource("Animation_1wo1j"),
-"eat1Up": SubResource("Animation_tsj5g"),
-"eat2Down": SubResource("Animation_x51cm"),
-"eat2Up": SubResource("Animation_htfrm"),
-"grab1Down": SubResource("Animation_sdren"),
-"grab1Up": SubResource("Animation_immuc"),
-"grab2Down": SubResource("Animation_f8fo0"),
-"grab2Up": SubResource("Animation_app2g"),
-"hurt2Down": SubResource("Animation_nan01"),
-"hurt2Up": SubResource("Animation_4wgof"),
-"hurtDown": SubResource("Animation_xfuds"),
-"hurtUp": SubResource("Animation_lmsxd"),
-"idleDown": SubResource("Animation_orl4e"),
-"idleUp": SubResource("Animation_3lrvd"),
-"jumpDown": SubResource("Animation_qpva7"),
-"jumpUp": SubResource("Animation_mtxxl"),
-"land2Down": SubResource("Animation_elhkb"),
-"land2Up": SubResource("Animation_udv6i"),
-"landDown": SubResource("Animation_xys6g"),
-"landUp": SubResource("Animation_ohcr3"),
-"liftDown": SubResource("Animation_dst0h"),
-"liftUp": SubResource("Animation_b6d2y"),
-"punch1Down": SubResource("Animation_2spk4"),
-"punch1Up": SubResource("Animation_g12v7"),
-"punch2Down": SubResource("Animation_iunmp"),
-"punch2Up": SubResource("Animation_vyvg3"),
-"punchStartupDown": SubResource("Animation_t3sfl"),
-"punchStartupUp": SubResource("Animation_a77xb"),
-"referenceDown": SubResource("Animation_ghdxb"),
-"referenceUp": SubResource("Animation_eswbk"),
-"specialDown": SubResource("Animation_uljae"),
-"specialEndDown": SubResource("Animation_vupo5"),
-"specialEndUp": SubResource("Animation_7mh7p"),
-"specialHoldDown": SubResource("Animation_4ob15"),
-"specialHoldUp": SubResource("Animation_gsa17"),
-"specialUp": SubResource("Animation_njthk"),
-"swimIdleDown": SubResource("Animation_iktfk"),
-"swimIdleUp": SubResource("Animation_wennm"),
-"swimLandDown": SubResource("Animation_ld6tj"),
-"swimLandUp": SubResource("Animation_tnrf7"),
-"swimSurfaceDown": SubResource("Animation_bbrn6"),
-"swimSurfaceUp": SubResource("Animation_ebjb5"),
-"swimWalkDown": SubResource("Animation_0cqjr"),
-"swimWalkUp": SubResource("Animation_r4u4g"),
-"walkDown": SubResource("Animation_b71i0"),
-"walkUp": SubResource("Animation_ogqix"),
-"wallEatDown": SubResource("Animation_ndy0e"),
-"wallEatUp": SubResource("Animation_1rc2g"),
-"wallGrabDown": SubResource("Animation_okdg0"),
-"wallGrabUp": SubResource("Animation_kavjj"),
-"wallIdleDown": SubResource("Animation_6t5xi"),
-"wallIdleUp": SubResource("Animation_0182k"),
-"wallLandDown": SubResource("Animation_rnqsp"),
-"wallLandUp": SubResource("Animation_33e4t"),
-"wallPunchDown": SubResource("Animation_mngun"),
-"wallPunchUp": SubResource("Animation_igaao"),
-"wallReferenceDown": SubResource("Animation_g0hip"),
-"wallReferenceUp": SubResource("Animation_cmuuj"),
-"wallSpecialDown": SubResource("Animation_x6pca"),
-"wallSpecialEndDown": SubResource("Animation_o4vqv"),
-"wallSpecialEndUp": SubResource("Animation_fewi6"),
-"wallSpecialHoldDown": SubResource("Animation_klab8"),
-"wallSpecialHoldUp": SubResource("Animation_m8lwe"),
-"wallSpecialUp": SubResource("Animation_pubpy")
+&"climbDown": SubResource("Animation_0q2js"),
+&"climbUp": SubResource("Animation_eks15"),
+&"desendDown": SubResource("Animation_xxn3e"),
+&"desendUp": SubResource("Animation_r3ovd"),
+&"eat1Down": SubResource("Animation_1wo1j"),
+&"eat1Up": SubResource("Animation_tsj5g"),
+&"eat2Down": SubResource("Animation_x51cm"),
+&"eat2Up": SubResource("Animation_htfrm"),
+&"grab1Down": SubResource("Animation_sdren"),
+&"grab1Up": SubResource("Animation_immuc"),
+&"grab2Down": SubResource("Animation_f8fo0"),
+&"grab2Up": SubResource("Animation_app2g"),
+&"hurt2Down": SubResource("Animation_nan01"),
+&"hurt2Up": SubResource("Animation_4wgof"),
+&"hurtDown": SubResource("Animation_xfuds"),
+&"hurtUp": SubResource("Animation_lmsxd"),
+&"idleDown": SubResource("Animation_orl4e"),
+&"idleUp": SubResource("Animation_3lrvd"),
+&"jumpDown": SubResource("Animation_qpva7"),
+&"jumpUp": SubResource("Animation_mtxxl"),
+&"land2Down": SubResource("Animation_elhkb"),
+&"land2Up": SubResource("Animation_udv6i"),
+&"landDown": SubResource("Animation_xys6g"),
+&"landUp": SubResource("Animation_ohcr3"),
+&"liftDown": SubResource("Animation_dst0h"),
+&"liftUp": SubResource("Animation_b6d2y"),
+&"punch1Down": SubResource("Animation_2spk4"),
+&"punch1Up": SubResource("Animation_g12v7"),
+&"punch2Down": SubResource("Animation_iunmp"),
+&"punch2Up": SubResource("Animation_vyvg3"),
+&"punchStartupDown": SubResource("Animation_t3sfl"),
+&"punchStartupUp": SubResource("Animation_a77xb"),
+&"referenceDown": SubResource("Animation_ghdxb"),
+&"referenceUp": SubResource("Animation_eswbk"),
+&"specialDown": SubResource("Animation_uljae"),
+&"specialEndDown": SubResource("Animation_vupo5"),
+&"specialEndUp": SubResource("Animation_7mh7p"),
+&"specialHoldDown": SubResource("Animation_4ob15"),
+&"specialHoldUp": SubResource("Animation_gsa17"),
+&"specialUp": SubResource("Animation_njthk"),
+&"swimIdleDown": SubResource("Animation_iktfk"),
+&"swimIdleUp": SubResource("Animation_wennm"),
+&"swimLandDown": SubResource("Animation_ld6tj"),
+&"swimLandUp": SubResource("Animation_tnrf7"),
+&"swimSurfaceDown": SubResource("Animation_bbrn6"),
+&"swimSurfaceUp": SubResource("Animation_ebjb5"),
+&"swimWalkDown": SubResource("Animation_0cqjr"),
+&"swimWalkUp": SubResource("Animation_r4u4g"),
+&"walkDown": SubResource("Animation_b71i0"),
+&"walkUp": SubResource("Animation_ogqix"),
+&"wallEatDown": SubResource("Animation_ndy0e"),
+&"wallEatUp": SubResource("Animation_1rc2g"),
+&"wallGrabDown": SubResource("Animation_okdg0"),
+&"wallGrabUp": SubResource("Animation_kavjj"),
+&"wallIdleDown": SubResource("Animation_6t5xi"),
+&"wallIdleUp": SubResource("Animation_0182k"),
+&"wallLandDown": SubResource("Animation_rnqsp"),
+&"wallLandUp": SubResource("Animation_33e4t"),
+&"wallPunchDown": SubResource("Animation_mngun"),
+&"wallPunchUp": SubResource("Animation_igaao"),
+&"wallReferenceDown": SubResource("Animation_g0hip"),
+&"wallReferenceUp": SubResource("Animation_cmuuj"),
+&"wallSpecialDown": SubResource("Animation_x6pca"),
+&"wallSpecialEndDown": SubResource("Animation_o4vqv"),
+&"wallSpecialEndUp": SubResource("Animation_fewi6"),
+&"wallSpecialHoldDown": SubResource("Animation_klab8"),
+&"wallSpecialHoldUp": SubResource("Animation_m8lwe"),
+&"wallSpecialUp": SubResource("Animation_pubpy")
 }
 
 [node name="GAWKGAWK" type="Node3D"]

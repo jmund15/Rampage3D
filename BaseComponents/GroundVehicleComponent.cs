@@ -3,6 +3,10 @@ using Godot.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+/* VEHICLE TODO: 
+ * 1. Braking sfx volume directly corresponding with negative acceleration
+ * 
+ */
 [GlobalClass, Tool]
 public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent
 {

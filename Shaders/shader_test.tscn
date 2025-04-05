@@ -1,34 +1,31 @@
-[gd_scene load_steps=11 format=3 uid="uid://bhhiqhunxnhav"]
+[gd_scene load_steps=10 format=3 uid="uid://bhhiqhunxnhav"]
 
 [ext_resource type="Texture2D" uid="uid://cwham6cs71fgq" path="res://Areas/All/Buildings/Textures/32x_brick01/32x_brick01_bot.png" id="1_e2hqx"]
-[ext_resource type="Shader" uid="uid://dmolypg1ssrw" path="res://Shaders/buildingOutOfBounds.tres" id="1_k7lps"]
 [ext_resource type="ArrayMesh" uid="uid://cr7ka0otfrjo0" path="res://Areas/All/Buildings/Models/base_32x.obj" id="3_fv8jv"]
-[ext_resource type="Shader" path="res://Shaders/water.gdshader" id="4_flqfl"]
+[ext_resource type="Shader" uid="uid://c7x6txrm1saiu" path="res://Shaders/water.gdshader" id="4_flqfl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aoq2p"]
 albedo_texture = ExtResource("1_e2hqx")
 texture_filter = 0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rbur3"]
-render_priority = 0
-shader = ExtResource("1_k7lps")
 
 [sub_resource type="BoxMesh" id="BoxMesh_ymkpw"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vepmm"]
-load_path = "res://.godot/imported/dcatyft-3d286c66-03cc-448e-b8d8-a4f0a3a2fc26.png-022ca7154b2acd32dc02f235fa50eb9e.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vtt88"]
-load_path = "res://.godot/imported/Calm_loop_tile_example.jpg0a84b6dc-99cb-4d55-a4d7-41245604a45eLarge.jpg-b117682aa27edfc25beb2ffbc2986301.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f3dsn"]
 render_priority = 0
 shader = ExtResource("4_flqfl")
 shader_parameter/speed = Vector2(0.1, 0)
 shader_parameter/displace_speed = Vector2(0.065, 0.1)
-shader_parameter/displacement_strength = 0.39
+shader_parameter/normal_speed = Vector2(0.03, -0.01)
+shader_parameter/normal_speed2 = Vector2(0.05, 0.05)
 shader_parameter/albedo_texture = SubResource("CompressedTexture2D_vepmm")
 shader_parameter/displacement_texture = SubResource("CompressedTexture2D_vtt88")
+shader_parameter/displacement_strength = 0.39
 
 [node name="Node3D" type="Node3D"]
 

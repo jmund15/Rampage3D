@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="AAAParameters" load_steps=2 format=3 uid="uid://dy4d1j6q71ftk"]
 
-[ext_resource type="Script" path="res://Base/AAAParameters.cs" id="1_wojpu"]
+[ext_resource type="Script" uid="uid://cf3rxscc6f0po" path="res://Base/AAAParameters.cs" id="1_wojpu"]
 
 [resource]
 script = ExtResource("1_wojpu")
-SpriteTypePixelMap = {
+SpriteTypePixelMap = Dictionary[int, int]({
 0: 32,
 1: 10
-}
-AnimLoopMap = {
+})
+AnimLoopMap = Dictionary[String, int]({
 "eat": 0,
 "grab": 0,
 "idle": 1,
@@ -26,11 +26,11 @@ AnimLoopMap = {
 "walk": 1,
 "wallKick": 0,
 "wallPunch": 0
-}
+})
 SavePath = "res://Monsters/monster_postAAA.tscn"
 SpriteType = 0
-BodyParts = {
+BodyParts = Dictionary[String, int]({
 "body": 1
-}
-PartConfigLabels = {}
-AnimDirections = [0, 1]
+})
+PartConfigLabels = Dictionary[String, Array]({})
+AnimDirections = Array[int]([0, 1])

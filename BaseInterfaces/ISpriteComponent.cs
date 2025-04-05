@@ -12,6 +12,7 @@ public interface ISpriteComponent
     public float GetSpriteWidth();
     public bool FlipH { get; set; }
     public bool FlipV { get; set; }
+    public Vector2 Offset { get; set; }
     //public void SetFlipH(bool flip);
     //public void SetFlipV(bool flip);
     //public bool GetFlipH();

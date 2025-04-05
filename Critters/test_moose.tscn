@@ -1,8 +1,8 @@
 [gd_scene load_steps=143 format=4 uid="uid://72nho6ruyfld"]
 
-[ext_resource type="Script" path="res://BaseComponents/MultiAnimPlayerComponent.cs" id="1_3o13u"]
-[ext_resource type="Script" path="res://BaseComponents/Sprite3DComponent.cs" id="2_j4337"]
-[ext_resource type="Script" path="res://BaseComponents/AnimationPlayerComponent.cs" id="3_k5uee"]
+[ext_resource type="Script" uid="uid://v7px6dh6dj46" path="res://BaseComponents/MultiAnimPlayerComponent.cs" id="1_3o13u"]
+[ext_resource type="Script" uid="uid://bui2c50m4f2t2" path="res://BaseComponents/Sprite3DComponent.cs" id="2_j4337"]
+[ext_resource type="Script" uid="uid://dxew2yt2po4il" path="res://BaseComponents/AnimationPlayerComponent.cs" id="3_k5uee"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_xi0qs"]
 _data = PackedByteArray("AAADAAUAAAABAAAAqgAAAIIAAAC2BgAAUklGRq4GAABXRUJQVlA4TKEGAAAvqUAgEI/ANACANFQSL1BdGtdzkTtM31AbyVbyJUJSJ9QWKJMaqeHHfEWRJDUX4YWEU4AJ3ONlFZCZ/wBAANBfP+QrE4Z+zJ3AP0J6gJLdGyw3uAV3t/KzJeC1kKYDLNu22jZPMUISQoX5z7a8++7DdvpHRP8luG0kSVLkVM+ePbSzq/IP02e6PtSqAt+iVNNAS/87S+DRs6r3mQafkOCzmwkKnjSAPn30ho4xEaNfm08xmgJpmpWxTJ2lpxiCRtUqFAe3MeF3atO/aoGGOuYDDWEx9FMPoXdG64GgH1LVCKhQaybPdHqIZWbCSt0LjFgF/Xhf0EwY0qnwRhMD2MQ7wR9AWzq5EnQePR9IUKf9jnppivf4J2p0+f17PueffKZL2sr1VYCAWkjFC7Lskm1fZ6GWN5qPtOeMBICKBEhFC/K2b9uWN8MiuVlQdAchw9dt2z1/18KJiBawbZC+fe4Em9RUj20WpOoB2lLdc+1eR7IIHf9Rm1FSzx7qcFpAtYFULkGNRlq2ppemh0HsTPPcU+dOCgb6EEsLfB3M4hKIIAtIuVGtmYQxi/ORHTx1kfqNNszM+2g1YvIC0+9ReVAuv1Ebf1dAJi3wtDbLqy98Z45MOsubrq39uf6wbfJ9XVkyEnh9nAABts1nmbcx6bPszjtmzltGArsNy8cJFOCRxWOpkgyD4Dqy7O3knPsbYUYyIrtUXkYCrg3aJ3MnQADkQ4ANWewg0hF2pUBqcg+ZLeba8D+V2EeDKxNXB7mDMPvLrm3YE3d2EfGmP+EslrdY3Y3C7/TMCT6DrvZ5eMr5W37q6Idytn3N8owKfKQ9ZyQAVCRAKlqQ131d17waFsnNgqI7CBm+ruvu+bsWTkS0gG2D9O1LJ1ilpnqsiyBVD9CW6l5q9zqSRej4j9qMknr2UIfTAqoNpHIJajTSsja9ND0MYmdalp66dFIw0IdYWuDrYBGXQARZQMqVas0kjFmcj+zgqYvUr7RhYd5HqxGTF5h+j8qDcvmN2vi7AjJpgae1RV594TtzZNJF3nSt7c/1h22VMetbfoIjwLr6LMs6Jn2W3XnHLHnNSGC3Yfk4gQI8sngsVZJhEFxHlr2dnEt/IyxIRmSXystIwLVB+2TpBAiAfAiwIosdRDrCrhRITe4hs8VcG/6nEvtocGXi6iB3EGZ/2bUOe+IuLiLe9CecxfIWq7tR+J1eOMFn0NW+DE+5yH/ddR2cZcQcl5Nyvdocl99yHbA1g3A0ipJezHVg/HiBu+mL/DGXNmmB0aan6edckOq9PJgDdfL/6Wz08C5u3vFs9D34+znq4QjF+rx88ROH5xzUxh0H7ANYLqFY1zgB7GDgl8N1yD+ddZ+cZcSct5Nyv9qct99yn7A1g3A2ipLezHVi/HiBu+mb/DG3NmmB0aan6edckOq9PJgTdvLv6Wz08G5u3vFs9D34+znr4QjF+rx88ROH55zUxp0n7ANYbqFY9zgB7GDgl8N1ys9xxVQneSa9yCSUY5zPKkYJYjRVKVZOGjIx4q4dxhQrCwmINny+liZGkAxYUrLCJipHywhYCE9dKSpnYyEBMCFBRD5GoPlNQFiittSBMSWBYpKWJtPM7W4EqGhEw23oRC5zRAKhEqWk8RIBXwOhGUwSGC6iSIzA1YFEbGG691kiTEShRVGSZRlyiXAqbCaGzj0MI7D7H+VKX82kF74pIpffsCRH8AjeKKWoZDFxRUIeELh9ySGNlQB95kkXDaoepAJlVQFuE7SG9EiAUlIdRIdUajRkUawWF6oASzQrJs1Tviawd9XIFpGAawOohJOis5HxRYG9MFWCRPCjqKGVB82gNSCgUmKfRyAibguYGM1EIhw0UqroFCTGEjmz0xJZ3+/bCqVO8Ux5kSkoxzifVYwShGCqSqicMmRCwF07jCVUFhIQbfh8LU0IIBmwlGKFLVSOlhGwEJ66SlDOxkICYEKCgHyMQPObgLAEbakDY0oBxRQtLaaZ290AUMGIhtvQiVzmgARCJSpF4yUAvgZCM5giMFxAkRiBqwMJ2MJ077MEmIhCi6IUyzLkEuFU2EwMnXsYRmD3P8pVvpopL3xTBC6/YSmO4AG8USlByULhioQ8IHD7ikMaKgH6zJMuGFQ9SAXKqgLcJmgN6ZEApaQ6CA6p1GjIolgtLlQBlmhWKJqnfE1g76qRLSAB1wZQCSdFZyPjCwJ7YaoEieBHUUMrD5pBa0BApcQ+j0BE3BYwIZiJRDhooFTBKSiMJXBmpyWwvq9pCQA=")
@@ -1247,50 +1247,50 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i0bkh"]
 _data = {
-"cower2DownA": SubResource("Animation_8f1hp"),
-"cower2DownB": SubResource("Animation_3wyrw"),
-"cower2UpA": SubResource("Animation_o4ly1"),
-"cower2UpB": SubResource("Animation_c40xl"),
-"cowerDownA": SubResource("Animation_7p4bq"),
-"cowerDownB": SubResource("Animation_d8l1f"),
-"cowerUpA": SubResource("Animation_uovk5"),
-"cowerUpB": SubResource("Animation_03ra1"),
-"fallenDownA": SubResource("Animation_j1s6y"),
-"fallenDownB": SubResource("Animation_hxiec"),
-"fallenUpA": SubResource("Animation_1ac5w"),
-"fallenUpB": SubResource("Animation_wcepd"),
-"fallingDownA": SubResource("Animation_f8bs7"),
-"fallingDownB": SubResource("Animation_kl7s2"),
-"fallingUpA": SubResource("Animation_bedv5"),
-"fallingUpB": SubResource("Animation_s7vb7"),
-"getupDownA": SubResource("Animation_mgpdn"),
-"getupDownB": SubResource("Animation_83ukt"),
-"getupUpA": SubResource("Animation_6wh84"),
-"getupUpB": SubResource("Animation_18c7a"),
-"idleDownA": SubResource("Animation_n4el0"),
-"idleDownB": SubResource("Animation_vxk08"),
-"idleUpA": SubResource("Animation_lshyy"),
-"idleUpB": SubResource("Animation_0w045"),
-"referenceDownA": SubResource("Animation_a0gs3"),
-"referenceDownB": SubResource("Animation_dkjsc"),
-"referenceUpA": SubResource("Animation_8g6xj"),
-"referenceUpB": SubResource("Animation_gpkt1"),
-"run1DownA": SubResource("Animation_7k48q"),
-"run1DownB": SubResource("Animation_45deg"),
-"run1UpA": SubResource("Animation_04dut"),
-"run1UpB": SubResource("Animation_67cwj"),
-"run2DownA": SubResource("Animation_3r7rx"),
-"run2DownB": SubResource("Animation_sfoxn"),
-"run2UpA": SubResource("Animation_h48b1"),
-"run2UpB": SubResource("Animation_llkle"),
-"tripDownA": SubResource("Animation_p3gh5"),
-"tripDownB": SubResource("Animation_6flmk"),
-"tripUpA": SubResource("Animation_jrrij"),
-"tripUpB": SubResource("Animation_bwiud"),
-"walkDownA": SubResource("Animation_6nw2c"),
-"walkDownB": SubResource("Animation_76m03"),
-"walkUpA": SubResource("Animation_eo25q"),
-"walkUpB": SubResource("Animation_fv5be")
+&"cower2DownA": SubResource("Animation_8f1hp"),
+&"cower2DownB": SubResource("Animation_3wyrw"),
+&"cower2UpA": SubResource("Animation_o4ly1"),
+&"cower2UpB": SubResource("Animation_c40xl"),
+&"cowerDownA": SubResource("Animation_7p4bq"),
+&"cowerDownB": SubResource("Animation_d8l1f"),
+&"cowerUpA": SubResource("Animation_uovk5"),
+&"cowerUpB": SubResource("Animation_03ra1"),
+&"fallenDownA": SubResource("Animation_j1s6y"),
+&"fallenDownB": SubResource("Animation_hxiec"),
+&"fallenUpA": SubResource("Animation_1ac5w"),
+&"fallenUpB": SubResource("Animation_wcepd"),
+&"fallingDownA": SubResource("Animation_f8bs7"),
+&"fallingDownB": SubResource("Animation_kl7s2"),
+&"fallingUpA": SubResource("Animation_bedv5"),
+&"fallingUpB": SubResource("Animation_s7vb7"),
+&"getupDownA": SubResource("Animation_mgpdn"),
+&"getupDownB": SubResource("Animation_83ukt"),
+&"getupUpA": SubResource("Animation_6wh84"),
+&"getupUpB": SubResource("Animation_18c7a"),
+&"idleDownA": SubResource("Animation_n4el0"),
+&"idleDownB": SubResource("Animation_vxk08"),
+&"idleUpA": SubResource("Animation_lshyy"),
+&"idleUpB": SubResource("Animation_0w045"),
+&"referenceDownA": SubResource("Animation_a0gs3"),
+&"referenceDownB": SubResource("Animation_dkjsc"),
+&"referenceUpA": SubResource("Animation_8g6xj"),
+&"referenceUpB": SubResource("Animation_gpkt1"),
+&"run1DownA": SubResource("Animation_7k48q"),
+&"run1DownB": SubResource("Animation_45deg"),
+&"run1UpA": SubResource("Animation_04dut"),
+&"run1UpB": SubResource("Animation_67cwj"),
+&"run2DownA": SubResource("Animation_3r7rx"),
+&"run2DownB": SubResource("Animation_sfoxn"),
+&"run2UpA": SubResource("Animation_h48b1"),
+&"run2UpB": SubResource("Animation_llkle"),
+&"tripDownA": SubResource("Animation_p3gh5"),
+&"tripDownB": SubResource("Animation_6flmk"),
+&"tripUpA": SubResource("Animation_jrrij"),
+&"tripUpB": SubResource("Animation_bwiud"),
+&"walkDownA": SubResource("Animation_6nw2c"),
+&"walkDownB": SubResource("Animation_76m03"),
+&"walkUpA": SubResource("Animation_eo25q"),
+&"walkUpB": SubResource("Animation_fv5be")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3nxgi"]
@@ -2532,50 +2532,50 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iy0w0"]
 _data = {
-"cower2DownA": SubResource("Animation_4kjmu"),
-"cower2DownB": SubResource("Animation_lulce"),
-"cower2UpA": SubResource("Animation_moog8"),
-"cower2UpB": SubResource("Animation_nn586"),
-"cowerDownA": SubResource("Animation_xkoi0"),
-"cowerDownB": SubResource("Animation_fpak3"),
-"cowerUpA": SubResource("Animation_41t8b"),
-"cowerUpB": SubResource("Animation_qqhli"),
-"fallenDownA": SubResource("Animation_ayb1d"),
-"fallenDownB": SubResource("Animation_nxtrp"),
-"fallenUpA": SubResource("Animation_k0uiu"),
-"fallenUpB": SubResource("Animation_u47vv"),
-"fallingDownA": SubResource("Animation_3edwm"),
-"fallingDownB": SubResource("Animation_vfies"),
-"fallingUpA": SubResource("Animation_ovixf"),
-"fallingUpB": SubResource("Animation_vh4oq"),
-"getupDownA": SubResource("Animation_hv3ln"),
-"getupDownB": SubResource("Animation_e43wk"),
-"getupUpA": SubResource("Animation_26f68"),
-"getupUpB": SubResource("Animation_lclyr"),
-"idleDownA": SubResource("Animation_6xtrg"),
-"idleDownB": SubResource("Animation_tmjys"),
-"idleUpA": SubResource("Animation_ip0v8"),
-"idleUpB": SubResource("Animation_2uf70"),
-"referenceDownA": SubResource("Animation_qmrk1"),
-"referenceDownB": SubResource("Animation_pryih"),
-"referenceUpA": SubResource("Animation_sqf6t"),
-"referenceUpB": SubResource("Animation_ruqa1"),
-"run1DownA": SubResource("Animation_pdohj"),
-"run1DownB": SubResource("Animation_gcsa3"),
-"run1UpA": SubResource("Animation_snfr8"),
-"run1UpB": SubResource("Animation_15uku"),
-"run2DownA": SubResource("Animation_mdswc"),
-"run2DownB": SubResource("Animation_vofdh"),
-"run2UpA": SubResource("Animation_gs638"),
-"run2UpB": SubResource("Animation_mblux"),
-"tripDownA": SubResource("Animation_my1cn"),
-"tripDownB": SubResource("Animation_le3bj"),
-"tripUpA": SubResource("Animation_34mbj"),
-"tripUpB": SubResource("Animation_5sorr"),
-"walkDownA": SubResource("Animation_tm27o"),
-"walkDownB": SubResource("Animation_4dri8"),
-"walkUpA": SubResource("Animation_p6btr"),
-"walkUpB": SubResource("Animation_ufvep")
+&"cower2DownA": SubResource("Animation_4kjmu"),
+&"cower2DownB": SubResource("Animation_lulce"),
+&"cower2UpA": SubResource("Animation_moog8"),
+&"cower2UpB": SubResource("Animation_nn586"),
+&"cowerDownA": SubResource("Animation_xkoi0"),
+&"cowerDownB": SubResource("Animation_fpak3"),
+&"cowerUpA": SubResource("Animation_41t8b"),
+&"cowerUpB": SubResource("Animation_qqhli"),
+&"fallenDownA": SubResource("Animation_ayb1d"),
+&"fallenDownB": SubResource("Animation_nxtrp"),
+&"fallenUpA": SubResource("Animation_k0uiu"),
+&"fallenUpB": SubResource("Animation_u47vv"),
+&"fallingDownA": SubResource("Animation_3edwm"),
+&"fallingDownB": SubResource("Animation_vfies"),
+&"fallingUpA": SubResource("Animation_ovixf"),
+&"fallingUpB": SubResource("Animation_vh4oq"),
+&"getupDownA": SubResource("Animation_hv3ln"),
+&"getupDownB": SubResource("Animation_e43wk"),
+&"getupUpA": SubResource("Animation_26f68"),
+&"getupUpB": SubResource("Animation_lclyr"),
+&"idleDownA": SubResource("Animation_6xtrg"),
+&"idleDownB": SubResource("Animation_tmjys"),
+&"idleUpA": SubResource("Animation_ip0v8"),
+&"idleUpB": SubResource("Animation_2uf70"),
+&"referenceDownA": SubResource("Animation_qmrk1"),
+&"referenceDownB": SubResource("Animation_pryih"),
+&"referenceUpA": SubResource("Animation_sqf6t"),
+&"referenceUpB": SubResource("Animation_ruqa1"),
+&"run1DownA": SubResource("Animation_pdohj"),
+&"run1DownB": SubResource("Animation_gcsa3"),
+&"run1UpA": SubResource("Animation_snfr8"),
+&"run1UpB": SubResource("Animation_15uku"),
+&"run2DownA": SubResource("Animation_mdswc"),
+&"run2DownB": SubResource("Animation_vofdh"),
+&"run2UpA": SubResource("Animation_gs638"),
+&"run2UpB": SubResource("Animation_mblux"),
+&"tripDownA": SubResource("Animation_my1cn"),
+&"tripDownB": SubResource("Animation_le3bj"),
+&"tripUpA": SubResource("Animation_34mbj"),
+&"tripUpB": SubResource("Animation_5sorr"),
+&"walkDownA": SubResource("Animation_tm27o"),
+&"walkDownB": SubResource("Animation_4dri8"),
+&"walkUpA": SubResource("Animation_p6btr"),
+&"walkUpB": SubResource("Animation_ufvep")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ytmcr"]
@@ -3817,50 +3817,50 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3oyh8"]
 _data = {
-"cower2DownA": SubResource("Animation_6hpoj"),
-"cower2DownB": SubResource("Animation_hrs6f"),
-"cower2UpA": SubResource("Animation_oggp2"),
-"cower2UpB": SubResource("Animation_dss5u"),
-"cowerDownA": SubResource("Animation_oeylf"),
-"cowerDownB": SubResource("Animation_vhp5e"),
-"cowerUpA": SubResource("Animation_nd26m"),
-"cowerUpB": SubResource("Animation_b5ed6"),
-"fallenDownA": SubResource("Animation_s7p8q"),
-"fallenDownB": SubResource("Animation_erxin"),
-"fallenUpA": SubResource("Animation_hmfdj"),
-"fallenUpB": SubResource("Animation_vv6ba"),
-"fallingDownA": SubResource("Animation_a4rht"),
-"fallingDownB": SubResource("Animation_c6l4c"),
-"fallingUpA": SubResource("Animation_sxi08"),
-"fallingUpB": SubResource("Animation_1u8dt"),
-"getupDownA": SubResource("Animation_s23yl"),
-"getupDownB": SubResource("Animation_d5ell"),
-"getupUpA": SubResource("Animation_772uv"),
-"getupUpB": SubResource("Animation_jgnpo"),
-"idleDownA": SubResource("Animation_4vwua"),
-"idleDownB": SubResource("Animation_nyuqj"),
-"idleUpA": SubResource("Animation_owt2e"),
-"idleUpB": SubResource("Animation_uiygw"),
-"referenceDownA": SubResource("Animation_5q2iw"),
-"referenceDownB": SubResource("Animation_w0a37"),
-"referenceUpA": SubResource("Animation_vfr86"),
-"referenceUpB": SubResource("Animation_ijoii"),
-"run1DownA": SubResource("Animation_p7vl0"),
-"run1DownB": SubResource("Animation_i3mxp"),
-"run1UpA": SubResource("Animation_ug35t"),
-"run1UpB": SubResource("Animation_ekc36"),
-"run2DownA": SubResource("Animation_v28tc"),
-"run2DownB": SubResource("Animation_gewrr"),
-"run2UpA": SubResource("Animation_6alh5"),
-"run2UpB": SubResource("Animation_tvx8y"),
-"tripDownA": SubResource("Animation_gbsl5"),
-"tripDownB": SubResource("Animation_3q006"),
-"tripUpA": SubResource("Animation_pqmac"),
-"tripUpB": SubResource("Animation_kkaul"),
-"walkDownA": SubResource("Animation_ncnip"),
-"walkDownB": SubResource("Animation_uodku"),
-"walkUpA": SubResource("Animation_77f7l"),
-"walkUpB": SubResource("Animation_au001")
+&"cower2DownA": SubResource("Animation_6hpoj"),
+&"cower2DownB": SubResource("Animation_hrs6f"),
+&"cower2UpA": SubResource("Animation_oggp2"),
+&"cower2UpB": SubResource("Animation_dss5u"),
+&"cowerDownA": SubResource("Animation_oeylf"),
+&"cowerDownB": SubResource("Animation_vhp5e"),
+&"cowerUpA": SubResource("Animation_nd26m"),
+&"cowerUpB": SubResource("Animation_b5ed6"),
+&"fallenDownA": SubResource("Animation_s7p8q"),
+&"fallenDownB": SubResource("Animation_erxin"),
+&"fallenUpA": SubResource("Animation_hmfdj"),
+&"fallenUpB": SubResource("Animation_vv6ba"),
+&"fallingDownA": SubResource("Animation_a4rht"),
+&"fallingDownB": SubResource("Animation_c6l4c"),
+&"fallingUpA": SubResource("Animation_sxi08"),
+&"fallingUpB": SubResource("Animation_1u8dt"),
+&"getupDownA": SubResource("Animation_s23yl"),
+&"getupDownB": SubResource("Animation_d5ell"),
+&"getupUpA": SubResource("Animation_772uv"),
+&"getupUpB": SubResource("Animation_jgnpo"),
+&"idleDownA": SubResource("Animation_4vwua"),
+&"idleDownB": SubResource("Animation_nyuqj"),
+&"idleUpA": SubResource("Animation_owt2e"),
+&"idleUpB": SubResource("Animation_uiygw"),
+&"referenceDownA": SubResource("Animation_5q2iw"),
+&"referenceDownB": SubResource("Animation_w0a37"),
+&"referenceUpA": SubResource("Animation_vfr86"),
+&"referenceUpB": SubResource("Animation_ijoii"),
+&"run1DownA": SubResource("Animation_p7vl0"),
+&"run1DownB": SubResource("Animation_i3mxp"),
+&"run1UpA": SubResource("Animation_ug35t"),
+&"run1UpB": SubResource("Animation_ekc36"),
+&"run2DownA": SubResource("Animation_v28tc"),
+&"run2DownB": SubResource("Animation_gewrr"),
+&"run2UpA": SubResource("Animation_6alh5"),
+&"run2UpB": SubResource("Animation_tvx8y"),
+&"tripDownA": SubResource("Animation_gbsl5"),
+&"tripDownB": SubResource("Animation_3q006"),
+&"tripUpA": SubResource("Animation_pqmac"),
+&"tripUpB": SubResource("Animation_kkaul"),
+&"walkDownA": SubResource("Animation_ncnip"),
+&"walkDownB": SubResource("Animation_uodku"),
+&"walkUpA": SubResource("Animation_77f7l"),
+&"walkUpB": SubResource("Animation_au001")
 }
 
 [node name="moose" type="Node3D"]
@@ -3876,10 +3876,10 @@ script = ExtResource("2_j4337")
 
 [node name="bodyAnimationPlayer" type="AnimationPlayer" parent="body"]
 libraries = {
-"": SubResource("AnimationLibrary_i0bkh")
+&"": SubResource("AnimationLibrary_i0bkh")
 }
 script = ExtResource("3_k5uee")
-_configOptions = ["A", "B"]
+_configOptions = Array[String](["A", "B"])
 ConfigLabel = "A"
 
 [node name="pants" type="Sprite3D" parent="."]
@@ -3892,10 +3892,10 @@ script = ExtResource("2_j4337")
 
 [node name="pantsAnimationPlayer" type="AnimationPlayer" parent="pants"]
 libraries = {
-"": SubResource("AnimationLibrary_iy0w0")
+&"": SubResource("AnimationLibrary_iy0w0")
 }
 script = ExtResource("3_k5uee")
-_configOptions = ["A", "B"]
+_configOptions = Array[String](["A", "B"])
 ConfigLabel = "A"
 
 [node name="shirt" type="Sprite3D" parent="."]
@@ -3908,8 +3908,8 @@ script = ExtResource("2_j4337")
 
 [node name="shirtAnimationPlayer" type="AnimationPlayer" parent="shirt"]
 libraries = {
-"": SubResource("AnimationLibrary_3oyh8")
+&"": SubResource("AnimationLibrary_3oyh8")
 }
 script = ExtResource("3_k5uee")
-_configOptions = ["A", "B"]
+_configOptions = Array[String](["A", "B"])
 ConfigLabel = "A"

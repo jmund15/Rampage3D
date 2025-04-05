@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cksffsvmsbt3y"]
 
-[ext_resource type="Script" path="res://Monsters/MonsterMappings/MonsterAttackMapping.cs" id="1_s6uvo"]
-[ext_resource type="Script" path="res://Monsters/MonsterMappings/MonsterVelocityMapping.cs" id="2_4mfb4"]
+[ext_resource type="Script" uid="uid://flacbmh24lwu" path="res://Monsters/MonsterMappings/MonsterAttackMapping.cs" id="1_s6uvo"]
+[ext_resource type="Script" uid="uid://dck0eext1lkjb" path="res://Monsters/MonsterMappings/MonsterVelocityMapping.cs" id="2_4mfb4"]
 
 [node name="MonsterMappings" type="Node"]
 

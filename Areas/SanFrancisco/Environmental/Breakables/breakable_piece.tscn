@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cv2nfrot6qhcb"]
 
-[ext_resource type="Script" path="res://Areas/SanFrancisco/Environmental/Breakables/BreakablePiece.cs" id="1_0oxme"]
-[ext_resource type="Script" path="res://BaseComponents/Sprite3DComponent.cs" id="1_o3e1m"]
+[ext_resource type="Script" uid="uid://bued2y7o40qr3" path="res://Areas/SanFrancisco/Environmental/Breakables/BreakablePiece.cs" id="1_0oxme"]
+[ext_resource type="Script" uid="uid://bui2c50m4f2t2" path="res://BaseComponents/Sprite3DComponent.cs" id="1_o3e1m"]
 [ext_resource type="Texture2D" uid="uid://osxdlqetrk03" path="res://Areas/SanFrancisco/Environmental/Breakables/Bush/01/breakable_foliage_bush_particles_onbreak01_01.png" id="1_wklgl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_obdi5"]

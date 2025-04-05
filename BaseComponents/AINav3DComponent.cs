@@ -61,8 +61,9 @@ public class AIDetectionArgs : EventArgs
 [GlobalClass, Tool]
 public partial class AINav3DComponent : NavigationAgent3D
 {
-    //TEMPLATE FOR COMPONENTS
     #region CLASS_VARIABLES
+    [Export]
+    public bool ShowNavigationArrows { get; private set; } = true;
     #region HELPER_VARS
     private Dictionary<Dir8, bool> _eightToOrthogMap = new Dictionary<Dir8, bool>()
     {
@@ -291,6 +292,49 @@ public partial class AINav3DComponent : NavigationAgent3D
             return; 
         }
         WeightedNextPathDirection = GetWeightedPathPosition() * 10f; // TODO: change 10 to intelliget value
+    
+        if (!ShowNavigationArrows)
+        {
+            return;
+        }
+        var _time = Time.GetTicksMsec() / 1000.0f;
+        var arrowSize = 4f;
+        var arrowheadSize = 0.1f;
+
+        
+        foreach (var dirWeight in DirectionWeights)
+        {
+            var weight = dirWeight.Value;
+            var arrowColor = Colors.Yellow;
+            if (weight < 0.2f)
+            {
+                weight = 0.2f;
+                arrowColor = Colors.Red;
+            }
+            else if (weight > 0.5f)
+            {
+                arrowColor = Colors.Green;
+            }
+            var dirArrow = dirWeight.Key.GetVector3() * weight * arrowSize;
+            DebugDraw3D.DrawArrow(ParentAgent.GlobalPosition,
+                ParentAgent.GlobalPosition + dirArrow,
+                arrowColor,
+                arrowheadSize,
+                true);
+        }
+        var chosenDirArrow = WeightedNextPathDirection * 0.1f * arrowSize;
+        chosenDirArrow.Y = 0;
+        DebugDraw3D.DrawArrow(ParentAgent.GlobalPosition,
+                ParentAgent.GlobalPosition + chosenDirArrow,
+                Colors.Black,
+                arrowheadSize,
+                true);
+
+        //DebugDraw3D.DrawLine(line_begin, line_end, new Color(1, 1, 0));
+        DebugDraw2D.SetText("Time", _time);
+        DebugDraw2D.SetText("Frames drawn", Engine.GetFramesDrawn());
+        DebugDraw2D.SetText("FPS", Engine.GetFramesPerSecond());
+        DebugDraw2D.SetText("delta", delta);
     }
     #endregion
 
@@ -528,8 +572,8 @@ public partial class AINav3DComponent : NavigationAgent3D
         foreach (Rid rID in rIDs)
         {
             var mapDist = NavigationServer3D.MapGetClosestPoint(rID, position).DistanceTo(position);
-            var mapDistAllowance = 0.01f;
-            //GD.Print("setting path, map dist: ", mapDist);
+            var mapDistAllowance = 1f; // 0.01f
+            GD.Print("setting path, map dist: ", mapDist);
             //bool isNavMesh = mapDist <= float.Epsilon; //if point is in a nav region, its distance should be ~0.0
             if (mapDist <= mapDistAllowance)
             {

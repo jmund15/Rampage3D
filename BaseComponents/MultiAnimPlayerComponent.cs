@@ -48,6 +48,18 @@ public partial class MultiAnimPlayerComponent : Node3D, IAnimPlayerComponent, IS
         }
     }
 
+    public Vector2 Offset
+    {
+        get => Sprites[0].Offset;
+        set
+        {
+            foreach (var sprite in Sprites)
+            {
+                sprite.Offset = value;
+            }
+        }
+    }
+
     public event EventHandler<string> AnimStarted;
     public event EventHandler<string> AnimFinished;
     

@@ -1,37 +1,38 @@
 [gd_scene load_steps=45 format=3 uid="uid://j8irnfls7mj"]
 
-[ext_resource type="Script" path="res://Monsters/Monster.cs" id="1_5i8pw"]
-[ext_resource type="Script" path="res://BaseResources/VelocityIDResource.cs" id="2_jswdh"]
+[ext_resource type="Script" uid="uid://mgvnb2pqhrh3" path="res://Monsters/Monster.cs" id="1_5i8pw"]
+[ext_resource type="Script" uid="uid://c1dbvjkfhfcrc" path="res://BaseResources/VelocityIDResource.cs" id="2_jswdh"]
 [ext_resource type="PackedScene" uid="uid://b2ggfqqshmwa5" path="res://Monsters/grizzler.tscn" id="3_qtf43"]
 [ext_resource type="Shape3D" uid="uid://bmpwyjckkxcwe" path="res://Monsters/rambucho2_capsuleshape_smaller.tres" id="4_d7ld6"]
-[ext_resource type="Script" path="res://Monsters/MSM/MSM.cs" id="5_gfc4j"]
-[ext_resource type="Script" path="res://Monsters/MSM/IdleState.cs" id="6_qloa7"]
-[ext_resource type="Script" path="res://Monsters/MSM/WalkState.cs" id="7_1kees"]
-[ext_resource type="Script" path="res://Monsters/MSM/JumpState.cs" id="8_kmw8a"]
-[ext_resource type="Script" path="res://Monsters/MSM/FallState.cs" id="9_tv0rc"]
-[ext_resource type="Script" path="res://Monsters/MSM/AnimState.cs" id="10_wnm8k"]
-[ext_resource type="Script" path="res://Monsters/MSM/ClimbInitBTState.cs" id="11_l5nmr"]
-[ext_resource type="Script" path="res://JmoAI/BT/BehaviorTree.cs" id="12_pitbb"]
-[ext_resource type="Script" path="res://JmoAI/BT/Composites/Sequence.cs" id="13_8chbn"]
-[ext_resource type="Script" path="res://Monsters/MSM/ClimbSkid.cs" id="14_va6of"]
-[ext_resource type="Script" path="res://JmoAI/BT/Actions/PlayAnim.cs" id="15_8072k"]
-[ext_resource type="Script" path="res://Monsters/MSM/ClimbIdleState.cs" id="16_vqv0d"]
-[ext_resource type="Script" path="res://Monsters/MSM/ClimbState.cs" id="17_f4104"]
-[ext_resource type="Script" path="res://Monsters/MSM/DesendState.cs" id="18_cda60"]
-[ext_resource type="Script" path="res://Monsters/MSM/AttackState.cs" id="19_scn04"]
-[ext_resource type="PackedScene" uid="uid://ckjqfkhvrt3vr" path="res://Monsters/MonsterAttacks/grizzle_2_gna.tscn" id="20_yyoxw"]
-[ext_resource type="Script" path="res://Monsters/MSM/WallAttackState.cs" id="21_it8ix"]
-[ext_resource type="Script" path="res://Monsters/MSM/EatState.cs" id="22_e7b6x"]
+[ext_resource type="Script" uid="uid://c83hucuhv3ct" path="res://Monsters/MSM/MSM.cs" id="5_gfc4j"]
+[ext_resource type="Script" uid="uid://c6vkq8si4snxq" path="res://Monsters/MSM/IdleState.cs" id="6_qloa7"]
+[ext_resource type="Script" uid="uid://la4q6c2bgfj1" path="res://Monsters/MSM/WalkState.cs" id="7_1kees"]
+[ext_resource type="Script" uid="uid://dg84ndyxkq0bi" path="res://Monsters/MSM/JumpState.cs" id="8_kmw8a"]
+[ext_resource type="Script" uid="uid://b6adfmnt1k6bv" path="res://Monsters/MSM/FallState.cs" id="9_tv0rc"]
+[ext_resource type="Script" uid="uid://dognpvq218kw1" path="res://Monsters/MSM/AnimState.cs" id="10_wnm8k"]
+[ext_resource type="Script" uid="uid://cq8518eanq4f6" path="res://Monsters/MSM/ClimbInitBTState.cs" id="11_l5nmr"]
+[ext_resource type="Script" uid="uid://bv2i7fxxpwow6" path="res://JmoAI/BT/BehaviorTree.cs" id="12_pitbb"]
+[ext_resource type="Script" uid="uid://cn8me6e5muwxv" path="res://JmoAI/BT/Composites/Sequence.cs" id="13_8chbn"]
+[ext_resource type="Script" uid="uid://nvumcrtkltds" path="res://Monsters/MSM/ClimbSkid.cs" id="14_va6of"]
+[ext_resource type="Script" uid="uid://by3krg4vknwos" path="res://JmoAI/BT/Actions/PlayAnim.cs" id="15_8072k"]
+[ext_resource type="Script" uid="uid://dplxng4d0pili" path="res://Monsters/MSM/ClimbIdleState.cs" id="16_vqv0d"]
+[ext_resource type="Script" uid="uid://daper275r3dpj" path="res://Monsters/MSM/ClimbState.cs" id="17_f4104"]
+[ext_resource type="Script" uid="uid://bjhwoda6ffsw7" path="res://Monsters/MSM/DesendState.cs" id="18_cda60"]
+[ext_resource type="Script" uid="uid://vs5niupt3ng7" path="res://Monsters/MSM/AttackState.cs" id="19_scn04"]
+[ext_resource type="PackedScene" uid="uid://ckjqfkhvrt3vr" path="res://Monsters/MonsterMappings/grizzle_2_gna.tscn" id="20_yyoxw"]
+[ext_resource type="Script" uid="uid://bf2py5oxl1ag2" path="res://Monsters/MSM/WallAttackState.cs" id="21_it8ix"]
+[ext_resource type="Script" uid="uid://bunkbnw6u4xxc" path="res://Monsters/MSM/EatState.cs" id="22_e7b6x"]
 [ext_resource type="PackedScene" uid="uid://b5ldfx76gk45" path="res://BaseComponents/hunger_bar_component.tscn" id="23_3robb"]
-[ext_resource type="Script" path="res://BaseComponents/ClimberComponent.cs" id="24_bh1gi"]
-[ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="25_71k3j"]
-[ext_resource type="Script" path="res://BaseComponents/HitboxComponent3D.cs" id="26_ueprc"]
-[ext_resource type="Script" path="res://BaseComponents/EaterComponent.cs" id="27_ncef6"]
-[ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="28_pl4s0"]
-[ext_resource type="Script" path="res://JmoAI/Blackboard/Blackboard.cs" id="29_gfisa"]
+[ext_resource type="Script" uid="uid://doehg5b107use" path="res://BaseComponents/ClimberComponent.cs" id="24_bh1gi"]
+[ext_resource type="Script" uid="uid://0l0oqomn3l7v" path="res://BaseComponents/HealthComponent.cs" id="25_71k3j"]
+[ext_resource type="Script" uid="uid://ncbyii231php" path="res://BaseComponents/HitboxComponent3D.cs" id="26_ueprc"]
+[ext_resource type="Script" uid="uid://dgea5ua3r0nak" path="res://BaseComponents/EaterComponent.cs" id="27_ncef6"]
+[ext_resource type="Script" uid="uid://bdrd1amqp41cn" path="res://BaseComponents/HurtboxComponent3D.cs" id="28_pl4s0"]
+[ext_resource type="Script" uid="uid://dh38hetgqf68m" path="res://JmoAI/Blackboard/Blackboard.cs" id="29_gfisa"]
 
 [sub_resource type="Resource" id="Resource_0lsb2"]
 script = ExtResource("2_jswdh")
+VelocityType = 0
 MaxSpeed = 6.0
 Acceleration = -1.0
 Friction = -1.0
@@ -40,6 +41,7 @@ InstantMovement = true
 
 [sub_resource type="Resource" id="Resource_l618l"]
 script = ExtResource("2_jswdh")
+VelocityType = 0
 MaxSpeed = 3.5
 Acceleration = 28.0
 Friction = 8.0
@@ -48,6 +50,7 @@ InstantMovement = false
 
 [sub_resource type="Resource" id="Resource_45tr1"]
 script = ExtResource("2_jswdh")
+VelocityType = 0
 MaxSpeed = 4.5
 Acceleration = -1.0
 Friction = -1.0
@@ -56,6 +59,7 @@ InstantMovement = true
 
 [sub_resource type="Resource" id="Resource_0f03l"]
 script = ExtResource("2_jswdh")
+VelocityType = 0
 MaxSpeed = 3.0
 Acceleration = 1.2
 Friction = 0.4
@@ -90,10 +94,10 @@ resource_name = "wallPunch"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j6d7f"]
 _data = {
-"punch1": SubResource("Animation_uvjyr"),
-"punch2": SubResource("Animation_b2uam"),
-"wallKick": SubResource("Animation_ayl6s"),
-"wallPunch": SubResource("Animation_ranyj")
+&"punch1": SubResource("Animation_uvjyr"),
+&"punch2": SubResource("Animation_b2uam"),
+&"wallKick": SubResource("Animation_ayl6s"),
+&"wallPunch": SubResource("Animation_ranyj")
 }
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gfrke"]

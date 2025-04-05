@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b8gc3001fqeme"]
 
-[ext_resource type="Script" path="res://BaseComponents/EaterComponent.cs" id="1_w854l"]
+[ext_resource type="Script" uid="uid://dgea5ua3r0nak" path="res://BaseComponents/EaterComponent.cs" id="1_w854l"]
 
 [node name="EaterComponent" type="Node"]
 script = ExtResource("1_w854l")

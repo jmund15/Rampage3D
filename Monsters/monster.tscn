@@ -1,13 +1,13 @@
 [gd_scene load_steps=16 format=3 uid="uid://bv0xxgt1n284d"]
 
-[ext_resource type="Script" path="res://Monsters/Monster.cs" id="1_g3eh5"]
-[ext_resource type="Script" path="res://BaseComponents/HealthComponent.cs" id="5_4d0qn"]
-[ext_resource type="Script" path="res://JmoAI/Blackboard/Blackboard.cs" id="6_qo7pu"]
-[ext_resource type="Script" path="res://BaseComponents/HitboxComponent3D.cs" id="14_kkv0a"]
-[ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="15_hjofb"]
+[ext_resource type="Script" uid="uid://mgvnb2pqhrh3" path="res://Monsters/Monster.cs" id="1_g3eh5"]
+[ext_resource type="Script" uid="uid://0l0oqomn3l7v" path="res://BaseComponents/HealthComponent.cs" id="5_4d0qn"]
+[ext_resource type="Script" uid="uid://dh38hetgqf68m" path="res://JmoAI/Blackboard/Blackboard.cs" id="6_qo7pu"]
+[ext_resource type="Script" uid="uid://ncbyii231php" path="res://BaseComponents/HitboxComponent3D.cs" id="14_kkv0a"]
+[ext_resource type="Script" uid="uid://bdrd1amqp41cn" path="res://BaseComponents/HurtboxComponent3D.cs" id="15_hjofb"]
 [ext_resource type="PackedScene" uid="uid://b5ldfx76gk45" path="res://BaseComponents/hunger_bar_component.tscn" id="22_2ivfc"]
-[ext_resource type="Script" path="res://BaseComponents/EaterComponent.cs" id="23_q6qob"]
-[ext_resource type="Script" path="res://BaseComponents/ClimberComponent.cs" id="27_exg0i"]
+[ext_resource type="Script" uid="uid://dgea5ua3r0nak" path="res://BaseComponents/EaterComponent.cs" id="23_q6qob"]
+[ext_resource type="Script" uid="uid://doehg5b107use" path="res://BaseComponents/ClimberComponent.cs" id="27_exg0i"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vc3fb"]
 
@@ -29,10 +29,10 @@ resource_name = "wallPunch"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j6d7f"]
 _data = {
-"punch1": SubResource("Animation_uvjyr"),
-"punch2": SubResource("Animation_b2uam"),
-"wallKick": SubResource("Animation_ayl6s"),
-"wallPunch": SubResource("Animation_ranyj")
+&"punch1": SubResource("Animation_uvjyr"),
+&"punch2": SubResource("Animation_b2uam"),
+&"wallKick": SubResource("Animation_ayl6s"),
+&"wallPunch": SubResource("Animation_ranyj")
 }
 
 [node name="monster" type="CharacterBody3D"]
