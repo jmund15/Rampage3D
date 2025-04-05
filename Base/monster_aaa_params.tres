@@ -27,10 +27,10 @@ AnimLoopMap = {
 "wallKick": 0,
 "wallPunch": 0
 }
-SavePath = "res://Monsters/gawkgawk.tscn"
+SavePath = "res://Monsters/monster_postAAA.tscn"
 SpriteType = 0
 BodyParts = {
 "body": 1
 }
 PartConfigLabels = {}
-AnimDirections = [1, 0]
+AnimDirections = [0, 1]

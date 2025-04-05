@@ -4,7 +4,8 @@
 
 [resource]
 script = ExtResource("1_4bvme")
-MaxSpeed = 3.5
+VelocityType = 4
+MaxSpeed = 3.0
 Acceleration = -1.0
 Friction = -1.0
 BrakingFrictionMod = -1.0

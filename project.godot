@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-AttackTreeScene="*res://Monsters/MonsterAttacks/attack_tree_scene.tscn"
+MonsterMappings="*res://Monsters/MonsterMappings/monster_mappings.tscn"
 
 [dotnet]
 

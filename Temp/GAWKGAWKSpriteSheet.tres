@@ -7,5 +7,4 @@ size_override = Vector2(2240, 96)
 [resource]
 resource_local_to_scene = true
 atlas = SubResource("PortableCompressedTexture2D_xw3jq")
-region = Rect2(0, 0, 1, 1)
-margin = Rect2(2, 2, 0, 0)
+region = Rect2(544, 0, 32, 96)

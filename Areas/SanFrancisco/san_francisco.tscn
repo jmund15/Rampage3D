@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://db3qdmpdrqbwh"]
+[gd_scene load_steps=28 format=3 uid="uid://db3qdmpdrqbwh"]
 
 [ext_resource type="Script" path="res://Areas/Area.cs" id="1_eax7w"]
 [ext_resource type="PackedScene" uid="uid://bilhgl6nubni8" path="res://Areas/All/Buildings/Complete/1x1x2_base_reference.tscn" id="2_0gng7"]
 [ext_resource type="PackedScene" uid="uid://d05pbqeemoa5l" path="res://Monsters/rufus.tscn" id="2_mxocj"]
 [ext_resource type="PackedScene" uid="uid://roik0rft634m" path="res://Areas/All/Buildings/Complete/1x1x3_base_reference.tscn" id="3_ow0rb"]
+[ext_resource type="PackedScene" uid="uid://bgrnqh6ibmvyk" path="res://Critters/critter_moose.tscn" id="3_rtunm"]
 [ext_resource type="PackedScene" uid="uid://dsvmcd5mkuj1" path="res://Areas/All/Buildings/Complete/1x2x3_base_reference.tscn" id="4_aqd0w"]
 [ext_resource type="PackedScene" uid="uid://djo53nhfpike4" path="res://Areas/All/Buildings/Complete/2x2x2_base_reference.tscn" id="6_byd3a"]
 [ext_resource type="PackedScene" uid="uid://n8t3lf385ue3" path="res://BaseComponents/multiplayer_camera_3d_component.tscn" id="8_6pwtu"]
@@ -105,6 +106,11 @@ script = ExtResource("1_eax7w")
 
 [node name="Rufus" parent="Players" instance=ExtResource("2_mxocj")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.732843, 0, -4.79406)
+
+[node name="NPCs" type="Node3D" parent="."]
+
+[node name="Critter" parent="NPCs" instance=ExtResource("3_rtunm")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -5.29677, 0, -5.14502)
 
 [node name="Vehicles" type="Node3D" parent="."]
 
@@ -2829,5 +2835,3 @@ texture = ExtResource("13_br338")
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Environment"]
 visible = false
 navigation_mesh = SubResource("NavigationMesh_g2dq6")
-
-[node name="NPCs" type="Node3D" parent="."]

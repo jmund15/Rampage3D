@@ -1,6 +1,8 @@
 using Godot;
-using Godot.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
+//TODO: Update to be more modular
 [GlobalClass, Tool]
 public partial class AIRays16Dir : Node3D
 {
@@ -98,7 +100,37 @@ public partial class AIRays16Dir : Node3D
 	}
 	#endregion
 	#region COMPONENT_HELPER
-	#endregion
-	#region SIGNAL_LISTENERS
-	#endregion
+    public List<RayCast3D> GetAllRaycasts()
+    {
+        return Raycasts.Values.ToList();
+    }
+    public RayCast3D GetRaycastOfDirection(Vector2 dir)
+    {
+        var normDir = dir.Normalized();
+        foreach (var ray in Raycasts.Values)
+        {
+            var rayDir = new Vector2(ray.TargetPosition.X, ray.TargetPosition.Z).Normalized();
+            if (rayDir.IsEqualApprox(normDir))
+            {
+                return ray;
+            }
+        }
+        return null;
+    }
+    public RayCast3D GetRaycastOfDirection(Vector3 dir)
+    {
+        var normDir = dir.Normalized();
+        foreach (var ray in Raycasts.Values)
+        {
+            var rayDir = ray.TargetPosition.Normalized();
+            if (rayDir.IsEqualApprox(normDir))
+            {
+                return ray;
+            }
+        }
+        return null;
+    }
+    #endregion
+    #region SIGNAL_LISTENERS
+    #endregion
 }
