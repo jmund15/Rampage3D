@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://b8ykeo37sw7gg"]
 
-[ext_resource type="Script" path="res://BaseComponents/BuildingComponent.cs" id="1_m5g2h"]
+[ext_resource type="Script" uid="uid://d06a6ihgflom0" path="res://BaseComponents/BuildingComponent.cs" id="1_m5g2h"]
 [ext_resource type="PackedScene" uid="uid://cbct72jw70cm4" path="res://BaseComponents/climbable_component.tscn" id="2_hg7kd"]
-[ext_resource type="Script" path="res://BaseComponents/RoofComponent.cs" id="3_pmm0q"]
-[ext_resource type="Script" path="res://BaseComponents/HurtboxComponent3D.cs" id="4_pyuhd"]
+[ext_resource type="Script" uid="uid://b8ser12n664qw" path="res://BaseComponents/RoofComponent.cs" id="3_pmm0q"]
+[ext_resource type="Script" uid="uid://bhujqtx30vqcl" path="res://BaseComponents/HurtboxComponent3D.cs" id="4_pyuhd"]
 [ext_resource type="PackedScene" uid="uid://bt85nwj2gb1b3" path="res://Areas/All/Buildings/Effects/buildingDestructionSmokeDirectional.tscn" id="5_mcnb2"]
 [ext_resource type="PackedScene" uid="uid://denn1dumyw2kq" path="res://Areas/All/Buildings/Effects/buildingDestructionSmokeCenter.tscn" id="6_rnavw"]
 

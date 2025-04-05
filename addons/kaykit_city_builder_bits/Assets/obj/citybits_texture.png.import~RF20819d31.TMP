@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vc16hvtasucn"
-path.s3tc="res://.godot/imported/floor_sanfrancisco_normalguide_n.png-9c4158df882762d6349b46afd700dd2f.s3tc.ctex"
+uid="uid://cy3oqxerfpqsq"
+path.s3tc="res://.godot/imported/citybits_texture.png-cd8c76f08e27a0786e8f0855ebed9cb8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Areas/SanFrancisco/CityFloor/Textures/floor_sanfrancisco_normalguide_n.png"
-dest_files=["res://.godot/imported/floor_sanfrancisco_normalguide_n.png-9c4158df882762d6349b46afd700dd2f.s3tc.ctex"]
+source_file="res://addons/kaykit_city_builder_bits/Assets/obj/citybits_texture.png"
+dest_files=["res://.godot/imported/citybits_texture.png-cd8c76f08e27a0786e8f0855ebed9cb8.s3tc.ctex"]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1

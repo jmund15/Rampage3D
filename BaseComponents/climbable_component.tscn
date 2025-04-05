@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cbct72jw70cm4"]
 
-[ext_resource type="Script" path="res://BaseComponents/ClimbableComponent.cs" id="1_cveep"]
+[ext_resource type="Script" uid="uid://cq6kwf5k6u0db" path="res://BaseComponents/ClimbableComponent.cs" id="1_cveep"]
 
 [node name="ClimbableComponent" type="Node"]
 script = ExtResource("1_cveep")

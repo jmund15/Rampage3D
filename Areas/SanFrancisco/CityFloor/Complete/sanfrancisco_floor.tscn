@@ -2,11 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://bfy2n84prf8h8" path="res://Areas/SanFrancisco/CityFloor/Textures/floor_sanfrancisco_base.png" id="1_672an"]
 [ext_resource type="ArrayMesh" uid="uid://dfl61w13yvjoa" path="res://Areas/SanFrancisco/CityFloor/Models/floor_sanfrancisco_base.obj" id="2_bks4l"]
-[ext_resource type="Texture2D" uid="uid://vc16hvtasucn" path="res://Areas/SanFrancisco/CityFloor/Textures/floor_sanfrancisco_normalguide_n.png" id="2_l6jrr"]
+[ext_resource type="Texture2D" uid="uid://cucpyy82jqq5x" path="res://Areas/SanFrancisco/CityFloor/Textures/floor_sanfrancisco_base_n.png" id="2_icdtu"]
 [ext_resource type="Texture2D" uid="uid://cc3w0er3853nd" path="res://Areas/SanFrancisco/CityFloor/Textures/64x128_floor_sanfrancisco_docks.png" id="3_s1lsb"]
 [ext_resource type="Texture2D" uid="uid://bh1elvomfnmji" path="res://Areas/SanFrancisco/CityFloor/Textures/64x128_floor_sanfrancisco_docks_n.png" id="5_8c7ro"]
 [ext_resource type="Texture2D" uid="uid://cbjo82ispo55q" path="res://Areas/SanFrancisco/CityFloor/Textures/64x128_floor_sanfrancisco_docks00.png" id="5_ovpmg"]
-[ext_resource type="Shader" path="res://Shaders/water.gdshader" id="7_kpbcx"]
+[ext_resource type="Shader" uid="uid://si0115lidt8u" path="res://Shaders/water.gdshader" id="7_kpbcx"]
 [ext_resource type="Texture2D" uid="uid://tat6xngniraa" path="res://Areas/SanFrancisco/CityFloor/Textures/water/water.png" id="8_xnrkq"]
 [ext_resource type="Texture2D" uid="uid://ce5i67caayr5x" path="res://Areas/SanFrancisco/CityFloor/Textures/water/water_displacement.png" id="10_lf0vp"]
 [ext_resource type="Texture2D" uid="uid://r1btaysubwsd" path="res://Areas/SanFrancisco/CityFloor/Textures/water/water_normal_export.png" id="10_xtfhm"]
@@ -15,7 +15,7 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rk3el"]
 albedo_texture = ExtResource("1_672an")
 normal_enabled = true
-normal_texture = ExtResource("2_l6jrr")
+normal_texture = ExtResource("2_icdtu")
 texture_filter = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2risg"]
@@ -54,10 +54,10 @@ shader_parameter/speed = Vector2(0.03, 0.05)
 shader_parameter/displace_speed = Vector2(0.03, -0.01)
 shader_parameter/normal_speed = Vector2(0.03, -0.01)
 shader_parameter/normal_speed2 = Vector2(0.05, 0.05)
-shader_parameter/displacement_strength = 0.245
 shader_parameter/albedo_texture = ExtResource("8_xnrkq")
 shader_parameter/displacement_texture = ExtResource("10_lf0vp")
 shader_parameter/normal_texture = ExtResource("10_xtfhm")
+shader_parameter/displacement_strength = 0.245
 
 [node name="Sanfrancisco Floor" type="Node3D"]
 

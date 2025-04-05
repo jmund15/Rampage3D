@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c1slvlcgvlj72"]
 
-[ext_resource type="Script" path="res://BaseComponents/AnimationPlayerComponent.cs" id="1_fwhlw"]
+[ext_resource type="Script" uid="uid://bp78pwrs1rls2" path="res://BaseComponents/AnimationPlayerComponent.cs" id="1_fwhlw"]
 
 [node name="AnimationPlayerComponent" type="AnimationPlayer"]
 script = ExtResource("1_fwhlw")
