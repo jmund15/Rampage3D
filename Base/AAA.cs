@@ -51,7 +51,9 @@ public partial class AAA : EditorScript
         }
     }
 
-    private static string _aaaParamsPath = "res://Base/monster_aaa_params.tres";//"res://Base/critter_aaa_params.tres";
+    private static string _aaaParamsPath = 
+        "res://Base/monster_aaa_params.tres";
+        //"res://Base/critter_aaa_params.tres";
     private AAAParameters _aaaParams;
     private int _initOffset;// = 32;//10
     private int _frameHeight;// = 32;
@@ -234,10 +236,16 @@ public partial class AAA : EditorScript
                     _currHeight = partOffset + typeOffset;
                     //GD.Print($"Starting automating '{animName}'...");
                     var anim = globalAnimLibrary.GetAnimation(animName);
+                    //foreach
+                    //if (animName.ToString().ToLower().Contains(_))
                     if (_aaaParams.AnimLoopMap.ContainsKey(animName))
                     {
                         anim.LoopMode = _aaaParams.AnimLoopMap[animName];
                         //GD.Print($"Set loop mode to '{anim.LoopMode}'.");
+                    }
+                    else
+                    {
+                        anim.LoopMode = Animation.LoopModeEnum.None; // Default don't loop
                     }
                     int trackNum = 1;
                 

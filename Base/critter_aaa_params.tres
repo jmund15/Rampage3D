@@ -24,7 +24,7 @@ AnimLoopMap = {
 "wallKick": 0,
 "wallPunch": 0
 }
-SavePath = "res://Critters/test_moose.tscn"
+SavePath = "res://Critters/critter_postAAA.tscn"
 SpriteType = 1
 BodyParts = {
 "body": 2,

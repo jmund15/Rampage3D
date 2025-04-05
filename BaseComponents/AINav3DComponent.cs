@@ -53,7 +53,11 @@ public class AIDetectionArgs : EventArgs
         else { DetectTypes = types; }
     }
 }
-
+/* TODO:
+ * Create system where directions/considerations are purely based on the raycasts given,
+ * instead of being locked to specific direction enums.
+ * USE VECTOR3's INSTEAD OF DIR ENUMS!
+ */
 [GlobalClass, Tool]
 public partial class AINav3DComponent : NavigationAgent3D
 {
@@ -72,12 +76,15 @@ public partial class AINav3DComponent : NavigationAgent3D
         { Dir8.UpRight, false }
     };
     #endregion
+    
     [Export]
     public Node3D ParentAgent { get; private set; }
     [Export]
     private NavType _navMethod;
     [Export]
     public AIRays16Dir Rays { get; private set; }
+    [Export]
+    public bool ResponbsibleForDetection { get; private set; } = true;
     private IMovementComponent _moveComp;
     private IBlackboard _bb;
     public NavType NavMethod 
@@ -169,7 +176,9 @@ public partial class AINav3DComponent : NavigationAgent3D
     [Export]
     public bool UseOrthogNavOnly { get; private set; } = true;
 
-    public event EventHandler<AIDetectionArgs> AIDetection;
+    //public event EventHandler<AIDetectionArgs> AIDetection;
+    public event EventHandler<Node3D> BodyDetected;
+    public event EventHandler<Area3D> AreaDetected;
 
     private Timer _debugTimer;
     #endregion
@@ -228,6 +237,8 @@ public partial class AINav3DComponent : NavigationAgent3D
             $"DownLeft: {DirectionWeights[Dir8.DownLeft]:F2} " +
             $"UpLeft: {DirectionWeights[Dir8.UpLeft]:F2} "
             );
+
+        GD.Print($"Chosen Dirction: {ChooseDirection()}");
 
         //foreach (var pair in _rays.Raycasts)
         //{
@@ -309,7 +320,11 @@ public partial class AINav3DComponent : NavigationAgent3D
             //GD.Print("parent global p: ", ParentAgent.GlobalPosition);
             normVec = unweightedPathPoint.Normalized();
         }
-        
+
+        if (ResponbsibleForDetection)
+        {
+            SignalRaycastDetections();
+        }
         List<Dir8> dirs = Global.GetEnumValues<Dir8>().ToList();
         ConsiderationWeights = GetConsiderationVector();
 
@@ -318,33 +333,36 @@ public partial class AINav3DComponent : NavigationAgent3D
         foreach (var dir in dirs)
         {
             var eightDirVec = dir.GetVector2();
-            
-            DirectionWeights[dir] = normVec.Dot(new Vector3(eightDirVec.X, 0f, eightDirVec.Y));
+            var dotProd = normVec.Dot(new Vector3(eightDirVec.X, 0f, eightDirVec.Y));
+            DirectionWeights[dir] = dotProd > 0 ? dotProd : 0; // no below zero!
             var neighborDirs = dir.GetNeighboring16Dirs();
             var weight = 0.5f;
             DirectionWeights[dir] += ConsiderationWeights[dir.GetDir16()] * weight;
             DirectionWeights[dir] += ConsiderationWeights[neighborDirs.Item1] * weight * weight;
             DirectionWeights[dir] += ConsiderationWeights[neighborDirs.Item2] * weight * weight;
-            if (UseOrthogNavOnly)
-            {
-                if (_eightToOrthogMap[dir]) // add neighboring dir weights for better orthog weighted movement
-                {
-                    var orthogAddWeight = 0.5f;
-                    var orthogNeighbors = dir.GetNeighboringDirs();
-                    DirectionWeights[dir] += DirectionWeights[orthogNeighbors.Item1] * orthogAddWeight;
-                    DirectionWeights[dir] += DirectionWeights[orthogNeighbors.Item2] * orthogAddWeight;
-                }
-                else
-                {
-                    continue; // don't set non orthogdir as move dir;
-                }
-            }
-            if (DirectionWeights[dir] > maxWeight)
-            {
-                weightedDir = new Vector3(eightDirVec.X, normVec.Y, eightDirVec.Y);
-                maxWeight = DirectionWeights[dir];
-            }
+            //if (UseOrthogNavOnly)
+            //{
+            //    if (_eightToOrthogMap[dir]) // add neighboring dir weights for better orthog weighted movement
+            //    {
+            //        var orthogAddWeight = 0.5f;
+            //        var orthogNeighbors = dir.GetNeighboringDirs();
+            //        DirectionWeights[dir] += DirectionWeights[orthogNeighbors.Item1] * orthogAddWeight;
+            //        DirectionWeights[dir] += DirectionWeights[orthogNeighbors.Item2] * orthogAddWeight;
+            //    }
+            //    else
+            //    {
+            //        continue; // don't set non orthogdir as move dir;
+            //    }
+            //}
+            //if (DirectionWeights[dir] > maxWeight)
+            //{
+            //    weightedDir = new Vector3(eightDirVec.X, normVec.Y, eightDirVec.Y);
+            //    maxWeight = DirectionWeights[dir];
+            //}
         }
+        var chosenDir = ChooseDirection();
+        weightedDir = new Vector3(chosenDir.X, normVec.Y, chosenDir.Y);
+
         //GD.PrintS($"(Right: {DirectionWeights[EightDirection.RIGHT]}, " +
         //    $"DownRight: {DirectionWeights[EightDirection.DOWNRIGHT]}, " +
         //    $"Down: {DirectionWeights[EightDirection.DOWN]}, " +
@@ -358,6 +376,21 @@ public partial class AINav3DComponent : NavigationAgent3D
 
         //var result = Enumerable.Zip(DirectionWeights, DirectionWeights, (a, b) => (a.Key, a.Value + b.Value));
         return weightedDir;//unweightedPathPoint;//
+    }
+    private Vector2 ChooseDirection()
+    {
+        var chosenDir = Vector2.Zero;
+        foreach (var dir in DirectionWeights.Keys)
+        {
+            //if (ConsiderationWeights[dir.GetDir16()] < 0)
+            //{
+            //    DirectionWeights[dir.Key] = 0;
+            //}
+            //Choose direction based on remaining interest
+            chosenDir += dir.GetVector2() * DirectionWeights[dir];
+        }
+        chosenDir = chosenDir.Normalized();
+        return chosenDir;
     }
     protected virtual Dictionary<Dir16, float> GetConsiderationVector()
     {
@@ -458,6 +491,26 @@ public partial class AINav3DComponent : NavigationAgent3D
         //}
 
         return considerationVec;
+    }
+    private void SignalRaycastDetections()
+    {
+        foreach (var raycast in Rays.GetAllRaycasts())
+        {
+            if (!raycast.IsColliding()) { continue; }
+            var detectObj = raycast.GetCollider();
+            if (detectObj is Area3D detectArea)
+            {
+                AreaDetected?.Invoke(this, detectArea);
+            }
+            else if (detectObj is Node3D detectBody)
+            {
+                BodyDetected?.Invoke(this, detectBody);
+            }
+            else
+            {
+                GD.PrintErr($"ERROR || Collider of raycast isn't Node3D?\nCollider object: {detectObj}");
+            }
+        }
     }
     protected virtual Dictionary<Dir8, float> GetInterestVector()
     {

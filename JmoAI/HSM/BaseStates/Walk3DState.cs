@@ -17,7 +17,7 @@ public partial class Walk3DState : Base3DState
     [Export]
     private float _reactionTime = 0.2f;
     [Export(PropertyHint.Range, "0,180,0.1,radians_as_degrees")]
-    private float _turnAngPerSec = 360f;//Mathf.Pi * 4;
+    private float _turnAngPerSec = Mathf.Pi;
 
     [Export(PropertyHint.NodeType, "State")]
 	private State _onNoInputState;

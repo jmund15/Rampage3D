@@ -39,7 +39,8 @@ public partial class AAAParameters : Resource
         { "eat", Animation.LoopModeEnum.None },
         { "special", Animation.LoopModeEnum.None },
         { "swimLand", Animation.LoopModeEnum.None },
-        { "swimSurface", Animation.LoopModeEnum.None }
+        { "swimSurface", Animation.LoopModeEnum.None },
+        { "wallSpecial", Animation.LoopModeEnum.None },
     };
     [Export(PropertyHint.SaveFile, "*.tscn")]
     public string SavePath { get; private set; }

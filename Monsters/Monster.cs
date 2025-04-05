@@ -130,29 +130,24 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
         foreach (var velProp in VelocityProperties.VelocityIds)
         {
             VelocityMap[velProp.VelocityType] = velProp.GetVelocityID();
+            VelAddModMap[velProp.VelocityType] = new VelocityID();
+            VelMultModMap[velProp.VelocityType] = new VelocityID(1, 1, 1);
+            GD.Print($"set vel prop for {velProp.VelocityType}");
         }
         foreach (var impProp in VelocityProperties.ImpulseIds)
         {
             ImpulseMap[impProp.ImpulseType] = impProp.ImpulseForce;
+            ImpulseModMap[impProp.ImpulseType] = 0f;
+            GD.Print($"set impulse prop for {impProp.ImpulseType}");
         }
-        //VelocityMap[VelocityType.Ground] =
-        //    GroundVelocity.GetVelocityID();
-        //VelocityMap[VelocityType.Air] =
-        //    AirVelocity.GetVelocityID();
-        //VelocityMap[VelocityType.Climb] =
-        //    ClimbVelocity.GetVelocityID();
-        //VelocityMap[VelocityType.Swim] =
-        //    SwimVelocity.GetVelocityID();
 
 
-        GD.Print($"Air Velocity ID: \n{AirVelocity.GetVelocityID().ToString()}");
         //GD.Print($"Ground Velocity MAP ID: \n{VelocityMap[VelocityType.Ground]}");
-        foreach (var velType in Global.GetEnumValues<VelocityType>())
-        {
-            VelAddModMap[velType] = new VelocityID();
-            VelMultModMap[velType] = new VelocityID(1,1,1);
-        }
-
+        //foreach (var velType in Global.GetEnumValues<VelocityType>())
+        //{
+        //    VelAddModMap[velType] = new VelocityID();
+        //    VelMultModMap[velType] = new VelocityID(1,1,1);
+        //}
         //ImpulseMap[ImpulseType.Jump] = JumpForce;
         //ImpulseMap[ImpulseType.WallJump] = WallJumpForce;
         //ImpulseMap[ImpulseType.Glide] = 0.5f; // TODO: MAKE VARIABLE
@@ -393,21 +388,6 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
     [Export]
     protected Char3DVelocityProperties VelocityProperties { get; set; }
     [ExportGroup("Velocity Properties")]
-    [Export]
-    protected VelocityIDResource GroundVelocity { get; set; }
-    [Export]
-    protected VelocityIDResource AirVelocity { get; set; }
-    [Export]
-    protected VelocityIDResource ClimbVelocity { get; set; }
-    //[Export]
-    //protected float ClimbSkidFriction { get; set; }
-    [Export]
-    protected VelocityIDResource SwimVelocity { get; set; }
-
-    [Export]
-    protected float JumpForce { get; set; }
-    [Export]
-    protected float WallJumpForce { get; set; }
 
     public System.Collections.Generic.Dictionary<VelocityType, VelocityID> VelocityMap { get; private set; } 
         = new System.Collections.Generic.Dictionary<VelocityType, VelocityID>();
@@ -508,7 +488,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
         //    }
         //}
         Velocity = velocity;
-        GD.Print("Set Velocity: ", Velocity);
+        //GD.Print("Set Velocity: ", Velocity);
     }
     public void ApplyGravity(float delta)
     {
@@ -520,11 +500,11 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
     }
     public void ApplyImpulse(Vector3 direction, ImpulseType impulseType)
     {
-        GD.Print($"Impulse of type {impulseType} applied for {direction}");
+        //GD.Print($"Impulse of type {impulseType} applied for {direction}");
         var totalForce = ImpulseMap[impulseType] + ImpulseModMap[impulseType];
-        GD.Print("vel before impulse: ", Velocity);
+        //GD.Print("vel before impulse: ", Velocity);
         Velocity += (direction * totalForce);
-        GD.Print("vel after impulse: ", Velocity);
+        //GD.Print("vel after impulse: ", Velocity);
     }
     public void ApplyCustomVelocity(Vector3 velocity)
     {

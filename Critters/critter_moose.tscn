@@ -10,12 +10,12 @@ script = ExtResource("3_0h7e5")
 _collLayer = 1
 _avoidancePositionVelocityBalance = 1.0
 _chasePositionVelocityBalance = 0.0
-Consideration = -2.0
+Consideration = 0.0
 
 [sub_resource type="Resource" id="Resource_7d0ve"]
 script = ExtResource("4_reley")
 _collLayer = 2
-_distDiminishRange = Vector2(0.2, 0.3)
+_distDiminishRange = Vector2(0.1, 0.25)
 _dirsToPropogate = 1
 _initPropWeight = 0.5
 _propDiminishWeight = 0.5

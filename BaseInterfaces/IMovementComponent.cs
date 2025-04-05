@@ -168,29 +168,72 @@ public static partial class MovementExtensions
                 return "Null";
         }
     }
+    //private static Dir4 GetDir4FromXY(float x, float y)
+    //{
+    //    if (x < 0 && y <= 0)
+    //    {
+    //        // IMPORTANT: Straight Left = UpLeft
+    //        return Dir4.Left;
+    //    }
+    //    else if (x >= 0 && y < 0)
+    //    {
+    //        // IMPORTANT: Straight Up = UpRight
+    //        return Dir4.Up;
+    //    }
+    //    else if (x <= 0 && y > 0)
+    //    {
+    //        // IMPORTANT: Straight Down = DownLeft
+    //        return Dir4.Down;
+    //    }
+    //    else if (x > 0 && y >= 0)
+    //    {
+    //        // IMPORTANT: Straight Right = DownRight
+    //        return Dir4.Right;
+    //    }
+    //    else { throw new Exception($"VALUES: ({x}, {y}) GAVE NO ORTHOG DIRECTION??"); }
+    //}
     private static Dir4 GetDir4FromXY(float x, float y)
     {
-        if (x < 0 && y <= 0)
+        //Handle the zero vector case if necessary(optional, depends on requirements)
+        if (x == 0 && y == 0)
         {
-            // IMPORTANT: Straight Left = UpLeft
-            return Dir4.Left;
+            // Decide what to return: a default, throw, or maybe a Dir4.None?
+            throw new ArgumentException("Cannot determine direction for zero vector (0,0)");
+            // Or return a default:
+            // return Dir4.Right; // Or any other default
         }
-        else if (x >= 0 && y < 0)
+        // Compare absolute values to find the dominant axis 
+        if (Math.Abs(x) > Math.Abs(y))
         {
-            // IMPORTANT: Straight Up = UpRight
-            return Dir4.Up;
+            // Vector is primarily horizontal
+            if (x > 0)
+            {
+                return Dir4.Right;
+            }
+            else // x < 0 (x cannot be 0 here if Abs(x) > Abs(y) unless y is also 0, handled above)
+            {
+                return Dir4.Left;
+            }
         }
-        else if (x <= 0 && y > 0)
+        else // Abs(y) >= Abs(x)
         {
-            // IMPORTANT: Straight Down = DownLeft
-            return Dir4.Down;
+            // Vector is primarily vertical (or perfectly diagonal)
+            if (y < 0) // Corresponds to negative Y in standard coords, but Up in original logic
+            {
+                // If y is exactly 0 here, it means x must also be 0 (Abs(x) <= Abs(y)=0),
+                // which should be handled by the zero vector check above if uncommented.
+                // If the zero check isn't present, y==0 falls into this 'else',
+                // resulting in Dir4.Up if the previous 'if (y < 0)' is false.
+                // This might be okay as a default for (0,0) if not handled explicitly.
+                return Dir4.Up;
+            }
+            else // y >= 0 (Corresponds to positive Y or zero Y)
+            {
+                return Dir4.Down; // Mapped from y > 0 in original logic
+            }
         }
-        else if (x > 0 && y >= 0)
-        {
-            // IMPORTANT: Straight Right = DownRight
-            return Dir4.Right;
-        }
-        else { throw new Exception($"VALUES: ({x}, {y}) GAVE NO ORTHOG DIRECTION??"); }
+        // Note: The original 'throw new Exception' is unreachable with this logic
+        // unless x or y are NaN, which might warrant explicit checks if needed.
     }
     public static Dir16 GetDir16FromXY(float x, float y)
     {

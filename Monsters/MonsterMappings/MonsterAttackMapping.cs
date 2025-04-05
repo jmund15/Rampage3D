@@ -33,26 +33,26 @@ public partial class MonsterAttackMapping : Node
         new Dictionary<MonsterAttackIDResource, PackedScene>()
         {
             //{ new MonsterAttackIDResource(MonsterType.Rambucho, MonsterForm.F2, AttackType.GroundNormal),
-            //    "res://Monsters/MonsterAttacks/grizzle_2_gna.tscn"},
+            //    "res://Monsters/MonsterMappings/grizzle_2_gna.tscn"},
             //{ new MonsterAttackIDResource(MonsterType.Rambucho, MonsterForm.F2, AttackType.GroundSpecial),
-            //    "res://Monsters/MonsterAttacks/grizzle_2_gsa.tscn"},
+            //    "res://Monsters/MonsterMappings/grizzle_2_gsa.tscn"},
             //{ new MonsterAttackIDResource(MonsterType.Rambucho, MonsterForm.F2, AttackType.WallNormal),
-            //    "res://Monsters/MonsterAttacks/grizzle_2_wna.tscn"},
+            //    "res://Monsters/MonsterMappings/grizzle_2_wna.tscn"},
             //{ new MonsterAttackIDResource(MonsterType.Rambucho, MonsterForm.F2, AttackType.WallSpecial),
-            //    "res://Monsters/MonsterAttacks/grizzle_2_wsa.tscn"},
+            //    "res://Monsters/MonsterMappings/grizzle_2_wsa.tscn"},
             
         };
     private System.Collections.Generic.Dictionary<MonsterAttackIdentifier, string> _attackScenePrebuiltMap =
         new System.Collections.Generic.Dictionary<MonsterAttackIdentifier, string>()
         {
             { new MonsterAttackIdentifier(MonsterType.Rambucho, MonsterForm.F2, AttackType.GroundNormal),
-                "res://Monsters/MonsterAttacks/grizzle_2_gna.tscn"},
+                "res://Monsters/MonsterMappings/grizzle_2_gna.tscn"},
             { new MonsterAttackIdentifier(MonsterType.Rambucho, MonsterForm.F2, AttackType.GroundSpecial),
-                "res://Monsters/MonsterAttacks/grizzle_2_gsa.tscn"},
+                "res://Monsters/MonsterMappings/grizzle_2_gsa.tscn"},
             { new MonsterAttackIdentifier(MonsterType.Rambucho, MonsterForm.F2, AttackType.WallNormal),
-                "res://Monsters/MonsterAttacks/grizzle_2_wna.tscn"},
+                "res://Monsters/MonsterMappings/grizzle_2_wna.tscn"},
             { new MonsterAttackIdentifier(MonsterType.Rambucho, MonsterForm.F2, AttackType.WallSpecial),
-                "res://Monsters/MonsterAttacks/grizzle_2_wsa.tscn"},
+                "res://Monsters/MonsterMappings/grizzle_2_wsa.tscn"},
 
         };
     public static System.Collections.Generic.Dictionary<MonsterAttackIdentifier, BehaviorTree> AttackTreeMap { get; private set; } =

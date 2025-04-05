@@ -87,13 +87,16 @@ public partial class GlideState : State
             //}
         }
 
-        if (Mathf.Abs(_body.Velocity.X) > Global.CHANGE_DIR_VEL_REQ || Mathf.Abs(_body.Velocity.Z) > Global.CHANGE_DIR_VEL_REQ)
+        if (Mathf.Abs(_velComp.GetVelocity().X) > Global.CHANGE_DIR_VEL_REQ || 
+            Mathf.Abs(_velComp.GetVelocity().Z) > Global.CHANGE_DIR_VEL_REQ)
         {
             var velDir = _body.Velocity.GetOrthogDirection();
-            //GD.Print("vel: ", _body., "\nvelDir: ", velDir, "; curr dir: ", _moveComp.GetFaceDirection());
+            GD.Print("vel: ", _velComp.GetVelocity(), "\nvelDir: ", velDir, ";\ncurr dir: ", _moveComp.GetFaceDirection(),
+                "\ndes dir: ", velDir);
             if (velDir != _moveComp.GetFaceDirection())
             {
-                //GD.Print("Velocity when changing dirs: ", _body.Velocity);
+                GD.Print("Velocity when changing dirs: ", _body.Velocity,
+                    "\nchanging dirs from ", _moveComp.GetFaceDirection(), " to ", velDir);
                 BB.GetVar<Sprite3D>(BBDataSig.Sprite).FlipH = velDir.GetFlipH();
                 _animPlayer.UpdateAnim(_animName + velDir.GetAnimDir());
             }
