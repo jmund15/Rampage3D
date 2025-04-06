@@ -23,6 +23,9 @@ public enum ImpulseType // TODO: remove if unnecessary?
 }
 public interface IVelocity3DComponent//<VelocityT> // i.e. <MonsterVelocityType>, etc.
 {
+    //TODO: Change pos properties to "Get" functions instead?
+    public Vector3 Position { get; set; }
+    public Vector3 GlobalPosition { get; set; }
     public Vector3 GetVelocity();
 
     public void AppendAddMod(float mod);

@@ -54,9 +54,8 @@ public class AIDetectionArgs : EventArgs
     }
 }
 /* TODO:
- * Create system where directions/considerations are purely based on the raycasts given,
- * instead of being locked to specific direction enums.
- * USE VECTOR3's INSTEAD OF DIR ENUMS!
+ * Look into using Area3D instead of Raycasts, 
+ * ESPECIALLY for 3D, as having a bunch of rays going up into the Y may cause performance issues
  */
 [GlobalClass, Tool]
 public partial class AINav3DComponent : NavigationAgent3D
@@ -83,7 +82,7 @@ public partial class AINav3DComponent : NavigationAgent3D
     [Export]
     private NavType _navMethod;
     [Export]
-    public AIRays16Dir Rays { get; private set; }
+    public AIRays3D AIRays { get; private set; }
     [Export]
     public bool ResponbsibleForDetection { get; private set; } = true;
     private IMovementComponent _moveComp;
@@ -107,7 +106,7 @@ public partial class AINav3DComponent : NavigationAgent3D
     public bool HasPath { get; private set; } = true;
     public Vector3 WeightedNextPathDirection { get; private set; } = Vector3.Zero;
     [Export]
-    public GDCol.Array<AIEntityConsideration> EntityConsiderations { get; private set; }
+    public GDCol.Array<AIEntityConsideration3D> EntityConsiderations { get; private set; }
     public static Dictionary<AINavWeight, uint> NavLayerMap { get; private set; } = new Dictionary<AINavWeight, uint>()
     {
         { AINavWeight.Monster, 1 },
@@ -149,16 +148,16 @@ public partial class AINav3DComponent : NavigationAgent3D
     //    { EightDirection.Up, 0f },
     //    { EightDirection.UpRight, 0f }
     //};
-    public Dictionary<Dir16, float> ConsiderationWeights { get; private set; } = new Dictionary<Dir16, float>();
-    public Dictionary<Dir8, float> DirectionWeights { get; private set; } = new Dictionary<Dir8, float>() {
-        { Dir8.Right, 0f },
-        { Dir8.DownRight, 0f },
-        { Dir8.Down, 0f },
-        { Dir8.DownLeft, 0f },
-        { Dir8.Left, 0f },
-        { Dir8.UpLeft, 0f },
-        { Dir8.Up, 0f },
-        { Dir8.UpRight, 0f }
+    public Dictionary<Vector3, float> ConsiderationWeights { get; private set; } = new Dictionary<Vector3, float>();
+    public Dictionary<Vector3, float> DirectionWeights { get; private set; } = new Dictionary<Vector3, float>() {
+        //{ Dir8.Right, 0f },
+        //{ Dir8.DownRight, 0f },
+        //{ Dir8.Down, 0f },
+        //{ Dir8.DownLeft, 0f },
+        //{ Dir8.Left, 0f },
+        //{ Dir8.UpLeft, 0f },
+        //{ Dir8.Up, 0f },
+        //{ Dir8.UpRight, 0f }
     };
     public Dictionary<AIFacing, float> SpatialAwarenessWeights { get; private set; } = new Dictionary<AIFacing, float>()
     {
@@ -182,6 +181,24 @@ public partial class AINav3DComponent : NavigationAgent3D
     public event EventHandler<Area3D> AreaDetected;
 
     private Timer _debugTimer;
+
+
+    // --- Randomness / Noise Parameters ---
+    private RandomNumberGenerator _rng = new RandomNumberGenerator();
+
+    [ExportGroup("Randomness Tuning")]
+    [Export] // For Option B: Noise on Consideration Weight
+    private FastNoiseLite _considerationNoise; // Assign in Inspector!
+    [Export(PropertyHint.Range, "0.0, 0.5, 0.01")]
+    private float _considerationNoiseIntensity = 0.15f;
+    [Export]
+    private float _considerationNoiseTimeScale = 0.4f;
+    [Export(PropertyHint.Range, "0.1, 1.0, 0.05")] // Base weight before noise
+    private float _baseConsiderationInfluence = 0.5f;
+    [Export(PropertyHint.Range, "0.0, 0.5, 0.05")] // Minimum clamped influence
+    private float _minConsiderationInfluence = 0.1f;
+    [Export(PropertyHint.Range, "0.5, 1.5, 0.05")] // Maximum clamped influence
+    private float _maxConsiderationInfluence = 1.0f;
     #endregion
 
     #region BASE_GODOT_OVERRIDEN_FUNCTIONS
@@ -198,9 +215,13 @@ public partial class AINav3DComponent : NavigationAgent3D
             _debugTimer.Timeout += OnDebugTimeout;
             _debugTimer.Start(1.0f);
         }
-        foreach (var dir in Global.GetEnumValues<Dir16>())
+        //foreach (var dir in Global.GetEnumValues<Dir16>())
+        //{
+        //    ConsiderationWeights.Add(dir, 0f);
+        //}
+        foreach (var rayPair in AIRays.Raycasts)
         {
-            ConsiderationWeights.Add(dir, 0f);
+            ConsiderationWeights.Add(rayPair.Key, 0f);
         }
         _moveComp = ParentAgent as IMovementComponent;
         _bb = ParentAgent.GetFirstChildOfInterface<IBlackboard>();
@@ -217,27 +238,27 @@ public partial class AINav3DComponent : NavigationAgent3D
 
     private void OnDebugTimeout()
     {
-        GD.Print($"Danger Weights:\n" +
-            $"Up: {ConsiderationWeights[Dir16.U]:F2} " +
-            $"UpRight: {ConsiderationWeights[Dir16.UR]:F2} " +
-            $"Right: {ConsiderationWeights[Dir16.R]:F2} " +
-            $"DownRight: {ConsiderationWeights[Dir16.DR]:F2} " +
-            $"Down: {ConsiderationWeights[Dir16.D]:F2} " +
-            $"DownLeft: {ConsiderationWeights[Dir16.DL]:F2} " +
-            $"Left: {ConsiderationWeights[Dir16.L]:F2} " +
-            $"UpLeft: {ConsiderationWeights[Dir16.UL]:F2} "
-            );
+        //GD.Print($"Danger Weights:\n" +
+        //    $"Up: {ConsiderationWeights[Dir16.U]:F2} " +
+        //    $"UpRight: {ConsiderationWeights[Dir16.UR]:F2} " +
+        //    $"Right: {ConsiderationWeights[Dir16.R]:F2} " +
+        //    $"DownRight: {ConsiderationWeights[Dir16.DR]:F2} " +
+        //    $"Down: {ConsiderationWeights[Dir16.D]:F2} " +
+        //    $"DownLeft: {ConsiderationWeights[Dir16.DL]:F2} " +
+        //    $"Left: {ConsiderationWeights[Dir16.L]:F2} " +
+        //    $"UpLeft: {ConsiderationWeights[Dir16.UL]:F2} "
+        //    );
 
-        GD.Print($"Direction Weights:\n" +
-            $"Up: {DirectionWeights[Dir8.Up]:F2} " +
-            $"Right: {DirectionWeights[Dir8.Right]:F2} " +
-            $"Down: {DirectionWeights[Dir8.Down]:F2} " +
-            $"Left: {DirectionWeights[Dir8.Left]:F2} " +
-            $"UpRight: {DirectionWeights[Dir8.UpRight]:F2} " +
-            $"DownRight: {DirectionWeights[Dir8.DownRight]:F2} " +
-            $"DownLeft: {DirectionWeights[Dir8.DownLeft]:F2} " +
-            $"UpLeft: {DirectionWeights[Dir8.UpLeft]:F2} "
-            );
+        //GD.Print($"Direction Weights:\n" +
+        //    $"Up: {DirectionWeights[Dir8.Up]:F2} " +
+        //    $"Right: {DirectionWeights[Dir8.Right]:F2} " +
+        //    $"Down: {DirectionWeights[Dir8.Down]:F2} " +
+        //    $"Left: {DirectionWeights[Dir8.Left]:F2} " +
+        //    $"UpRight: {DirectionWeights[Dir8.UpRight]:F2} " +
+        //    $"DownRight: {DirectionWeights[Dir8.DownRight]:F2} " +
+        //    $"DownLeft: {DirectionWeights[Dir8.DownLeft]:F2} " +
+        //    $"UpLeft: {DirectionWeights[Dir8.UpLeft]:F2} "
+        //    );
 
         GD.Print($"Chosen Dirction: {ChooseDirection()}");
 
@@ -315,7 +336,7 @@ public partial class AINav3DComponent : NavigationAgent3D
             {
                 arrowColor = Colors.Green;
             }
-            var dirArrow = dirWeight.Key.GetVector3() * weight * arrowSize;
+            var dirArrow = dirWeight.Key * weight * arrowSize;
             DebugDraw3D.DrawArrow(ParentAgent.GlobalPosition,
                 ParentAgent.GlobalPosition + dirArrow,
                 arrowColor,
@@ -369,41 +390,50 @@ public partial class AINav3DComponent : NavigationAgent3D
         {
             SignalRaycastDetections();
         }
-        List<Dir8> dirs = Global.GetEnumValues<Dir8>().ToList();
+        //List<Dir8> dirs = Global.GetEnumValues<Dir8>().ToList();
+        List<Vector3> dirs = AIRays.Raycasts.Keys.ToList();
         ConsiderationWeights = GetConsiderationVector();
 
         float maxWeight = float.MinValue;
         Vector3 weightedDir = Vector3.Zero;
         foreach (var dir in dirs)
         {
-            var eightDirVec = dir.GetVector2();
+            var eightDirVec = dir;
             var dotProd = normVec.Dot(new Vector3(eightDirVec.X, 0f, eightDirVec.Y));
             DirectionWeights[dir] = dotProd > 0 ? dotProd : 0; // no below zero!
-            var neighborDirs = dir.GetNeighboring16Dirs();
             var weight = 0.5f;
-            DirectionWeights[dir] += ConsiderationWeights[dir.GetDir16()] * weight;
-            DirectionWeights[dir] += ConsiderationWeights[neighborDirs.Item1] * weight * weight;
-            DirectionWeights[dir] += ConsiderationWeights[neighborDirs.Item2] * weight * weight;
-            //if (UseOrthogNavOnly)
-            //{
-            //    if (_eightToOrthogMap[dir]) // add neighboring dir weights for better orthog weighted movement
-            //    {
-            //        var orthogAddWeight = 0.5f;
-            //        var orthogNeighbors = dir.GetNeighboringDirs();
-            //        DirectionWeights[dir] += DirectionWeights[orthogNeighbors.Item1] * orthogAddWeight;
-            //        DirectionWeights[dir] += DirectionWeights[orthogNeighbors.Item2] * orthogAddWeight;
-            //    }
-            //    else
-            //    {
-            //        continue; // don't set non orthogdir as move dir;
-            //    }
-            //}
-            //if (DirectionWeights[dir] > maxWeight)
-            //{
-            //    weightedDir = new Vector3(eightDirVec.X, normVec.Y, eightDirVec.Y);
-            //    maxWeight = DirectionWeights[dir];
-            //}
+            DirectionWeights[dir] += ConsiderationWeights[dir] * weight;
         }
+        //foreach (var dir in dirs)
+        //{
+        //    var eightDirVec = dir;
+        //    var dotProd = normVec.Dot(new Vector3(eightDirVec.X, 0f, eightDirVec.Y));
+        //    DirectionWeights[dir] = dotProd > 0 ? dotProd : 0; // no below zero!
+        //    var neighborDirs = dir.GetNeighboring16Dirs();
+        //    var weight = 0.5f;
+        //    DirectionWeights[dir] += ConsiderationWeights[dir.GetDir16()] * weight;
+        //    DirectionWeights[dir] += ConsiderationWeights[neighborDirs.Item1] * weight * weight;
+        //    DirectionWeights[dir] += ConsiderationWeights[neighborDirs.Item2] * weight * weight;
+        //    //if (UseOrthogNavOnly)
+        //    //{
+        //    //    if (_eightToOrthogMap[dir]) // add neighboring dir weights for better orthog weighted movement
+        //    //    {
+        //    //        var orthogAddWeight = 0.5f;
+        //    //        var orthogNeighbors = dir.GetNeighboringDirs();
+        //    //        DirectionWeights[dir] += DirectionWeights[orthogNeighbors.Item1] * orthogAddWeight;
+        //    //        DirectionWeights[dir] += DirectionWeights[orthogNeighbors.Item2] * orthogAddWeight;
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        continue; // don't set non orthogdir as move dir;
+        //    //    }
+        //    //}
+        //    //if (DirectionWeights[dir] > maxWeight)
+        //    //{
+        //    //    weightedDir = new Vector3(eightDirVec.X, normVec.Y, eightDirVec.Y);
+        //    //    maxWeight = DirectionWeights[dir];
+        //    //}
+        //}
         var chosenDir = ChooseDirection();
         weightedDir = new Vector3(chosenDir.X, normVec.Y, chosenDir.Y);
 
@@ -421,9 +451,9 @@ public partial class AINav3DComponent : NavigationAgent3D
         //var result = Enumerable.Zip(DirectionWeights, DirectionWeights, (a, b) => (a.Key, a.Value + b.Value));
         return weightedDir;//unweightedPathPoint;//
     }
-    private Vector2 ChooseDirection()
+    private Vector3 ChooseDirection()
     {
-        var chosenDir = Vector2.Zero;
+        var chosenDir = Vector3.Zero;
         foreach (var dir in DirectionWeights.Keys)
         {
             //if (ConsiderationWeights[dir.GetDir16()] < 0)
@@ -431,24 +461,87 @@ public partial class AINav3DComponent : NavigationAgent3D
             //    DirectionWeights[dir.Key] = 0;
             //}
             //Choose direction based on remaining interest
-            chosenDir += dir.GetVector2() * DirectionWeights[dir];
+            chosenDir += dir * DirectionWeights[dir];
         }
         chosenDir = chosenDir.Normalized();
         return chosenDir;
     }
-    protected virtual Dictionary<Dir16, float> GetConsiderationVector()
+    // --- Weighted Random Selection ---
+    private Vector3 ChooseDirectionWeightedRandom(Dictionary<Vector3, float> weights)
     {
-        var considerationVec = new Dictionary<Dir16, float>()
+        // --- Option B: Calculate Noisy Consideration Influence ---
+        float currentConsiderationInfluence = _baseConsiderationInfluence;
+        if (_considerationNoise != null)
         {
-            { Dir16.U, 0f }, { Dir16.UUR, 0f }, { Dir16.UR, 0f }, { Dir16.URR, 0f },
-            { Dir16.R, 0f }, { Dir16.DRR, 0f }, { Dir16.DR, 0f }, { Dir16.DDR, 0f },
-            { Dir16.D, 0f }, { Dir16.DDL, 0f }, { Dir16.DL, 0f }, { Dir16.DLL, 0f },
-            { Dir16.L, 0f }, { Dir16.ULL, 0f }, { Dir16.UL, 0f }, { Dir16.UUL, 0f }
-        };
+            float time = (float)Time.GetUnixTimeFromSystem() * _considerationNoiseTimeScale;
+            // Get noise value (usually -1 to 1)
+            float noiseValue = _considerationNoise.GetNoise1D(time);
+            // Map noise to a +/- range based on intensity, add to base weight
+            currentConsiderationInfluence += noiseValue * _considerationNoiseIntensity;
+            // Clamp the final influence weight
+            currentConsiderationInfluence = Mathf.Clamp(currentConsiderationInfluence, _minConsiderationInfluence, _maxConsiderationInfluence);
+        }
+        // --- End Option B ---
+
+        float totalWeight = 0f;
+        foreach (float weight in weights.Values)
+        {
+            // Ensure weight is positive for probability calculation
+            if (weight > 0) totalWeight += weight;
+        }
+
+        // If total weight is near zero, no direction has interest
+        if (totalWeight < 0.001f)
+        {
+            return Vector3.Zero; // Indicate no direction chosen
+        }
+
+        // Get a random value scaled by the total weight
+        float randomValue = (float)_rng.RandfRange(0f, totalWeight);
+
+        // Iterate through weights, subtracting until randomValue goes below zero
+        foreach (KeyValuePair<Vector3, float> pair in weights)
+        {
+            if (pair.Value <= 0) continue; // Skip directions with zero or negative weight
+
+            randomValue -= pair.Value;
+            if (randomValue <= 0f)
+            {
+                return pair.Key; // This is the chosen direction
+            }
+        }
+
+        // Fallback (should theoretically not be reached if totalWeight > 0, but safer)
+        // Return the direction with the highest weight as a deterministic fallback
+        Vector3 fallbackDir = Vector3.Zero;
+        float maxW = -1f;
+        foreach (KeyValuePair<Vector3, float> pair in weights)
+        {
+            if (pair.Value > maxW)
+            {
+                maxW = pair.Value;
+                fallbackDir = pair.Key;
+            }
+        }
+        return fallbackDir;
+    }
+    protected virtual Dictionary<Vector3, float> GetConsiderationVector()
+    {
+        var considerationVec = new Dictionary<Vector3, float>();
+        considerationVec = AIRays.Raycasts.Keys.ToDictionary(v => v, v => 0f);
+        //{
+        //    { Dir16.U, 0f }, { Dir16.UUR, 0f }, { Dir16.UR, 0f }, { Dir16.URR, 0f },
+        //    { Dir16.R, 0f }, { Dir16.DRR, 0f }, { Dir16.DR, 0f }, { Dir16.DDR, 0f },
+        //    { Dir16.D, 0f }, { Dir16.DDL, 0f }, { Dir16.DL, 0f }, { Dir16.DLL, 0f },
+        //    { Dir16.L, 0f }, { Dir16.ULL, 0f }, { Dir16.UL, 0f }, { Dir16.UUL, 0f }
+        //};
+
+
+
         foreach (var entityConsid in EntityConsiderations)
         {
             var entityConsidVec = entityConsid.GetConsiderationVector(_bb);
-            foreach (var dir in Global.GetEnumValues<Dir16>())
+            foreach (var dir in considerationVec.Keys)
             {
                 considerationVec[dir] += entityConsidVec[dir];
             }
@@ -538,7 +631,7 @@ public partial class AINav3DComponent : NavigationAgent3D
     }
     private void SignalRaycastDetections()
     {
-        foreach (var raycast in Rays.GetAllRaycasts())
+        foreach (var raycast in AIRays.GetAllRaycasts())
         {
             if (!raycast.IsColliding()) { continue; }
             var detectObj = raycast.GetCollider();

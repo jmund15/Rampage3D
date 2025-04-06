@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public interface IAIConsideration<DirT>
+public interface IAIConsideration<VecT>
 {
-    public Dictionary<DirT, float> GetConsiderationVector(IBlackboard bb);
+    public Dictionary<VecT, float> GetConsiderationVector(IBlackboard bb);
 }
