@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 [GlobalClass]
-public partial class StaticBody3DAIConsideration : AIEntityConsideration
+public partial class StaticBody3DAIConsideration : AIEntityConsideration3D
 {
     [Export]
     private int _collLayer;
@@ -18,22 +18,22 @@ public partial class StaticBody3DAIConsideration : AIEntityConsideration
     [Export]
     private float _propDiminishWeight = 0.5f;
 
-    private AINav3DComponent _aiNav;
     public StaticBody3DAIConsideration()
     {
 
     }
-    public override Dictionary<Dir16, float> GetConsiderationVector(IBlackboard bb)
+    public override Dictionary<Vector3, float> GetConsiderationVector(IBlackboard bb)
     {
         BB = bb;
-        _aiNav = BB.GetVar<AINav3DComponent>(BBDataSig.AINavComp);
-        var considerVec = new Dictionary<Dir16, float>();
-        foreach (var dir in Global.GetEnumValues<Dir16>())
+        AINav = BB.GetVar<AINav3DComponent>(BBDataSig.AINavComp);
+        var rays = AINav.AIRays;
+        var considerVec = new Dictionary<Vector3, float>();
+        foreach (var dir in rays.Raycasts.Keys)
         {
-            considerVec.Add(dir, 0f);
+            considerVec[dir] = 0f;
         }
 
-        foreach (var pair in _aiNav.Rays.Raycasts)
+        foreach (var pair in AINav.AIRays.Raycasts)
         {
             var dir = pair.Key;
             var raycast = pair.Value;
@@ -55,7 +55,7 @@ public partial class StaticBody3DAIConsideration : AIEntityConsideration
 
             considerVec[dir] += dangerAmt;
         }
-        considerVec = PropogateConsiderations(considerVec);
+        //considerVec = PropogateConsiderations(considerVec);
         return considerVec;
     }
 

@@ -119,8 +119,6 @@ public partial class Critter : CharacterBody3D, IMovementComponent, IVelocityCha
         AIPrimaryState = _aism.InitialSubState;
         AIParallelStates = _aism.ParallelSubStates;
         _aism.Enter(_aiParallelStateMachines);
-
-        GD.Print("raycast angle = ", this.GetFirstChildOfType<AIRays16Dir>().RayU.GlobalRotation);
     }
     public override void _ExitTree()
     {
