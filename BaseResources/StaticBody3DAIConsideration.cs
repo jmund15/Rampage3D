@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DotnetUtils;
+
 [GlobalClass]
 public partial class StaticBody3DAIConsideration : AIEntityConsideration3D
 {
@@ -17,23 +19,34 @@ public partial class StaticBody3DAIConsideration : AIEntityConsideration3D
     private float _initPropWeight = 0.75f;
     [Export]
     private float _propDiminishWeight = 0.5f;
-
+    // bidirectional dictionary (using '.Forward' & '.Reverse')
+    private Map<int, Vector3> _dirIds = new Map<int, Vector3>();
     public StaticBody3DAIConsideration()
     {
 
     }
-    public override Dictionary<Vector3, float> GetConsiderationVector(IBlackboard bb)
+    public override void InitializeResources(IBlackboard bb)
     {
         BB = bb;
         AINav = BB.GetVar<AINav3DComponent>(BBDataSig.AINavComp);
+        int i = 0;
+        foreach (var dir in AINav.AIRays.Directions)
+        {
+            _dirIds.Add(i, dir);
+            i++;
+        }
+    }
+    public override Dictionary<Vector3, float> GetConsiderationVector()
+    {
+        
         var rays = AINav.AIRays;
         var considerVec = new Dictionary<Vector3, float>();
-        foreach (var dir in rays.Raycasts.Keys)
+        foreach (var dir in rays.Directions)
         {
             considerVec[dir] = 0f;
+            //GD.Print("dir considering: ", dir);
         }
-
-        foreach (var pair in AINav.AIRays.Raycasts)
+        foreach (var pair in rays.Raycasts)
         {
             var dir = pair.Key;
             var raycast = pair.Value;
@@ -43,19 +56,19 @@ public partial class StaticBody3DAIConsideration : AIEntityConsideration3D
                 continue;
             }
             var rayCollision = raycast.GetCollider() as CollisionObject3D;
-            if (rayCollision == bb.GetVar<Node>(BBDataSig.Agent)) { continue; }
+            if (rayCollision == BB.GetVar<Node>(BBDataSig.Agent)) { continue; }
             if (!rayCollision.GetCollisionLayerValue(_collLayer)) { continue; }
             
             var distWeight = GetDistanceConsideration(raycast);
-            //GD.Print($"{dir} dist weight: {distWeight}");
-            //GD.Print($"Raycast found danger {navLayer.Key} @ dir {dir}!");
             //var spatialAwarenessMod = SpatialAwarenessWeights[dir.GetAIFacing(_moveComp.GetFaceDirection())];
             var dangerAmt = Consideration * distWeight;
+            //GD.Print($"{dir.GetDir16()}; {dir} danger weight: {dangerAmt}");
+
             //* spatialAwarenessMod;
 
             considerVec[dir] += dangerAmt;
         }
-        //considerVec = PropogateConsiderations(considerVec);
+        considerVec = PropogateConsiderations(considerVec);
         return considerVec;
     }
 
@@ -63,26 +76,36 @@ public partial class StaticBody3DAIConsideration : AIEntityConsideration3D
     {
         var castLength = raycast.TargetPosition.Length();
         var collDist = (raycast.GetCollisionPoint() - raycast.GlobalPosition).Length();
+        if (collDist > _distDiminishRange.Y)
+        {
+            return 0f;
+        }
         // the closer the collision is to the raycast, the higher the "danger" weight
-        //var distWeight = 1f - (collisionDist / castLength); 
         var minWeight = 0.1f;
         var k = 2.5f;
         float distWeight;
+
         if (collDist <= _distDiminishRange.X)
         {
             distWeight = 1.0f;  // Ensure max weight
         }
         else
         {
-            distWeight = minWeight + (1.0f - minWeight) *
-                (float)Math.Exp(-k * (collDist - _distDiminishRange.X) / (_distDiminishRange.Y/*castLength*/ - _distDiminishRange.X));
+            distWeight = 1f - ( (collDist - _distDiminishRange.X) / (_distDiminishRange.Y - _distDiminishRange.X) );
+
+            //distWeight = minWeight + (1.0f - minWeight) *
+            //    (float)Math.Exp(-k * (collDist - _distDiminishRange.X) / (_distDiminishRange.Y/*castLength*/ - _distDiminishRange.X));
         }
+        distWeight = Mathf.Clamp(distWeight, 0f, 1f);
+        //GD.Print($"{raycast.TargetPosition.Normalized().GetDir16()}'s wall dist: {collDist}\ndistWeight: {distWeight}");
         return distWeight;
     }
 
-    public Dictionary<Dir16, float> PropogateConsiderations(Dictionary<Dir16, float> considerations)
+    public Dictionary<Vector3, float> PropogateConsiderations(Dictionary<Vector3, float> considerations)
     {
-        var preConsiderations = new Dictionary<Dir16, float>(considerations);
+        var preConsiderations = new Dictionary<Vector3, float>(considerations);
+        
+
         foreach (var preConsid in preConsiderations)
         {
             var dir = preConsid.Key;
@@ -93,15 +116,27 @@ public partial class StaticBody3DAIConsideration : AIEntityConsideration3D
             }
             //PROPOGATE DANGER OUT
             var propogateNum = _dirsToPropogate;
-            var propLDir = dir;
-            var propRDir = dir;
+            int propLDir = _dirIds.Reverse[dir];
+            int propRDir = _dirIds.Reverse[dir];
+            var dirId = _dirIds.Reverse[dir];
             var propWeight = _initPropWeight;
             while (propogateNum > 0)
             {
-                propLDir = propLDir.GetLeftDir();
-                propRDir = propRDir.GetRightDir();
-                considerations[propLDir] += dangerAmt * propWeight;
-                considerations[propRDir] += dangerAmt * propWeight;
+                if (propLDir == 0)
+                {
+                    propLDir = considerations.Count;
+                }
+                else { propLDir--; }
+
+                if (propRDir == considerations.Count)
+                {
+                    propRDir = 0;
+                }
+                else { propRDir++; }
+                //propLDir = propLDir.GetLeftDir();
+                //propRDir = propRDir.GetRightDir();
+                considerations[_dirIds.Forward[propLDir]] += dangerAmt * propWeight;
+                considerations[_dirIds.Forward[propRDir]] += dangerAmt * propWeight;
                 //GD.Print($"orig dir: {dir}; left dir: {propLDir}; right dir: {propRDir}; tbmb: {propWeight}" +
                 //    $"\norig left: {preConsiderations[propLDir]}; new left: {considerations[propLDir]}");
 

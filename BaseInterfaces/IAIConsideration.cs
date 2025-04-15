@@ -6,5 +6,6 @@ using System.Threading.Tasks;
 
 public interface IAIConsideration<VecT>
 {
-    public Dictionary<VecT, float> GetConsiderationVector(IBlackboard bb);
+    public void InitializeResources(IBlackboard bb);
+    public Dictionary<VecT, float> GetConsiderationVector();
 }

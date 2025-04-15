@@ -40,7 +40,7 @@ public partial class VelocityBody3DAIConsideration : AIEntityConsideration3D
     {
 
     }
-    public override Dictionary<Vector3, float> GetConsiderationVector(IBlackboard bb)
+    public override void InitializeResources(IBlackboard bb)
     {
         BB = bb;
         Agent = BB.GetVar<Node3D>(BBDataSig.Agent);
@@ -49,9 +49,10 @@ public partial class VelocityBody3DAIConsideration : AIEntityConsideration3D
         if (Agent == null || AINav == null || AINav.AIRays == null)
         {
             GD.PrintErr($"VelocityBody3DAIConsideration ERROR || Missing Agent Body or AINavComponent/AIRays on Blackboard.");
-            return new Dictionary<Vector3, float>(); // Return empty, no considerations possible
         }
-
+    }
+    public override Dictionary<Vector3, float> GetConsiderationVector()
+    {
         _agentPosition = Agent.GlobalPosition;
         _agentVelocity = (Agent as IVelocity3DComponent).GetVelocity();
         _considDirections = AINav.AIRays.Directions; // Use the definitive list

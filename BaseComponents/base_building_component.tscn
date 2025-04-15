@@ -37,11 +37,11 @@ _buildingTypeDirMap = Dictionary[int, String]({
 })
 _buildingTypePropHint = "32x_brick01,references"
 _availableFloorTexturePathMap = Dictionary[int, String]({
-0: "res://Areas//All//Buildings//Textures//references//32x64_base_reference.png",
-1: "res://Areas//All//Buildings//Textures//references//32x_base_reference.png",
-2: "res://Areas//All//Buildings//Textures//references//64x128_base_reference.png",
-3: "res://Areas//All//Buildings//Textures//references//64x_base_reference.png",
-4: "res://Areas//All//Buildings//Textures//references//96x_base_reference.png",
+0: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot.png",
+1: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_bot_alt01.png",
+2: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid.png",
+3: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt01.png",
+4: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt02.png",
 5: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt03.png",
 6: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_mid_alt04.png",
 7: "res://Areas//All//Buildings//Textures//32x_brick01//32x_brick01_top.png",

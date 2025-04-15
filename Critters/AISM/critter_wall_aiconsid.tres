@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StaticBody3DAIConsideration" load_steps=2 format=3 uid="uid://ey0yeq282cxt"]
+
+[ext_resource type="Script" uid="uid://dgsqqkxvbqca3" path="res://BaseResources/StaticBody3DAIConsideration.cs" id="1_uw4qn"]
+
+[resource]
+script = ExtResource("1_uw4qn")
+_collLayer = 2
+_distDiminishRange = Vector2(0.2, 0.5)
+_dirsToPropogate = 2
+_initPropWeight = 0.75
+_propDiminishWeight = 0.5
+Consideration = -1.0

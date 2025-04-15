@@ -109,7 +109,7 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 [node name="NPCs" type="Node3D" parent="."]
 
 [node name="Critter" parent="NPCs" instance=ExtResource("3_rtunm")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -5.29677, 0, -5.14502)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -4.4051, 0, -7.01395)
 
 [node name="Vehicles" type="Node3D" parent="."]
 

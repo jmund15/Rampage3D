@@ -40,8 +40,6 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 collision_mask = 119
 floor_max_angle = 1.0472
 script = ExtResource("1_g3eh5")
-JumpForce = 8.0
-WallJumpForce = 10.0
 JumpsAllowed = 1
 MaxLandVelocity = 5.0
 
@@ -55,7 +53,7 @@ mesh = SubResource("CapsuleMesh_2x4ng")
 [node name="AttackAnim" type="AnimationPlayer" parent="."]
 root_node = NodePath("")
 libraries = {
-"": SubResource("AnimationLibrary_j6d7f")
+&"": SubResource("AnimationLibrary_j6d7f")
 }
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -64,7 +62,7 @@ transform = Transform3D(-3.09086e-08, -0.707107, 0.707107, 1, -4.37114e-08, 0, 3
 [node name="HungerBarComponent" parent="." node_paths=PackedStringArray("_followTarget", "_eaterComp") instance=ExtResource("22_2ivfc")]
 _followTarget = NodePath("..")
 _eaterComp = NodePath("../HitboxComponent/EaterComponent")
-HungerSatiationIndex = [10.0, 500.0]
+HungerSatiationIndex = Array[float]([10.0, 500.0])
 
 [node name="ClimberComponent" type="Node" parent="." node_paths=PackedStringArray("_body")]
 script = ExtResource("27_exg0i")

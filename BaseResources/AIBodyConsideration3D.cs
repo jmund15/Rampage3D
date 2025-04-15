@@ -12,16 +12,17 @@ public partial class AIBodyConsideration3D : AIEntityConsideration3D
     private int _collLayer;
     [Export]
     public Godot.Collections.Array<BaseAIConsideration3D> _considerations;
-
-
     public AIBodyConsideration3D()
     {
 
     }
-
-    public override Dictionary<Vector3, float> GetConsiderationVector(IBlackboard bb)
+    public override void InitializeResources(IBlackboard bb)
     {
-        AINav = bb.GetVar<AINav3DComponent>(BBDataSig.AINavComp);
+        BB = bb;
+        AINav = BB.GetVar<AINav3DComponent>(BBDataSig.AINavComp);
+    }
+    public override Dictionary<Vector3, float> GetConsiderationVector()
+    {
         var rays = AINav.AIRays;
         Dictionary<Vector3, float> considVec = new Dictionary<Vector3, float>();
         foreach (var dir in rays.Raycasts.Keys)
@@ -32,7 +33,7 @@ public partial class AIBodyConsideration3D : AIEntityConsideration3D
         // Calculate each consideration
         foreach (var consideration in _considerations)
         {
-            var values = consideration.GetConsiderationVector(bb);
+            var values = consideration.GetConsiderationVector();
 
             // Accumulate the values
             foreach (var dir in rays.Raycasts.Keys)
