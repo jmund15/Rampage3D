@@ -10,8 +10,8 @@ public partial class AIRays3D : Node3D
     [Export]
     public float RayLength { get; private set; } = 5f;
 	public Dictionary<Vector3, RayCast3D> Raycasts { get; private set; } = new Dictionary<Vector3, RayCast3D>();
-	public List<Vector3> Directions { get; private set; }
-    public List<RayCast3D> Rays { get; private set; }
+    public List<Vector3> Directions { get; private set; } = new List<Vector3>();
+    public List<RayCast3D> Rays { get; private set; } = new List<RayCast3D>();
     //public RayCast3D RayU { get; private set; }
  //   public RayCast3D RayUUR { get; private set; }
  //   public RayCast3D RayUR { get; private set; }
@@ -35,6 +35,7 @@ public partial class AIRays3D : Node3D
 	{
 		base._Ready();
         Raycasts = this.GetChildrenOfType<RayCast3D>().ToDictionary(rc => rc.TargetPosition.Normalized());
+        GD.Print(Raycasts.Count);
         Directions = Raycasts.Keys.ToList();
         Rays = Raycasts.Values.ToList();
         //RayU = GetNode<RayCast3D>("RayUp");

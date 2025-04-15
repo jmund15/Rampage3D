@@ -14,5 +14,6 @@ public abstract partial class BaseAIConsideration3D : Resource, IAIConsideration
     public BaseAIConsideration3D()
     {
     }
-    public abstract Dictionary<Vector3, float> GetConsiderationVector(IBlackboard bb);
+    public abstract void InitializeResources(IBlackboard bb);
+    public abstract Dictionary<Vector3, float> GetConsiderationVector();
 }

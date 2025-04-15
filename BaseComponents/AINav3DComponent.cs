@@ -62,6 +62,8 @@ public partial class AINav3DComponent : NavigationAgent3D
 {
     #region CLASS_VARIABLES
     [Export]
+    public bool HasYMovement { get; private set; } = false;
+    [Export]
     public bool ShowNavigationArrows { get; private set; } = true;
     #region HELPER_VARS
     private Dictionary<Dir8, bool> _eightToOrthogMap = new Dictionary<Dir8, bool>()
@@ -219,10 +221,7 @@ public partial class AINav3DComponent : NavigationAgent3D
         //{
         //    ConsiderationWeights.Add(dir, 0f);
         //}
-        foreach (var rayPair in AIRays.Raycasts)
-        {
-            ConsiderationWeights.Add(rayPair.Key, 0f);
-        }
+        
         _moveComp = ParentAgent as IMovementComponent;
         _bb = ParentAgent.GetFirstChildOfInterface<IBlackboard>();
 
@@ -233,11 +232,33 @@ public partial class AINav3DComponent : NavigationAgent3D
         PathTimer = GetNode<Timer>("PathTimer");
         PathTimer.Timeout += OnPathTimeout;
 
-        EnableNavigation();
+        CallDeferred(MethodName.EnableNavigation);
+        //EnableNavigation();
     }
 
     private void OnDebugTimeout()
     {
+        if (HasPath)
+        {
+            var globalPathP = GetNextPathPosition();
+            var unweightedPathPoint = globalPathP - ParentAgent.GlobalPosition;
+            //var unweightedPathPoint = ParentAgent.ToLocal(globalPathP);
+            
+            var normVec = unweightedPathPoint.Normalized();
+            //GD.Print("global path p: ", globalPathP);
+            //GD.Print("local path p: ", unweightedPathPoint);
+            //GD.Print("parent p: ", ParentAgent.Position);
+            //GD.Print("parent global p: ", ParentAgent.GlobalPosition);
+            //GD.Print($"Base Path Direction: {normVec}");
+
+            //return normVec;
+        }
+        var lastDir = Dir8.DownLeft;
+        foreach (var dir in DirectionWeights.Keys)
+        {
+            if (dir.GetDir16().GetDir8() == null) { continue; }
+            GD.Print($"{dir.GetDir16()}'s Weight: {DirectionWeights[dir]}; Consid: {ConsiderationWeights[dir]}");
+        }
         //GD.Print($"Danger Weights:\n" +
         //    $"Up: {ConsiderationWeights[Dir16.U]:F2} " +
         //    $"UpRight: {ConsiderationWeights[Dir16.UR]:F2} " +
@@ -370,6 +391,18 @@ public partial class AINav3DComponent : NavigationAgent3D
     {
         AvoidanceEnabled = _baseAvoidanceEnabled;
         NavigationEnabled = true;
+
+        foreach (var entityConsid in EntityConsiderations)
+        {
+            entityConsid.InitializeResources(_bb);
+        }
+
+        foreach (var dir in AIRays.Directions)
+        {
+            ConsiderationWeights.Add(dir, 0f);
+            DirectionWeights.Add(dir, 0f);
+            GD.Print("AINav Added Direction: ", dir);
+        }
     }
     //TODO: ADD PROCESSING FOR FLYING/Y-ENABLED NAV AGENTS
     protected virtual Vector3 GetWeightedPathPosition()
@@ -379,11 +412,13 @@ public partial class AINav3DComponent : NavigationAgent3D
         if (HasPath)
         {
             var globalPathP = GetNextPathPosition();
-            var unweightedPathPoint = ParentAgent.ToLocal(globalPathP);
+            var unweightedPathPoint = globalPathP - ParentAgent.GlobalPosition;
+            //var unweightedPathPoint = ParentAgent.ToLocal(globalPathP);
             //GD.Print("global path p: ", globalPathP);
             //GD.Print("local path p: ", unweightedPathPoint);
             //GD.Print("parent global p: ", ParentAgent.GlobalPosition);
             normVec = unweightedPathPoint.Normalized();
+            //return normVec;
         }
 
         if (ResponbsibleForDetection)
@@ -391,18 +426,25 @@ public partial class AINav3DComponent : NavigationAgent3D
             SignalRaycastDetections();
         }
         //List<Dir8> dirs = Global.GetEnumValues<Dir8>().ToList();
-        List<Vector3> dirs = AIRays.Raycasts.Keys.ToList();
+        List<Vector3> dirs = AIRays.Directions;
         ConsiderationWeights = GetConsiderationVector();
 
         float maxWeight = float.MinValue;
         Vector3 weightedDir = Vector3.Zero;
         foreach (var dir in dirs)
         {
-            var eightDirVec = dir;
-            var dotProd = normVec.Dot(new Vector3(eightDirVec.X, 0f, eightDirVec.Y));
+            float dotProd;
+            if (HasYMovement)
+            {
+                dotProd = normVec.Dot(new Vector3(dir.X, dir.Y, dir.Z));
+            }
+            else
+            {
+                dotProd = normVec.Dot(new Vector3(dir.X, 0f, dir.Z));
+            }
             DirectionWeights[dir] = dotProd > 0 ? dotProd : 0; // no below zero!
-            var weight = 0.5f;
-            DirectionWeights[dir] += ConsiderationWeights[dir] * weight;
+            //var weight = 0.5f;
+            DirectionWeights[dir] += ConsiderationWeights[dir];// * weight;
         }
         //foreach (var dir in dirs)
         //{
@@ -435,7 +477,14 @@ public partial class AINav3DComponent : NavigationAgent3D
         //    //}
         //}
         var chosenDir = ChooseDirection();
-        weightedDir = new Vector3(chosenDir.X, normVec.Y, chosenDir.Y);
+        if (HasYMovement)
+        {
+            weightedDir = new Vector3(chosenDir.X, chosenDir.Y, chosenDir.Z);
+        }
+        else
+        {
+            weightedDir = new Vector3(chosenDir.X, 0f, chosenDir.Z);
+        }
 
         //GD.PrintS($"(Right: {DirectionWeights[EightDirection.RIGHT]}, " +
         //    $"DownRight: {DirectionWeights[EightDirection.DOWNRIGHT]}, " +
@@ -540,7 +589,7 @@ public partial class AINav3DComponent : NavigationAgent3D
 
         foreach (var entityConsid in EntityConsiderations)
         {
-            var entityConsidVec = entityConsid.GetConsiderationVector(_bb);
+            var entityConsidVec = entityConsid.GetConsiderationVector();
             foreach (var dir in considerationVec.Keys)
             {
                 considerationVec[dir] += entityConsidVec[dir];

@@ -24,9 +24,9 @@
 [ext_resource type="Script" uid="uid://rrs5n122ojpk" path="res://BaseResources/VelocityBody3DAIConsideration.cs" id="19_3cdey"]
 [ext_resource type="PackedScene" uid="uid://cqs6mpegfeb2d" path="res://BaseComponents/ai_rays_16dir.tscn" id="19_58r4k"]
 [ext_resource type="Script" uid="uid://cnkqxsah2t4f1" path="res://JmoAI/BT/Decorators/BTCondition.cs" id="19_xkbna"]
-[ext_resource type="Script" uid="uid://dgsqqkxvbqca3" path="res://BaseResources/StaticBody3DAIConsideration.cs" id="20_t5soh"]
 [ext_resource type="Script" uid="uid://c03kmraljmib0" path="res://Critters/AISM/Actions/FindEnterableBuilding.cs" id="21_wxm0o"]
-[ext_resource type="Script" uid="uid://cr0m04y7v67ih" path="res://Critters/AISM/HideAgent.cs" id="22_wxm0o"]
+[ext_resource type="Script" uid="uid://dsfaesb7dvcpa" path="res://JmoAI/BT/Decorators/TimeLimit.cs" id="22_wxm0o"]
+[ext_resource type="Resource" uid="uid://ey0yeq282cxt" path="res://Critters/AISM/critter_wall_aiconsid.tres" id="26_wxm0o"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_aew1h"]
 radius = 0.2
@@ -40,21 +40,18 @@ LimitMin = 1.5
 LimitMax = 3.0
 SucceedTaskOnExit = true
 
+[sub_resource type="Resource" id="Resource_qm7ta"]
+script = ExtResource("22_wxm0o")
+Limit = 2.0
+SucceedTaskOnExit = false
+metadata/_custom_type_script = "uid://dsfaesb7dvcpa"
+
 [sub_resource type="Resource" id="Resource_uev8w"]
 script = ExtResource("19_3cdey")
 _collLayer = 1
-_avoidancePositionVelocityBalance = 0.4
-_chasePositionVelocityBalance = 0.0
-Consideration = -2.0
-
-[sub_resource type="Resource" id="Resource_38j51"]
-script = ExtResource("20_t5soh")
-_collLayer = 2
-_distDiminishRange = Vector2(0.1, 0.3)
-_dirsToPropogate = 2
-_initPropWeight = 0.75
-_propDiminishWeight = 0.5
-Consideration = -1.0
+_positionVelocityBalance = 0.4
+_hasVerticalMovement = false
+Consideration = 0.0
 
 [node name="Critter" type="CharacterBody3D"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
@@ -153,23 +150,29 @@ metadata/_custom_type_script = "uid://cn8me6e5muwxv"
 [node name="FindEnterableBuilding" type="Node" parent="AISM/NavToBuilding/NavToBuildingTrree/Sequence"]
 script = ExtResource("21_wxm0o")
 
+[node name="SetRandomNavPoint" type="Node" parent="AISM/NavToBuilding/NavToBuildingTrree/Sequence"]
+script = ExtResource("15_b1q00")
+metadata/_custom_type_script = "uid://bb3mfjludhtb8"
+
 [node name="TravelToNavPoint" type="Node" parent="AISM/NavToBuilding/NavToBuildingTrree/Sequence"]
 script = ExtResource("15_xxhh0")
 metadata/_custom_type_script = "uid://cfahexo6jy6c5"
 
-[node name="HideAgent" type="Node" parent="AISM/NavToBuilding/NavToBuildingTrree/Sequence"]
-script = ExtResource("22_wxm0o")
+[node name="WaitIdle" type="Node" parent="AISM/NavToBuilding/NavToBuildingTrree/Sequence"]
+script = ExtResource("16_pm0hc")
+Conditions = Array[ExtResource("19_xkbna")]([SubResource("Resource_qm7ta")])
+metadata/_custom_type_script = "uid://cparbnn1mnhlj"
 
-[node name="AINav3DComponent" parent="." node_paths=PackedStringArray("ParentAgent", "Rays") instance=ExtResource("18_1kdwb")]
-path_desired_distance = 2.0
+[node name="AIRays16Dir" parent="." instance=ExtResource("19_58r4k")]
+
+[node name="AINav3DComponent" parent="." node_paths=PackedStringArray("ParentAgent", "AIRays") instance=ExtResource("18_1kdwb")]
+path_desired_distance = 1.0
 target_desired_distance = 0.5
 path_max_distance = 2.51
 path_postprocessing = 0
 ParentAgent = NodePath("..")
-Rays = NodePath("../AIRays16Dir")
-EntityConsiderations = Array[Resource]([SubResource("Resource_uev8w"), SubResource("Resource_38j51")])
-
-[node name="AIRays16Dir" parent="." instance=ExtResource("19_58r4k")]
+AIRays = NodePath("../AIRays16Dir")
+EntityConsiderations = Array[Resource]([SubResource("Resource_uev8w"), ExtResource("26_wxm0o")])
 
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("11_aa0n8")
