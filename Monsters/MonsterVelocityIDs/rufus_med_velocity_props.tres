@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="Char3DVelocityProperties" load_steps=11 format=3 uid="uid://cp6y8568rx43e"]
+[gd_resource type="Resource" script_class="Char3DVelocityProperties" load_steps=10 format=3 uid="uid://cp6y8568rx43e"]
 
 [ext_resource type="Script" uid="uid://bds5ojs2wkd4a" path="res://BaseResources/ImpulseIDResource.cs" id="1_kawpi"]
 [ext_resource type="Resource" uid="uid://b0tc2itcse6j0" path="res://Monsters/MonsterVelocityIDs/rufus_med_ground.tres" id="2_lvqdx"]
-[ext_resource type="Script" uid="uid://c1dbvjkfhfcrc" path="res://BaseResources/VelocityIDResource.cs" id="2_ukpni"]
 [ext_resource type="Resource" uid="uid://bycj14qlkv0bp" path="res://Monsters/MonsterVelocityIDs/rufus_med_air.tres" id="3_4hiy7"]
 [ext_resource type="Resource" uid="uid://ccb3hfbsre35x" path="res://Monsters/MonsterVelocityIDs/rufus_med_climb.tres" id="4_tqmaf"]
 [ext_resource type="Resource" uid="uid://c1itft3f8207y" path="res://Monsters/MonsterVelocityIDs/rambucho_swim.tres" id="5_eyb4a"]
@@ -25,5 +24,5 @@ ImpulseForce = 0.25
 
 [resource]
 script = ExtResource("6_mogfn")
-ImpulseIds = Array[ExtResource("1_kawpi")]([SubResource("Resource_1qwxb"), SubResource("Resource_8amdq"), SubResource("Resource_kcj32")])
-VelocityIds = Array[ExtResource("2_ukpni")]([ExtResource("2_lvqdx"), ExtResource("3_4hiy7"), ExtResource("4_tqmaf"), ExtResource("5_eyb4a")])
+ImpulseIds = [SubResource("Resource_1qwxb"), SubResource("Resource_8amdq"), SubResource("Resource_kcj32")]
+VelocityIds = [ExtResource("2_lvqdx"), ExtResource("3_4hiy7"), ExtResource("4_tqmaf"), ExtResource("5_eyb4a")]

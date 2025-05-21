@@ -16,6 +16,7 @@ points = PackedVector3Array(-0.4375, 0.0625, -0.1875, -0.4375, 0.0625, 0.125, -0
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 collision_mask = 3
 mass = 100.0
+script = null
 
 [node name="VehicleMesh" parent="." index="0"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.0625, 0, 0.0625)
