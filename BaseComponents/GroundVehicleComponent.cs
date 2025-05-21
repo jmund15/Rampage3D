@@ -78,8 +78,18 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent
             forceLoc =
                 new Vector3(_frontWheelXPos, CenterOfMass.Y, CenterOfMass.Z);
         }
+        var velProps = VelocityProperties.VelocityIds[0];
+
+        if (LinearVelocity.Length() >= velProps.MaxSpeed)
+        {
+            ApplyCentralForce(direction * velProps.MaxSpeed);
+            return;
+        }
+        else
+        {
+            ApplyCentralForce(direction * velProps.Acceleration);
+        }
         //ApplyForce(direction * _maxSpeed, ToGlobal(forceLoc));
-        ApplyCentralForce(direction * _maxSpeed);
         //GD.Print($"Lin velocity: {LinearVelocity}" +
         //	$"\nAng Vel: {AngularVelocity}");
     }
@@ -138,5 +148,10 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent
     #region COMPONENT_HELPER
     #endregion
     #region SIGNAL_LISTENERS
+    #endregion
+
+    #region VELOCITY_PROPERTIES
+    [Export]
+    public Char3DVelocityProperties VelocityProperties { get; private set; }
     #endregion
 }

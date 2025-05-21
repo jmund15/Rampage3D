@@ -3,12 +3,11 @@
 importer="Aseprite Sprite3D with AnimationPlayer"
 type="PackedScene"
 uid="uid://bxks1rdkl62qr"
-path="res://.godot/imported/rufus_spritesheet.aseprite-7d97ea366f901604f60d937dfd31a7d3.scn"
+valid=false
 
 [deps]
 
 source_file="res://Monsters/rufus_spritesheet.aseprite"
-dest_files=["res://.godot/imported/rufus_spritesheet.aseprite-7d97ea366f901604f60d937dfd31a7d3.scn"]
 
 [params]
 
