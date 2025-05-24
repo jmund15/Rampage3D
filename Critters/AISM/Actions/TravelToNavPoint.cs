@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +8,9 @@ public partial class TravelToNavPoint : BehaviorAction
 {
     #region TASK_VARIABLES
     private AINav3DComponent _aiNavComp;
+
+    [Export]
+    private bool _disableNavOnTargetReached = false;
     #endregion
     #region TASK_UPDATES
     public override void Init(Node agent, IBlackboard bb)
@@ -49,7 +52,11 @@ public partial class TravelToNavPoint : BehaviorAction
     #region TASK_HELPER
     private void OnTargetReached()
     {
-		Status = TaskStatus.SUCCESS;
+        if (_disableNavOnTargetReached)
+        {
+            _aiNavComp.DisableNavigation();
+        }
+        Status = TaskStatus.SUCCESS;
     }
 	public override string[] _GetConfigurationWarnings()
 	{

@@ -15,4 +15,7 @@
     <None Include="script_templates\Node\BaseComonentTemplate.cs" />
     <None Include="script_templates\State\BaseStateTemplate.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Vehicles\Implementation\" />
+  </ItemGroup>
 </Project>

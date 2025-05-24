@@ -21,17 +21,17 @@ physics_material_override = SubResource("PhysicsMaterial_i6i2g")
 linear_damp = 1.0
 angular_damp = 1.0
 script = ExtResource("1_0wb2f")
-_maxSpeed = 100.0
+LateralFriction = Vector2(0.1, 0.025)
 
 [node name="VehicleMesh" type="MeshInstance3D" parent="."]
 
 [node name="AINav3DComponent" parent="." node_paths=PackedStringArray("ParentAgent", "AIRays") instance=ExtResource("2_ty43o")]
-path_desired_distance = 3.0
-target_desired_distance = 2.0
+path_desired_distance = 2.0
+target_desired_distance = 1.5
 path_max_distance = 5.01
 ParentAgent = NodePath("..")
 AIRays = NodePath("../AIRays16Dir")
-EntityConsiderations = Array[Object]([])
+EntityConsiderations = []
 UseOrthogNavOnly = false
 
 [node name="BehaviorTree" type="Node" parent="." node_paths=PackedStringArray("_exportedBB", "AgentNode")]
@@ -44,13 +44,13 @@ SelfSuffecient = true
 [node name="Sequence" type="Node" parent="BehaviorTree"]
 script = ExtResource("4_6bttt")
 
-[node name="SetRandomNavPoint" type="Node" parent="BehaviorTree/Sequence"]
-script = ExtResource("5_ru4bh")
-
 [node name="SetNavPoint" type="Node" parent="BehaviorTree/Sequence"]
 script = ExtResource("6_ddsrt")
-_navPoint = Vector3(-12.2327, 0, -14.5455)
+_navPoint = Vector3(-9, 0, -10)
 metadata/_custom_type_script = "uid://d3iqpfeof1o04"
+
+[node name="SetRandomNavPoint" type="Node" parent="BehaviorTree/Sequence"]
+script = ExtResource("5_ru4bh")
 
 [node name="TravelToNavPoint" type="Node" parent="BehaviorTree/Sequence"]
 script = ExtResource("6_i5iie")
@@ -63,3 +63,4 @@ LagTime = 2.0
 script = ExtResource("6_jtv6f")
 
 [node name="AIRays16Dir" parent="." instance=ExtResource("10_gww5j")]
+RayLength = 10.0

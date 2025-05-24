@@ -1,10 +1,10 @@
-using Godot;
+﻿using Godot;
 using System.Collections.Generic;
 using System.Linq;
 
 //TODO: Update to be more modular
 [GlobalClass, Tool]
-public partial class AIRays3D : Node3D
+public partial class AIRayDetector3D : Node3D, IAIDetector3D
 {
     #region COMPONENT_VARIABLES
     [Export]
@@ -139,5 +139,34 @@ public partial class AIRays3D : Node3D
     }
     #endregion
     #region SIGNAL_LISTENERS
+    #endregion
+    #region INTERFACE_IMPLEMENTATIONS
+    public IEnumerable<Node3D> GetDetectedBodies()
+    {
+        foreach (var ray in Rays)
+        {
+            if (ray.IsColliding())
+            {
+                if (ray.GetCollider() is CollisionObject3D collider)
+                {
+                    yield return collider;
+                }
+            }
+        }
+    }
+    public IEnumerable<Vector3> GetDirectionsDetected()
+    {
+        // Directions to detected objects (from origin to collider)
+        foreach (var ray in Rays)
+        {
+            if (ray.IsColliding())
+            {
+                if (ray.GetCollider() is CollisionObject3D collider)
+                {
+                    yield return (collider.GlobalPosition - ray.GlobalPosition).Normalized();
+                }
+            }
+        }
+    }
     #endregion
 }

@@ -7,5 +7,7 @@ using System.Threading.Tasks;
 public interface IAIConsideration<VecT>
 {
     public void InitializeResources(IBlackboard bb);
-    public Dictionary<VecT, float> GetConsiderationVector();
+
+    //TODO: investigate, not all considerations will use a detector
+    public Dictionary<VecT, float> GetConsiderationVector(IAIDetector3D detector);
 }

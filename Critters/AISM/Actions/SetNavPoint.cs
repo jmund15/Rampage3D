@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,14 +22,20 @@ public partial class SetNavPoint : BehaviorAction
     public override void Enter()
 	{
 		base.Enter();
-		if (NavigationServer3D.MapGetIterationId(_aiNavComp.GetNavigationMap()) == 0) // not setup yet
+        if (!_aiNavComp.NavigationEnabled)
+        {
+            _aiNavComp.EnableNavigation();
+        }
+        if (NavigationServer3D.MapGetIterationId(_aiNavComp.GetNavigationMap()) == 0) // not setup yet
 		{
             _mapLoaded = false;
             NavigationServer3D.MapChanged += OnMapChanged;
+            GD.Print("haven't loaded nav map");
         }
 		else
 		{
             _mapLoaded = true;
+            GD.Print("loaded nav map, settng nav now");
             SetNav();
         }
 		
@@ -54,6 +60,7 @@ public partial class SetNavPoint : BehaviorAction
     #region TASK_HELPER
     private void OnMapChanged(Rid map)
     {
+        GD.Print("MAP LOADED");
         if (map == _aiNavComp.GetNavigationMap())
         {
             SetNav();
