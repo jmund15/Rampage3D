@@ -27,6 +27,7 @@ public partial class VelocityIDResource : Resource
         private set
         {
             if (value == _velocityFormula) { return; }
+            _velocityFormula = value;
             switch (value)
             {
                 case VelocityFormulas.TerminalVelocityForm:
@@ -34,18 +35,31 @@ public partial class VelocityIDResource : Resource
                     //Acceleration = _lastAcceleration;
                     //Friction = _lastFriction;
                     //BrakingFrictionMod = _lastBreakingFriction;
-                    Friction = Acceleration / MaxSpeed;
+                    if (MaxSpeed == 0)
+                    {
+                        _acceleration = 0f;
+                        _friction = 0f;
+                    }
+                    else if (Acceleration < 0 || Friction < 0)
+                    {
+                        _acceleration = MaxSpeed;
+                        _friction = 1f;
+                    }
+                    else
+                    {
+                        _friction = Acceleration / MaxSpeed;
+                    }
                     break;
                 case VelocityFormulas.InstantMovement:
                     _lastAcceleration = Acceleration == -1 ? 0 : Acceleration;
                     _lastFriction = Friction == -1 ? 0 : Friction;
                     _lastBreakingFriction = BrakingFrictionMod == -1 ? 0 : BrakingFrictionMod;
-                    Acceleration = -1;
-                    Friction = -1;
-                    BrakingFrictionMod = -1;
+                    _acceleration = -1;
+                    _friction = -1;
+                    _brakingFriction = -1;
                     break;
                 case VelocityFormulas.IndependentVariables:
-                    BrakingFrictionMod = 1f;
+                    _brakingFriction = 1f;
                     //Acceleration = _lastAcceleration;
                     //Friction = _lastFriction;
                     //BrakingFrictionMod = _lastBreakingFriction;
@@ -53,7 +67,7 @@ public partial class VelocityIDResource : Resource
                     //Friction = Mathf.Max(Friction, 0);
                     break;
             }
-            _velocityFormula = value;
+            //_velocityFormula = value;
         }
     } 
         
@@ -124,9 +138,9 @@ public partial class VelocityIDResource : Resource
             switch (VelocityFormula)
             {
                 case VelocityFormulas.TerminalVelocityForm:
+                    _friction = value;
                     if (Acceleration != MaxSpeed * Friction)
                     {
-                        _friction = value;
                         Acceleration = MaxSpeed * Friction;
                     }
                     break;

@@ -29,54 +29,43 @@ public partial class StaticBody3DAIConsideration : AIEntityConsideration3D
     {
         BB = bb;
         AINav = BB.GetVar<AINav3DComponent>(BBDataSig.AINavComp);
-        int i = 0;
-        foreach (var dir in AINav.AIRays.Directions)
-        {
-            _dirIds.Add(i, dir);
-            i++;
-        }
+        Agent = BB.GetVar<Node3D>(BBDataSig.Agent);
+        //int i = 0;
+        //foreach (var dir in AINav.AIRays.Directions)
+        //{
+        //    _dirIds.Add(i, dir);
+        //    i++;
+        //}
     }
-    public override Dictionary<Vector3, float> GetConsiderationVector()
+    public override Dictionary<Vector3, float> GetConsiderationVector(IAIDetector3D detector)
     {
         
-        var rays = AINav.AIRays;
+        var rays = AINav.AIRayDetector;
         var considerVec = new Dictionary<Vector3, float>();
-        foreach (var dir in rays.Directions)
+        foreach (var dir in rays.Directions) { considerVec[dir] = 0f; }
+
+
+        foreach (var detected in detector.GetDetectedBodies())
         {
-            considerVec[dir] = 0f;
-            //GD.Print("dir considering: ", dir);
-        }
-        foreach (var pair in rays.Raycasts)
-        {
-            var dir = pair.Key;
-            var raycast = pair.Value;
+            if (detected == Agent) continue;
+            if (detected is not CollisionObject3D collisionObj) continue;
+            if (!collisionObj.GetCollisionLayerValue(_collLayer)) continue;
 
-            if (!raycast.IsColliding())
-            {
-                continue;
-            }
-            var rayCollision = raycast.GetCollider() as CollisionObject3D;
-            if (rayCollision == BB.GetVar<Node>(BBDataSig.Agent)) { continue; }
-            if (!rayCollision.GetCollisionLayerValue(_collLayer)) { continue; }
-            
-            var distWeight = GetDistanceConsideration(raycast);
-            //var spatialAwarenessMod = SpatialAwarenessWeights[dir.GetAIFacing(_moveComp.GetFaceDirection())];
-            var dangerAmt = Consideration * distWeight;
-            //GD.Print($"{dir.GetDir16()}; {dir} danger weight: {dangerAmt}");
+            Vector3 collVec = (detected.GlobalPosition - Agent.GlobalPosition).Normalized();
+            var dist = collVec.Length();
+            Vector3 dir = collVec.Normalized();
+            float distWeight = GetDistanceConsideration(dist);
+            float dangerAmt = Consideration * distWeight;
 
-            //* spatialAwarenessMod;
-
-            considerVec[dir] += dangerAmt;
+            considerVec[dir] = dangerAmt;
         }
         considerVec = PropogateConsiderations(considerVec);
         return considerVec;
     }
 
-    public float GetDistanceConsideration(RayCast3D raycast)
+    public float GetDistanceConsideration(float detectDist)
     {
-        var castLength = raycast.TargetPosition.Length();
-        var collDist = (raycast.GetCollisionPoint() - raycast.GlobalPosition).Length();
-        if (collDist > _distDiminishRange.Y)
+        if (detectDist > _distDiminishRange.Y)
         {
             return 0f;
         }
@@ -85,13 +74,13 @@ public partial class StaticBody3DAIConsideration : AIEntityConsideration3D
         var k = 2.5f;
         float distWeight;
 
-        if (collDist <= _distDiminishRange.X)
+        if (detectDist <= _distDiminishRange.X)
         {
             distWeight = 1.0f;  // Ensure max weight
         }
         else
         {
-            distWeight = 1f - ( (collDist - _distDiminishRange.X) / (_distDiminishRange.Y - _distDiminishRange.X) );
+            distWeight = 1f - ( (detectDist - _distDiminishRange.X) / (_distDiminishRange.Y - _distDiminishRange.X) );
 
             //distWeight = minWeight + (1.0f - minWeight) *
             //    (float)Math.Exp(-k * (collDist - _distDiminishRange.X) / (_distDiminishRange.Y/*castLength*/ - _distDiminishRange.X));

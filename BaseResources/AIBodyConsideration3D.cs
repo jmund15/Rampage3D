@@ -21,9 +21,9 @@ public partial class AIBodyConsideration3D : AIEntityConsideration3D
         BB = bb;
         AINav = BB.GetVar<AINav3DComponent>(BBDataSig.AINavComp);
     }
-    public override Dictionary<Vector3, float> GetConsiderationVector()
+    public override Dictionary<Vector3, float> GetConsiderationVector(IAIDetector3D detector)
     {
-        var rays = AINav.AIRays;
+        var rays = AINav.AIRayDetector;
         Dictionary<Vector3, float> considVec = new Dictionary<Vector3, float>();
         foreach (var dir in rays.Raycasts.Keys)
         {
@@ -33,7 +33,7 @@ public partial class AIBodyConsideration3D : AIEntityConsideration3D
         // Calculate each consideration
         foreach (var consideration in _considerations)
         {
-            var values = consideration.GetConsiderationVector();
+            var values = consideration.GetConsiderationVector(detector);
 
             // Accumulate the values
             foreach (var dir in rays.Raycasts.Keys)

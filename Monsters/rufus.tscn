@@ -1,13 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://d05pbqeemoa5l"]
 
 [ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_lx2a6"]
+[ext_resource type="Resource" uid="uid://m7p52r73fwcn" path="res://Monsters/MonsterVelocityIDs/rufus_velocity_med.tres" id="2_4hhw7"]
 [ext_resource type="PackedScene" uid="uid://ydo5ot03dv" path="res://Monsters/gawkgawk.tscn" id="2_85xps"]
-[ext_resource type="Resource" uid="uid://cp6y8568rx43e" path="res://Monsters/MonsterVelocityIDs/rufus_med_velocity_props.tres" id="2_lslj7"]
 [ext_resource type="Shape3D" uid="uid://bmpwyjckkxcwe" path="res://Monsters/rambucho2_capsuleshape_smaller.tres" id="3_t1s7y"]
 [ext_resource type="PackedScene" uid="uid://rn75xfbu7l1d" path="res://Monsters/MSM/rufus_msm.tscn" id="6_yx53u"]
 
 [node name="Rufus" instance=ExtResource("1_lx2a6")]
-VelocityProperties = ExtResource("2_lslj7")
+VelocityProperties = ExtResource("2_4hhw7")
 JumpsAllowed = 3
 
 [node name="MSM" parent="." index="0" instance=ExtResource("6_yx53u")]

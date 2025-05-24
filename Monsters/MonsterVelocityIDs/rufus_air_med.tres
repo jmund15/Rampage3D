@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="VelocityIDResource" load_steps=2 format=3 uid="uid://gslvdafx5pkb"]
+
+[ext_resource type="Script" uid="uid://c1dbvjkfhfcrc" path="res://BaseResources/VelocityIDResource.cs" id="1_0ougy"]
+
+[resource]
+script = ExtResource("1_0ougy")
+VelocityFormula = 0
+VelocityType = 2
+MaxSpeed = 4.0
+Acceleration = 40.0
+Friction = 10.0
+BrakingFrictionMod = 1.0
+metadata/_custom_type_script = "uid://c1dbvjkfhfcrc"

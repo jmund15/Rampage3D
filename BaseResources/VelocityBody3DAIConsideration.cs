@@ -42,26 +42,28 @@ public partial class VelocityBody3DAIConsideration : AIEntityConsideration3D
     }
     public override void InitializeResources(IBlackboard bb)
     {
+        GD.Print("INITIALIZING VELOCITY BODY CONSIDERATION");
         BB = bb;
         Agent = BB.GetVar<Node3D>(BBDataSig.Agent);
         AINav = BB.GetVar<AINav3DComponent>(BBDataSig.AINavComp);
         // Early exit if essential components are missing
-        if (Agent == null || AINav == null || AINav.AIRays == null)
+        if (Agent == null || AINav == null || AINav.AIRayDetector == null)
         {
             GD.PrintErr($"VelocityBody3DAIConsideration ERROR || Missing Agent Body or AINavComponent/AIRays on Blackboard.");
         }
     }
-    public override Dictionary<Vector3, float> GetConsiderationVector()
+    public override Dictionary<Vector3, float> GetConsiderationVector(IAIDetector3D detector)
     {
+        GD.Print("GETTING VELOCITY BODY CONSIDERATION");
         _agentPosition = Agent.GlobalPosition;
         _agentVelocity = (Agent as IVelocity3DComponent).GetVelocity();
-        _considDirections = AINav.AIRays.Directions; // Use the definitive list
+        _considDirections = AINav.AIRayDetector.Directions; // Use the definitive list
 
-        var rays = AINav.AIRays;
+        var rays = AINav.AIRayDetector;
         var considerVec = _considDirections.ToDictionary(dir => dir, dir => 0f);
 
         // Get all relevant bodies detected!
-        var velBodiesDetected = DetectRelevantBodies();
+        var velBodiesDetected = DetectRelevantBodies(detector);
 
         foreach (var velBody in velBodiesDetected)
         {
@@ -74,19 +76,16 @@ public partial class VelocityBody3DAIConsideration : AIEntityConsideration3D
         return considerVec;
     }
     // Helper to detect bodies using raycasts
-    private HashSet<IVelocity3DComponent> DetectRelevantBodies()
+    private HashSet<IVelocity3DComponent> DetectRelevantBodies(IAIDetector3D detector)
     {
         var detectedBodies = new HashSet<IVelocity3DComponent>(); // Use HashSet for efficient uniqueness check
 
-        if (AINav.AIRays.Rays == null) return detectedBodies;
-
-        foreach (var raycast in AINav.AIRays.Rays)
+        foreach (var detectNode in detector.GetDetectedBodies())
         {
-            if (!raycast.IsColliding()) continue;
-            var rayCollision = raycast.GetCollider() as CollisionObject3D;
-            if (rayCollision == Agent) { continue; }
-            if (!rayCollision.GetCollisionLayerValue(_collLayer)) { continue; }
-            if (rayCollision is not IVelocity3DComponent velBody) { continue; }
+            if (detectNode is not CollisionObject3D collObj) { continue; }
+            if (detectNode == Agent) { continue; }
+            if (!collObj.GetCollisionLayerValue(_collLayer)) { continue; }
+            if (detectNode is not IVelocity3DComponent velBody) { continue; }
 
             // Add returns true if the item was added, false if it already existed
             detectedBodies.Add(velBody);

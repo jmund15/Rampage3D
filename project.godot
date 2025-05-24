@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Clonepage"
-run/main_scene="res://Areas/SanFrancisco/san_francisco.tscn"
+run/main_scene="uid://b4txnrhpilv28"
 config/features=PackedStringArray("4.4", "C#", "Mobile")
 config/icon="res://icon.svg"
 

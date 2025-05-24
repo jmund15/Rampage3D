@@ -18,5 +18,5 @@ public abstract partial class AIEntityConsideration3D : Resource, IAIConsiderati
     {
     }
     public abstract void InitializeResources(IBlackboard bb);
-    public abstract Dictionary<Vector3, float> GetConsiderationVector();
+    public abstract Dictionary<Vector3, float> GetConsiderationVector(IAIDetector3D detector);
 }

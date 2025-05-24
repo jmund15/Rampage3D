@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using GDCol = Godot.Collections;
 using System;
 using System.Collections.Generic;
@@ -84,7 +84,10 @@ public partial class AINav3DComponent : NavigationAgent3D
     [Export]
     private NavType _navMethod;
     [Export]
-    public AIRays3D AIRays { get; private set; }
+    public AIRayDetector3D AIRayDetector { get; private set; }
+    [Export]
+    public AIAreaDetector3D AIAreaDetector { get; private set; }
+
     [Export]
     public bool ResponbsibleForDetection { get; private set; } = true;
     private IMovementComponent _moveComp;
@@ -232,7 +235,8 @@ public partial class AINav3DComponent : NavigationAgent3D
         PathTimer = GetNode<Timer>("PathTimer");
         PathTimer.Timeout += OnPathTimeout;
 
-        CallDeferred(MethodName.EnableNavigation);
+        NavigationEnabled = false;
+        CallDeferred(MethodName.InitNavigation);
         //EnableNavigation();
     }
 
@@ -381,6 +385,22 @@ public partial class AINav3DComponent : NavigationAgent3D
     #endregion
 
     #region COMPONENT_FUNCTIONS
+    public void InitNavigation()
+    {
+        foreach (var entityConsid in EntityConsiderations)
+        {
+            entityConsid.InitializeResources(_bb);
+        }
+
+        foreach (var dir in AIRayDetector.Directions)
+        {
+            ConsiderationWeights.Add(dir, 0f);
+            DirectionWeights.Add(dir, 0f);
+            GD.Print("AINav Added Direction: ", dir);
+        }
+
+        EnableNavigation();
+    }
     public void DisableNavigation()
     {
         TargetPosition = ParentAgent.GlobalPosition;
@@ -391,18 +411,6 @@ public partial class AINav3DComponent : NavigationAgent3D
     {
         AvoidanceEnabled = _baseAvoidanceEnabled;
         NavigationEnabled = true;
-
-        foreach (var entityConsid in EntityConsiderations)
-        {
-            entityConsid.InitializeResources(_bb);
-        }
-
-        foreach (var dir in AIRays.Directions)
-        {
-            ConsiderationWeights.Add(dir, 0f);
-            DirectionWeights.Add(dir, 0f);
-            GD.Print("AINav Added Direction: ", dir);
-        }
     }
     //TODO: ADD PROCESSING FOR FLYING/Y-ENABLED NAV AGENTS
     protected virtual Vector3 GetWeightedPathPosition()
@@ -426,7 +434,7 @@ public partial class AINav3DComponent : NavigationAgent3D
             SignalRaycastDetections();
         }
         //List<Dir8> dirs = Global.GetEnumValues<Dir8>().ToList();
-        List<Vector3> dirs = AIRays.Directions;
+        List<Vector3> dirs = AIRayDetector.Directions;
         ConsiderationWeights = GetConsiderationVector();
 
         float maxWeight = float.MinValue;
@@ -577,7 +585,7 @@ public partial class AINav3DComponent : NavigationAgent3D
     protected virtual Dictionary<Vector3, float> GetConsiderationVector()
     {
         var considerationVec = new Dictionary<Vector3, float>();
-        considerationVec = AIRays.Raycasts.Keys.ToDictionary(v => v, v => 0f);
+        considerationVec = AIRayDetector.Raycasts.Keys.ToDictionary(v => v, v => 0f);
         //{
         //    { Dir16.U, 0f }, { Dir16.UUR, 0f }, { Dir16.UR, 0f }, { Dir16.URR, 0f },
         //    { Dir16.R, 0f }, { Dir16.DRR, 0f }, { Dir16.DR, 0f }, { Dir16.DDR, 0f },
@@ -589,7 +597,7 @@ public partial class AINav3DComponent : NavigationAgent3D
 
         foreach (var entityConsid in EntityConsiderations)
         {
-            var entityConsidVec = entityConsid.GetConsiderationVector();
+            var entityConsidVec = entityConsid.GetConsiderationVector(AIRayDetector);
             foreach (var dir in considerationVec.Keys)
             {
                 considerationVec[dir] += entityConsidVec[dir];
@@ -680,7 +688,7 @@ public partial class AINav3DComponent : NavigationAgent3D
     }
     private void SignalRaycastDetections()
     {
-        foreach (var raycast in AIRays.GetAllRaycasts())
+        foreach (var raycast in AIRayDetector.GetAllRaycasts())
         {
             if (!raycast.IsColliding()) { continue; }
             var detectObj = raycast.GetCollider();

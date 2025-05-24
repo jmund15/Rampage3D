@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="VelocityBody3DAIConsideration" load_steps=2 format=3 uid="uid://lm7aylicfaet"]
+
+[ext_resource type="Script" uid="uid://rrs5n122ojpk" path="res://BaseResources/VelocityBody3DAIConsideration.cs" id="1_lofnl"]
+
+[resource]
+script = ExtResource("1_lofnl")
+_collLayer = 1
+_positionVelocityBalance = 0.4
+_hasVerticalMovement = false
+Consideration = -2.0
+metadata/_custom_type_script = "uid://rrs5n122ojpk"

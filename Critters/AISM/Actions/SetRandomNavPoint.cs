@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +21,10 @@ public partial class SetRandomNavPoint : BehaviorAction
     public override void Enter()
 	{
 		base.Enter();
+        if (!_aiNavComp.NavigationEnabled)
+        {
+            _aiNavComp.EnableNavigation();
+        }
 		if (NavigationServer3D.MapGetIterationId(_aiNavComp.GetNavigationMap()) == 0) // not setup yet
 		{
             _mapLoaded = false;
