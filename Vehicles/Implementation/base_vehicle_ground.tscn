@@ -25,12 +25,11 @@ LateralFriction = Vector2(0.1, 0.025)
 
 [node name="VehicleMesh" type="MeshInstance3D" parent="."]
 
-[node name="AINav3DComponent" parent="." node_paths=PackedStringArray("ParentAgent", "AIRays") instance=ExtResource("2_ty43o")]
+[node name="AINav3DComponent" parent="." node_paths=PackedStringArray("ParentAgent") instance=ExtResource("2_ty43o")]
 path_desired_distance = 2.0
 target_desired_distance = 1.5
 path_max_distance = 5.01
 ParentAgent = NodePath("..")
-AIRays = NodePath("../AIRays16Dir")
 EntityConsiderations = []
 UseOrthogNavOnly = false
 
@@ -63,4 +62,4 @@ LagTime = 2.0
 script = ExtResource("6_jtv6f")
 
 [node name="AIRays16Dir" parent="." instance=ExtResource("10_gww5j")]
-RayLength = 10.0
+script = null
