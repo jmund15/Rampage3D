@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,8 +8,61 @@ using System.Linq;
 [GlobalClass, Tool]
 public partial class BuildingComponent : RigidBody3D
 {
-	#region COMPONENT_VARIABLES
-	[Export]
+    #region COMPONENT_VARIABLES
+    #region CREATOR_PROPS
+    [ExportGroup("CREATOR PROPS *DON'T EDIT*")]
+    [Export]
+    public string BuildingLocationDir { get; private set; } = "";
+    [Export]
+    private int _buildingLocDirIdx = 0;
+    [Export]
+    private Godot.Collections.Dictionary<int, string> _buildingLocationDirMap = new();
+    [Export]
+    private string _buildingLocPropHint = "";
+
+    private string _customBuildingTypePropName = "Building Type";
+    [Export]
+    public string BuildingTypeDir { get; private set; } = "";
+    [Export]
+    private int _buildingTypeDirIdx = 0;
+    [Export]
+    private Godot.Collections.Dictionary<int, string> _buildingTypeDirMap = new();
+    [Export]
+    private string _buildingTypePropHint = "";
+
+    [Export]
+    private int _numFloors = 0;
+    // int => floor num; string => texture path
+    [Export]
+    private Godot.Collections.Dictionary<int, string> _floorTextureMap = new();
+    private string _floorBuildingPropStart = "Floor";
+    [Export]
+    // int => texture num; string => texture path
+    private Godot.Collections.Dictionary<int, string> _availableFloorTexturePathMap = new();
+    [Export]
+    // int => floor num; int => texture num
+    private Godot.Collections.Dictionary<int, int> _floorTextureIdxMap = new();
+    private string _textureFileExt = "png";
+    [Export]
+    private string _floorPropHint = "";
+    private string _normalMapIdentifier = "_n";
+
+    [Export]
+    private bool _haveRoofProperty;
+    [Export]
+    private string _roofTexture = "";
+    private string _roofBuildingProp = "Roof";
+    [Export]
+    // int => texture num; string => texture path
+    private Godot.Collections.Dictionary<int, string> _availableRoofTexturePathMap = new();
+    [Export]
+    // int => roof num; int => texture num
+    private int _roofTextureIdx = 0;
+    [Export]
+    private string _roofPropHint = "";
+    #endregion
+
+    [Export]
 	public bool Enterable { get; private set; }
     private MeshInstance3D _doorEntranceIndicator;
 	[Export]
@@ -1099,56 +1152,7 @@ public partial class BuildingComponent : RigidBody3D
 
     private string _customBuildingLocPropName = "Building Location";
 	private string _buildingLocDirIdentifier = "Buildings//Textures";
-	[ExportGroup("CREATOR PROPS *DON'T EDIT*")]
-	[Export]
-	public string BuildingLocationDir { get; private set; } = "";
-	[Export]
-	private int _buildingLocDirIdx = 0;
-	[Export]
-	private Godot.Collections.Dictionary<int, string> _buildingLocationDirMap = new();
-	[Export]
-	private string _buildingLocPropHint = "";
-
-	private string _customBuildingTypePropName = "Building Type";
-	[Export]
-	public string BuildingTypeDir { get; private set; } = "";
-	[Export]
-	private int _buildingTypeDirIdx = 0;
-	[Export]
-	private Godot.Collections.Dictionary<int, string> _buildingTypeDirMap = new();
-	[Export]
-	private string _buildingTypePropHint = "";
-
-	[Export]
-	private int _numFloors = 0;
-	// int => floor num; string => texture path
-	[Export]
-	private Godot.Collections.Dictionary<int, string> _floorTextureMap = new();
-	private string _floorBuildingPropStart = "Floor";
-	[Export]
-	// int => texture num; string => texture path
-	private Godot.Collections.Dictionary<int, string> _availableFloorTexturePathMap = new();
-	[Export]
-	// int => floor num; int => texture num
-	private Godot.Collections.Dictionary<int, int> _floorTextureIdxMap = new();
-	private string _textureFileExt = "png";
-	[Export]
-	private string _floorPropHint = "";
-	private string _normalMapIdentifier = "_n";
-
-	[Export]
-	private bool _haveRoofProperty;
-    [Export]
-    private string _roofTexture = "";
-    private string _roofBuildingProp = "Roof";
-    [Export]
-    // int => texture num; string => texture path
-    private Godot.Collections.Dictionary<int, string> _availableRoofTexturePathMap = new();
-    [Export]
-    // int => roof num; int => texture num
-    private int _roofTextureIdx = 0;
-    [Export]
-    private string _roofPropHint = "";
+	
 
     
     #endregion

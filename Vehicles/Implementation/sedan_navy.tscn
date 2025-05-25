@@ -54,3 +54,6 @@ EntityConsiderations = [ExtResource("9_gl2g4")]
 
 [node name="TravelToNavPoint" parent="BehaviorTree/Sequence" index="2"]
 _disableNavOnTargetReached = true
+
+[node name="AIRays16Dir" parent="." index="9"]
+script = null
