@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using Godot.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,14 @@ using System.Linq;
 public partial class City : Node3D
 {
 	#region COMPONENT_VARIABLES
-	public List<BuildingComponent> Buildings { get; private set; }
-	#endregion
-	#region COMPONENT_UPDATES
-	public override void _Ready()
+	public List<Area3D> VehicleExitAreas { get; private set; }
+	public List<Area3D> CivilianExitAreas { get; private set; }
+    public List<BuildingComponent> Buildings { get; private set; }
+	public List<Area3D> VehicleParkingAreas { get; private set; }
+	public List<Area3D> CivilianHubAreas { get; private set; }
+    #endregion
+    #region COMPONENT_UPDATES
+    public override void _Ready()
 	{
 		base._Ready();
 		Buildings = this.GetChildrenOfType<BuildingComponent>().ToList();

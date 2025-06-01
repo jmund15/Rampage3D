@@ -1,6 +1,7 @@
 ﻿using Godot;
 using System;
 using System.Collections.Generic;
+[GlobalClass, Tool]
 public partial class AIAreaDetector3D : Area3D, IAIDetector3D
 {
     public IEnumerable<Node3D> GetDetectedBodies()

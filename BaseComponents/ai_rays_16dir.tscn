@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cqs6mpegfeb2d"]
 
-[ext_resource type="Script" uid="uid://dpghyadodvdk1" path="res://BaseComponents/AIRays3D.cs" id="1_ahqsk"]
+[ext_resource type="Script" uid="uid://c8kv5o6xewk53" path="res://BaseComponents/AIRayDetector3D.cs" id="1_ahqsk"]
 
 [node name="AIRays16Dir" type="Node3D"]
 script = ExtResource("1_ahqsk")
