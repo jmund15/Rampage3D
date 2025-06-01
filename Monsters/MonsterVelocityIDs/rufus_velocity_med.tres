@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Char3DVelocityProperties" load_steps=11 format=3 uid="uid://m7p52r73fwcn"]
 
 [ext_resource type="Script" uid="uid://bds5ojs2wkd4a" path="res://BaseResources/ImpulseIDResource.cs" id="1_sgi12"]
-[ext_resource type="Script" uid="uid://c1dbvjkfhfcrc" path="res://BaseResources/VelocityIDResource.cs" id="2_dum1r"]
+[ext_resource type="Script" uid="uid://c1dbvjkfhfcrc" path="res://BaseResources/VelocityIDResource.cs" id="2_0fscv"]
 [ext_resource type="Resource" uid="uid://bqax65t4xwl70" path="res://Monsters/MonsterVelocityIDs/rufus_ground_med.tres" id="3_0fscv"]
 [ext_resource type="Script" uid="uid://dygwyddjwbtfu" path="res://BaseResources/Char3DVelocityProperties.cs" id="3_fly7y"]
 [ext_resource type="Resource" uid="uid://gslvdafx5pkb" path="res://Monsters/MonsterVelocityIDs/rufus_air_med.tres" id="4_sb2ks"]
@@ -29,5 +29,5 @@ metadata/_custom_type_script = "uid://bds5ojs2wkd4a"
 [resource]
 script = ExtResource("3_fly7y")
 ImpulseIds = Array[ExtResource("1_sgi12")]([SubResource("Resource_sxgqi"), SubResource("Resource_0fscv"), SubResource("Resource_sb2ks")])
-VelocityIds = Array[ExtResource("2_dum1r")]([ExtResource("3_0fscv"), ExtResource("4_sb2ks"), ExtResource("5_5k2s0"), ExtResource("6_yhbhi")])
+VelocityIds = Array[ExtResource("2_0fscv")]([ExtResource("3_0fscv"), ExtResource("4_sb2ks"), ExtResource("5_5k2s0"), ExtResource("6_yhbhi")])
 metadata/_custom_type_script = "uid://dygwyddjwbtfu"

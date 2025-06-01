@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=4 uid="uid://w1mve7x43xck"]
 
 [ext_resource type="PackedScene" uid="uid://bv0xxgt1n284d" path="res://Monsters/monster.tscn" id="1_pqbg7"]
-[ext_resource type="Resource" uid="uid://bxvcr2jllrc3h" path="res://Monsters/MonsterVelocityIDs/rambucho_med_velocity_props.tres" id="2_j7jnu"]
+[ext_resource type="Resource" uid="uid://m7p52r73fwcn" path="res://Monsters/MonsterVelocityIDs/rufus_velocity_med.tres" id="2_j7jnu"]
 [ext_resource type="PackedScene" uid="uid://b2ggfqqshmwa5" path="res://Monsters/grizzler.tscn" id="3_wm8dx"]
 [ext_resource type="PackedScene" uid="uid://ddhmhdqht1qwi" path="res://Monsters/MSM/rambucho_msm.tscn" id="4_81l2j"]
 [ext_resource type="Shape3D" uid="uid://bmpwyjckkxcwe" path="res://Monsters/rambucho2_capsuleshape_smaller.tres" id="4_chkcj"]

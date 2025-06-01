@@ -3,11 +3,12 @@
 importer="Aseprite Sprite3D with AnimationPlayer"
 type="PackedScene"
 uid="uid://xhbusbcx0gmc"
-valid=false
+path="res://.godot/imported/monster_spritesheet.aseprite-1a604c372a58f09cee6d2a291865e02d.scn"
 
 [deps]
 
 source_file="res://Monsters/monster_spritesheet.aseprite"
+dest_files=["res://.godot/imported/monster_spritesheet.aseprite-1a604c372a58f09cee6d2a291865e02d.scn"]
 
 [params]
 

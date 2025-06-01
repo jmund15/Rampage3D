@@ -1,0 +1,35 @@
+[gd_scene load_steps=9 format=3 uid="uid://cagbph7q2t0rv"]
+
+[ext_resource type="Script" uid="uid://cn8me6e5muwxv" path="res://JmoAI/BT/Composites/Sequence.cs" id="1_mq88m"]
+[ext_resource type="Script" uid="uid://c03kmraljmib0" path="res://Critters/AISM/Actions/FindEnterableBuilding.cs" id="2_vxfdn"]
+[ext_resource type="Script" uid="uid://bb3mfjludhtb8" path="res://Critters/AISM/Actions/SetRandomNavPoint.cs" id="3_fbfh5"]
+[ext_resource type="Script" uid="uid://cfahexo6jy6c5" path="res://Critters/AISM/Actions/TravelToNavPoint.cs" id="4_ht6he"]
+[ext_resource type="Script" uid="uid://cparbnn1mnhlj" path="res://Critters/AISM/Actions/WaitIdle.cs" id="5_pp8dk"]
+[ext_resource type="Script" uid="uid://cnkqxsah2t4f1" path="res://JmoAI/BT/Decorators/BTCondition.cs" id="6_be7vu"]
+[ext_resource type="Script" uid="uid://dsfaesb7dvcpa" path="res://JmoAI/BT/Decorators/TimeLimit.cs" id="7_v6kyw"]
+
+[sub_resource type="Resource" id="Resource_qm7ta"]
+script = ExtResource("7_v6kyw")
+Limit = 2.0
+SucceedTaskOnExit = false
+metadata/_custom_type_script = "uid://dsfaesb7dvcpa"
+
+[node name="NavToEnterableBuilding" type="Node"]
+script = ExtResource("1_mq88m")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="FindEnterableBuilding" type="Node" parent="."]
+script = ExtResource("2_vxfdn")
+
+[node name="SetRandomNavPoint" type="Node" parent="."]
+script = ExtResource("3_fbfh5")
+metadata/_custom_type_script = "uid://bb3mfjludhtb8"
+
+[node name="TravelToNavPoint" type="Node" parent="."]
+script = ExtResource("4_ht6he")
+metadata/_custom_type_script = "uid://cfahexo6jy6c5"
+
+[node name="WaitIdle" type="Node" parent="."]
+script = ExtResource("5_pp8dk")
+Conditions = Array[ExtResource("6_be7vu")]([SubResource("Resource_qm7ta")])
+metadata/_custom_type_script = "uid://cparbnn1mnhlj"

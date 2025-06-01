@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cqbbrnjnrh7n2"]
+[gd_scene load_steps=35 format=3 uid="uid://cqbbrnjnrh7n2"]
 
 [ext_resource type="Script" uid="uid://jurk16vjiid6" path="res://Critters/Critter.cs" id="1_inyqc"]
 [ext_resource type="Resource" uid="uid://dxm311nsjksd2" path="res://Critters/Velocities/critter_vel_props.tres" id="2_05jnq"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://ccbxl3vy0rlfm" path="res://JmoAI/HSM/BaseStates/Idle3DState.cs" id="6_v7vmi"]
 [ext_resource type="Script" uid="uid://curuegjtmilee" path="res://JmoAI/HSM/BaseStates/Walk3DState.cs" id="7_xudxj"]
 [ext_resource type="Script" uid="uid://1owc82f4mbxh" path="res://JmoAI/HSM/BaseStates/Fall3DState.cs" id="8_w55v4"]
+[ext_resource type="Script" uid="uid://cym6648ik0qfy" path="res://Critters/CSM/Drive.cs" id="9_1ct2c"]
 [ext_resource type="Script" uid="uid://v75vwgsaqnww" path="res://Critters/CSM/GrabbedState.cs" id="9_i2kue"]
 [ext_resource type="Script" uid="uid://xajuf6rq0kqg" path="res://Critters/AISM/AISM.cs" id="10_egcvc"]
 [ext_resource type="Script" uid="uid://c41yndbr7tbro" path="res://Critters/CSM/AteState.cs" id="10_tkq50"]
@@ -17,15 +18,17 @@
 [ext_resource type="Script" uid="uid://cn8me6e5muwxv" path="res://JmoAI/BT/Composites/Sequence.cs" id="13_ec5hv"]
 [ext_resource type="Script" uid="uid://d3iqpfeof1o04" path="res://Critters/AISM/Actions/SetNavPoint.cs" id="14_xx6wd"]
 [ext_resource type="Script" uid="uid://bb3mfjludhtb8" path="res://Critters/AISM/Actions/SetRandomNavPoint.cs" id="15_b1q00"]
+[ext_resource type="Script" uid="uid://bvbe6nye6lc10" path="res://JmoAI/BT/Composites/Selector.cs" id="15_g2j6m"]
 [ext_resource type="Script" uid="uid://cfahexo6jy6c5" path="res://Critters/AISM/Actions/TravelToNavPoint.cs" id="15_xxhh0"]
 [ext_resource type="Script" uid="uid://cparbnn1mnhlj" path="res://Critters/AISM/Actions/WaitIdle.cs" id="16_pm0hc"]
+[ext_resource type="Script" uid="uid://bko4f8scnfuxd" path="res://JmoAI/BT/Actions/BehaviorAction.cs" id="17_7labu"]
 [ext_resource type="Script" uid="uid://dcaudso7ekyle" path="res://JmoAI/BT/Decorators/TimeLimitRange.cs" id="17_43q6s"]
 [ext_resource type="PackedScene" uid="uid://dahmcs8u2k547" path="res://BaseComponents/ai_nav_3d_component.tscn" id="18_1kdwb"]
+[ext_resource type="PackedScene" uid="uid://cagbph7q2t0rv" path="res://Critters/AISM/nav_to_enterable_building.tscn" id="18_cf1hs"]
 [ext_resource type="Script" uid="uid://rrs5n122ojpk" path="res://BaseResources/VelocityBody3DAIConsideration.cs" id="19_3cdey"]
 [ext_resource type="PackedScene" uid="uid://cqs6mpegfeb2d" path="res://BaseComponents/ai_rays_16dir.tscn" id="19_58r4k"]
 [ext_resource type="Script" uid="uid://cnkqxsah2t4f1" path="res://JmoAI/BT/Decorators/BTCondition.cs" id="19_xkbna"]
-[ext_resource type="Script" uid="uid://c03kmraljmib0" path="res://Critters/AISM/Actions/FindEnterableBuilding.cs" id="21_wxm0o"]
-[ext_resource type="Script" uid="uid://dsfaesb7dvcpa" path="res://JmoAI/BT/Decorators/TimeLimit.cs" id="22_wxm0o"]
+[ext_resource type="Script" uid="uid://dh6v7s4ew2bvm" path="res://Critters/AISM/Actions/SetDriveNavigation.cs" id="25_xil08"]
 [ext_resource type="Resource" uid="uid://ey0yeq282cxt" path="res://Critters/AISM/critter_wall_aiconsid.tres" id="26_wxm0o"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_aew1h"]
@@ -40,18 +43,13 @@ LimitMin = 1.5
 LimitMax = 3.0
 SucceedTaskOnExit = true
 
-[sub_resource type="Resource" id="Resource_qm7ta"]
-script = ExtResource("22_wxm0o")
-Limit = 2.0
-SucceedTaskOnExit = false
-metadata/_custom_type_script = "uid://dsfaesb7dvcpa"
-
 [sub_resource type="Resource" id="Resource_uev8w"]
 script = ExtResource("19_3cdey")
 _collLayer = 1
 _positionVelocityBalance = 0.4
 _hasVerticalMovement = false
 Consideration = 0.0
+PreferredDetector = 1
 
 [node name="Critter" type="CharacterBody3D"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
@@ -95,6 +93,10 @@ script = ExtResource("8_w55v4")
 AnimName = "falling"
 _landFloorState = NodePath("../Idle")
 
+[node name="Drive" type="Node" parent="CSM"]
+script = ExtResource("9_1ct2c")
+metadata/_custom_type_script = "uid://r7tpb5wiabbs"
+
 [node name="Cower" type="Node" parent="CSM"]
 
 [node name="Grabbed" type="Node" parent="CSM" node_paths=PackedStringArray("_onEatenState")]
@@ -107,6 +109,116 @@ script = ExtResource("10_tkq50")
 [node name="AISM" type="Node" parent="." node_paths=PackedStringArray("InitialSubState")]
 script = ExtResource("10_egcvc")
 InitialSubState = NodePath("NavToBuilding")
+
+[node name="NormalBehavior" type="Node" parent="AISM"]
+script = ExtResource("11_slmta")
+metadata/_custom_type_script = "uid://cp0c2oigpv2cp"
+
+[node name="BehaviorTree" type="Node" parent="AISM/NormalBehavior"]
+script = ExtResource("12_g80jc")
+metadata/_custom_type_script = "uid://bv2i7fxxpwow6"
+
+[node name="Selector - DetermineAgenda" type="Node" parent="AISM/NormalBehavior/BehaviorTree"]
+script = ExtResource("15_g2j6m")
+metadata/_custom_type_script = "uid://bvbe6nye6lc10"
+
+[node name="Sequence - WalkToArea" type="Node" parent="AISM/NormalBehavior/BehaviorTree/Selector - DetermineAgenda"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="RandomSelector - AreaReached" type="Node" parent="AISM/NormalBehavior/BehaviorTree/Selector - DetermineAgenda/Sequence - WalkToArea"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="WanderAroundArea" type="Node" parent="AISM/NormalBehavior/BehaviorTree/Selector - DetermineAgenda/Sequence - WalkToArea/RandomSelector - AreaReached"]
+script = ExtResource("17_7labu")
+metadata/_custom_type_script = "uid://bko4f8scnfuxd"
+
+[node name="Sequence - WalkToBuilding" type="Node" parent="AISM/NormalBehavior/BehaviorTree/Selector - DetermineAgenda"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="NavToEnterableBuilding" parent="AISM/NormalBehavior/BehaviorTree/Selector - DetermineAgenda/Sequence - WalkToBuilding" instance=ExtResource("18_cf1hs")]
+
+[node name="EnterBuilding" type="Node" parent="AISM/NormalBehavior/BehaviorTree/Selector - DetermineAgenda/Sequence - WalkToBuilding"]
+script = ExtResource("17_7labu")
+metadata/_custom_type_script = "uid://bko4f8scnfuxd"
+
+[node name="DoBusiness" type="Node" parent="AISM/NormalBehavior/BehaviorTree/Selector - DetermineAgenda/Sequence - WalkToBuilding"]
+script = ExtResource("17_7labu")
+metadata/_custom_type_script = "uid://bko4f8scnfuxd"
+
+[node name="Sequence - WalkToVehicle" type="Node" parent="AISM/NormalBehavior/BehaviorTree/Selector - DetermineAgenda"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="Sequence - DriveAround" type="Node" parent="AISM/NormalBehavior/BehaviorTree/Selector - DetermineAgenda"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="Sequence - DriveOutOfCity" type="Node" parent="AISM/NormalBehavior/BehaviorTree/Selector - DetermineAgenda"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="Sequence - DriveToParking" type="Node" parent="AISM/NormalBehavior/BehaviorTree/Selector - DetermineAgenda"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="FleeBehavior" type="Node" parent="AISM"]
+script = ExtResource("11_slmta")
+metadata/_custom_type_script = "uid://cp0c2oigpv2cp"
+
+[node name="BehaviorTree" type="Node" parent="AISM/FleeBehavior"]
+script = ExtResource("12_g80jc")
+metadata/_custom_type_script = "uid://bv2i7fxxpwow6"
+
+[node name="Selector - DetermineFleeMethod" type="Node" parent="AISM/FleeBehavior/BehaviorTree"]
+script = ExtResource("15_g2j6m")
+metadata/_custom_type_script = "uid://bvbe6nye6lc10"
+
+[node name="Sequence - JumpOutOfBuilding" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="Sequence - FearResponse1 (Run In Circles)" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="Sequence - FearRespnose2 (Cower)" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="Sequence - Hide" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="Sequence - RunOutOfCity" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="Sequence - EscapeByVehicle" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="FindAndNavToVehicle" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Sequence - EscapeByVehicle"]
+script = ExtResource("17_7labu")
+metadata/_custom_type_script = "uid://bko4f8scnfuxd"
+
+[node name="EmbarkInVehicle" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Sequence - EscapeByVehicle"]
+script = ExtResource("17_7labu")
+metadata/_custom_type_script = "uid://bko4f8scnfuxd"
+
+[node name="Selector - EscapeCity" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Sequence - EscapeByVehicle"]
+script = ExtResource("15_g2j6m")
+metadata/_custom_type_script = "uid://bvbe6nye6lc10"
+
+[node name="DriveOutOfCity" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Sequence - EscapeByVehicle/Selector - EscapeCity"]
+script = ExtResource("17_7labu")
+metadata/_custom_type_script = "uid://bko4f8scnfuxd"
+
+[node name="DisembarkEarly" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Sequence - EscapeByVehicle/Selector - EscapeCity"]
+script = ExtResource("17_7labu")
+metadata/_custom_type_script = "uid://bko4f8scnfuxd"
 
 [node name="NavTestBT" type="Node" parent="AISM" node_paths=PackedStringArray("OnTreeSuccessState", "OnTreeFailureState")]
 script = ExtResource("11_slmta")
@@ -139,39 +251,48 @@ OnTreeSuccessState = NodePath("../NavTestBT")
 OnTreeFailureState = NodePath("../NavTestBT")
 metadata/_custom_type_script = "uid://cp0c2oigpv2cp"
 
-[node name="NavToBuildingTrree" type="Node" parent="AISM/NavToBuilding"]
+[node name="NavToBuildingTree" type="Node" parent="AISM/NavToBuilding"]
 script = ExtResource("12_g80jc")
 metadata/_custom_type_script = "uid://bv2i7fxxpwow6"
 
-[node name="Sequence" type="Node" parent="AISM/NavToBuilding/NavToBuildingTrree"]
+[node name="NavToEnterableBuilding" parent="AISM/NavToBuilding/NavToBuildingTree" instance=ExtResource("18_cf1hs")]
+
+[node name="DrivingState" type="Node" parent="AISM"]
+script = ExtResource("11_slmta")
+metadata/_custom_type_script = "uid://cp0c2oigpv2cp"
+
+[node name="BehaviorTree" type="Node" parent="AISM/DrivingState"]
+script = ExtResource("12_g80jc")
+metadata/_custom_type_script = "uid://bv2i7fxxpwow6"
+
+[node name="Selector" type="Node" parent="AISM/DrivingState/BehaviorTree"]
+script = ExtResource("15_g2j6m")
+metadata/_custom_type_script = "uid://bvbe6nye6lc10"
+
+[node name="DriveToDestination" type="Node" parent="AISM/DrivingState/BehaviorTree/Selector"]
 script = ExtResource("13_ec5hv")
 metadata/_custom_type_script = "uid://cn8me6e5muwxv"
 
-[node name="FindEnterableBuilding" type="Node" parent="AISM/NavToBuilding/NavToBuildingTrree/Sequence"]
-script = ExtResource("21_wxm0o")
+[node name="SetDriveNavigation" type="Node" parent="AISM/DrivingState/BehaviorTree/Selector/DriveToDestination"]
+script = ExtResource("25_xil08")
+metadata/_custom_type_script = "uid://bko4f8scnfuxd"
 
-[node name="SetRandomNavPoint" type="Node" parent="AISM/NavToBuilding/NavToBuildingTrree/Sequence"]
-script = ExtResource("15_b1q00")
-metadata/_custom_type_script = "uid://bb3mfjludhtb8"
+[node name="EarlyDisembark" type="Node" parent="AISM/DrivingState/BehaviorTree/Selector"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
 
-[node name="TravelToNavPoint" type="Node" parent="AISM/NavToBuilding/NavToBuildingTrree/Sequence"]
-script = ExtResource("15_xxhh0")
-metadata/_custom_type_script = "uid://cfahexo6jy6c5"
-
-[node name="WaitIdle" type="Node" parent="AISM/NavToBuilding/NavToBuildingTrree/Sequence"]
-script = ExtResource("16_pm0hc")
-Conditions = Array[ExtResource("19_xkbna")]([SubResource("Resource_qm7ta")])
-metadata/_custom_type_script = "uid://cparbnn1mnhlj"
+[node name="Disembark" type="Node" parent="AISM/DrivingState/BehaviorTree/Selector/EarlyDisembark"]
+script = ExtResource("17_7labu")
+metadata/_custom_type_script = "uid://bko4f8scnfuxd"
 
 [node name="AIRays16Dir" parent="." instance=ExtResource("19_58r4k")]
 
-[node name="AINav3DComponent" parent="." node_paths=PackedStringArray("ParentAgent", "AIRays") instance=ExtResource("18_1kdwb")]
+[node name="AINav3DComponent" parent="." node_paths=PackedStringArray("ParentAgent") instance=ExtResource("18_1kdwb")]
 path_desired_distance = 1.0
 target_desired_distance = 0.5
 path_max_distance = 2.51
 path_postprocessing = 0
 ParentAgent = NodePath("..")
-AIRays = NodePath("../AIRays16Dir")
 EntityConsiderations = Array[Resource]([SubResource("Resource_uev8w"), ExtResource("26_wxm0o")])
 
 [node name="Blackboard" type="Node" parent="."]

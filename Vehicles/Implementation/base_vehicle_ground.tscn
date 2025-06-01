@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bk2raes43i7w6"]
+[gd_scene load_steps=15 format=3 uid="uid://bk2raes43i7w6"]
 
 [ext_resource type="Script" uid="uid://dcfgdp5lkgxq2" path="res://BaseComponents/GroundVehicleComponent.cs" id="1_0wb2f"]
 [ext_resource type="PackedScene" uid="uid://dahmcs8u2k547" path="res://BaseComponents/ai_nav_3d_component.tscn" id="2_ty43o"]
@@ -10,9 +10,14 @@
 [ext_resource type="Script" uid="uid://dh38hetgqf68m" path="res://JmoAI/Blackboard/Blackboard.cs" id="6_jtv6f"]
 [ext_resource type="Script" uid="uid://qn23uwu7owk6" path="res://JmoAI/BT/Actions/Lag.cs" id="7_ppths"]
 [ext_resource type="PackedScene" uid="uid://cqs6mpegfeb2d" path="res://BaseComponents/ai_rays_16dir.tscn" id="10_gww5j"]
+[ext_resource type="Script" uid="uid://doaphk7xc6lcr" path="res://BaseComponents/AIAreaDetector3D.cs" id="11_7u3ik"]
+[ext_resource type="Script" uid="uid://cyokk8235wjk2" path="res://BaseComponents/PeopleVehicleComponent.cs" id="12_tydrx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i6i2g"]
 friction = 0.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tydrx"]
+radius = 1.0
 
 [node name="BaseGroundVehicle" type="RigidBody3D"]
 collision_layer = 16
@@ -25,11 +30,13 @@ LateralFriction = Vector2(0.1, 0.025)
 
 [node name="VehicleMesh" type="MeshInstance3D" parent="."]
 
-[node name="AINav3DComponent" parent="." node_paths=PackedStringArray("ParentAgent") instance=ExtResource("2_ty43o")]
+[node name="AINav3DComponent" parent="." node_paths=PackedStringArray("ParentAgent", "AIRayDetector", "AIAreaDetector") instance=ExtResource("2_ty43o")]
 path_desired_distance = 2.0
 target_desired_distance = 1.5
 path_max_distance = 5.01
 ParentAgent = NodePath("..")
+AIRayDetector = NodePath("../AIRays16Dir")
+AIAreaDetector = NodePath("../AIAreaDetector3D")
 EntityConsiderations = []
 UseOrthogNavOnly = false
 
@@ -62,4 +69,13 @@ LagTime = 2.0
 script = ExtResource("6_jtv6f")
 
 [node name="AIRays16Dir" parent="." instance=ExtResource("10_gww5j")]
-script = null
+
+[node name="AIAreaDetector3D" type="Area3D" parent="."]
+script = ExtResource("11_7u3ik")
+metadata/_custom_type_script = "uid://doaphk7xc6lcr"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AIAreaDetector3D"]
+shape = SubResource("SphereShape3D_tydrx")
+
+[node name="PeopleVehicleComponent" type="Node" parent="."]
+script = ExtResource("12_tydrx")

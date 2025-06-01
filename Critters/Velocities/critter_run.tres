@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1_jt7ia")
+VelocityFormula = 1
 VelocityType = 1
 MaxSpeed = 5.0
 Acceleration = -1.0
 Friction = -1.0
 BrakingFrictionMod = -1.0
-InstantMovement = true

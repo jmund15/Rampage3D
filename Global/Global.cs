@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,6 +6,7 @@ using System.Linq;
 
 public partial class Global : Node
 {
+    public static City CurrentCity { get; private set; }
     public static readonly Random Rnd = new Random(Guid.NewGuid().GetHashCode());
     public const float MovementTransitionBufferTime = 0.1f;
     public const float MINIMUM_PIXEL_SIZE = 0.01f;

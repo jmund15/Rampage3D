@@ -3,11 +3,12 @@
 importer="Aseprite Sprite3D with AnimationPlayer"
 type="PackedScene"
 uid="uid://2oo0v67barfq"
-valid=false
+path="res://.godot/imported/critters_moose_spritesheet_export.aseprite-da28c449635494325a6881092a5902a8.scn"
 
 [deps]
 
 source_file="res://Critters/Kents Hill/moose/critters_moose_spritesheet_export.aseprite"
+dest_files=["res://.godot/imported/critters_moose_spritesheet_export.aseprite-da28c449635494325a6881092a5902a8.scn"]
 
 [params]
 

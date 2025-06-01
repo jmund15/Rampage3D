@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1_qmswm")
+VelocityFormula = 0
 VelocityType = 2
 MaxSpeed = 3.0
 Acceleration = 30.0
 Friction = 10.0
-BrakingFrictionMod = 0.5
-InstantMovement = false
+BrakingFrictionMod = -1.0

@@ -597,7 +597,31 @@ public partial class AINav3DComponent : NavigationAgent3D
 
         foreach (var entityConsid in EntityConsiderations)
         {
-            var entityConsidVec = entityConsid.GetConsiderationVector(AIRayDetector);
+            Dictionary<Vector3, float> entityConsidVec;
+
+            switch (entityConsid.PreferredDetector)
+            {
+                case DetectorType.Ray:
+                    if (AIRayDetector == null)
+                    {
+                        GD.PrintErr("AINav3DComponent ERROR: AIRayDetector is null, cannot get consideration vector!");
+                        return considerationVec;
+                    }
+                    entityConsidVec = entityConsid.GetConsiderationVector(AIRayDetector);
+                    break;
+                case DetectorType.Area:
+                    if (AIAreaDetector == null)
+                    {
+                        GD.PrintErr("AINav3DComponent ERROR: AIAreaDetector is null, cannot get consideration vector!");
+                        return considerationVec;
+                    }
+                    entityConsidVec = entityConsid.GetConsiderationVector(AIAreaDetector);
+                    break;
+                default:
+                    GD.PrintErr($"AINav3DComponent ERROR: Unknown DetectorType {entityConsid.PreferredDetector}, cannot get consideration vector!");
+                    entityConsidVec = entityConsid.GetConsiderationVector(AIRayDetector);
+                    break;
+            }
             foreach (var dir in considerationVec.Keys)
             {
                 considerationVec[dir] += entityConsidVec[dir];

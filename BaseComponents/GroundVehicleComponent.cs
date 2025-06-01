@@ -17,15 +17,19 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
 	private IBlackboard _bb;
 	private AINav3DComponent _aiNav;
 
-	[Export]
-	private float _maxSpeed = 1000f;
-	[Export]
+    [Export]
+    public bool StartParked { get; protected set; } = false;
+
+    //[Export]
+    //private float _maxSpeed = 1000f;
+    [Export]
 	private bool _allWheelDrive = true;
 	private float _frontWheelXPos;
 
     [Export]
     private Vector2 LateralFriction = new Vector2(0.9f, 0.975f);
 
+    public bool Parked { get; protected set; } = false;
     public Vector2 XRange { get; private set; } = new Vector2();
     public Vector2 YRange { get; private set; } = new Vector2();
     public Vector2 ZRange { get; private set; } = new Vector2();
