@@ -196,27 +196,35 @@ metadata/_custom_type_script = "uid://cn8me6e5muwxv"
 script = ExtResource("13_ec5hv")
 metadata/_custom_type_script = "uid://cn8me6e5muwxv"
 
-[node name="Sequence - EscapeByVehicle" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod"]
-script = ExtResource("13_ec5hv")
-metadata/_custom_type_script = "uid://cn8me6e5muwxv"
-
-[node name="FindAndNavToVehicle" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Sequence - EscapeByVehicle"]
-script = ExtResource("17_7labu")
-metadata/_custom_type_script = "uid://bko4f8scnfuxd"
-
-[node name="EmbarkInVehicle" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Sequence - EscapeByVehicle"]
-script = ExtResource("17_7labu")
-metadata/_custom_type_script = "uid://bko4f8scnfuxd"
-
-[node name="Selector - EscapeCity" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Sequence - EscapeByVehicle"]
+[node name="Selector - TryEscapeByVehicle" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod"]
 script = ExtResource("15_g2j6m")
 metadata/_custom_type_script = "uid://bvbe6nye6lc10"
 
-[node name="DriveOutOfCity" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Sequence - EscapeByVehicle/Selector - EscapeCity"]
+[node name="Sequence - EscapeByVehicle" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Selector - TryEscapeByVehicle"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="FindAndNavToVehicle" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Selector - TryEscapeByVehicle/Sequence - EscapeByVehicle"]
 script = ExtResource("17_7labu")
 metadata/_custom_type_script = "uid://bko4f8scnfuxd"
 
-[node name="DisembarkEarly" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Sequence - EscapeByVehicle/Selector - EscapeCity"]
+[node name="EmbarkInVehicle" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Selector - TryEscapeByVehicle/Sequence - EscapeByVehicle"]
+script = ExtResource("17_7labu")
+metadata/_custom_type_script = "uid://bko4f8scnfuxd"
+
+[node name="Selector - EscapeCity" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Selector - TryEscapeByVehicle/Sequence - EscapeByVehicle"]
+script = ExtResource("15_g2j6m")
+metadata/_custom_type_script = "uid://bvbe6nye6lc10"
+
+[node name="DriveOutOfCity" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Selector - TryEscapeByVehicle/Sequence - EscapeByVehicle/Selector - EscapeCity"]
+script = ExtResource("17_7labu")
+metadata/_custom_type_script = "uid://bko4f8scnfuxd"
+
+[node name="DisembarkEarly" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Selector - TryEscapeByVehicle/Sequence - EscapeByVehicle/Selector - EscapeCity"]
+script = ExtResource("17_7labu")
+metadata/_custom_type_script = "uid://bko4f8scnfuxd"
+
+[node name="Attempted Vehicle Drove off - be sad and cry, cower, or run" type="Node" parent="AISM/FleeBehavior/BehaviorTree/Selector - DetermineFleeMethod/Selector - TryEscapeByVehicle"]
 script = ExtResource("17_7labu")
 metadata/_custom_type_script = "uid://bko4f8scnfuxd"
 
