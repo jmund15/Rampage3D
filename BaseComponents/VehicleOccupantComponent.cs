@@ -19,20 +19,15 @@ public enum VehiclePosition
 public partial class VehicleOccupantComponent : Node
 {
     #region COMPONENT_VARIABLES
-    public record OccupantInfo
-    {
-        public CharacterBody3D Occupant;
-        public VehiclePosition PositionOccupied;
-        public bool IsDriving;
-        public override string ToString()
-        {
-            return $"Occupant: {Occupant?.Name}, Position: {PositionOccupied}, Is Driving: {IsDriving}";
-        }
-    }
 
     private IVelocity3DComponent _vehicleVelComp;
     [Export]
     private MeshInstance3D _vehicleGeometry;
+
+    [Export]
+    public Godot.Collections.Array<VehicleSeat> VehicleSeats { get; protected set; } = new();
+
+    //TODO: MAKE A NODE3D THAT CORRESPONDS TO ENTERABLE POSITIONS
 
     [Export]
     public Godot.Collections.Array<VehiclePosition> EnterablePositions { get; protected set; } = new Godot.Collections.Array<VehiclePosition>
@@ -68,13 +63,11 @@ public partial class VehicleOccupantComponent : Node
     public bool RandomizeInitialOccupants { get; protected set; } = false;
     [Export]
     public Godot.Collections.Array<PackedScene> StaticInitialOccupants { get; protected set; } = new();
-    public List<OccupantInfo> Occupants { get; protected set; } = new();
-    private Dictionary<CharacterBody3D, OccupantInfo> _occupantMap = new Dictionary<CharacterBody3D, OccupantInfo>();
+    public HashSet<Node3D> CurrentOccupants { get; protected set; } = new();
 
-
-    public event EventHandler<List<OccupantInfo>> OccupantsChanged;
-    public event EventHandler<OccupantInfo> OccupantEmbarked;
-    public event EventHandler<OccupantInfo> OccupantDisembarked;
+    public event EventHandler<List<VehicleSeat>> OccupantsChanged;
+    public event EventHandler<VehicleSeat> OccupantEmbarked;
+    public event EventHandler<VehicleSeat> OccupantDisembarked;
     #endregion
     #region COMPONENT_UPDATES
     public override void _Ready()
@@ -120,9 +113,6 @@ public partial class VehicleOccupantComponent : Node
 
                 break;
         }
-        
-
-
     }
     private void InitializeStaticOccupants()
     {
@@ -132,13 +122,19 @@ public partial class VehicleOccupantComponent : Node
             inst.Hide();
             AddChild(inst);
             // TODO: FIX INITIALizAION
-            var occInfo = new OccupantInfo
+            foreach (var seat in VehicleSeats)
             {
-                Occupant = inst,
-                PositionOccupied = GetOccupantEntryPosition(inst.GlobalPosition),
-                IsDriving = false // Default to not driving
-            };
-            Occupants.Add(inst);
+                if (!seat.IsOccupied)
+                {
+                    inst.Reparent(this);
+                    if (seat.IsDriverSeat)
+                    {
+                        HasDriver = true;
+                    }
+                    break;
+                }
+            }
+            CurrentOccupants.Add(inst);
             //if (AllowedOccupantTypesMap.ContainsKey(npcType) && AllowedOccupantTypesMap[npcType])
             //{
             // Create a new occupant and add it to the list
@@ -152,40 +148,39 @@ public partial class VehicleOccupantComponent : Node
     {
 
     }
-    public void DisembarkOccupant(CharacterBody3D occupant, bool isDriving)
+    public void DisembarkOccupant(CharacterBody3D occupant, VehicleSeat seat)
     {
-        if (isDriving && !HasDriver)
+        if (seat.IsDriverSeat && !HasDriver)
         {
             GD.Print("Vehicle does not have a driver to disembark.");
             return;
         }
-        if (occupant == null || !Occupants.Contains(occupant))
+        if (occupant == null || !CurrentOccupants.Contains(occupant))
         {
             GD.Print("Occupant not found or invalid for disembarking.");
             return;
-        
         }
 
-        var occInfo = _occupantMap[occupant];
-        occupant.GlobalPosition = GetVehiclePositionGlobal(occInfo.PositionOccupied); // Move occupant to their position before disembarking
-        Occupants.Remove(occInfo);
+        occupant.GlobalPosition = _vehicleGeometry.GlobalPosition + seat.EntrancePosition;
+        CurrentOccupants.Remove(occupant);
         //occupant.Reparent(Global.CurrentCity); // Remove from vehicle
         occupant.Show(); // Show the occupant after disembarking
-        if (isDriving)
+        if (seat.IsDriverSeat)
         {
             HasDriver = false; // Update driver status if the disembarked occupant was the driver
         }
-        OccupantDisembarked?.Invoke(this, occInfo);
+        OccupantDisembarked?.Invoke(this, seat);
     }
-
-    public void EmbarkOccupant(CharacterBody3D occupant, bool isDriving)
+    public void EmbarkOccupant(Node3D occupant, VehicleSeat seat)
     {
-        if (isDriving && HasDriver)
+        if (seat.IsDriverSeat && HasDriver)
         {
+            //TODO: Throw out driver??
             GD.Print("Vehicle already has a driver.");
             return;
         }
-        if (Occupants.Count >= MaxOccupants)
+        if (CurrentOccupants.Count >= MaxOccupants ||
+            seat.IsOccupied)
         {
             GD.Print("Cannot embark more occupants, maximum reached.");
             return;
@@ -195,75 +190,26 @@ public partial class VehicleOccupantComponent : Node
             GD.Print("Invalid occupant provided for embarking.");
             return;
         }
-        var occInfo = new OccupantInfo
-        {
-            Occupant = occupant,
-            PositionOccupied = GetOccupantEntryPosition(occupant.GlobalPosition),
-            IsDriving = isDriving
-        };
-        Occupants.Add(occInfo);
+        seat.Occupant = occupant;
+        CurrentOccupants.Add(occupant);
         occupant.Reparent(this);
         occupant.Hide();
-        if (isDriving)
+        if (seat.IsDriverSeat)
         {
             HasDriver = true; // Update driver status if the occupant is driving
         }
-        OccupantEmbarked?.Invoke(this, occInfo);
-    }
-    // TODO: FIX TO USE VEHICLE MESH
-    private VehiclePosition GetOccupantEntryPosition(Vector3 occPos)
-    {
-        var vehiclePos = _vehicleGeometry.GlobalPosition;
-        var occVehOffset = occPos - vehiclePos;
-
-        switch (occVehOffset)
-        {
-            case var offset when offset.X > 0 && offset.Z > 0:
-                return VehiclePosition.FrontRight;
-            case var offset when offset.X < 0 && offset.Z > 0:
-                return VehiclePosition.FrontLeft;
-            case var offset when offset.X > 0 && offset.Z < 0:
-                return VehiclePosition.BackRight;
-            case var offset when offset.X < 0 && offset.Z < 0:
-                return VehiclePosition.BackLeft;
-            case var offset when Math.Abs(offset.X) < 1f && Math.Abs(offset.Z) > 1f:
-                return VehiclePosition.MiddleRight;
-            case var offset when Math.Abs(offset.X) > 1f && Math.Abs(offset.Z) < 1f:
-                return VehiclePosition.MiddleLeft;
-            case var offset when Math.Abs(offset.X) < 1f && Math.Abs(offset.Z) < 1f:
-                return VehiclePosition.Trunk;
-            default:
-                return VehiclePosition.Hood; // Default position if none match
-        }
-    }
-    // TODO: FIX TO USE VEHICLE MESH
-    public Vector3 GetVehiclePositionGlobal(VehiclePosition desiredEntryPos)
-    {
-        switch (desiredEntryPos)
-        {
-            case VehiclePosition.FrontLeft:
-                return _vehicleGeometry.GlobalPosition + new Vector3(-1, 0, 1);
-            case VehiclePosition.FrontRight:
-                return _vehicleGeometry.GlobalPosition + new Vector3(1, 0, 1);
-            case VehiclePosition.BackLeft:
-                return _vehicleGeometry.GlobalPosition + new Vector3(-1, 0, -1);
-            case VehiclePosition.BackRight:
-                return _vehicleGeometry.GlobalPosition + new Vector3(1, 0, -1);
-            case VehiclePosition.MiddleLeft:
-                return _vehicleGeometry.GlobalPosition + new Vector3(-1, 0, 0);
-            case VehiclePosition.MiddleRight:
-                return _vehicleGeometry.GlobalPosition + new Vector3(1, 0, 0);
-            case VehiclePosition.Trunk:
-                return _vehicleGeometry.GlobalPosition + new Vector3(0, 0, -2);
-            case VehiclePosition.Hood:
-                return _vehicleGeometry.GlobalPosition + new Vector3(0, 0, 2);
-            default:
-                return _vehicleGeometry.GlobalPosition; // Default to vehicle's global position
-        }
+        OccupantEmbarked?.Invoke(this, seat);
     }
     public Vector3 GetDriverEntryPosition()
     {
-        return GetVehiclePositionGlobal(DriverEntryAnchor);
+        foreach (var seat in VehicleSeats)
+        {
+            if (seat.IsDriverSeat)
+            {
+                return seat.EntrancePosition;
+            }
+        }
+        return Vector3.Zero; // Default if no driver seat found
     }
     #endregion
     #region SIGNAL_LISTENERS
