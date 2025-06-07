@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://blojdtas0s7vn"]
+
+[ext_resource type="Texture2D" uid="uid://bev3x8873ja22" path="res://Areas/SanFrancisco/Environmental/Breakables/textures/tree01/breakable_foliage_tree_leaves.png" id="1_wmhxo"]
+[ext_resource type="Texture2D" uid="uid://dbgl5xqyobucq" path="res://Areas/SanFrancisco/Environmental/Breakables/textures/tree01/breakable_foliage_tree_leaves_n.png" id="2_x7mvw"]
+[ext_resource type="Texture2D" uid="uid://cgqp3ylm8n6ot" path="res://Areas/SanFrancisco/Environmental/Breakables/textures/tree01/breakable_foliage_tree_wood.png" id="3_51xtr"]
+[ext_resource type="Texture2D" uid="uid://q8430em8rr2h" path="res://Areas/SanFrancisco/Environmental/Breakables/textures/tree01/breakable_foliage_tree_wood_n.png" id="4_0eu1i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45ajb"]
+transparency = 1
+albedo_texture = ExtResource("1_wmhxo")
+normal_enabled = true
+normal_texture = ExtResource("2_x7mvw")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8a4hp"]
+transparency = 1
+albedo_texture = ExtResource("3_51xtr")
+normal_enabled = true
+normal_texture = ExtResource("4_0eu1i")
+texture_filter = 0
+
+[node name="tree01" type="Node3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="leaves" type="Sprite3D" parent="."]
+transform = Transform3D(5.65685, -4, 4, 0, 5.65685, 5.65685, -5.65685, -4, 4, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_45ajb")
+texture_filter = 0
+texture = ExtResource("1_wmhxo")
+
+[node name="wood" type="Sprite3D" parent="."]
+transform = Transform3D(5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, 5.65685, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_8a4hp")
+texture_filter = 0
+texture = ExtResource("3_51xtr")
