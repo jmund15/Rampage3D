@@ -1,14 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://b4txnrhpilv28"]
+[gd_scene load_steps=14 format=3 uid="uid://b4txnrhpilv28"]
 
 [ext_resource type="Script" uid="uid://ddbtl401bp0b0" path="res://Areas/City.cs" id="1_c11sx"]
 [ext_resource type="PackedScene" uid="uid://d05pbqeemoa5l" path="res://Monsters/rufus.tscn" id="2_rl7ty"]
-[ext_resource type="PackedScene" uid="uid://bd0dotu3315d" path="res://Vehicles/Implementation/sedan_navy.tscn" id="4_tvwt5"]
 [ext_resource type="PackedScene" uid="uid://cbalabpno75r7" path="res://Areas/SanFrancisco/Environmental/Breakables/streetlights/sanfran_streetlight.tscn" id="5_uhtyt"]
 [ext_resource type="PackedScene" uid="uid://my6dv11l4sdy" path="res://Areas/SanFrancisco/Environmental/Breakables/Bush/sanfran_bush.tscn" id="6_cduu1"]
 [ext_resource type="PackedScene" uid="uid://n8t3lf385ue3" path="res://BaseComponents/multiplayer_camera_3d_component.tscn" id="7_qlu8e"]
 [ext_resource type="PackedScene" uid="uid://ch47oeiqubnrc" path="res://Areas/SanFrancisco/CityFloor/Complete/sanfrancisco_floor.tscn" id="8_key24"]
-[ext_resource type="PackedScene" uid="uid://dhr1cyrw2bckn" path="res://Areas/All/Buildings/Complete/2x4x2_roof_reference.tscn" id="9_c11sx"]
 [ext_resource type="Texture2D" uid="uid://jnpro4t0hqig" path="res://Areas/SanFrancisco/CityFloor/Textures/floor_sanfrancisco_background.png" id="9_mcpux"]
+[ext_resource type="PackedScene" uid="uid://bb5q626ca8fac" path="res://Areas/All/Buildings/Complete/1x1x6_base_reference.tscn" id="10_rl7ty"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3whln"]
 
@@ -86,9 +85,6 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 
 [node name="Vehicles" type="Node3D" parent="."]
 
-[node name="SedanNavy" parent="Vehicles" instance=ExtResource("4_tvwt5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.829388, -4.76837e-07, -3.78376)
-
 [node name="Breakables" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
@@ -139,26 +135,33 @@ navigation_mesh = SubResource("NavigationMesh_g2dq6")
 
 [node name="BuildingTest" type="Node3D" parent="."]
 
-[node name="Building" parent="BuildingTest" instance=ExtResource("9_c11sx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.60628, 0, -4.58664)
+[node name="Building" parent="BuildingTest" instance=ExtResource("10_rl7ty")]
 BuildingLocationDir = "res://Areas//SanFrancisco//Buildings//Textures"
 _buildingLocDirIdx = 2
-BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse"
-_buildingTypeDirIdx = 15
+BuildingTypeDir = "res://Areas//SanFrancisco//Buildings//Textures//1x1x6_coitTower"
+_buildingTypeDirIdx = 9
 _buildingTypePropHint = "1x1x2_condo,1x1x2_lofthouse,1x1x2_residential,1x1x2_tilehouse,1x1x2_townhouse,1x1x3_apartment,1x1x3_duplexAngled,1x1x3_duplexFlat,1x1x3_urbanVilla,1x1x6_coitTower,1x2x3_apartmentAngled,1x2x3_apartmentFlat,1x2x3_mansion,1x2x3_stuccoFlat,2x2x2_school,2x4x2_dockWarehouse,32x64_school01"
 _floorTextureMap = Dictionary[int, String]({
-1: "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_base_dockWarehouse01_bot.png",
-2: "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_base_dockWarehouse02_top.png"
+1: "res://Areas//SanFrancisco//Buildings//Textures//1x1x6_coitTower//32x_base_coittower_bot.png",
+2: "res://Areas//SanFrancisco//Buildings//Textures//1x1x6_coitTower//32x_base_coittower_mid01.png",
+3: "res://Areas//SanFrancisco//Buildings//Textures//1x1x6_coitTower//32x_base_coittower_mid02.png",
+4: "res://Areas//SanFrancisco//Buildings//Textures//1x1x6_coitTower//32x_base_coittower_mid03.png",
+5: "res://Areas//SanFrancisco//Buildings//Textures//1x1x6_coitTower//32x_base_coittower_mid04.png",
+6: "res://Areas//SanFrancisco//Buildings//Textures//1x1x6_coitTower//32x_base_coittower_top.png"
 })
 _floorTextureIdxMap = Dictionary[int, int]({
 1: 0,
-2: 3
+2: 1,
+3: 2,
+4: 3,
+5: 4,
+6: 5
 })
-_floorPropHint = "64x128_base_dockWarehouse01_bot.png,64x128_base_dockWarehouse01_top.png,64x128_base_dockWarehouse02_bot.png,64x128_base_dockWarehouse02_top.png,64x128_base_dockWarehouse03_bot.png,64x128_base_dockWarehouse03_top.png"
-_roofTexture = "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse01.png"
-_availableRoofTexturePathMap = Dictionary[int, String]({
-0: "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse01.png",
-1: "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse02.png",
-2: "res://Areas//SanFrancisco//Buildings//Textures//2x4x2_dockWarehouse//64x128_roof_dockWarehouse03.png"
-})
-_roofPropHint = "64x128_roof_dockWarehouse01.png,64x128_roof_dockWarehouse02.png,64x128_roof_dockWarehouse03.png"
+_floorPropHint = "32x_base_coittower_bot.png,32x_base_coittower_mid01.png,32x_base_coittower_mid02.png,32x_base_coittower_mid03.png,32x_base_coittower_mid04.png,32x_base_coittower_top.png"
+"Building Location" = 2
+"Building Type" = 9
+"Floor 1" = 0
+"Floor 3" = 2
+"Floor 4" = 3
+"Floor 5" = 4
+"Floor 6" = 5

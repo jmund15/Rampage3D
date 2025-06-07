@@ -48,7 +48,7 @@ public partial class BuildingComponent : RigidBody3D
     private string _normalMapIdentifier = "_n";
 
     [Export]
-    private bool _haveRoofProperty;
+    private bool _haveRoofProperty = false;
     [Export]
     private string _roofTexture = "";
     private string _roofBuildingProp = "Roof";
@@ -61,7 +61,8 @@ public partial class BuildingComponent : RigidBody3D
     [Export]
     private string _roofPropHint = "";
     #endregion
-
+    [Export(PropertyHint.SaveFile, "*.tres")]
+    public string ResourceSavePath { get; private set; } = "res://Areas/BuildingResourceStorage/";
     [Export]
 	public bool Enterable { get; private set; }
     private MeshInstance3D _doorEntranceIndicator;
@@ -129,10 +130,15 @@ public partial class BuildingComponent : RigidBody3D
 
         _roofComp = GetNode<RoofComponent>("RoofComponent");
 
-        SetBuildingLocDirs();
-		SetBuildingTypeDirs();
-		SetFloorTextureFiles();
-		SetRoofTextureFiles();
+        //GD.Print($"before init calls, floor text map size: {_floorTextureMap.Count} ");
+
+        if (Engine.IsEditorHint())
+        {
+            SetBuildingLocDirs();
+            SetBuildingTypeDirs();
+            SetFloorTextureFiles();
+            SetRoofTextureFiles();
+        }
 
 		var floors = this.GetChildrenOfType<BuildingFloorComponent>().ToList();
 		_numFloors = floors.Count;
@@ -222,11 +228,13 @@ public partial class BuildingComponent : RigidBody3D
 		// Step 6: Set floor textures
 		if (!Engine.IsEditorHint())
 		{
-			SetTextures();
+            //NotifyPropertyListChanged();
+            SetTextures();
 		}
 		else
 		{
             NotifyPropertyListChanged();
+            SetTextures();
         }
 
 
@@ -555,7 +563,11 @@ public partial class BuildingComponent : RigidBody3D
 
 	private void SetTextures()
 	{
-		for (int i = 1; i <= _numFloors; i++)
+        //foreach(var _floorText in _floorTextureMap)
+        //{
+        //    GD.Print($"floor texture map: {_floorText.Key} => {_floorText.Value}");
+        //}
+        for (int i = 1; i <= _numFloors; i++)
 		{
 			var floor = _sortedFloors[i - 1];
 			var floorTexture = _floorTextureMap[i];
@@ -580,7 +592,13 @@ public partial class BuildingComponent : RigidBody3D
         }
 		if (_haveRoofProperty)
 		{
-			var roofText = ResourceLoader.Load<CompressedTexture2D>(_roofTexture);
+            if (_roofTexture == string.Empty || _roofTexture == null)
+            {
+                GD.PrintErr($"BuildingComponent SetTextures ERROR || Roof texture is not set for building {Name}!");
+                return;
+            }
+            //GD.Print($"Setting roof texture for building {Name} with texture: {_roofTexture}");
+            var roofText = ResourceLoader.Load<CompressedTexture2D>(_roofTexture);
 
 			_roofComp.Texture = roofText;
 
@@ -614,6 +632,8 @@ public partial class BuildingComponent : RigidBody3D
 
     private void SetBuildingLocDirs()
     {
+        _buildingLocationDirMap.Clear();
+
         //GD.Print($"building type root dir: {_buildingTypeRootDir}");
         // Check if the directory exists
         if (!DirAccess.DirExistsAbsolute(_buildingTypeRootDir))
@@ -624,31 +644,27 @@ public partial class BuildingComponent : RigidBody3D
         // Get all directories inside the specified directory
         string[] buildingTypeDirs = DirAccess.GetDirectoriesAt(BuildingTypeRootDir);
         _buildingLocPropHint = string.Empty;
+        int mapIdx = 0;
         // sep by commma
         for (int i = 0; i < buildingTypeDirs.Length; i++)
         {
             var dir = buildingTypeDirs[i];
             var absDir = BuildingTypeRootDir
                 + "//" + dir + "//" + _buildingLocDirIdentifier;
+            //GD.Print($"abs dir: {absDir}");
             if (DirAccess.DirExistsAbsolute(absDir))
             {
-                if (_buildingLocationDirMap.ContainsKey(i))
-                {
-                    _buildingLocationDirMap[i] = absDir;
-                }
-                else
-                {
-                    _buildingLocationDirMap.Add(i, absDir);
-                    //GD.Print($"added '{i}' to _buildingLocationDirMap.");
-                }
-
+                //GD.Print($"dir exists for abs dir: {absDir}");
+                _buildingLocationDirMap[mapIdx] = absDir;
                 _buildingLocPropHint += dir + ",";
+                mapIdx++;
             }
         }
         _buildingLocPropHint = _buildingLocPropHint.Remove(_buildingLocPropHint.Length - 1); // remove last comma
     }
     private void SetBuildingTypeDirs()
     {
+        _buildingTypeDirMap.Clear();
         if (!DirAccess.DirExistsAbsolute(BuildingLocationDir) || BuildingLocationDir == string.Empty)
         {
             GD.PrintErr($"BUILDING TYPE ERROR || Building Location @ '{BuildingLocationDir}' does not exist!");
@@ -667,17 +683,15 @@ public partial class BuildingComponent : RigidBody3D
         {
             var dir = textureDirs[i];
             var absDir = BuildingLocationDir + "//" + dir;
-            if (_buildingTypeDirMap.ContainsKey(i))
-            {
-                _buildingTypeDirMap[i] = absDir;
-            }
-            else { _buildingTypeDirMap.Add(i, absDir); }
+            _buildingTypeDirMap[i] = absDir;
             _buildingTypePropHint += dir + ",";
         }
         _buildingTypePropHint = _buildingTypePropHint.Remove(_buildingTypePropHint.Length - 1); // remove last comma
     }
     private void SetFloorTextureFiles()
     {
+        _availableFloorTexturePathMap.Clear();
+
         if (!DirAccess.DirExistsAbsolute(BuildingTypeDir) || BuildingTypeDir == string.Empty)
         {
             GD.PrintErr($"BUILDING TYPE ERROR || Building Type @ '{BuildingTypeDir}' does not exist!");
@@ -711,17 +725,15 @@ public partial class BuildingComponent : RigidBody3D
             var file = textureFiles[i];
 
             var absPath = BuildingTypeDir + "//" + file;
-            if (_availableFloorTexturePathMap.ContainsKey(i))
-            {
-                _availableFloorTexturePathMap[i] = absPath;
-            }
-            else { _availableFloorTexturePathMap.Add(i, absPath); }
+            _availableFloorTexturePathMap[i] = absPath;
+
             _floorPropHint += file + ",";
         }
         _floorPropHint = _floorPropHint.Remove(_floorPropHint.Length - 1); // remove last comma
     }
     private void SetRoofTextureFiles()
     {
+        _availableRoofTexturePathMap.Clear();
         if (_roofComp == null || _roofComp.RoofMesh == null || _roofComp.RoofMesh is BuildingFloorComponent)
         {
             _haveRoofProperty = false;
@@ -761,15 +773,13 @@ public partial class BuildingComponent : RigidBody3D
             var file = roofFiles[i];
 
             var absPath = BuildingTypeDir + "//" + file;
-            if (_availableRoofTexturePathMap.ContainsKey(i))
-            {
-                _availableRoofTexturePathMap[i] = absPath;
-            }
-            else { _availableRoofTexturePathMap.Add(i, absPath); }
+
+            _availableRoofTexturePathMap[i] = absPath;
             _roofPropHint += file + ",";
         }
         _roofPropHint = _roofPropHint.Remove(_roofPropHint.Length - 1); // remove last comma
         _haveRoofProperty = true;
+        GD.Print($"Set roof text to true for building {Name}");
     }
 
     public override bool _PropertyCanRevert(StringName property)
@@ -816,6 +826,9 @@ public partial class BuildingComponent : RigidBody3D
     }
     public override Godot.Collections.Array<Godot.Collections.Dictionary> _GetPropertyList()
     {
+        // This function is now 100% PURE. It only DESCRIBES properties.
+        // It DOES NOT check for defaults or modify ANY state.
+
         var properties = new Godot.Collections.Array<Godot.Collections.Dictionary>();
 
         if (!_buildingLocationDirMap.ContainsKey(0))
@@ -823,19 +836,26 @@ public partial class BuildingComponent : RigidBody3D
             //GD.PrintErr($"BUILDING LOCATION ERROR || Building Root @ '{_buildingTypeRootDir}' has no directories inside!");
             return properties;
         }
-        properties.Add(new Godot.Collections.Dictionary()
+
+        if (_buildingLocationDirMap.Count > 0)
+        {
+            properties.Add(new Godot.Collections.Dictionary()
             {
                 { "name", $"{_customBuildingLocPropName}" },
                 { "type", (int)Variant.Type.Int },
                 { "hint", (int)PropertyHint.Enum },
                 { "hint_string", $"{_buildingLocPropHint}" },
             });
-        if (BuildingLocationDir == string.Empty) // not set yet
-        {
-            GD.Print("INFO || BuildingLocationDir has not been set yet, defaulting...");
-            _buildingLocDirIdx = 0;
-            BuildingLocationDir = _buildingLocationDirMap[0];
         }
+                
+
+        //if (BuildingLocationDir == string.Empty) // not set yet
+        //{
+        //    GD.Print("INFO || BuildingLocationDir has not been set yet, defaulting...");
+        //    _buildingLocDirIdx = 0;
+        //    BuildingLocationDir = _buildingLocationDirMap[0];
+        //}
+
         //_Get(_customBuildingLocPropName);
         //_Set(_customBuildingLocPropName, _PropertyGetRevert(_customBuildingLocPropName));
         //GD.Print("added property: ", properties[properties.Count - 1]);
@@ -846,19 +866,25 @@ public partial class BuildingComponent : RigidBody3D
             //GD.PrintErr($"BUILDING LOCATION ERROR || Building Root @ '{_buildingTypeRootDir}' has no directories inside!");
             return properties;
         }
-        properties.Add(new Godot.Collections.Dictionary()
+
+        if (_buildingTypeDirMap.Count > 0)
+        {
+            properties.Add(new Godot.Collections.Dictionary()
             {
                 { "name", $"{_customBuildingTypePropName}" },
                 { "type", (int)Variant.Type.Int },
                 { "hint", (int)PropertyHint.Enum },
                 { "hint_string", $"{_buildingTypePropHint}" },
             });
-        if (BuildingTypeDir == string.Empty) // not set yet
-        {
-            GD.Print("INFO || BuildingTypeDir has not been set yet, defaulting...");
-            _buildingTypeDirIdx = 0;
-            BuildingTypeDir = _buildingTypeDirMap[0];
         }
+       
+        //if (BuildingTypeDir == string.Empty) // not set yet
+        //{
+        //    GD.Print("INFO || BuildingTypeDir has not been set yet, defaulting...");
+        //    _buildingTypeDirIdx = 0;
+        //    BuildingTypeDir = _buildingTypeDirMap[0];
+        //}
+
         //_Get(_customBuildingTypePropName);
         //_Set(_customBuildingTypePropName, _PropertyGetRevert(_customBuildingTypePropName));
         //GD.Print("added property: ", properties[properties.Count - 1]);
@@ -870,48 +896,66 @@ public partial class BuildingComponent : RigidBody3D
             //GD.PrintErr($"BUILDING LOCATION ERROR || Building Root @ '{_buildingTypeRootDir}' has no directories inside!");
             return properties;
         }
-        //GD.Print("propHint: ", propHint, "\nnum floors: ", _numFloors);
-        for (int i = 1; i <= _numFloors; i++)
+
+        if (_availableFloorTexturePathMap.Count > 0)
         {
-            properties.Add(new Godot.Collections.Dictionary()
+            //GD.Print("propHint: ", propHint, "\nnum floors: ", _numFloors);
+            for (int i = 1; i <= _numFloors; i++)
+            {
+                properties.Add(new Godot.Collections.Dictionary()
                 {
                     { "name", $"{_floorBuildingPropStart} {i}"},
                     { "type", (int)Variant.Type.Int },
                     { "hint", (int)PropertyHint.Enum },
                     { "hint_string", $"{_floorPropHint}" },
                 });
-            if (!_floorTextureIdxMap.ContainsKey(i) || !_floorTextureMap.ContainsKey(i)) // not set yet
-            {
-                GD.Print($"INFO || {_floorBuildingPropStart}{i} Texture has not been set yet, defaulting...");
-                if (!_floorTextureIdxMap.ContainsKey(i))
-                {
-                    if (_availableFloorTexturePathMap.ContainsKey(i - 1))
-                    {
-                        _floorTextureIdxMap.Add(i, i - 1);
-                    }
-                    else
-                    {
-                        _floorTextureIdxMap.Add(i, 0);
-                    }
-                }
-                if (!_floorTextureMap.ContainsKey(i))
-                {
-                    if (_availableFloorTexturePathMap.ContainsKey(i - 1))
-                    {
-                        _floorTextureMap.Add(i, _availableFloorTexturePathMap[i - 1]);
-                    }
-                    else
-                    {
-                        _floorTextureMap.Add(i, _availableFloorTexturePathMap[0]);
-                    }
-                }
-            }
-            //_Get($"{_floorBuildingPropStart} {i}");
-            //GD.Print("added property: ", properties[properties.Count - 1]);
-            //_Set($"{_floorBuildingPropStart} {i}", _PropertyGetRevert($"{_floorBuildingPropStart} {i}"));
-        }
 
-        if (_haveRoofProperty)
+                //if (!_floorTextureIdxMap.ContainsKey(i) || !_floorTextureMap.ContainsKey(i)) // not set yet
+                //{
+                //    GD.Print($"INFO || {_floorBuildingPropStart}{i} Texture has not been set yet, defaulting...");
+                //    if (!_floorTextureIdxMap.ContainsKey(i))
+                //    {
+                //        if (_availableFloorTexturePathMap.ContainsKey(i - 1))
+                //        {
+                //            _floorTextureIdxMap.Add(i, i - 1);
+                //        }
+                //        else
+                //        {
+                //            _floorTextureIdxMap.Add(i, 0);
+                //        }
+                //    }
+                //    if (!_floorTextureMap.ContainsKey(i))
+                //    {
+                //        if (_availableFloorTexturePathMap.ContainsKey(i - 1))
+                //        {
+                //            _floorTextureMap.Add(i, _availableFloorTexturePathMap[i - 1]);
+                //        }
+                //        else
+                //        {
+                //            _floorTextureMap.Add(i, _availableFloorTexturePathMap[0]);
+                //        }
+                //    }
+                //}
+
+                //foreach (var floorTextIdx in _floorTextureIdxMap)
+                //{
+                //    GD.Print($"AFTER CREATION: floor texture IDX map: {floorTextIdx.Key} => {floorTextIdx.Value}");
+                //}
+                //foreach (var floorText in _floorTextureMap)
+                //{
+                //    GD.Print($"AFTER CREATION: floor texture map: {floorText.Key} => {floorText.Value}");
+                //}
+
+                //_Get($"{_floorBuildingPropStart} {i}");
+                //GD.Print("added property: ", properties[properties.Count - 1]);
+                //_Set($"{_floorBuildingPropStart} {i}", _PropertyGetRevert($"{_floorBuildingPropStart} {i}"));
+            }
+        }
+        
+
+        
+
+        if (_haveRoofProperty && _availableRoofTexturePathMap.Count > 0)
         {
             // CHOOSE ROOF TEXTURES
             if (!_availableRoofTexturePathMap.ContainsKey(0))
@@ -927,21 +971,23 @@ public partial class BuildingComponent : RigidBody3D
                 { "hint", (int)PropertyHint.Enum },
                 { "hint_string", $"{_roofPropHint}" },
             });
-            if (_roofTexture == string.Empty) // not set yet
-            {
-                GD.Print("INFO || Roof Texture has not been set yet, defaulting...");
-                _roofTextureIdx = 0;
-                _roofTexture = _availableRoofTexturePathMap[0];
-            }
+
+            //if (_roofTexture == string.Empty) // not set yet
+            //{
+            //    GD.Print("INFO || Roof Texture has not been set yet, defaulting...");
+            //    _roofTextureIdx = 0;
+            //    _roofTexture = _availableRoofTexturePathMap[0];
+            //}
+
             //_Get($"{_floorBuildingPropStart} {i}");
             //GD.Print("added property: ", properties[properties.Count - 1]);
             //_Set($"{_floorBuildingPropStart} {i}", _PropertyGetRevert($"{_floorBuildingPropStart} {i}"));
         }
 
-        if (_sortedFloors.Count > 0)
-        {
-            SetTextures();
-        }
+        //if (_sortedFloors.Count > 0)
+        //{
+        //    SetTextures();
+        //}
 
         return properties;
     }
@@ -998,7 +1044,18 @@ public partial class BuildingComponent : RigidBody3D
         string propertyName = property.ToString();
         if (propertyName.Equals(_customBuildingLocPropName))
         {
-            if (!_buildingTypeDirMap.ContainsKey(value.AsInt32()))
+            // check if property is same as current value
+            if (_buildingLocDirIdx == value.AsInt32())
+            {
+                GD.Print("Building Location Dir is already set to: ", value.AsInt32(), "; not setting, returning...");
+                return true;
+            }
+            else
+            {
+                GD.Print($"Setting Building Location Dir to: {value.AsInt32()} for building: {Name}");
+            }
+
+            if (!_buildingLocationDirMap.ContainsKey(value.AsInt32()))
             {
                 SetBuildingLocDirs();
             }
@@ -1007,45 +1064,71 @@ public partial class BuildingComponent : RigidBody3D
 
             // default building type and textures
             _buildingTypeDirMap.Clear();
-            SetBuildingTypeDirs();
-
             _buildingTypeDirIdx = 0;
-            BuildingTypeDir = _buildingTypeDirMap[_buildingTypeDirIdx];
 
             _floorTextureIdxMap.Clear();
             _floorTextureMap.Clear();
+            GD.Print("On BuildingLoc set, Clearing floor texture map and idx map for building: ", Name);
             _roofTexture = string.Empty;
             _roofTextureIdx = 0;
 
-            SetFloorTextureFiles();
-            SetRoofTextureFiles();
+            SetBuildingTypeDirs();
+
+            // Set Defaults
+            if (_buildingTypeDirMap.Count > 0)
+            {
+                BuildingTypeDir = _buildingTypeDirMap[_buildingTypeDirIdx];
+                SetFloorTextureFiles();
+                SetRoofTextureFiles();
+
+                // *** SET NEW DEFAULTS HERE, INSIDE _Set ***
+                SetFloorDefaults();
+            }
 
             NotifyPropertyListChanged();
-            //SetFloorTextures();
+            SetTextures();
             return true;
         }
         else if (propertyName.Equals(_customBuildingTypePropName))
         {
+            // check if property is same as current value
+            if (_buildingTypeDirIdx == value.AsInt32())
+            {
+                GD.Print("Building Type Dir is already set to: ", value.AsInt32(), "; not setting, returning...");
+                return true;
+            }
+            else
+            {
+                GD.Print($"Setting Building Type Dir to: {value.AsInt32()} for building: {Name}");
+            }
+
             if (!_buildingTypeDirMap.ContainsKey(value.AsInt32()))
             {
                 SetBuildingTypeDirs();
             }
             _buildingTypeDirIdx = value.AsInt32();
             BuildingTypeDir = _buildingTypeDirMap[value.AsInt32()];
+
+
             _floorTextureIdxMap.Clear();
             _floorTextureMap.Clear();
+            GD.Print("On BuildingType Set, Clearing floor texture map and idx map for building: ", Name);
             _roofTexture = string.Empty;
             _roofTextureIdx = 0;
 
             SetFloorTextureFiles();
             SetRoofTextureFiles();
 
+            // *** SET NEW DEFAULTS HERE, INSIDE _Set ***
+            SetFloorDefaults();
+
             NotifyPropertyListChanged();
-            //SetFloorTextures();
+            SetTextures();
             return true;
         }
         else if (propertyName.StartsWith(_floorBuildingPropStart))
         {
+            //GD.Print($"Setting: {propertyName} and value: {value.AsInt32()}");
             if (!_availableFloorTexturePathMap.ContainsKey(value.AsInt32()))
             {
                 SetFloorTextureFiles();
@@ -1056,32 +1139,40 @@ public partial class BuildingComponent : RigidBody3D
                 return false;
             }
             //GD.Print("SETTING FLOOR PROP: ", propertyName);
-            var texture = _availableFloorTexturePathMap[value.AsInt32()];
-            // don't do 'Length - 1' bc of space
+
+
             int floorNum = int.Parse(propertyName.Substring(_floorBuildingPropStart.Length));
+            // Check if value is already set to the current texture index
+            if (_floorTextureIdxMap.TryGetValue(floorNum, out int currentIdx) && currentIdx == value.AsInt32()) return true;
 
             //GD.Print($"Changed floor {floorNum}'s texture to: {texture}");
+            if (!_availableFloorTexturePathMap.ContainsKey(value.AsInt32()))
+            {
+                GD.PrintErr($"FLOOR SET ERROR || Don't have floor text {value.AsInt32()}");
+                return false;
+            }
+            var texture = _availableFloorTexturePathMap[value.AsInt32()];
 
-            if (_floorTextureMap.ContainsKey(floorNum))
-            {
-                _floorTextureIdxMap[floorNum] = value.AsInt32();
-                _floorTextureMap[floorNum] = texture;
-            }
-            else
-            {
-                _floorTextureIdxMap.Add(floorNum, value.AsInt32());
-                _floorTextureMap.Add(floorNum, texture);
-            }
-            NotifyPropertyListChanged();
-            //SetFloorTextures();
+
+            _floorTextureIdxMap[floorNum] = value.AsInt32();
+            _floorTextureMap[floorNum] = texture;
+            //GD.Print($"Set floor {floorNum} with texture: {texture} to building: {Name}");
+
+            //DON'T CALL NotifyPropertyListChanged(), THIS IS NOT A STRUCTURAL EDIToR CHANGE AND JUst A VALUE CHANGE
+            //NotifyPropertyListChanged();
+
+            SetTextures();
             return true;
         }
         else if (propertyName.Equals(_roofBuildingProp))
         {
-            if (!_haveRoofProperty)
+            if (!_haveRoofProperty //||
+                /*!_availableRoofTexturePathMap.ContainsKey(value.AsInt32())*/)
             {
                 return false;
             }
+            if (_roofTextureIdx == value.AsInt32()) return true;
+
             if (!_availableRoofTexturePathMap.ContainsKey(value.AsInt32()))
             {
                 SetRoofTextureFiles();
@@ -1091,15 +1182,43 @@ public partial class BuildingComponent : RigidBody3D
                 GD.PrintErr($"ROOF SET ERROR on '{Name}' || Don't have roof text {value.AsInt32()}");
                 return false;
             }
+
             _roofTextureIdx = value.AsInt32();
             _roofTexture = _availableRoofTexturePathMap[value.AsInt32()];
 
-            NotifyPropertyListChanged();
+            //NotifyPropertyListChanged();
+            SetTextures(); // Apply visual change, like floor num change, not a structural change
             return true;
         }
         return false;
         //return base._Set(property, value);
     }
+
+    private void SetFloorDefaults()
+    {
+        // *** SET NEW DEFAULTS HERE, INSIDE _Set ***
+        for (int i = 1; i <= _numFloors; i++)
+        {
+            int defaultIndex = Math.Min(i - 1, _availableFloorTexturePathMap.Count - 1);
+            if (defaultIndex < 0) continue; // No textures available
+            _floorTextureIdxMap[i] = defaultIndex;
+            _floorTextureMap[i] = _availableFloorTexturePathMap[defaultIndex];
+        }
+        if (_haveRoofProperty && _availableRoofTexturePathMap.Count > 0)
+        {
+            _roofTextureIdx = 0;
+            _roofTexture = _availableRoofTexturePathMap[0];
+        }
+        foreach (var floorText in _floorTextureMap)
+        {
+            GD.Print($"AFTER SET DEFAULTS: floor texture map: {floorText.Key} => {floorText.Value}");
+        }
+        foreach (var floorTextIdx in _floorTextureIdxMap)
+        {
+            GD.Print($"AFTER SET DEFAULTS: floor texture IDX map: {floorTextIdx.Key} => {floorTextIdx.Value}");
+        }
+    }
+
     private void OnChildEnteredBuilding(Node node)
     {
         if (!Engine.IsEditorHint()) { return; }
