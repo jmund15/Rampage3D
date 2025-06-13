@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using Godot.Collections;
 
 [GlobalClass, Tool]
@@ -16,7 +16,7 @@ public partial class Area : Node3D
 			{
 				//EditorInterface.Singleton.CallDeferred(EditorInterface.MethodName.EditNode, child);
 				//EditorInterface.Singleton.EditNode(building);
-				EditorInterface.Singleton.GetSelection().AddNode(building);
+				//EditorInterface.Singleton.GetSelection().AddNode(building);
 				//GD.Print("editing building: ", building.Name);
 			}
 		}

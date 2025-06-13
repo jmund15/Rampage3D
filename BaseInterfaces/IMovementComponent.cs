@@ -136,16 +136,16 @@ public static partial class MovementExtensions
         {
             case Dir4.Left:
                 return new Vector2(-1f, 0f).Normalized();
-                //return new Vector2(-0.707f, -0.707f).Normalized().Normalized();
+            //return new Vector2(-0.707f, -0.707f).Normalized().Normalized();
             case Dir4.Up:
                 return new Vector2(0f, -1f).Normalized();
-                //return new Vector2(0.707f, -0.707f).Normalized();
+            //return new Vector2(0.707f, -0.707f).Normalized();
             case Dir4.Down:
                 return new Vector2(0f, 1f).Normalized();
-                //return new Vector2(-0.707f, 0.707f).Normalized();
+            //return new Vector2(-0.707f, 0.707f).Normalized();
             case Dir4.Right:
                 return new Vector2(1f, 0f).Normalized();
-                //return new Vector2(0.707f, 0.707f).Normalized();
+            //return new Vector2(0.707f, 0.707f).Normalized();
             default:
                 throw new Exception($"ORTHOG DIR: {orthogDir} GAVE NO VECTOR??");
         }
@@ -307,8 +307,9 @@ public static partial class MovementExtensions
     }
     #endregion
     #region VELOCITY_EXTENSIONS
+
     public const float DEFAULT_WEIGHT_PERCENTAGE = 0.075f;
-    public static Vector3 GetWeightedGravity(this CharacterBody3D body, 
+    public static Vector3 GetWeightedGravity(this CharacterBody3D body,
         float weightPercentage = DEFAULT_WEIGHT_PERCENTAGE)
     {
         Vector3 weightedGrav;
@@ -916,6 +917,14 @@ public static partial class MovementExtensions
     public static Dir8 GetDir8(this Dir4 dir)
     {
         return Dir4To8Map[dir];
+    }
+    public static Vector3 GetVector3(this Vector2 vec2)
+    {
+        return new Vector3(vec2.X, 0f, vec2.Y);
+    }
+    public static Vector2 GetVector2(this Vector3 vec3)
+    {
+        return new Vector2(vec3.X, vec3.Z);
     }
 }
 

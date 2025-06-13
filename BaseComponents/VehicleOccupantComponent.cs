@@ -22,25 +22,27 @@ public partial class VehicleOccupantComponent : Node
 
     private IVelocity3DComponent _vehicleVelComp;
     [Export]
-    private MeshInstance3D _vehicleGeometry;
+    public MeshInstance3D VehicleGeometry { get; private set; }
 
     [Export]
     public Godot.Collections.Array<VehicleSeat> VehicleSeats { get; protected set; } = new();
 
     //TODO: MAKE A NODE3D THAT CORRESPONDS TO ENTERABLE POSITIONS
 
-    [Export]
-    public Godot.Collections.Array<VehiclePosition> EnterablePositions { get; protected set; } = new Godot.Collections.Array<VehiclePosition>
-    {
-        VehiclePosition.FrontLeft,
-        VehiclePosition.FrontRight,
-        VehiclePosition.BackLeft,
-        VehiclePosition.BackRight,
-        VehiclePosition.MiddleLeft,
-        VehiclePosition.MiddleRight,
-        VehiclePosition.Trunk,
-        VehiclePosition.Hood
-    };
+    //[Export]
+    //public Godot.Collections.Dictionary<VehiclePosition, Vector3> EnterablePositions { get; protected set; } =
+    //    new Godot.Collections.Dictionary<VehiclePosition, Vector3>
+    //{
+    //        { VehiclePosition.FrontLeft, new Vector3(-1, 0, 2) },
+    //        { VehiclePosition.FrontRight, new Vector3(1, 0, 2) },
+    //        { VehiclePosition.BackLeft, new Vector3(-1, 0, -2) },
+    //        { VehiclePosition.BackRight, new Vector3(1, 0, -2) },
+    //        { VehiclePosition.MiddleLeft, new Vector3(-1, 0, 0) },
+    //        { VehiclePosition.MiddleRight, new Vector3(1, 0, 0) },
+    //        { VehiclePosition.Trunk, new Vector3(0, 0, -3) },
+    //        { VehiclePosition.Hood, new Vector3(0, 0, 3) }
+    //};
+
     [Export]
     public VehiclePosition DriverEntryAnchor { get; protected set; } = VehiclePosition.FrontLeft; // Default entry point for the driver
     [Export]
@@ -98,9 +100,43 @@ public partial class VehicleOccupantComponent : Node
 	public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
-	}
-	#endregion
-	#region COMPONENT_HELPER
+        if (Engine.IsEditorHint())
+        {
+            foreach (var seat in VehicleSeats)
+            {
+                if (seat == null) { continue; }
+                DrawSeatEntrancePoint(seat);
+            }
+        }
+    }
+    #endregion
+    #region COMPONENT_HELPER
+    public bool HasOpenSeat()
+    {
+        return VehicleSeats.Any(seat => !seat.IsOccupied);
+    }
+    public bool HasOpenDriverSeat()
+    {
+        return VehicleSeats.Any(seat => seat.IsDriverSeat && !seat.IsOccupied);
+    }
+    private void DrawSeatEntrancePoint(VehicleSeat seat)
+    {
+        var _time = Time.GetTicksMsec() / 1000.0f;
+        //var sphere = _doorEntranceIndicator.Mesh as SphereMesh;
+        //sphere.Radius = 0.25f * Mathf.Sin(_time * 2f);
+        //sphere.Height = sphere.Radius * 2;
+        //_doorEntranceIndicator.GlobalPosition = new Vector3(
+        //    _doorEntranceIndicator.GlobalPosition.X, 0, _doorEntranceIndicator.GlobalPosition.Z);
+
+        //DoorEntranceOffset = new Vector2(
+        //    _doorEntranceIndicator.Position.X, _doorEntranceIndicator.Position.Z);
+        var pointRadius = Mathf.Abs(0.02f/*1f*/ * Mathf.Sin(_time * 4f)) + 0.15f;
+        var pointLoc = VehicleGeometry.GlobalPosition +
+            new Vector3(seat.EntrancePosition.X, pointRadius, seat.EntrancePosition.Y);
+        DebugDraw3D.DrawSphere(pointLoc, pointRadius, seat.SeatIndColor);
+        //GD.Print("DRAWING SEAT THINGY!");
+        //DebugDraw3D.DrawBox(pointLoc, new Quaternion(), new Vector3(pointRadius, pointRadius, pointRadius), seat.SeatIndColor);
+    }
     private void RandomizeOccupants()
     {
         int numInitOccupants = GD.RandRange(1, MaxOccupants);
@@ -161,7 +197,7 @@ public partial class VehicleOccupantComponent : Node
             return;
         }
 
-        occupant.GlobalPosition = _vehicleGeometry.GlobalPosition + seat.EntrancePosition;
+        occupant.GlobalPosition = VehicleGeometry.GlobalPosition + seat.EntrancePosition.GetVector3();
         CurrentOccupants.Remove(occupant);
         //occupant.Reparent(Global.CurrentCity); // Remove from vehicle
         occupant.Show(); // Show the occupant after disembarking
@@ -204,9 +240,10 @@ public partial class VehicleOccupantComponent : Node
     {
         foreach (var seat in VehicleSeats)
         {
+            if (seat == null) { continue; }
             if (seat.IsDriverSeat)
             {
-                return seat.EntrancePosition;
+                return seat.EntrancePosition.GetVector3();
             }
         }
         return Vector3.Zero; // Default if no driver seat found

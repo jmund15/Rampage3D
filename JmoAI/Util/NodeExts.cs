@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using Godot.Collections;
 using System;
 using System.Collections.Generic;
@@ -56,6 +56,37 @@ public static partial class NodeExts
                 if (cursor is T castedNode)
                     return castedNode;
                 nodesToParse.AddRange(cursor.GetChildren());
+            }
+        }
+
+        return null;
+    }
+    public static T GetFirstChildOfTypeWQueue<T>(this Node root, bool includeSubChildren = true) where T : Node
+    {
+        if (!includeSubChildren)
+        {
+            Array<Node> children = root.GetChildren();
+            foreach (var node in children)
+            {
+                if (node is T castedNode)
+                    { return castedNode; }
+            }
+        }
+        else
+        {
+            var nodesToParse = new Queue<Node>(root.GetChildren());
+
+            while (nodesToParse.Count > 0)
+            {
+                // Dequeue is an O(1) operation - very fast!
+                var cursor = nodesToParse.Dequeue();
+                if (cursor is T castedNode)
+                    { return castedNode; }
+                // Enqueue each child to be processed later.
+                foreach (var child in cursor.GetChildren())
+                {
+                    nodesToParse.Enqueue(child);
+                }
             }
         }
 

@@ -54,7 +54,7 @@ public partial class VelocityBody3DAIConsideration : AIEntityConsideration3D
     }
     public override Dictionary<Vector3, float> GetConsiderationVector(IAIDetector3D detector)
     {
-        GD.Print("GETTING VELOCITY BODY CONSIDERATION");
+        //GD.Print("GETTING VELOCITY BODY CONSIDERATION");
         _agentPosition = Agent.GlobalPosition;
         _agentVelocity = (Agent as IVelocity3DComponent).GetVelocity();
         _considDirections = AINav.AIRayDetector.Directions; // Use the definitive list

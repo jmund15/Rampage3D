@@ -6,10 +6,14 @@ using System.Linq;
 [GlobalClass, Tool]
 public partial class City : Node3D
 {
-	#region COMPONENT_VARIABLES
-	public List<Area3D> VehicleExitAreas { get; private set; }
-	public List<Area3D> CivilianExitAreas { get; private set; }
+    #region COMPONENT_VARIABLES
     public List<BuildingComponent> Buildings { get; private set; }
+    public List<VehicleOccupantComponent> OccupiableVehicles { get; private set; }
+
+    public List<Area3D> VehicleExitAreas { get; private set; }
+	public List<Area3D> CivilianExitAreas { get; private set; }
+
+
 	public List<Area3D> VehicleParkingAreas { get; private set; }
 	public List<Area3D> CivilianHubAreas { get; private set; }
     #endregion
@@ -17,14 +21,18 @@ public partial class City : Node3D
     public override void _Ready()
 	{
 		base._Ready();
-		Buildings = this.GetChildrenOfType<BuildingComponent>().ToList();
+		//GetTree().CallGroup(Global.BUILDING_GROUP_NAME, MethodName."");
+        //GetTree().GetNodesInGroup
+        //Buildings = this.GetAllChildrenNodesInGroup(Global.BUILDING_GROUP_NAME, true);
+        Buildings = this.GetChildrenOfType<BuildingComponent>().ToList();
+        OccupiableVehicles = this.GetChildrenOfType<VehicleOccupantComponent>().ToList();
         if (Engine.IsEditorHint())
 		{
 			foreach (var building in Buildings)
 			{
                 //EditorInterface.Singleton.CallDeferred(EditorInterface.MethodName.EditNode, child);
                 //EditorInterface.Singleton.EditNode(building);
-				EditorInterface.Singleton.GetSelection().AddNode(building);
+				//EditorInterface.Singleton.GetSelection().AddNode(building);
                 //GD.Print("editing building: ", building.Name);
             }
         }
@@ -39,6 +47,107 @@ public partial class City : Node3D
 	}
 	#endregion
 	#region COMPONENT_HELPER
+
+    // TODO: MOVE TO SUB COMPONENT OF CITY!! Then have city have a nullable ref to it
+
+    /// <summary>
+    /// A manager node responsible for efficiently finding vehicles using Godot's
+    /// built-in physics engine for spatial queries.
+    /// </summary>
+    // By exporting this, you can easily tweak the search radius from the Godot editor.
+    [Export]
+    public float VehicleSearchRadius { get; set; } = 200.0f;
+
+    // We define the collision layer for vehicles here. It must match the layer
+    // you set up in Project Settings (e.g., Layer 2).
+    private const int VehicleCollisionLayer = 2;
+
+    /// <summary>
+    /// Finds the closest "Available" vehicle to a given position.
+    /// </summary>
+    /// <param name="userPosition">The 3D world position to search from.</param>
+    /// <returns>The closest available Vehicle node, or null if none are found.</returns>
+    public VehicleOccupantComponent FindClosestAvailableVehicle(Vector3 userPosition, bool needsToBeDriver = false,
+        bool isCivilian = true)
+    {
+        // --- Step 1: Access the physics world ---
+        // GetWorld3D().DirectSpaceState gives us access to low-level, high-performance
+        // physics queries that don't require creating temporary physics bodies.
+        var spaceState = GetWorld3D().DirectSpaceState;
+
+        // --- Step 2: Define the search area (our "net") ---
+        // We will query for any objects intersecting with a sphere.
+        var queryShape = new SphereShape3D { Radius = VehicleSearchRadius };
+
+        // --- Step 3: Configure the query parameters ---
+        var query = new PhysicsShapeQueryParameters3D
+        {
+            // Set the shape we are querying with.
+            Shape = queryShape,
+
+            // Set the shape's position and orientation in the world.
+            // We want the sphere to be centered on the user.
+            Transform = new Transform3D(Basis.Identity, userPosition),
+
+            // **THIS IS THE KEY TO EFFICIENCY**
+            // We set a collision mask to ONLY check against the layer where our
+            // vehicles reside. This tells the physics engine to ignore everything else
+            // (the ground, buildings, players, etc.), making the query much faster.
+            // The mask is a bitmask. (1 << 0) is layer 1, (1 << 1) is layer 2, etc.
+            CollisionMask = 1 << (VehicleCollisionLayer - 1),
+        };
+
+        // --- Step 4: Execute the query ---
+        // IntersectShape is extremely fast. It leverages the engine's internal BVH
+        // (Bounding Volume Hierarchy) to quickly discard large parts of the world
+        // that are too far away.
+        // It returns an array of dictionaries, one for each object found.
+        Array<Dictionary> intersectingObjects = spaceState.IntersectShape(query);
+
+        // If the initial, broad-phase query found nothing, we can stop immediately.
+        if (intersectingObjects.Count == 0)
+        {
+            GD.Print($"No vehicles found within {VehicleSearchRadius}m.");
+            return null;
+        }
+
+        // --- Step 5: Process the results to find the best match ---
+        // Now we have a small list of candidates. We can process this short list in C#.
+        VehicleOccupantComponent closestAvailableVehicle = intersectingObjects
+            // The actual node is stored in the "collider" key of the result dictionary.
+            .Select(resultDict => resultDict["collider"].As<Node>())
+
+            // Safely cast to our Vehicle type and filter out any other objects that might
+            // have been on the same layer by mistake.
+            //.OfType<RigidBody3D>()
+            //.Where(vehicle => vehicle.GetFirstChildOfType<VehicleOccupantComponent>() is VehicleOccupantComponent voc)
+            .Select(vehicle => vehicle.GetFirstChildOfType<VehicleOccupantComponent>(false))
+            .Where(voc => voc != null) // Filter out cases where vehicles can't be occupied
+
+            // From the remaining candidates, filter for only those that have open seats available.
+            .Where(voc => voc.HasOpenSeat())
+
+            // If the caller is needing to be a driver, filter as such
+            .Where(voc => !needsToBeDriver || voc.HasOpenDriverSeat())
+
+            // If the caller is a civilian, filter as such
+            .Where(voc => !isCivilian || voc.VehicleType == NpcType.Critter)
+
+            // Now, on this very small, pre-filtered list, we do the precise distance check.
+            // We use DistanceSquaredTo because it avoids a costly square root operation,
+            // making the sort slightly faster. The relative order is the same.
+            .OrderBy(voc => voc.VehicleGeometry.GlobalPosition.DistanceSquaredTo(userPosition))
+            // Finally, select the first one in the sorted list.
+            .FirstOrDefault();
+
+        // --- Step 6: Return the result ---
+        if (closestAvailableVehicle == null)
+        {
+            GD.Print("Found vehicles in radius, but none were available.");
+        }
+
+        return closestAvailableVehicle;
+    }
 	#endregion
 	#region SIGNAL_LISTENERS
 	#endregion

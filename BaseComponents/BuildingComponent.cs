@@ -61,6 +61,8 @@ public partial class BuildingComponent : RigidBody3D
     [Export]
     private string _roofPropHint = "";
     #endregion
+    #region MAIN_PROPS
+    [ExportGroup("Main Building Properties")]
     [Export(PropertyHint.SaveFile, "*.tres")]
     public string ResourceSavePath { get; private set; } = "res://Areas/BuildingResourceStorage/";
     [Export]
@@ -108,9 +110,10 @@ public partial class BuildingComponent : RigidBody3D
 
 	public event EventHandler BuildingCollapse;
 	public event EventHandler BuildingDestroyed;
-	#endregion
-	#region COMPONENT_UPDATES
-	public override void _Ready()
+    #endregion
+    #endregion
+    #region COMPONENT_UPDATES
+    public override void _Ready()
 	{
 		base._Ready();
         //_doorEntranceIndicator = GetNode<MeshInstance3D>("DoorEntranceIndicator");

@@ -104,16 +104,16 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
         // VEHICLE DRIVING LOGIC
         var velProps = VelocityProperties.VelocityIds[0];
 
-        GD.Print($"\nForward Dir: {forwardFacingDir}" +
-            $"\nDesired Dir: {desiredDir}");
+        //GD.Print($"\nForward Dir: {forwardFacingDir}" +
+        //    $"\nDesired Dir: {desiredDir}");
 
         
 
         // compare front of vehicle to desired direction
         var desiredDirAngle = desiredDir.AngleTo(forwardFacingDir);
         var signedAngle = forwardFacingDir.SignedAngleTo(desiredDir, Vector3.Up);
-        GD.Print($"Desired dir angle: {Mathf.RadToDeg(desiredDirAngle)}" +
-            $"\nSigned angle: {Mathf.RadToDeg(signedAngle)}");
+        //GD.Print($"Desired dir angle: {Mathf.RadToDeg(desiredDirAngle)}" +
+        //    $"\nSigned angle: {Mathf.RadToDeg(signedAngle)}");
 
         // get dot product of facing and desired direction
         // higher the dot product, the more aligned they are, thus more force is applied
@@ -166,9 +166,9 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
 
             ApplyForce(clampedReverseDir * accelPercent * accel, forceLoc);
 
-            GD.Print($"\nreverse accel percent {accelPercent}" +
-                $"\ndesired reverse dir: {desiredReverseDir}" +
-                $"\nactual reverse dir: {clampedReverseDir}");
+            //GD.Print($"\nreverse accel percent {accelPercent}" +
+            //    $"\ndesired reverse dir: {desiredReverseDir}" +
+            //    $"\nactual reverse dir: {clampedReverseDir}");
             return;
         }
 
@@ -182,8 +182,8 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
         //0.5f is 90 degree turn, so clamp speed min at that
         var speedMult = Global.Remap(clampedDot, minDot, 1f, minSpeedMult, 1f); 
 
-        GD.Print($"Desired dir dot prod: {forwardDesDot}" +
-            $"\nspeed Mult: {speedMult}");
+        //GD.Print($"Desired dir dot prod: {forwardDesDot}" +
+        //    $"\nspeed Mult: {speedMult}");
 
         // only allow driving in slight arc
         var maxDrivingTurnAngle = Mathf.DegToRad(30f);
@@ -216,8 +216,8 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
         var minDriveDot = Mathf.Cos(maxDrivingTurnAngle);
         speedMult = Global.Remap(driveDot, minDriveDot, 1f, minSpeedMult, 1f);
 
-        GD.Print($"final driving dir: {drivingDir}" +
-            $"\ndriving dot prod: {driveDot}");
+        //GD.Print($"final driving dir: {drivingDir}" +
+        //    $"\ndriving dot prod: {driveDot}");
 
        
 
@@ -258,12 +258,12 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
         // Convert global velocity to local
         Vector3 localVelocity = Transform.Basis.Inverse() * state.LinearVelocity;
         var lateralVelocity = localVelocity.Z;
-        GD.Print("\ncurr lateral movement: ", lateralVelocity);
+        //GD.Print("\ncurr lateral movement: ", lateralVelocity);
 
         var maxSpeed = VelocityProperties.VelocityIds[0].MaxSpeed;
         var lateralDamping = Global.Remap(localVelocity.Length(), 0f, maxSpeed, LateralFriction.X, LateralFriction.Y);
-        GD.Print($"lateral damping: {lateralDamping}" +
-            $"curr vel: {localVelocity.Length()}");
+        //GD.Print($"lateral damping: {lateralDamping}" +
+        //    $"curr vel: {localVelocity.Length()}");
 
         float damping = Mathf.Pow(lateralDamping, state.Step / (1f / 60f));
         localVelocity.Z *= damping;
@@ -271,7 +271,7 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
 
         // Convert back to global and set
         state.LinearVelocity = Transform.Basis * localVelocity;
-        GD.Print($"new lateral movement: {localVelocity.Z}");
+        //GD.Print($"new lateral movement: {localVelocity.Z}");
 
 
         //// Example: More grip at low speed, less at high speed

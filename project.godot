@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Clonepage"
-run/main_scene="uid://b4txnrhpilv28"
+run/main_scene="uid://db3qdmpdrqbwh"
 config/features=PackedStringArray("4.4", "C#", "Mobile")
 config/icon="res://icon.svg"
 
@@ -36,6 +36,9 @@ import/blender/enabled=false
 Street=""
 FullNav=""
 NavObstacle=""
+Vehicle=""
+OccupiableVehicle=""
+Building=""
 
 [input]
 

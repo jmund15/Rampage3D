@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bd0dotu3315d"]
+[gd_scene load_steps=18 format=3 uid="uid://bd0dotu3315d"]
 
 [ext_resource type="PackedScene" uid="uid://bk2raes43i7w6" path="res://Vehicles/Implementation/base_vehicle_ground.tscn" id="1_br7v3"]
 [ext_resource type="Script" uid="uid://bds5ojs2wkd4a" path="res://BaseResources/ImpulseIDResource.cs" id="2_4bqeu"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dygwyddjwbtfu" path="res://BaseResources/Char3DVelocityProperties.cs" id="4_gl2g4"]
 [ext_resource type="Resource" uid="uid://ci08j22roogiq" path="res://Vehicles/VelocityProps/sedan_vel.tres" id="4_ngt3q"]
 [ext_resource type="Resource" uid="uid://lm7aylicfaet" path="res://Vehicles/AIConsiderations/sedan_monster_consid.tres" id="9_gl2g4"]
+[ext_resource type="Script" uid="uid://bsfupmwgt5bmp" path="res://BaseResources/VehicleSeat.cs" id="10_7u2ev"]
 
 [sub_resource type="Resource" id="Resource_ngt3q"]
 script = ExtResource("4_gl2g4")
@@ -16,41 +17,70 @@ ImpulseIds = Array[ExtResource("2_4bqeu")]([])
 VelocityIds = Array[ExtResource("3_ngt3q")]([ExtResource("4_ngt3q")])
 metadata/_custom_type_script = "uid://dygwyddjwbtfu"
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_767aj"]
-points = PackedVector3Array(-0.4375, 0.0625, -0.1875, -0.4375, 0.0625, 0.125, -0.4375, 0.187476, -0.1875, 0.5, 0.0625, -0.1875, -0.4375, 0.187476, 0.125, 0.5, 0.0625, 0.125, -0.0625367, 0.3125, -0.1875, 0.5, 0.187476, -0.1875, -0.0625367, 0.3125, 0.125, 0.5, 0.187476, 0.125, 0.312427, 0.3125, -0.1875, 0.312427, 0.3125, 0.125)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xo8uu"]
 albedo_texture = ExtResource("2_ynqi2")
 texture_filter = 0
 
-[node name="SedanNavy" instance=ExtResource("1_br7v3")]
+[sub_resource type="Resource" id="Resource_6nc7e"]
+script = ExtResource("10_7u2ev")
+IsDriverSeat = false
+EntrancePosition = Vector2(-0.05, 0.25)
+metadata/_custom_type_script = "uid://bsfupmwgt5bmp"
+
+[sub_resource type="Resource" id="Resource_kfdts"]
+script = ExtResource("10_7u2ev")
+IsDriverSeat = false
+EntrancePosition = Vector2(0.4, 0.25)
+metadata/_custom_type_script = "uid://bsfupmwgt5bmp"
+
+[sub_resource type="Resource" id="Resource_mwa77"]
+script = ExtResource("10_7u2ev")
+IsDriverSeat = false
+EntrancePosition = Vector2(0.4, -0.4)
+metadata/_custom_type_script = "uid://bsfupmwgt5bmp"
+
+[sub_resource type="Resource" id="Resource_36jqa"]
+script = ExtResource("10_7u2ev")
+IsDriverSeat = false
+EntrancePosition = Vector2(-0.05, -0.4)
+metadata/_custom_type_script = "uid://bsfupmwgt5bmp"
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_767aj"]
+points = PackedVector3Array(-0.4375, 0.0625, -0.1875, -0.4375, 0.0625, 0.125, -0.4375, 0.187476, -0.1875, 0.5, 0.0625, -0.1875, -0.4375, 0.187476, 0.125, 0.5, 0.0625, 0.125, -0.0625367, 0.3125, -0.1875, 0.5, 0.187476, -0.1875, -0.0625367, 0.3125, 0.125, 0.5, 0.187476, 0.125, 0.312427, 0.3125, -0.1875, 0.312427, 0.3125, 0.125)
+
+[node name="SedanNavy" groups=["OccupiableVehicle"] instance=ExtResource("1_br7v3")]
 mass = 500.0
 angular_damp = 10.0
 VelocityProperties = SubResource("Resource_ngt3q")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="0"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_767aj")
-
-[node name="BLWheel" parent="." index="1" instance=ExtResource("4_erehq")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.6875, 0.125, 0.25)
-
-[node name="BRWheel" parent="." index="2" instance=ExtResource("4_erehq")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.6875, 0.125, -0.25)
-
-[node name="FRWheel" parent="." index="3" instance=ExtResource("4_erehq")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5625, 0.125, -0.25)
-
-[node name="FLWheel" parent="." index="4" instance=ExtResource("4_erehq")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5625, 0.125, 0.25)
-
-[node name="VehicleMesh" parent="." index="5"]
+[node name="VehicleMesh" parent="." index="1"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.0625, -0.0125, 0.0625)
 material_override = SubResource("StandardMaterial3D_xo8uu")
 mesh = ExtResource("3_oatel")
 
-[node name="AINav3DComponent" parent="." index="6"]
+[node name="PeopleVehicleComponent" parent="." index="2" node_paths=PackedStringArray("_vehicleGeometry")]
+_vehicleGeometry = NodePath("../VehicleMesh")
+VehicleSeats = Array[ExtResource("10_7u2ev")]([SubResource("Resource_6nc7e"), SubResource("Resource_kfdts"), SubResource("Resource_mwa77"), SubResource("Resource_36jqa")])
+
+[node name="AINav3DComponent" parent="." index="3"]
+path_max_distance = 3.01
 EntityConsiderations = [ExtResource("9_gl2g4")]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="4"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_767aj")
+
+[node name="BLWheel" parent="." index="5" instance=ExtResource("4_erehq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.6875, 0.125, 0.25)
+
+[node name="BRWheel" parent="." index="6" instance=ExtResource("4_erehq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.6875, 0.125, -0.25)
+
+[node name="FRWheel" parent="." index="7" instance=ExtResource("4_erehq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5625, 0.125, -0.25)
+
+[node name="FLWheel" parent="." index="8" instance=ExtResource("4_erehq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5625, 0.125, 0.25)
 
 [node name="TravelToNavPoint" parent="BehaviorTree/Sequence" index="2"]
 _disableNavOnTargetReached = true

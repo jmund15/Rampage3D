@@ -6,6 +6,9 @@ using System.Linq;
 
 public partial class Global : Node
 {
+    public const string BUILDING_GROUP_NAME = "Building";
+    public const string VEHICLE_GROUP_NAME = "Vehicle";
+    public const string OCCUPIABLE_VEHICLE_GROUP_NAME = "OccupiableVehicle";
     public static City CurrentCity { get; private set; }
     public static readonly Random Rnd = new Random(Guid.NewGuid().GetHashCode());
     public const float MovementTransitionBufferTime = 0.1f;
