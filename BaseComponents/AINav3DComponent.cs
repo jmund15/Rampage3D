@@ -258,11 +258,11 @@ public partial class AINav3DComponent : NavigationAgent3D
             //return normVec;
         }
         var lastDir = Dir8.DownLeft;
-        foreach (var dir in DirectionWeights.Keys)
-        {
-            if (dir.GetDir16().GetDir8() == null) { continue; }
-            GD.Print($"{dir.GetDir16()}'s Weight: {DirectionWeights[dir]}; Consid: {ConsiderationWeights[dir]}");
-        }
+        //foreach (var dir in DirectionWeights.Keys)
+        //{
+        //    if (dir.GetDir16().GetDir8() == null) { continue; }
+        //    GD.Print($"{dir.GetDir16()}'s Weight: {DirectionWeights[dir]}; Consid: {ConsiderationWeights[dir]}");
+        //}
         //GD.Print($"Danger Weights:\n" +
         //    $"Up: {ConsiderationWeights[Dir16.U]:F2} " +
         //    $"UpRight: {ConsiderationWeights[Dir16.UR]:F2} " +
