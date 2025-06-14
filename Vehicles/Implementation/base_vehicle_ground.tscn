@@ -30,7 +30,7 @@ LateralFriction = Vector2(0.1, 0.025)
 
 [node name="VehicleMesh" type="MeshInstance3D" parent="."]
 
-[node name="PeopleVehicleComponent" type="Node" parent="."]
+[node name="OccupantsComponent" type="Node" parent="."]
 script = ExtResource("12_tydrx")
 
 [node name="AINav3DComponent" parent="." node_paths=PackedStringArray("ParentAgent", "AIRayDetector", "AIAreaDetector") instance=ExtResource("2_ty43o")]

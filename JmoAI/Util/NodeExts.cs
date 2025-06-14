@@ -35,7 +35,7 @@ public static partial class NodeExts
         }
         return scene?.CurrentScene.GetFirstChildOfType<T>(includeSubChildren);
     }
-    public static T GetFirstChildOfType<T>(this Node root, bool includeSubChildren = true) where T : Node
+    public static T GetFirstChildOfTypeOldWArray<T>(this Node root, bool includeSubChildren = true) where T : Node
     {
         if (!includeSubChildren)
         {
@@ -61,7 +61,7 @@ public static partial class NodeExts
 
         return null;
     }
-    public static T GetFirstChildOfTypeWQueue<T>(this Node root, bool includeSubChildren = true) where T : Node
+    public static T/*?*/ GetFirstChildOfType<T>(this Node root, bool includeSubChildren = true) where T : Node
     {
         if (!includeSubChildren)
         {
@@ -89,7 +89,6 @@ public static partial class NodeExts
                 }
             }
         }
-
         return null;
     }
     public static T GetFirstChildOfInterface<T>(this Node root, bool includeSubChildren = true) where T : class
@@ -105,14 +104,18 @@ public static partial class NodeExts
         }
         else
         {
-            Array<Node> nodesToParse = root.GetChildren();
+            //Array<Node> nodesToParse = root.GetChildren();
+            var nodesToParse = new Queue<Node>(root.GetChildren());
             while (nodesToParse.Count > 0)
             {
-                var cursor = nodesToParse[0];
-                nodesToParse.Remove(cursor);
+                var cursor = nodesToParse.Dequeue();
+                //nodesToParse.Remove(cursor);
                 if (cursor is T castedNode)
                     return castedNode;
-                nodesToParse.AddRange(cursor.GetChildren());
+                foreach (var child in cursor.GetChildren())
+                {
+                    nodesToParse.Enqueue(child);
+                }
             }
         }
 

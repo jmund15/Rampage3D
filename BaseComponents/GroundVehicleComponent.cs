@@ -1,5 +1,6 @@
 ﻿using Godot;
 using Godot.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,11 +15,10 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
 	private CollisionShape3D _collShape;
 	private List<Node3D> _wheels = new List<Node3D>();
 
+    public VehicleOccupantsComponent? OccupantComp { get; private set; }
 	private IBlackboard _bb;
 	private AINav3DComponent _aiNav;
 
-    [Export]
-    public bool StartParked { get; protected set; } = false;
 
     //[Export]
     //private float _maxSpeed = 1000f;
@@ -30,10 +30,22 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
     private Vector2 LateralFriction = new Vector2(0.9f, 0.975f);
 
     public bool Parked { get; protected set; } = false;
+
+
+
     public Vector2 XRange { get; private set; } = new Vector2();
     public Vector2 YRange { get; private set; } = new Vector2();
     public Vector2 ZRange { get; private set; } = new Vector2();
     public Vector3 Dimensions { get; private set; } = new Vector3(); // X width, z length, and y height
+
+    [ExportGroup("Public API for Drivers")]
+    [Export(PropertyHint.Range, "0.1,2.0,0.1,or_greater")]
+    public float DriverAggression { get; set; } = 1.0f; // 1.0 = normal, >1 more aggressive, <1 more cautious
+    [Export]
+    public bool ParkBrakeEngaged { get; private set; } = false; // Start with park brake off
+    [Export(PropertyHint.Range, "0.0,1.0,0.1,or_greater")]
+    public float DriverAwareness { get; private set; } = 0.8f;
+
 
     #endregion
     #region COMPONENT_UPDATES
@@ -42,6 +54,16 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
 		base._Ready();
         _bb = this.GetFirstChildOfInterface<IBlackboard>();
         _aiNav = this.GetFirstChildOfType<AINav3DComponent>();
+        OccupantComp = this.GetFirstChildOfType<VehicleOccupantsComponent>();
+        if (OccupantComp != null)
+        {
+            OccupantComp.OccupantsChanged += OnOccupantsChanged;
+        }
+        else
+        {
+            Parked = false;
+        }
+
 
         _bb.SetVar(BBDataSig.AINavComp, _aiNav);
         _bb.SetVar(BBDataSig.Agent, this);
@@ -73,8 +95,32 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
 	{
 		base._PhysicsProcess(delta);
         if (Engine.IsEditorHint()) { return; }
+
+        if (_aiNav == null || VelocityProperties == null || VelocityProperties.VelocityIds.Count == 0)
+        {
+            GD.PrintErr($"{Name}: AI Nav or VelocityProperties not set up.");
+            return;
+        }
+        if (!_aiNav.NavigationEnabled)
+        {
+            return;
+        }
+
+        var velProps = VelocityProperties.VelocityIds[0]; // Assuming this is always valid
         Vector3 desiredDir = _aiNav.WeightedNextPathDirection.Normalized(); 
+
         //GD.Print("desired vehicle direction: ", direction);
+        // Determine actual driving inputs based on _throttleInput, _steeringInput, _brakeInput
+        // and desiredDirFromNav if _isNavigationActive.
+        // This section will be simplified: if navigation is active, it tries to follow.
+        // Manual inputs (_throttleInput, _steeringInput) can override or blend.
+
+
+        // --- Corrected Force Application Point for Front-Wheel Drive ---
+        // _frontWheelXPos should be the local X-coordinate of the front axle.
+        // If vehicle origin is center and -X is forward, _frontWheelXPos is negative (e.g., -1.5f).
+        Vector3 localForcePoint = new Vector3(_frontWheelXPos, CenterOfMass.Y, CenterOfMass.Z); // Or a more precise Y/Z if needed
+        Vector3 forceApplicationPointGlobal = ToGlobal(localForcePoint);
 
         //Find angle vehicle is facing
         var facingAngle = Rotation.Y;
@@ -87,7 +133,7 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
             //forceLoc = CenterOfMass;
 
             // basis.z is forward facing vector, but for car it seems -basis.x is front of car
-            forceLoc = -Transform.Basis.X + (-Transform.Basis.X * CenterOfMass);
+            forceLoc = ToGlobal(CenterOfMass);//-Transform.Basis.X + (-Transform.Basis.X * CenterOfMass);
         }
 		else
 		{
@@ -95,19 +141,37 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
             //    new Vector3(_frontWheelXPos, CenterOfMass.Y, CenterOfMass.Z);
 
             // basis.z is forward facing vector, but for car it seems -basis.x is front of car
-            forceLoc = -Transform.Basis.X + (-Transform.Basis.X * _frontWheelXPos);
+            //forceLoc = -Transform.Basis.X + (-Transform.Basis.X * _frontWheelXPos);
+            forceLoc = forceApplicationPointGlobal;
         }
-        forceLoc = -Transform.Basis.X + (-Transform.Basis.X * _frontWheelXPos);
+        //forceLoc = -Transform.Basis.X + (-Transform.Basis.X * _frontWheelXPos);
 
-        var forwardFacingDir = -Transform.Basis.X.Normalized();
+
+
+        if (ParkBrakeEngaged)
+        {
+            // Apply strong braking if park brake is on and vehicle is moving
+            if (LinearVelocity.LengthSquared() > 0.01f)
+            {
+                // Use CenterOfMassOffset or a specific point for brake force
+                ApplyForce(-LinearVelocity.Normalized() * velProps.Acceleration * 0.5f /*strong brake multiplier*/, forceLoc);
+            }
+            return;
+        }
+
+        if (Parked)
+        {
+            return;
+        }
+
 
         // VEHICLE DRIVING LOGIC
-        var velProps = VelocityProperties.VelocityIds[0];
-
+        Vector3 forwardDir = -Transform.Basis.X.Normalized(); // Assuming -X is forward
+        var forwardFacingDir = -Transform.Basis.X.Normalized();
         //GD.Print($"\nForward Dir: {forwardFacingDir}" +
         //    $"\nDesired Dir: {desiredDir}");
 
-        
+
 
         // compare front of vehicle to desired direction
         var desiredDirAngle = desiredDir.AngleTo(forwardFacingDir);
@@ -428,9 +492,54 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
         throw new System.NotImplementedException();
     }
     #endregion
+    #region PUBLIC_API
+    // --- Public API for Controllers ---
+    public void EngageParkBrake(bool engage)
+    {
+        ParkBrakeEngaged = engage;
+        if (engage)
+        {
+            _aiNav.DisableNavigation();
+        }
+        else
+        {
+            _aiNav.EnableNavigation(); // Re-enable navigation if park brake is disengaged
+        }
+    }
+
+    public void SetNavigationTarget(Vector3 globalTargetPosition)
+    {
+
+        if (_aiNav != null)
+        {
+            _aiNav.EnableNavigation();
+            _aiNav.SetTargetPosition(globalTargetPosition);
+        }
+        EngageParkBrake(false);
+    }
+
+    public void ClearNavigationTarget()
+    {
+        if (_aiNav != null)
+        {
+            _aiNav.DisableNavigation(); // Assumes AINavComponent has this method
+        }
+        // Vehicle will now brake/coast based on _PhysicsProcess logic when _isNavigationActive is false
+    }
+
+    public void SetDrivingStyle(float aggression) // e.g., 0.5 cautious, 1.0 normal, 1.5 aggressive
+    {
+        DriverAggression = Mathf.Clamp(aggression, 0.1f, 2.0f);
+    }
+    #endregion
     #region COMPONENT_HELPER
     #endregion
     #region SIGNAL_LISTENERS
+    private void OnOccupantsChanged(object sender, List<VehicleSeat> e)
+    {
+        throw new NotImplementedException();
+    }
+
     #endregion
 
     #region VELOCITY_PROPERTIES

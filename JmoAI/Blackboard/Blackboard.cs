@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using Godot.Collections;
 using System;
 using System.Diagnostics;
@@ -42,9 +42,14 @@ public enum BBDataSig
     WallSpecialAttack,
     EaterComp,
     EatableComp,
-    JumpsLeft
+    JumpsLeft,
     #endregion
     #region BREAKABLE_SIGS
+    #endregion
+    #region AI_SIGS
+    OwnedVehicle,
+    TargetVehicle,
+    TargetVehicleSeat,
     #endregion
 }
 [GlobalClass, Tool]
