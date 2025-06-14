@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cqbbrnjnrh7n2" path="res://Critters/critter_base.tscn" id="1_6vrue"]
 [ext_resource type="PackedScene" uid="uid://72nho6ruyfld" path="res://Critters/test_moose.tscn" id="2_uafwq"]
 
-[node name="Critter" instance=ExtResource("1_6vrue")]
+[node name="CritterMoose" instance=ExtResource("1_6vrue")]
 
 [node name="moose" parent="." index="0" instance=ExtResource("2_uafwq")]
 EditorPlayAnimName = "idleUp"

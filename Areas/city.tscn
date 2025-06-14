@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://d22mgmh6xpc6t"]
+
+[ext_resource type="Script" uid="uid://ddbtl401bp0b0" path="res://Areas/City.cs" id="1_medsh"]
+[ext_resource type="Script" uid="uid://dvms7jwowdg1g" path="res://BaseComponents/LocatorComponent3D.cs" id="2_fvfri"]
+
+[node name="City" type="Node3D"]
+script = ExtResource("1_medsh")
+
+[node name="LocaterComponent" type="Node3D" parent="."]
+script = ExtResource("2_fvfri")

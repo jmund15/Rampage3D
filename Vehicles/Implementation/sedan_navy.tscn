@@ -58,29 +58,30 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.0625, -0.0125, 0.0625)
 material_override = SubResource("StandardMaterial3D_xo8uu")
 mesh = ExtResource("3_oatel")
 
-[node name="PeopleVehicleComponent" parent="." index="2" node_paths=PackedStringArray("_vehicleGeometry")]
-_vehicleGeometry = NodePath("../VehicleMesh")
+[node name="PeopleVehicleComponent" parent="." index="2" node_paths=PackedStringArray("VehicleGeometry")]
+VehicleGeometry = NodePath("../VehicleMesh")
 VehicleSeats = Array[ExtResource("10_7u2ev")]([SubResource("Resource_6nc7e"), SubResource("Resource_kfdts"), SubResource("Resource_mwa77"), SubResource("Resource_36jqa")])
 
 [node name="AINav3DComponent" parent="." index="3"]
+target_position = Vector3(24.6024, 0.5, -14.2791)
 path_max_distance = 3.01
 EntityConsiderations = [ExtResource("9_gl2g4")]
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="4"]
+[node name="TravelToNavPoint" parent="BehaviorTree/Sequence" index="2"]
+_disableNavOnTargetReached = true
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="5"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_767aj")
 
-[node name="BLWheel" parent="." index="5" instance=ExtResource("4_erehq")]
+[node name="BLWheel" parent="." index="6" instance=ExtResource("4_erehq")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.6875, 0.125, 0.25)
 
-[node name="BRWheel" parent="." index="6" instance=ExtResource("4_erehq")]
+[node name="BRWheel" parent="." index="7" instance=ExtResource("4_erehq")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.6875, 0.125, -0.25)
 
-[node name="FRWheel" parent="." index="7" instance=ExtResource("4_erehq")]
+[node name="FRWheel" parent="." index="8" instance=ExtResource("4_erehq")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5625, 0.125, -0.25)
 
-[node name="FLWheel" parent="." index="8" instance=ExtResource("4_erehq")]
+[node name="FLWheel" parent="." index="9" instance=ExtResource("4_erehq")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5625, 0.125, 0.25)
-
-[node name="TravelToNavPoint" parent="BehaviorTree/Sequence" index="2"]
-_disableNavOnTargetReached = true
