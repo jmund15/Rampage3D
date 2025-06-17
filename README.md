@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Crashout! (WIP)
 
 ## Scope
@@ -14,3 +15,7 @@ Multiplayer support, Multiple playable creatures with special evolutions and abi
 Property of MaddMund Studios, <b>DO NOT SELL OR DISTRIBUTE</b>
 
 -Jacob Mund & Lorant Madden
+=======
+# Rampage3D
+TimeRobbers Arcade
+>>>>>>> 74ac1722d50f313852d5d15e5c58c9b9f0e50914

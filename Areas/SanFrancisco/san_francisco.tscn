@@ -1,10 +1,17 @@
+<<<<<<< HEAD
 [gd_scene load_steps=23 format=3 uid="uid://db3qdmpdrqbwh"]
+=======
+[gd_scene load_steps=22 format=3 uid="uid://db3qdmpdrqbwh"]
+>>>>>>> 74ac1722d50f313852d5d15e5c58c9b9f0e50914
 
 [ext_resource type="Script" uid="uid://c6dysr0m678ic" path="res://Areas/Area.cs" id="1_eax7w"]
 [ext_resource type="PackedScene" uid="uid://bilhgl6nubni8" path="res://Areas/All/Buildings/Complete/1x1x2_base_reference.tscn" id="2_0gng7"]
 [ext_resource type="PackedScene" uid="uid://bd0dotu3315d" path="res://Vehicles/Implementation/sedan_navy.tscn" id="2_0teqx"]
 [ext_resource type="PackedScene" uid="uid://w1mve7x43xck" path="res://Monsters/rambucho.tscn" id="2_eelal"]
+<<<<<<< HEAD
 [ext_resource type="PackedScene" uid="uid://d05pbqeemoa5l" path="res://Monsters/rufus.tscn" id="3_eelal"]
+=======
+>>>>>>> 74ac1722d50f313852d5d15e5c58c9b9f0e50914
 [ext_resource type="PackedScene" uid="uid://roik0rft634m" path="res://Areas/All/Buildings/Complete/1x1x3_base_reference.tscn" id="3_ow0rb"]
 [ext_resource type="PackedScene" uid="uid://dsvmcd5mkuj1" path="res://Areas/All/Buildings/Complete/1x2x3_base_reference.tscn" id="4_aqd0w"]
 [ext_resource type="PackedScene" uid="uid://djo53nhfpike4" path="res://Areas/All/Buildings/Complete/2x2x2_base_reference.tscn" id="6_byd3a"]
@@ -92,9 +99,12 @@ script = ExtResource("1_eax7w")
 [node name="Rambucho" parent="Players" instance=ExtResource("2_eelal")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.64596, 0, -5.70363)
 
+<<<<<<< HEAD
 [node name="Rufus" parent="Players" instance=ExtResource("3_eelal")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.5, 0, -10.5)
 
+=======
+>>>>>>> 74ac1722d50f313852d5d15e5c58c9b9f0e50914
 [node name="Vehicles" type="Node3D" parent="."]
 
 [node name="SedanNavy4" parent="Vehicles" instance=ExtResource("2_0teqx")]
