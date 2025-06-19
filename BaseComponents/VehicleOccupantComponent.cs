@@ -5,10 +5,6 @@ using Godot.Collections;
 public partial class VehicleOccupantComponent : Node
 {
 	#region COMPONENT_VARIABLES
-	[Export]
-	public float DriverAggression { get; private set; } = 0.5f;
-	[Export]
-	public float DriverAwareness { get; private set; } = 0.5f;
 
 	[Export]
 	public bool CanDrive { get; private set; } = true;
