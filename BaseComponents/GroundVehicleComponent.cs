@@ -19,6 +19,9 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
 	private IBlackboard _bb;
 	private AINav3DComponent _aiNav;
 
+    [Export]
+    private DriverAptitude _debugDriverApt;
+
 
     //[Export]
     //private float _maxSpeed = 1000f;
@@ -29,7 +32,7 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
     [Export]
     private Vector2 LateralFriction = new Vector2(0.9f, 0.975f);
 
-    public bool Parked { get; protected set; } = false;
+
 
 
 
@@ -38,14 +41,10 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
     public Vector2 ZRange { get; private set; } = new Vector2();
     public Vector3 Dimensions { get; private set; } = new Vector3(); // X width, z length, and y height
 
-    [ExportGroup("Public API for Drivers")]
-    [Export(PropertyHint.Range, "0.1,2.0,0.1,or_greater")]
-    public float DriverAggression { get; set; } = 1.0f; // 1.0 = normal, >1 more aggressive, <1 more cautious
-    [Export]
-    public bool ParkBrakeEngaged { get; private set; } = false; // Start with park brake off
-    [Export(PropertyHint.Range, "0.0,1.0,0.1,or_greater")]
-    public float DriverAwareness { get; private set; } = 0.8f;
+    public bool Parked { get; protected set; } = false;
+    //public bool ParkBrakeEngaged { get; private set; } = false; // Start with park brake off
 
+    private VelocityIDResource _baseVelProp;
 
     #endregion
     #region COMPONENT_UPDATES
@@ -83,8 +82,11 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
 		}
 
         LinearDamp = VelocityProperties.VelocityIds[0].Friction;
-		
-		GD.Print("VEHICLE determined center of mass: ", CenterOfMass);
+
+        _baseVelProp = VelocityProperties.VelocityIds[0].Duplicate() as VelocityIDResource;
+
+
+        GD.Print("VEHICLE determined center of mass: ", CenterOfMass);
 		GD.Print("Front Wheel drive determined loc: ", new Vector3(_frontWheelXPos, CenterOfMass.Y, CenterOfMass.Z));
     }
     public override void _Process(double delta)
@@ -107,6 +109,8 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
         }
 
         var velProps = VelocityProperties.VelocityIds[0]; // Assuming this is always valid
+        velProps.Acceleration = _baseVelProp.Acceleration * Global.Remap(_debugDriverApt.DriverAggression, 0.1f, 2.0f, 0.9f, 1.2f);
+        //GD.Print($"Vehicle Acceleration: {velProps.Acceleration}");
         Vector3 desiredDir = _aiNav.WeightedNextPathDirection.Normalized(); 
 
         //GD.Print("desired vehicle direction: ", direction);
@@ -144,11 +148,11 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
             //forceLoc = -Transform.Basis.X + (-Transform.Basis.X * _frontWheelXPos);
             forceLoc = forceApplicationPointGlobal;
         }
-        //forceLoc = -Transform.Basis.X + (-Transform.Basis.X * _frontWheelXPos);
+        forceLoc = -Transform.Basis.X + (-Transform.Basis.X * _frontWheelXPos);
 
 
 
-        if (ParkBrakeEngaged)
+        if (Parked)
         {
             // Apply strong braking if park brake is on and vehicle is moving
             if (LinearVelocity.LengthSquared() > 0.01f)
@@ -156,11 +160,6 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
                 // Use CenterOfMassOffset or a specific point for brake force
                 ApplyForce(-LinearVelocity.Normalized() * velProps.Acceleration * 0.5f /*strong brake multiplier*/, forceLoc);
             }
-            return;
-        }
-
-        if (Parked)
-        {
             return;
         }
 
@@ -183,7 +182,8 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
         // higher the dot product, the more aligned they are, thus more force is applied
         var forwardDesDot = forwardFacingDir.Dot(desiredDir);
 
-        var needBrakeSpeed = 3f; 
+        var baseBrakeSpeed = 3f;
+        var needBrakeSpeed = baseBrakeSpeed / _debugDriverApt.DriverAggression; 
         if (desiredDir == Vector3.Zero || 
             (forwardDesDot < 0f && LinearVelocity.Length() > needBrakeSpeed))
         {
@@ -220,13 +220,14 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
             Vector3 clampedReverseDir = GetClampedDrivingDirection(reverseDir, desiredReverseDir, maxPerFrameReverseTurn);
 
             // Apply a small reverse force to back up and turn
-            var accel = VelocityProperties.VelocityIds[0].Acceleration;
+            var accel = velProps.Acceleration;
             //float reverseAccel = accel * 0.85f; // lower acceleration for reverse
 
             // accel percentage calc
             // slerp factor = 0 when straight back, 1 when max turn
             //var accelPercent = Global.Remap(slerpFactor, 0, 1f, 0.8f, 0.95f);
             var accelPercent = Global.Remap(slerpFactor, 0, 1f, 1.5f, 0.9f);
+            //accelPercent = accelPercent * _debugDriverApt.DriverAggression;
 
             ApplyForce(clampedReverseDir * accelPercent * accel, forceLoc);
 
@@ -241,16 +242,21 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
         var minDot = 0.65f;
         var clampedDot = Mathf.Clamp(forwardDesDot, minDot, 1f);
         //var speedMult = Mathf.Clamp(forwardDesDot, 0.7f, 1f);
-        var minSpeedMult = 0.65f;
+        var minSpeedMult = 0.65f * _debugDriverApt.DriverAggression;
+        minSpeedMult = Mathf.Clamp(minSpeedMult, 0.5f, 1f);
+
+        var maxSpeedMult = 1f;// * _debugDriverApt.DriverAggression;
 
         //0.5f is 90 degree turn, so clamp speed min at that
-        var speedMult = Global.Remap(clampedDot, minDot, 1f, minSpeedMult, 1f); 
+        var speedMult = Global.Remap(clampedDot, minDot, 1f, minSpeedMult, maxSpeedMult); 
 
         //GD.Print($"Desired dir dot prod: {forwardDesDot}" +
         //    $"\nspeed Mult: {speedMult}");
 
         // only allow driving in slight arc
-        var maxDrivingTurnAngle = Mathf.DegToRad(30f);
+        var maxDrivingDegAng = 30f * _debugDriverApt.DriverAggression;
+        maxDrivingDegAng = Mathf.Clamp(maxDrivingDegAng, 15f, 90f);
+        var maxDrivingTurnAngle = Mathf.DegToRad(maxDrivingDegAng);
 
         var drivingDir = GetClampedDrivingDirection(forwardFacingDir, desiredDir, maxDrivingTurnAngle);
         //Vector3 drivingDir;
@@ -274,11 +280,12 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
         //    GD.Print("Desired dir angle is less than max driving angle");
         //    drivingDir = desiredDir;
         //}
+
         // get dot product of facing and driving direction
         // higher the dot product, the more aligned they are, thus more force is applied
         var driveDot = forwardFacingDir.Dot(drivingDir);
         var minDriveDot = Mathf.Cos(maxDrivingTurnAngle);
-        speedMult = Global.Remap(driveDot, minDriveDot, 1f, minSpeedMult, 1f);
+        speedMult = Global.Remap(driveDot, minDriveDot, 1f, minSpeedMult, maxDrivingTurnAngle);
 
         //GD.Print($"final driving dir: {drivingDir}" +
         //    $"\ndriving dot prod: {driveDot}");
@@ -329,6 +336,11 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
         //GD.Print($"lateral damping: {lateralDamping}" +
         //    $"curr vel: {localVelocity.Length()}");
 
+        if (_debugDriverApt.DriverAggression > 1f)
+        {
+            return;
+            //lateralDamping = 1f;
+        }
         float damping = Mathf.Pow(lateralDamping, state.Step / (1f / 60f));
         localVelocity.Z *= damping;
         //localVelocity.Z *= lateralDamping;
@@ -494,9 +506,9 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
     #endregion
     #region PUBLIC_API
     // --- Public API for Controllers ---
-    public void EngageParkBrake(bool engage)
+    public void SetParkStatus(bool engage)
     {
-        ParkBrakeEngaged = engage;
+        Parked = engage;
         if (engage)
         {
             _aiNav.DisableNavigation();
@@ -515,7 +527,7 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
             _aiNav.EnableNavigation();
             _aiNav.SetTargetPosition(globalTargetPosition);
         }
-        EngageParkBrake(false);
+        SetParkStatus(false);
     }
 
     public void ClearNavigationTarget()
@@ -527,10 +539,6 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
         // Vehicle will now brake/coast based on _PhysicsProcess logic when _isNavigationActive is false
     }
 
-    public void SetDrivingStyle(float aggression) // e.g., 0.5 cautious, 1.0 normal, 1.5 aggressive
-    {
-        DriverAggression = Mathf.Clamp(aggression, 0.1f, 2.0f);
-    }
     #endregion
     #region COMPONENT_HELPER
     #endregion
