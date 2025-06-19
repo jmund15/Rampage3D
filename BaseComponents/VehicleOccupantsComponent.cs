@@ -80,6 +80,9 @@ public partial class VehicleOccupantsComponent : Node
     public event EventHandler<List<VehicleSeat>> OccupantsChanged;
     public event EventHandler<VehicleSeat> OccupantEmbarked;
     public event EventHandler<VehicleSeat> OccupantDisembarked;
+
+    public event EventHandler<DriverAptitude> DriverEmbarked;
+    public event EventHandler DriverDisembarked;
     #endregion
     #region COMPONENT_UPDATES
     public override void _Ready()

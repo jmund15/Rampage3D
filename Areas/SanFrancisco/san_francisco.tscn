@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-[gd_scene load_steps=23 format=3 uid="uid://db3qdmpdrqbwh"]
-=======
-[gd_scene load_steps=22 format=3 uid="uid://db3qdmpdrqbwh"]
->>>>>>> 74ac1722d50f313852d5d15e5c58c9b9f0e50914
+[gd_scene load_steps=24 format=3 uid="uid://db3qdmpdrqbwh"]
 
-[ext_resource type="Script" uid="uid://c6dysr0m678ic" path="res://Areas/Area.cs" id="1_eax7w"]
+[ext_resource type="Script" uid="uid://ddbtl401bp0b0" path="res://Areas/City.cs" id="1_eelal"]
 [ext_resource type="PackedScene" uid="uid://bilhgl6nubni8" path="res://Areas/All/Buildings/Complete/1x1x2_base_reference.tscn" id="2_0gng7"]
 [ext_resource type="PackedScene" uid="uid://bd0dotu3315d" path="res://Vehicles/Implementation/sedan_navy.tscn" id="2_0teqx"]
 [ext_resource type="PackedScene" uid="uid://w1mve7x43xck" path="res://Monsters/rambucho.tscn" id="2_eelal"]
@@ -14,6 +10,7 @@
 >>>>>>> 74ac1722d50f313852d5d15e5c58c9b9f0e50914
 [ext_resource type="PackedScene" uid="uid://roik0rft634m" path="res://Areas/All/Buildings/Complete/1x1x3_base_reference.tscn" id="3_ow0rb"]
 [ext_resource type="PackedScene" uid="uid://dsvmcd5mkuj1" path="res://Areas/All/Buildings/Complete/1x2x3_base_reference.tscn" id="4_aqd0w"]
+[ext_resource type="Script" uid="uid://bbkoy6o4ajsnw" path="res://BaseResources/DriverAptitude.cs" id="4_yyvsh"]
 [ext_resource type="PackedScene" uid="uid://djo53nhfpike4" path="res://Areas/All/Buildings/Complete/2x2x2_base_reference.tscn" id="6_byd3a"]
 [ext_resource type="PackedScene" uid="uid://n8t3lf385ue3" path="res://BaseComponents/multiplayer_camera_3d_component.tscn" id="8_6pwtu"]
 [ext_resource type="PackedScene" uid="uid://de1wt6ynyguqg" path="res://Areas/All/Buildings/Complete/1x2x2_base_reference.tscn" id="8_jjwty"]
@@ -24,6 +21,12 @@
 [ext_resource type="Texture2D" uid="uid://jnpro4t0hqig" path="res://Areas/SanFrancisco/CityFloor/Textures/floor_sanfrancisco_background.png" id="13_br338"]
 [ext_resource type="PackedScene" uid="uid://blojdtas0s7vn" path="res://Areas/SanFrancisco/Environmental/Breakables/Complete/tree_01.tscn" id="13_k637o"]
 [ext_resource type="PackedScene" uid="uid://biya3bal2bv5q" path="res://Areas/All/Buildings/Complete/1x1x2_roof_reference.tscn" id="13_yh2gs"]
+
+[sub_resource type="Resource" id="Resource_cwoqm"]
+script = ExtResource("4_yyvsh")
+DriverAggression = 2.0
+DriverAwareness = 0.8
+metadata/_custom_type_script = "uid://bbkoy6o4ajsnw"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3whln"]
 
@@ -92,7 +95,7 @@ geometry_source_geometry_mode = 1
 geometry_source_group_name = &"FullNav"
 
 [node name="Sanfrancisco" type="Node3D"]
-script = ExtResource("1_eax7w")
+script = ExtResource("1_eelal")
 
 [node name="Players" type="Node3D" parent="."]
 
@@ -109,6 +112,8 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 
 [node name="SedanNavy4" parent="Vehicles" instance=ExtResource("2_0teqx")]
 transform = Transform3D(1, 0, 1.49012e-08, 0, 1, 0, -1.49012e-08, 0, 1, -4, 0, -5.65)
+_debugDriverApt = SubResource("Resource_cwoqm")
+_allWheelDrive = false
 
 [node name="Buildings" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
