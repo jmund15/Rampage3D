@@ -84,19 +84,35 @@ public partial class FindAnyVehicle : BehaviorAction
     {
         if (_needsDrive)
         {
+            // LOGIC SHOULD BE DONE IN LOCATOR???
+            (var driverSeat, var availability) = _vehicleOccupants.GetDriverSeat();
+            if (availability == SeatAvailability.Occupied)
+            {
+                Status = TaskStatus.FAILURE;
+            }
+            else if (availability == SeatAvailability.QueuedForEntry &&
+                _aiNav.NavMethod != NavType.GroundChaos)
+            {
+                Status = TaskStatus.FAILURE;
+            }
+
+            //GetDriverEntryPosition()
             if (!_aiNav.SetTarget(_vehicleOccupants.GetDriverEntryPosition(), true))
             {
                 GD.Print($"Couldn't set vehicle driver seat entrance target...");
                 Status = TaskStatus.FAILURE;
             }
+            BB.SetVar(BBDataSig.TargetVehicleSeat, driverSeat);
         }
         else
         {
-            if (!_aiNav.SetTarget(_vehicleOccupants.GetNextAvailableSeatEntryPosition(), true))
+            var targetSeat = _vehicleOccupants.GetClosestAvailableSeat(_aiNav.ParentAgent.GlobalPosition);
+            if (!_aiNav.SetTarget(_vehicleOccupants.GetSeatEntryPosition(targetSeat), true))
             {
                 GD.Print($"Couldn't set vehicle available seat entrace target");
                 Status = TaskStatus.FAILURE;
             }
+            BB.SetVar(BBDataSig.TargetVehicleSeat, targetSeat);
         }
 
         GD.Print($"Set vehicle entrance target Sucessfully!!");

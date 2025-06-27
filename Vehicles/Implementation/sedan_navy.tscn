@@ -69,24 +69,23 @@ RandomizeInitialOccupants = false
 StaticInitialOccupants = Array[PackedScene]([])
 
 [node name="AINav3DComponent" parent="." index="3"]
-target_position = Vector3(20.2099, 0.5, -5.66858)
 path_max_distance = 3.01
 
 [node name="TravelToNavPoint" parent="BehaviorTree/Sequence" index="2"]
 _disableNavOnTargetReached = true
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="6"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="7"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_767aj")
 
-[node name="BLWheel" parent="." index="7" instance=ExtResource("4_erehq")]
+[node name="BLWheel" parent="." index="8" instance=ExtResource("4_erehq")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.6875, 0.125, 0.25)
 
-[node name="BRWheel" parent="." index="8" instance=ExtResource("4_erehq")]
+[node name="BRWheel" parent="." index="9" instance=ExtResource("4_erehq")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.6875, 0.125, -0.25)
 
-[node name="FRWheel" parent="." index="9" instance=ExtResource("4_erehq")]
+[node name="FRWheel" parent="." index="10" instance=ExtResource("4_erehq")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5625, 0.125, -0.25)
 
-[node name="FLWheel" parent="." index="10" instance=ExtResource("4_erehq")]
+[node name="FLWheel" parent="." index="11" instance=ExtResource("4_erehq")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5625, 0.125, 0.25)

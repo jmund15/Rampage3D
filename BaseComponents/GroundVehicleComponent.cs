@@ -3,13 +3,14 @@ using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TimeRobbers.BaseInterfaces;
 
 /* VEHICLE TODO: 
  * 1. Braking sfx volume directly corresponding with negative acceleration
  * 
  */
 [GlobalClass, Tool]
-public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, IVelocity3DComponent
+public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, IMovementComponent, IVelocity3DComponent
 {
 	#region COMPONENT_VARIABLES
 	private CollisionShape3D _collShape;
@@ -20,7 +21,10 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
 	private AINav3DComponent _aiNav;
 
     [Export]
-    private DriverAptitude _debugDriverApt;
+    private DriverBehavior _debugDriverApt;
+
+    private Vector3 _desiredDir;
+    private Vector3 _forceLoc;
 
 
     //[Export]
@@ -30,10 +34,7 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
 	private float _frontWheelXPos;
 
     [Export]
-    private Vector2 LateralFriction = new Vector2(0.9f, 0.975f);
-
-
-
+    private Vector2 LateralFriction = new Vector2(0.9f, 1.0f);//0.975f);
 
 
     public Vector2 XRange { get; private set; } = new Vector2();
@@ -41,10 +42,23 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
     public Vector2 ZRange { get; private set; } = new Vector2();
     public Vector3 Dimensions { get; private set; } = new Vector3(); // X width, z length, and y height
 
-    public bool Parked { get; protected set; } = false;
+    private bool _isParked = false;
+    public bool IsParked 
+    { 
+        get => _isParked;
+        set
+        {
+            if (_isParked == value) { return; }
+            _isParked = value;
+            ParkedStatusChanged?.Invoke(this, _isParked);
+        }
+    }
     //public bool ParkBrakeEngaged { get; private set; } = false; // Start with park brake off
 
     private VelocityIDResource _baseVelProp;
+    private VelocityIDResource _currVelProps;
+
+    public event EventHandler<bool> ParkedStatusChanged;
 
     #endregion
     #region COMPONENT_UPDATES
@@ -60,7 +74,7 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
         }
         else
         {
-            Parked = false;
+            IsParked = false;
         }
 
 
@@ -108,17 +122,13 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
             return;
         }
 
-        var velProps = VelocityProperties.VelocityIds[0]; // Assuming this is always valid
-        velProps.Acceleration = _baseVelProp.Acceleration * Global.Remap(_debugDriverApt.DriverAggression, 0.1f, 2.0f, 0.9f, 1.2f);
+        _currVelProps = VelocityProperties.VelocityIds[0]; // Assuming this is always valid
+        _currVelProps.Acceleration = _baseVelProp.Acceleration * Global.Remap(_debugDriverApt.DriverAggression, 0.1f, 2.0f, 0.9f, 1.2f);
         //GD.Print($"Vehicle Acceleration: {velProps.Acceleration}");
-        Vector3 desiredDir = _aiNav.WeightedNextPathDirection.Normalized(); 
+        _desiredDir = _aiNav.WeightedNextPathDirection.Normalized(); 
 
-        //GD.Print("desired vehicle direction: ", direction);
         // Determine actual driving inputs based on _throttleInput, _steeringInput, _brakeInput
-        // and desiredDirFromNav if _isNavigationActive.
-        // This section will be simplified: if navigation is active, it tries to follow.
         // Manual inputs (_throttleInput, _steeringInput) can override or blend.
-
 
         // --- Corrected Force Application Point for Front-Wheel Drive ---
         // _frontWheelXPos should be the local X-coordinate of the front axle.
@@ -131,13 +141,12 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
         var facingForce = new Vector3(Mathf.Cos(facingAngle), 0f, Mathf.Sin(facingAngle));
 
 
-        Vector3 forceLoc; 
         if (_allWheelDrive)
 		{
             //forceLoc = CenterOfMass;
 
             // basis.z is forward facing vector, but for car it seems -basis.x is front of car
-            forceLoc = ToGlobal(CenterOfMass);//-Transform.Basis.X + (-Transform.Basis.X * CenterOfMass);
+            _forceLoc = ToGlobal(CenterOfMass);//-Transform.Basis.X + (-Transform.Basis.X * CenterOfMass);
         }
 		else
 		{
@@ -146,166 +155,34 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
 
             // basis.z is forward facing vector, but for car it seems -basis.x is front of car
             //forceLoc = -Transform.Basis.X + (-Transform.Basis.X * _frontWheelXPos);
-            forceLoc = forceApplicationPointGlobal;
+            _forceLoc = forceApplicationPointGlobal;
         }
-        forceLoc = -Transform.Basis.X + (-Transform.Basis.X * _frontWheelXPos);
+        _forceLoc = -Transform.Basis.X + (-Transform.Basis.X * _frontWheelXPos);
 
 
-
-        if (Parked)
+        if (!_debugDriverApt.WantsDrive)
         {
-            // Apply strong braking if park brake is on and vehicle is moving
-            if (LinearVelocity.LengthSquared() > 0.01f)
+            if (IsParked)
             {
-                // Use CenterOfMassOffset or a specific point for brake force
-                ApplyForce(-LinearVelocity.Normalized() * velProps.Acceleration * 0.5f /*strong brake multiplier*/, forceLoc);
+                // Apply strong braking if park brake is on and vehicle is moving
+                if (LinearVelocity.LengthSquared() > 0.01f)
+                {
+                    // Use CenterOfMassOffset or a specific point for brake force
+                    ApplyForce(-LinearVelocity.Normalized() * _currVelProps.Acceleration * 0.5f /*strong brake multiplier*/, _forceLoc);
+                }
+                return;
             }
-            return;
+            else
+            {
+                Park();
+            }
         }
+        else {
+            Drive();
+        }// VEHICLE DRIVING LOGIC
 
 
-        // VEHICLE DRIVING LOGIC
-        Vector3 forwardDir = -Transform.Basis.X.Normalized(); // Assuming -X is forward
-        var forwardFacingDir = -Transform.Basis.X.Normalized();
-        //GD.Print($"\nForward Dir: {forwardFacingDir}" +
-        //    $"\nDesired Dir: {desiredDir}");
-
-
-
-        // compare front of vehicle to desired direction
-        var desiredDirAngle = desiredDir.AngleTo(forwardFacingDir);
-        var signedAngle = forwardFacingDir.SignedAngleTo(desiredDir, Vector3.Up);
-        //GD.Print($"Desired dir angle: {Mathf.RadToDeg(desiredDirAngle)}" +
-        //    $"\nSigned angle: {Mathf.RadToDeg(signedAngle)}");
-
-        // get dot product of facing and desired direction
-        // higher the dot product, the more aligned they are, thus more force is applied
-        var forwardDesDot = forwardFacingDir.Dot(desiredDir);
-
-        var baseBrakeSpeed = 3f;
-        var needBrakeSpeed = baseBrakeSpeed / _debugDriverApt.DriverAggression; 
-        if (desiredDir == Vector3.Zero || 
-            (forwardDesDot < 0f && LinearVelocity.Length() > needBrakeSpeed))
-        {
-            //var brakingForce = VelocityProperties.VelocityIds[0].BrakingFrictionMod;
-            // ADD BRAKING FORCE
-            var brakingForcePercentage = 0.15f;
-            ApplyForce(/*-forwardFacingDir*/-LinearVelocity.Normalized() * velProps.Acceleration * brakingForcePercentage, forceLoc);
-            return;
-        }
-
-        // Threshold for "extremely low" speed
-        float lowSpeedThreshold = 0.5f;
-
-        // REVERSE LOGIC CONDITIONAL
-        // If we need to turn more than 180 and are nearly stopped, back up and turn
-        if (forwardDesDot < 0f && LinearVelocity.Length() < lowSpeedThreshold)
-        {
-            Vector3 reverseDir = -forwardFacingDir;
-
-            // Calculate the angle between reverseDir and desiredDir
-            float angle = reverseDir.AngleTo(desiredDir); // in radians
-
-            // Define the maximum angle you want to allow for reverse turning (e.g., 90 degrees)
-            float maxReverseTurnAngle = Mathf.DegToRad(90f);
-
-            // Map angle to [0, 1] for slerp: 0 = straight back, 1 = max allowed turn
-            float slerpFactor = Mathf.Clamp(angle / maxReverseTurnAngle, 0f, 1f);
-
-            // Slerp between reverseDir and desiredDir by the computed factor
-            Vector3 desiredReverseDir = reverseDir.Slerp(desiredDir, slerpFactor).Normalized();
-
-            // Clamp the result to your actual allowed per-frame turn angle
-            float maxPerFrameReverseTurn = Mathf.DegToRad(15f);
-            Vector3 clampedReverseDir = GetClampedDrivingDirection(reverseDir, desiredReverseDir, maxPerFrameReverseTurn);
-
-            // Apply a small reverse force to back up and turn
-            var accel = velProps.Acceleration;
-            //float reverseAccel = accel * 0.85f; // lower acceleration for reverse
-
-            // accel percentage calc
-            // slerp factor = 0 when straight back, 1 when max turn
-            //var accelPercent = Global.Remap(slerpFactor, 0, 1f, 0.8f, 0.95f);
-            var accelPercent = Global.Remap(slerpFactor, 0, 1f, 1.5f, 0.9f);
-            //accelPercent = accelPercent * _debugDriverApt.DriverAggression;
-
-            ApplyForce(clampedReverseDir * accelPercent * accel, forceLoc);
-
-            //GD.Print($"\nreverse accel percent {accelPercent}" +
-            //    $"\ndesired reverse dir: {desiredReverseDir}" +
-            //    $"\nactual reverse dir: {clampedReverseDir}");
-            return;
-        }
-
-
-
-        var minDot = 0.65f;
-        var clampedDot = Mathf.Clamp(forwardDesDot, minDot, 1f);
-        //var speedMult = Mathf.Clamp(forwardDesDot, 0.7f, 1f);
-        var minSpeedMult = 0.65f * _debugDriverApt.DriverAggression;
-        minSpeedMult = Mathf.Clamp(minSpeedMult, 0.5f, 1f);
-
-        var maxSpeedMult = 1f;// * _debugDriverApt.DriverAggression;
-
-        //0.5f is 90 degree turn, so clamp speed min at that
-        var speedMult = Global.Remap(clampedDot, minDot, 1f, minSpeedMult, maxSpeedMult); 
-
-        //GD.Print($"Desired dir dot prod: {forwardDesDot}" +
-        //    $"\nspeed Mult: {speedMult}");
-
-        // only allow driving in slight arc
-        var maxDrivingDegAng = 30f * _debugDriverApt.DriverAggression;
-        maxDrivingDegAng = Mathf.Clamp(maxDrivingDegAng, 15f, 90f);
-        var maxDrivingTurnAngle = Mathf.DegToRad(maxDrivingDegAng);
-
-        var drivingDir = GetClampedDrivingDirection(forwardFacingDir, desiredDir, maxDrivingTurnAngle);
-        //Vector3 drivingDir;
-        //if (desiredDirAngle > maxDrivingAngle)
-        //{
-        //    GD.Print("Desired dir angle is greater than max driving angle");
-        //    //adjust desired direction to clamp at max angle
-
-        //    // find if angle is pos or neg relative to force loc
-        //    if (signedAngle > 0)
-        //    {
-        //        drivingDir = forwardFacingDir.Rotated(Vector3.Up, maxDrivingAngle);
-        //    }
-        //    else
-        //    {
-        //        drivingDir = forwardFacingDir.Rotated(Vector3.Up, -maxDrivingAngle);
-        //    }
-        //}
-        //else
-        //{
-        //    GD.Print("Desired dir angle is less than max driving angle");
-        //    drivingDir = desiredDir;
-        //}
-
-        // get dot product of facing and driving direction
-        // higher the dot product, the more aligned they are, thus more force is applied
-        var driveDot = forwardFacingDir.Dot(drivingDir);
-        var minDriveDot = Mathf.Cos(maxDrivingTurnAngle);
-        speedMult = Global.Remap(driveDot, minDriveDot, 1f, minSpeedMult, maxDrivingTurnAngle);
-
-        //GD.Print($"final driving dir: {drivingDir}" +
-        //    $"\ndriving dot prod: {driveDot}");
-
-       
-
-        if (LinearVelocity.Length() >= velProps.MaxSpeed)
-        {
-            //ApplyCentralForce(direction * velProps.MaxSpeed);
-            ApplyForce(drivingDir * velProps.MaxSpeed * speedMult, forceLoc);
-            return;
-        }
-        else
-        {
-            //ApplyCentralForce(direction * velProps.Acceleration);
-            ApplyForce(drivingDir * velProps.Acceleration * speedMult, forceLoc);
-        }
-        //ApplyForce(direction * _maxSpeed, ToGlobal(forceLoc));
-        //GD.Print($"Lin velocity: {LinearVelocity}" +
-        //	$"\nAng Vel: {AngularVelocity}");
+        
     }
     public static Vector3 GetClampedDrivingDirection(Vector3 forwardDir, Vector3 desiredDir, float maxTurnAngleRad)
     {
@@ -508,7 +385,7 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
     // --- Public API for Controllers ---
     public void SetParkStatus(bool engage)
     {
-        Parked = engage;
+        IsParked = engage;
         if (engage)
         {
             _aiNav.DisableNavigation();
@@ -541,13 +418,173 @@ public partial class GroundVehicleComponent : RigidBody3D, IMovementComponent, I
 
     #endregion
     #region COMPONENT_HELPER
+    public DriverBehavior GetDriverBehavior()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetDriverBehavior(DriverBehavior driverBehavior)
+    {
+        throw new NotImplementedException();
+    }
+    public void Park()
+    {
+
+    }
+    public void Drive()
+    {
+        Vector3 forwardDir = -Transform.Basis.X.Normalized(); // Assuming -X is forward
+        var forwardFacingDir = -Transform.Basis.X.Normalized();
+        //GD.Print($"\nForward Dir: {forwardFacingDir}" +
+        //    $"\nDesired Dir: {desiredDir}");
+
+
+
+        // compare front of vehicle to desired direction
+        var desiredDirAngle = _desiredDir.AngleTo(forwardFacingDir);
+        var signedAngle = forwardFacingDir.SignedAngleTo(_desiredDir, Vector3.Up);
+        //GD.Print($"Desired dir angle: {Mathf.RadToDeg(desiredDirAngle)}" +
+        //    $"\nSigned angle: {Mathf.RadToDeg(signedAngle)}");
+
+        // get dot product of facing and desired direction
+        // higher the dot product, the more aligned they are, thus more force is applied
+        var forwardDesDot = forwardFacingDir.Dot(_desiredDir);
+
+        var baseBrakeSpeed = 3f;
+        var needBrakeSpeed = baseBrakeSpeed / _debugDriverApt.DriverAggression;
+        if (_desiredDir == Vector3.Zero ||
+            (forwardDesDot < 0f && LinearVelocity.Length() > needBrakeSpeed))
+        {
+            //var brakingForce = VelocityProperties.VelocityIds[0].BrakingFrictionMod;
+            // ADD BRAKING FORCE
+            var brakingForcePercentage = 0.15f;
+            ApplyForce(/*-forwardFacingDir*/-LinearVelocity.Normalized() * _currVelProps.Acceleration * brakingForcePercentage, _forceLoc);
+            return;
+        }
+
+        // Threshold for "extremely low" speed
+        float lowSpeedThreshold = 0.5f;
+
+        // REVERSE LOGIC CONDITIONAL
+        // If we need to turn more than 180 and are nearly stopped, back up and turn
+        if (forwardDesDot < 0f && LinearVelocity.Length() < lowSpeedThreshold)
+        {
+            Vector3 reverseDir = -forwardFacingDir;
+
+            // Calculate the angle between reverseDir and desiredDir
+            float angle = reverseDir.AngleTo(_desiredDir); // in radians
+
+            // Define the maximum angle you want to allow for reverse turning (e.g., 90 degrees)
+            float maxReverseTurnAngle = Mathf.DegToRad(90f);
+
+            // Map angle to [0, 1] for slerp: 0 = straight back, 1 = max allowed turn
+            float slerpFactor = Mathf.Clamp(angle / maxReverseTurnAngle, 0f, 1f);
+
+            // Slerp between reverseDir and desiredDir by the computed factor
+            Vector3 desiredReverseDir = reverseDir.Slerp(_desiredDir, slerpFactor).Normalized();
+
+            // Clamp the result to your actual allowed per-frame turn angle
+            float maxPerFrameReverseTurn = Mathf.DegToRad(15f);
+            Vector3 clampedReverseDir = GetClampedDrivingDirection(reverseDir, desiredReverseDir, maxPerFrameReverseTurn);
+
+            // Apply a small reverse force to back up and turn
+            var accel = _currVelProps.Acceleration;
+            //float reverseAccel = accel * 0.85f; // lower acceleration for reverse
+
+            // accel percentage calc
+            // slerp factor = 0 when straight back, 1 when max turn
+            //var accelPercent = Global.Remap(slerpFactor, 0, 1f, 0.8f, 0.95f);
+            var accelPercent = Global.Remap(slerpFactor, 0, 1f, 1.5f, 0.9f);
+            //accelPercent = accelPercent * _debugDriverApt.DriverAggression;
+
+            ApplyForce(clampedReverseDir * accelPercent * accel, _forceLoc);
+
+            //GD.Print($"\nreverse accel percent {accelPercent}" +
+            //    $"\ndesired reverse dir: {desiredReverseDir}" +
+            //    $"\nactual reverse dir: {clampedReverseDir}");
+            return;
+        }
+
+
+
+        var minDot = 0.65f;
+        var clampedDot = Mathf.Clamp(forwardDesDot, minDot, 1f);
+        //var speedMult = Mathf.Clamp(forwardDesDot, 0.7f, 1f);
+        var minSpeedMult = 0.65f * _debugDriverApt.DriverAggression;
+        minSpeedMult = Mathf.Clamp(minSpeedMult, 0.5f, 1f);
+
+        var maxSpeedMult = 1f;// * _debugDriverApt.DriverAggression;
+
+        //0.5f is 90 degree turn, so clamp speed min at that
+        var speedMult = Global.Remap(clampedDot, minDot, 1f, minSpeedMult, maxSpeedMult);
+
+        //GD.Print($"Desired dir dot prod: {forwardDesDot}" +
+        //    $"\nspeed Mult: {speedMult}");
+
+        // only allow driving in slight arc
+        var maxDrivingDegAng = 30f * _debugDriverApt.DriverAggression;
+        maxDrivingDegAng = Mathf.Clamp(maxDrivingDegAng, 15f, 90f);
+        var maxDrivingTurnAngle = Mathf.DegToRad(maxDrivingDegAng);
+
+        var drivingDir = GetClampedDrivingDirection(forwardFacingDir, _desiredDir, maxDrivingTurnAngle);
+        //Vector3 drivingDir;
+        //if (desiredDirAngle > maxDrivingAngle)
+        //{
+        //    GD.Print("Desired dir angle is greater than max driving angle");
+        //    //adjust desired direction to clamp at max angle
+
+        //    // find if angle is pos or neg relative to force loc
+        //    if (signedAngle > 0)
+        //    {
+        //        drivingDir = forwardFacingDir.Rotated(Vector3.Up, maxDrivingAngle);
+        //    }
+        //    else
+        //    {
+        //        drivingDir = forwardFacingDir.Rotated(Vector3.Up, -maxDrivingAngle);
+        //    }
+        //}
+        //else
+        //{
+        //    GD.Print("Desired dir angle is less than max driving angle");
+        //    drivingDir = desiredDir;
+        //}
+
+        // get dot product of facing and driving direction
+        // higher the dot product, the more aligned they are, thus more force is applied
+        var driveDot = forwardFacingDir.Dot(drivingDir);
+        var minDriveDot = Mathf.Cos(maxDrivingTurnAngle);
+        speedMult = Global.Remap(driveDot, minDriveDot, 1f, minSpeedMult, maxDrivingTurnAngle);
+
+        //GD.Print($"final driving dir: {drivingDir}" +
+        //    $"\ndriving dot prod: {driveDot}");
+
+
+
+        if (LinearVelocity.Length() >= _currVelProps.MaxSpeed)
+        {
+            //ApplyCentralForce(direction * velProps.MaxSpeed);
+            ApplyForce(drivingDir * _currVelProps.MaxSpeed * speedMult, _forceLoc);
+            return;
+        }
+        else
+        {
+            //ApplyCentralForce(direction * velProps.Acceleration);
+            ApplyForce(drivingDir * _currVelProps.Acceleration * speedMult, _forceLoc);
+        }
+        //ApplyForce(direction * _maxSpeed, ToGlobal(forceLoc));
+        //GD.Print($"Lin velocity: {LinearVelocity}" +
+        //	$"\nAng Vel: {AngularVelocity}");
+    }
+    public void Drift()
+    {
+
+    }
     #endregion
     #region SIGNAL_LISTENERS
     private void OnOccupantsChanged(object sender, List<VehicleSeat> e)
     {
         throw new NotImplementedException();
     }
-
     #endregion
 
     #region VELOCITY_PROPERTIES

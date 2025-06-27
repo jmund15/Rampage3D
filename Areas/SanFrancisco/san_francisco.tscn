@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://w1mve7x43xck" path="res://Monsters/rambucho.tscn" id="2_eelal"]
 [ext_resource type="PackedScene" uid="uid://roik0rft634m" path="res://Areas/All/Buildings/Complete/1x1x3_base_reference.tscn" id="3_ow0rb"]
 [ext_resource type="PackedScene" uid="uid://dsvmcd5mkuj1" path="res://Areas/All/Buildings/Complete/1x2x3_base_reference.tscn" id="4_aqd0w"]
-[ext_resource type="Script" uid="uid://bbkoy6o4ajsnw" path="res://BaseResources/DriverAptitude.cs" id="4_yyvsh"]
+[ext_resource type="Script" uid="uid://gfxc50ilk8g0" path="res://BaseResources/DriverBehavior.cs" id="4_yyvsh"]
 [ext_resource type="PackedScene" uid="uid://djo53nhfpike4" path="res://Areas/All/Buildings/Complete/2x2x2_base_reference.tscn" id="6_byd3a"]
 [ext_resource type="PackedScene" uid="uid://n8t3lf385ue3" path="res://BaseComponents/multiplayer_camera_3d_component.tscn" id="8_6pwtu"]
 [ext_resource type="PackedScene" uid="uid://de1wt6ynyguqg" path="res://Areas/All/Buildings/Complete/1x2x2_base_reference.tscn" id="8_jjwty"]

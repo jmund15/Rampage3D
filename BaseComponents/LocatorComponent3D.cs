@@ -1,6 +1,7 @@
 ﻿using Godot;
 using Godot.Collections;
 using System.Linq;
+using TimeRobbers.BaseInterfaces;
 
 [GlobalClass, Tool]
 public partial class LocatorComponent3D : Node3D
@@ -38,6 +39,10 @@ public partial class LocatorComponent3D : Node3D
 	}
     #endregion
     #region COMPONENT_HELPER
+    // TODO: Adjust locator to have two separate methods:
+    // 1. for Finding general vehicles with parameters (closest general, needs to be able to be occupied, etc.)
+    // 2. for finding vehicle seats available based on parameters (driver, queued, etc.)
+
     /// <summary>
     /// Finds the closest "Available" vehicle to a given position.
     /// </summary>
@@ -93,11 +98,15 @@ public partial class LocatorComponent3D : Node3D
             // The actual node is stored in the "collider" key of the result dictionary.
             .Select(resultDict => resultDict["collider"].As<Node>())
 
-            // Safely cast to our Vehicle type and filter out any other objects that might
-            // have been on the same layer by mistake.
+            // cast to Vehicle type and filter out any other objects that might
+            .Select(vehicle => vehicle as IVehicleComponent3D) // TODO: abstract this to base vehicle comp
+
+            // Filter out driving vehicles
+            .Where(vehicle => vehicle.IsParked)
+
             //.OfType<RigidBody3D>()
             //.Where(vehicle => vehicle.GetFirstChildOfType<VehicleOccupantComponent>() is VehicleOccupantComponent voc)
-            .Select(vehicle => vehicle.GetFirstChildOfType<VehicleOccupantsComponent>(false))
+            .Select(vehicle => (vehicle as Node3D).GetFirstChildOfType<VehicleOccupantsComponent>(false))
             .Where(voc => voc != null) // Filter out cases where vehicles can't be occupied
 
             // From the remaining candidates, filter for only those that have open seats available.

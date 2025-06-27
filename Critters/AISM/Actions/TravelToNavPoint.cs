@@ -7,21 +7,21 @@ using System.Linq;
 public partial class TravelToNavPoint : BehaviorAction
 {
     #region TASK_VARIABLES
-    private AINav3DComponent _aiNavComp;
+    protected AINav3DComponent AINavComp;
 
     [Export]
-    private bool _disableNavOnTargetReached = false;
+    protected bool DisableNavOnTargetReached = false;
     #endregion
     #region TASK_UPDATES
     public override void Init(Node agent, IBlackboard bb)
     {
         base.Init(agent, bb);
-        _aiNavComp = BB.GetVar<AINav3DComponent>(BBDataSig.AINavComp);
+        AINavComp = BB.GetVar<AINav3DComponent>(BBDataSig.AINavComp);
     }
     public override void Enter()
 	{
 		base.Enter();
-		_aiNavComp.TargetReached += OnTargetReached; // or NavigationFinished?
+		AINavComp.TargetReached += OnTargetReached; // or NavigationFinished?
         //GD.Print("init nav path: ");
         //foreach (var p in _aiNavComp.GetCurrentNavigationPath())
         //{
@@ -35,7 +35,7 @@ public partial class TravelToNavPoint : BehaviorAction
     public override void Exit()
 	{
 		base.Exit();
-        _aiNavComp.TargetReached -= OnTargetReached;
+        AINavComp.TargetReached -= OnTargetReached;
 	}
     public override void ProcessFrame(float delta)
 	{
@@ -52,9 +52,9 @@ public partial class TravelToNavPoint : BehaviorAction
     #region TASK_HELPER
     private void OnTargetReached()
     {
-        if (_disableNavOnTargetReached)
+        if (DisableNavOnTargetReached)
         {
-            _aiNavComp.DisableNavigation();
+            AINavComp.DisableNavigation();
         }
         Status = TaskStatus.SUCCESS;
     }

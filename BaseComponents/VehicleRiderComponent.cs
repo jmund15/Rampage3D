@@ -2,7 +2,7 @@
 using Godot.Collections;
 
 [GlobalClass, Tool]
-public partial class VehicleOccupantComponent : Node
+public partial class VehicleRiderComponent : Node
 {
 	#region COMPONENT_VARIABLES
 

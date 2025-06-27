@@ -48,6 +48,18 @@ public partial class VehicleOccupantsComponent : Node
     //[Export]
     //public VehiclePosition DriverEntryAnchor { get; protected set; } = VehiclePosition.FrontLeft; // Default entry point for the driver
     //[Export]
+    private bool _isEmbarkable = true; // Whether occupants can embark on the vehicle
+    public bool IsEmbarkable 
+    { 
+        get => _isEmbarkable; 
+        protected set
+        {
+            if (value == _isEmbarkable) return;
+
+            _isEmbarkable = value; // Update the embark status
+            EmbarkableStatusChanged?.Invoke(this, _isEmbarkable); // Notify listeners of the change
+        }
+    } 
     public bool HasDriver
     {
         get => HasOpenDriverSeat(); // Check if there is an open driver seat
@@ -81,8 +93,10 @@ public partial class VehicleOccupantsComponent : Node
     public event EventHandler<VehicleSeat> OccupantEmbarked;
     public event EventHandler<VehicleSeat> OccupantDisembarked;
 
-    public event EventHandler<DriverAptitude> DriverEmbarked;
+    public event EventHandler<DriverBehavior> DriverEmbarked;
     public event EventHandler DriverDisembarked;
+
+    public event EventHandler<bool> EmbarkableStatusChanged;
     #endregion
     #region COMPONENT_UPDATES
     public override void _Ready()
@@ -224,34 +238,61 @@ public partial class VehicleOccupantsComponent : Node
         //}
         OccupantDisembarked?.Invoke(this, seat);
     }
-    public void EmbarkOccupant(Node3D occupant, VehicleSeat seat)
+    public bool EmbarkOccupant(Node3D occupant, VehicleSeat seat)
     {
-        if (seat.IsDriverSeat && HasDriver)
+        try
         {
-            //TODO: Throw out driver??
-            GD.Print("Vehicle already has a driver.");
-            return;
+            if (seat.IsDriverSeat && HasDriver)
+            {
+                //TODO: Throw out driver??
+                GD.Print("Vehicle already has a driver.");
+                return false;
+            }
+            if (CurrentOccupants.Count >= MaxOccupants ||
+                seat.IsOccupied)
+            {
+                GD.Print("Cannot embark more occupants, maximum reached.");
+                return false;
+            }
+            if (occupant == null || !occupant.IsValid())
+            {
+                GD.Print("Invalid occupant provided for embarking.");
+                return false;
+            }
+            if (!CloseEnoughToEmbark(occupant, seat))
+            {
+                GD.Print("Occupant is too far from the vehicle to embark.");
+                return false;
+            }
+            seat.Occupant = occupant;
+            CurrentOccupants.Add(occupant);
+            occupant.Reparent(this);
+            occupant.Hide();
+            //if (seat.IsDriverSeat)
+            //{
+            //    HasDriver = true; // Update driver status if the occupant is driving
+            //}
+            OccupantEmbarked?.Invoke(this, seat);
+            return true;
         }
-        if (CurrentOccupants.Count >= MaxOccupants ||
-            seat.IsOccupied)
+        catch (Exception e)
         {
-            GD.Print("Cannot embark more occupants, maximum reached.");
-            return;
+            GD.PrintErr($"Error during embarkation: {e.Message}");
+            return false;
         }
-        if (occupant == null || !occupant.IsValid())
+        
+    }
+    public (VehicleSeat, SeatAvailability?) GetDriverSeat()
+    {
+        foreach (var seat in VehicleSeats)
         {
-            GD.Print("Invalid occupant provided for embarking.");
-            return;
+            if (seat == null) { continue; }
+            if (seat.IsDriverSeat)
+            {
+                return (seat, seat.Availability);
+            }
         }
-        seat.Occupant = occupant;
-        CurrentOccupants.Add(occupant);
-        occupant.Reparent(this);
-        occupant.Hide();
-        //if (seat.IsDriverSeat)
-        //{
-        //    HasDriver = true; // Update driver status if the occupant is driving
-        //}
-        OccupantEmbarked?.Invoke(this, seat);
+        return (null, null); // No driver seat found
     }
     public Vector3 GetDriverEntryPosition()
     {
@@ -277,7 +318,28 @@ public partial class VehicleOccupantsComponent : Node
         }
         return Vector3.Zero; // Default if no driver seat found
     }
-    public bool CanEmbark(Node3D occupant, VehicleSeat seat)
+
+    public VehicleSeat GetClosestAvailableSeat(Vector3 position, bool caresAboutQueue = true)
+    {
+        VehicleSeat closestSeat = null;
+        float closestDistance = float.MaxValue;
+        foreach (var seat in VehicleSeats)
+        {
+            if (seat == null || seat.Availability == SeatAvailability.Occupied) { continue; }
+            if (caresAboutQueue && seat.Availability == SeatAvailability.QueuedForEntry)
+            {
+                continue; // Skip seats that are queued for entry if it matters (aka in times of peace)
+            }
+            float distance = position.DistanceTo(VehicleGeometry.ToGlobal(seat.EntrancePosition.GetVector3()));
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestSeat = seat;
+            }
+        }
+        return closestSeat; // Returns the closest available seat or null if none found
+    }
+    public bool CloseEnoughToEmbark(Node3D occupant, VehicleSeat seat)
     {
         if (seat.IsOccupied)
         {
@@ -291,6 +353,11 @@ public partial class VehicleOccupantsComponent : Node
             return false;
         }
         return true;
+    }
+
+    public Vector3 GetSeatEntryPosition(VehicleSeat seat)
+    {
+        return VehicleGeometry.ToGlobal(seat.EntrancePosition.GetVector3());
     }
     #endregion
     #region SIGNAL_LISTENERS
