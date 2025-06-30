@@ -20,6 +20,7 @@ public partial class VehicleSeat : Resource
     [Export]
     public Vector2 EntrancePosition { get; private set; }
     public Color SeatIndColor { get; set; }
+    public VehicleOccupantsComponent VOccupantComp { get; set; } = null;
     public Node Occupant { get; set; } = null;
     public bool QueuedForEntry { get; set; }
     public bool IsOccupied => Occupant != null;

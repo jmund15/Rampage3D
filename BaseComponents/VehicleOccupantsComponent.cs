@@ -26,6 +26,12 @@ public partial class VehicleOccupantsComponent : Node
 
     [Export]
     public Godot.Collections.Array<VehicleSeat> VehicleSeats { get; protected set; } = new();
+    
+    public VehicleSeat DriverSeat { get; protected set; }
+    
+    //public HashSet<VehicleSeat> OccupiedSeats { get; protected set; } = new();
+    public HashSet<VehicleSeat> AvailableSeats { get; protected set; } = new();
+    //public HashSet<VehicleSeat> QueuedSeats { get; protected set; } = new();
     [Export]
     public float AllowedEmbarkDistance { get; private set; } = 0.25f;
 
@@ -82,6 +88,7 @@ public partial class VehicleOccupantsComponent : Node
     //    { NpcType.Army, false },
     //    { NpcType.General, false }
     //};
+
     [Export]
     public bool RandomizeInitialOccupants { get; protected set; } = false;
     [Export]
@@ -110,6 +117,27 @@ public partial class VehicleOccupantsComponent : Node
             return;
         }
 
+        // init seat occupants (TODO: is this ok?)
+        bool foundDriversSeat = false;
+        foreach (var seat in VehicleSeats)
+        {
+            seat.VOccupantComp = this;
+            if (seat.IsDriverSeat)
+            {
+                if (foundDriversSeat) {
+                    GD.PrintErr("Multiple driver seats found in VehicleOccupantsComponent. Only one driver seat is allowed.");
+                    continue; // Skip if multiple driver seats are defined
+                }
+                DriverSeat = seat; // Set the driver seat if it exists
+                foundDriversSeat = true;
+            }
+        }
+        if (!foundDriversSeat)
+        {
+            GD.PrintErr("No driver seat defined in VehicleOccupantsComponent. Please define a driver seat.");
+            DriverSeat = null; // No driver seat found
+        }
+
         // Randomize initial occupants if enabled
         if (RandomizeInitialOccupants)
         {
@@ -119,8 +147,18 @@ public partial class VehicleOccupantsComponent : Node
         {
             InitializeStaticOccupants();
         }
+
+        foreach (var seat in VehicleSeats)
+        {
+            if (seat.Availability == SeatAvailability.Available)
+            {
+                AvailableSeats.Add(seat);
+            }
+        }
+        OccupantEmbarked += OnOccupantEmbarked;
+        OccupantDisembarked += OnOccupantDisembarked;
     }
-	public override void _Process(double delta)
+    public override void _Process(double delta)
 	{
 		base._Process(delta);
 	}
@@ -142,13 +180,17 @@ public partial class VehicleOccupantsComponent : Node
     }
     #endregion
     #region COMPONENT_HELPER
-    public bool HasOpenSeat()
+    public bool HasOpenSeat(bool caresAboutQueue = false)
     {
-        return VehicleSeats.Any(seat => !seat.IsOccupied);
+        return VehicleSeats.Any(seat => 
+            !seat.IsOccupied && !(seat.Availability == SeatAvailability.QueuedForEntry && caresAboutQueue));
     }
-    public bool HasOpenDriverSeat()
+    public bool HasOpenDriverSeat(bool caresAboutQueue = false)
     {
-        return VehicleSeats.Any(seat => seat.IsDriverSeat && !seat.IsOccupied);
+        return VehicleSeats.Any(seat => 
+            seat.IsDriverSeat && 
+            !seat.IsOccupied && 
+            !(seat.Availability == SeatAvailability.QueuedForEntry && caresAboutQueue));
     }
     private void DrawSeatEntrancePoint(VehicleSeat seat)
     {
@@ -361,5 +403,13 @@ public partial class VehicleOccupantsComponent : Node
     }
     #endregion
     #region SIGNAL_LISTENERS
+    private void OnOccupantEmbarked(object sender, VehicleSeat e)
+    {
+        AvailableSeats.Remove(e);
+    }
+    private void OnOccupantDisembarked(object sender, VehicleSeat e)
+    {
+        AvailableSeats.Add(e);
+    }
     #endregion
 }

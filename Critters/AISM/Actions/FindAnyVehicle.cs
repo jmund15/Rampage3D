@@ -7,13 +7,20 @@ public partial class FindAnyVehicle : BehaviorAction
 {
     #region TASK_VARIABLES
     [Export]
+    private bool _needsParked = true;
+    [Export]
     private bool _needsDrive = true;
+    [Export]
+    private bool _caresAboutQueue = true;
+    [Export]
+    private bool _caresAboutMilitary = true;
 
-	private AINav3DComponent _aiNav;
+    private AINav3DComponent _aiNav;
 	private City _residingCity;
     private LocatorComponent3D _vehicleLocator;
 
 	private VehicleOccupantsComponent _vehicleOccupants;
+    private VehicleSeat _vehicleSeat;
 
     private bool _mapLoaded;
 
@@ -34,8 +41,14 @@ public partial class FindAnyVehicle : BehaviorAction
             Status = TaskStatus.FAILURE;
             return;
         }
-		var vehicle = _vehicleLocator.FindClosestAvailableVehicle(_aiNav.ParentAgent.GlobalPosition, _needsDrive);
-        if (vehicle == null)
+		_vehicleSeat = _vehicleLocator.FindClosestAvailableVehicleSeat(
+            _aiNav.ParentAgent.GlobalPosition,
+            _needsParked, 
+            _needsDrive,
+            _caresAboutQueue,
+            _caresAboutMilitary);
+
+        if (_vehicleSeat == null)
         {
 			GD.Print($"Couldn't find available vehicle relative to {Agent.Name} @ {_aiNav.ParentAgent.GlobalPosition}");
             Status = TaskStatus.FAILURE;
@@ -43,10 +56,10 @@ public partial class FindAnyVehicle : BehaviorAction
         }
         else
         {
-            GD.Print($"Found vehicle: {vehicle.Name} relative to {Agent.Name} @ {_aiNav.ParentAgent.GlobalPosition}." +
-                $"\nVehicle Position: {vehicle.VehicleGeometry.GlobalPosition}");
+            GD.Print($"Found vehicle: {_vehicleSeat.VOccupantComp.Name} relative to {Agent.Name} @ {_aiNav.ParentAgent.GlobalPosition}." +
+                $"\nVehicle Position: {_vehicleSeat.VOccupantComp.VehicleGeometry.GlobalPosition}");
         }
-        _vehicleOccupants = vehicle;
+        _vehicleOccupants = _vehicleSeat.VOccupantComp;
 
         if (NavigationServer3D.MapGetIterationId(_aiNav.GetNavigationMap()) == 0) // not setup yet
         {
@@ -82,41 +95,42 @@ public partial class FindAnyVehicle : BehaviorAction
     }
     private void SetVehicleEntranceTarget()
     {
-        if (_needsDrive)
-        {
-            // LOGIC SHOULD BE DONE IN LOCATOR???
-            (var driverSeat, var availability) = _vehicleOccupants.GetDriverSeat();
-            if (availability == SeatAvailability.Occupied)
-            {
-                Status = TaskStatus.FAILURE;
-            }
-            else if (availability == SeatAvailability.QueuedForEntry &&
-                _aiNav.NavMethod != NavType.GroundChaos)
-            {
-                Status = TaskStatus.FAILURE;
-            }
+        //if (_needsDrive)
+        //{
+        //    // LOGIC SHOULD BE DONE IN LOCATOR???
+        //    (var driverSeat, var availability) = _vehicleOccupants.GetDriverSeat();
+        //    if (availability == SeatAvailability.Occupied)
+        //    {
+        //        Status = TaskStatus.FAILURE;
+        //    }
+        //    else if (availability == SeatAvailability.QueuedForEntry &&
+        //        _aiNav.NavMethod != NavType.GroundChaos)
+        //    {
+        //        Status = TaskStatus.FAILURE;
+        //    }
 
-            //GetDriverEntryPosition()
-            if (!_aiNav.SetTarget(_vehicleOccupants.GetDriverEntryPosition(), true))
-            {
-                GD.Print($"Couldn't set vehicle driver seat entrance target...");
-                Status = TaskStatus.FAILURE;
-            }
-            BB.SetVar(BBDataSig.TargetVehicleSeat, driverSeat);
-        }
-        else
-        {
-            var targetSeat = _vehicleOccupants.GetClosestAvailableSeat(_aiNav.ParentAgent.GlobalPosition);
-            if (!_aiNav.SetTarget(_vehicleOccupants.GetSeatEntryPosition(targetSeat), true))
-            {
-                GD.Print($"Couldn't set vehicle available seat entrace target");
-                Status = TaskStatus.FAILURE;
-            }
-            BB.SetVar(BBDataSig.TargetVehicleSeat, targetSeat);
-        }
+        //    //GetDriverEntryPosition()
+        //    if (!_aiNav.SetTarget(_vehicleOccupants.GetDriverEntryPosition(), true))
+        //    {
+        //        GD.Print($"Couldn't set vehicle driver seat entrance target...");
+        //        Status = TaskStatus.FAILURE;
+        //    }
+        //    BB.SetVar(BBDataSig.TargetVehicleSeat, driverSeat);
+        //}
+        //else
+        //{
+        //    var targetSeat = _vehicleOccupants.GetClosestAvailableSeat(_aiNav.ParentAgent.GlobalPosition);
+        //    if (!_aiNav.SetTarget(_vehicleOccupants.GetSeatEntryPosition(targetSeat), true))
+        //    {
+        //        GD.Print($"Couldn't set vehicle available seat entrace target");
+        //        Status = TaskStatus.FAILURE;
+        //    }
+        //    BB.SetVar(BBDataSig.TargetVehicleSeat, targetSeat);
+        //}
 
         GD.Print($"Set vehicle entrance target Sucessfully!!");
         BB.SetVar(BBDataSig.TargetVehicle, _vehicleOccupants);
+        BB.SetVar(BBDataSig.TargetVehicleSeat, _vehicleSeat);
         Status = TaskStatus.SUCCESS;
     }
     public override string[] _GetConfigurationWarnings()
