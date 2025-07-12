@@ -42,6 +42,7 @@ public enum BBDataSig
     WallSpecialAttack,
     EaterComp,
     EatableComp,
+    OccupantComp,
     JumpsLeft,
     #endregion
     #region BREAKABLE_SIGS

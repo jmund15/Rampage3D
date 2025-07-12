@@ -21,7 +21,7 @@ public partial class VehicleSeat : Resource
     public Vector2 EntrancePosition { get; private set; }
     public Color SeatIndColor { get; set; }
     public VehicleOccupantsComponent VOccupantComp { get; set; } = null;
-    public Node Occupant { get; set; } = null;
+    public OccupantComponent3D Occupant { get; set; } = null;
     public bool QueuedForEntry { get; set; }
     public bool IsOccupied => Occupant != null;
     public SeatAvailability Availability
@@ -52,7 +52,7 @@ public partial class VehicleSeat : Resource
         SeatIndColor = new Color(GD.Randf(), GD.Randf(), GD.Randf());
         QueuedForEntry = false;
     }
-    public VehicleSeat(bool isDriverSeat, Vector2 entrancePosition, Node occupant)
+    public VehicleSeat(bool isDriverSeat, Vector2 entrancePosition, OccupantComponent3D occupant)
     {
         IsDriverSeat = isDriverSeat;
         EntrancePosition = entrancePosition;

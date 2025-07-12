@@ -22,6 +22,7 @@
 script = ExtResource("4_yyvsh")
 DriverAggression = 2.0
 DriverAwareness = 0.8
+WantsDrive = true
 metadata/_custom_type_script = "uid://bbkoy6o4ajsnw"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3whln"]
@@ -97,6 +98,8 @@ script = ExtResource("1_eelal")
 
 [node name="Rambucho" parent="Players" instance=ExtResource("2_eelal")]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.64596, 0, -5.70363)
+
+[node name="NPCs" type="Node3D" parent="."]
 
 [node name="Vehicles" type="Node3D" parent="."]
 
@@ -8875,4 +8878,4 @@ texture = ExtResource("13_br338")
 visible = false
 navigation_mesh = SubResource("NavigationMesh_kgf5p")
 
-[node name="NPCs" type="Node3D" parent="."]
+[node name="ParkingSpots" type="Node3D" parent="Environment"]

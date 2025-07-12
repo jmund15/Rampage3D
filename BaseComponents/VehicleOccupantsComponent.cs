@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using BaseInterfaces;
+
 public enum VehiclePosition
 {
     FrontLeft,
@@ -20,7 +22,7 @@ public partial class VehicleOccupantsComponent : Node
 {
     #region COMPONENT_VARIABLES
 
-    private IVelocity3DComponent _vehicleVelComp;
+    private IVehicleComponent3D _vehicleVelComp;
     [Export]
     public MeshInstance3D VehicleGeometry { get; private set; }
 
@@ -66,10 +68,10 @@ public partial class VehicleOccupantsComponent : Node
             EmbarkableStatusChanged?.Invoke(this, _isEmbarkable); // Notify listeners of the change
         }
     } 
-    public bool HasDriver
-    {
-        get => HasOpenDriverSeat(); // Check if there is an open driver seat
-    }
+    public bool HasDriver { get; private set; }
+    //{
+    //    get => HasOpenDriverSeat(); // Check if there is an open driver seat
+    //}
     public bool HasAvailableSeat
     {
         get => HasOpenSeat(); // Check if there is an open seat
@@ -93,14 +95,14 @@ public partial class VehicleOccupantsComponent : Node
     public bool RandomizeInitialOccupants { get; protected set; } = false;
     [Export]
     public Godot.Collections.Array<PackedScene> StaticInitialOccupants { get; protected set; } = new();
-    public HashSet<Node3D> CurrentOccupants { get; protected set; } = new();
+    public HashSet<OccupantComponent3D> CurrentOccupants { get; protected set; } = new();
 
     //public event EventHandler<bool> Parked?;
     public event EventHandler<List<VehicleSeat>> OccupantsChanged;
     public event EventHandler<VehicleSeat> OccupantEmbarked;
     public event EventHandler<VehicleSeat> OccupantDisembarked;
 
-    public event EventHandler<DriverBehavior> DriverEmbarked;
+    public event EventHandler<IDriver> DriverEmbarked;
     public event EventHandler DriverDisembarked;
 
     public event EventHandler<bool> EmbarkableStatusChanged;
@@ -110,7 +112,7 @@ public partial class VehicleOccupantsComponent : Node
 	{
 		base._Ready();
 
-        _vehicleVelComp = GetOwner<IVelocity3DComponent>();
+        _vehicleVelComp = GetOwner<IVehicleComponent3D>();
         if (_vehicleVelComp == null)
         {
             GD.PrintErr("VehicleOccupantComponent requires an owner that implements IVelocity3DComponent.");
@@ -157,6 +159,15 @@ public partial class VehicleOccupantsComponent : Node
         }
         OccupantEmbarked += OnOccupantEmbarked;
         OccupantDisembarked += OnOccupantDisembarked;
+
+        DriverEmbarked += (sender, driver) =>
+        {
+            HasDriver = true; // Update driver status when a driver embarks
+        };
+        DriverDisembarked += (sender, e) =>
+        {
+            HasDriver = false; // Update driver status when a driver disembarks
+        };
     }
     public override void _Process(double delta)
 	{
@@ -243,7 +254,7 @@ public partial class VehicleOccupantsComponent : Node
                     break;
                 }
             }
-            CurrentOccupants.Add(inst);
+            CurrentOccupants.Add(inst.GetFirstChildOfType<OccupantComponent3D>());
             //if (AllowedOccupantTypesMap.ContainsKey(npcType) && AllowedOccupantTypesMap[npcType])
             //{
             // Create a new occupant and add it to the list
@@ -257,7 +268,7 @@ public partial class VehicleOccupantsComponent : Node
     {
 
     }
-    public void DisembarkOccupant(CharacterBody3D occupant, VehicleSeat seat)
+    public void DisembarkOccupant(OccupantComponent3D occupant, VehicleSeat seat)
     {
         if (seat.IsDriverSeat && !HasDriver)
         {
@@ -273,14 +284,14 @@ public partial class VehicleOccupantsComponent : Node
         occupant.GlobalPosition = VehicleGeometry.GlobalPosition + seat.EntrancePosition.GetVector3();
         CurrentOccupants.Remove(occupant);
         //occupant.Reparent(Global.CurrentCity); // Remove from vehicle
-        occupant.Show(); // Show the occupant after disembarking
-        //if (seat.IsDriverSeat)
-        //{
-        //    HasDriver = false; // Update driver status if the disembarked occupant was the driver
-        //}
+        occupant.Disembarking();
+        if (seat.IsDriverSeat)
+        {
+            DriverDisembarked?.Invoke(this, EventArgs.Empty);
+        }
         OccupantDisembarked?.Invoke(this, seat);
     }
-    public bool EmbarkOccupant(Node3D occupant, VehicleSeat seat)
+    public bool EmbarkOccupant(OccupantComponent3D occupant, VehicleSeat seat)
     {
         try
         {
@@ -306,15 +317,27 @@ public partial class VehicleOccupantsComponent : Node
                 GD.Print("Occupant is too far from the vehicle to embark.");
                 return false;
             }
-            seat.Occupant = occupant;
-            CurrentOccupants.Add(occupant);
-            occupant.Reparent(this);
-            occupant.Hide();
-            //if (seat.IsDriverSeat)
-            //{
-            //    HasDriver = true; // Update driver status if the occupant is driving
-            //}
-            OccupantEmbarked?.Invoke(this, seat);
+            if (seat.IsDriverSeat)
+            {
+                var driver = occupant.GetFirstChildOfInterface<IDriver>();
+                if (driver == null)
+                {
+                    GD.Print("Occupant is not a valid driver.");
+                    return false;
+                }
+                seat.Occupant = occupant;
+                CurrentOccupants.Add(occupant);
+                occupant.Embarking(_vehicleVelComp, this);
+                OccupantEmbarked?.Invoke(this, seat);
+                DriverEmbarked?.Invoke(this, driver);
+            }
+            else
+            {
+                seat.Occupant = occupant;
+                CurrentOccupants.Add(occupant);
+                occupant.Embarking(_vehicleVelComp, this);
+                OccupantEmbarked?.Invoke(this, seat);
+            }
             return true;
         }
         catch (Exception e)
@@ -322,7 +345,6 @@ public partial class VehicleOccupantsComponent : Node
             GD.PrintErr($"Error during embarkation: {e.Message}");
             return false;
         }
-        
     }
     public (VehicleSeat, SeatAvailability?) GetDriverSeat()
     {

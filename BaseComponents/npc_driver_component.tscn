@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx86t1ovoq5xs"]
+
+[ext_resource type="Script" uid="uid://chwo6k2mayi3k" path="res://BaseComponents/NpcDriverComponent.cs" id="1_ckmlq"]
+
+[node name="NPCDriverComponent" type="Node"]
+script = ExtResource("1_ckmlq")

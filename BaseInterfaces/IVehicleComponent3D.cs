@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-
-namespace TimeRobbers.BaseInterfaces
+namespace BaseInterfaces
 {
     public interface IVehicleComponent3D
     {
         public DriverBehavior GetDriverBehavior();
-        public void SetDriverBehavior(DriverBehavior driverBehavior);
+        public void SetDriveTargetLocation(Vector3 targetPosition);
+        public void SetDriveTargetRotation(Vector3 targetRotation);
+        public Vector3 GetDriveTargetLocation();
+        public Vector3 GetDriveTargetRotation();
         public bool IsParked { get; set; }
 
         public void Park();

@@ -2,7 +2,7 @@
 using Godot.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TimeRobbers.BaseInterfaces;
+using BaseInterfaces;
 
 [GlobalClass, Tool]
 public partial class LocatorComponent3D : Node3D

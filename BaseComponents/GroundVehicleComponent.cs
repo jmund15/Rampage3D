@@ -1,24 +1,34 @@
-﻿using Godot;
+﻿using BaseInterfaces;
+using Godot;
 using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TimeRobbers.BaseInterfaces;
+using BaseInterfaces;
 
 /* VEHICLE TODO: 
  * 1. Braking sfx volume directly corresponding with negative acceleration
  * 
+ * 2. Have target rotation (mostly for parking) be handled in ai nav comp instead of this logic
  */
 [GlobalClass, Tool]
-public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, IMovementComponent, IVelocity3DComponent
+public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, IVelocity3DComponent
 {
-	#region COMPONENT_VARIABLES
+    #region COMPONENT_VARIABLES
+    [Export]
+    public bool Debug { get; set; } = false;
+
+
 	private CollisionShape3D _collShape;
 	private List<Node3D> _wheels = new List<Node3D>();
 
     public VehicleOccupantsComponent? OccupantComp { get; private set; }
 	private IBlackboard _bb;
 	private AINav3DComponent _aiNav;
+
+    private IDriver _driver;
+    private DriverBehavior _driverBehavior;
+
 
     [Export]
     private DriverBehavior _debugDriverApt;
@@ -71,6 +81,8 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
         if (OccupantComp != null)
         {
             OccupantComp.OccupantsChanged += OnOccupantsChanged;
+            OccupantComp.DriverEmbarked += OnDriverEmbarked;
+            OccupantComp.DriverDisembarked += OnDriverDisembarked;
         }
         else
         {
@@ -122,11 +134,6 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
             return;
         }
 
-        _currVelProps = VelocityProperties.VelocityIds[0]; // Assuming this is always valid
-        _currVelProps.Acceleration = _baseVelProp.Acceleration * Global.Remap(_debugDriverApt.DriverAggression, 0.1f, 2.0f, 0.9f, 1.2f);
-        //GD.Print($"Vehicle Acceleration: {velProps.Acceleration}");
-        _desiredDir = _aiNav.WeightedNextPathDirection.Normalized(); 
-
         // Determine actual driving inputs based on _throttleInput, _steeringInput, _brakeInput
         // Manual inputs (_throttleInput, _steeringInput) can override or blend.
 
@@ -160,8 +167,14 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
         _forceLoc = -Transform.Basis.X + (-Transform.Basis.X * _frontWheelXPos);
 
 
-        if (!_debugDriverApt.WantsDrive)
+        if (_driver != null)//!_debugDriverApt.WantsDrive)
         {
+            _driverBehavior = _driver.GetDriverBehavior(); // check for updates
+            _currVelProps = VelocityProperties.VelocityIds[0]; // Assuming this is always valid
+            _currVelProps.Acceleration = _baseVelProp.Acceleration * Global.Remap(_driverBehavior.DriverAggression, 0.1f, 2.0f, 0.9f, 1.2f);
+            //GD.Print($"Vehicle Acceleration: {velProps.Acceleration}");
+            _desiredDir = _aiNav.WeightedNextPathDirection.Normalized();
+
             if (IsParked)
             {
                 // Apply strong braking if park brake is on and vehicle is moving
@@ -270,57 +283,6 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
         }
         return 1.0f; // Default
     }
-    public AnimDirection GetAnimDirection()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public Dir4 GetFaceDirection()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public Dir4 GetDesiredFaceDirection()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public Vector2 GetDesiredDirection()
-    {
-        var dir = _aiNav.WeightedNextPathDirection;
-        return new Vector2(dir.X, dir.Z);
-    }
-
-    public Vector2 GetDesiredDirectionNormalized()
-    {
-        return GetDesiredDirection().Normalized();
-    }
-
-    public bool WantsJump()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public bool WantsAttack()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public float TimeSinceAttackRequest()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public bool WantsStrafe()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public float GetRunSpeedMult()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public Vector3 GetVelocity()
     {
         return LinearVelocity;
@@ -378,54 +340,13 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
 
     public Node GetInterfaceNode()
     {
-        throw new System.NotImplementedException();
+        return this;
     }
-    #endregion
-    #region PUBLIC_API
-    // --- Public API for Controllers ---
-    public void SetParkStatus(bool engage)
-    {
-        IsParked = engage;
-        if (engage)
-        {
-            _aiNav.DisableNavigation();
-        }
-        else
-        {
-            _aiNav.EnableNavigation(); // Re-enable navigation if park brake is disengaged
-        }
-    }
-
-    public void SetNavigationTarget(Vector3 globalTargetPosition)
-    {
-
-        if (_aiNav != null)
-        {
-            _aiNav.EnableNavigation();
-            _aiNav.SetTargetPosition(globalTargetPosition);
-        }
-        SetParkStatus(false);
-    }
-
-    public void ClearNavigationTarget()
-    {
-        if (_aiNav != null)
-        {
-            _aiNav.DisableNavigation(); // Assumes AINavComponent has this method
-        }
-        // Vehicle will now brake/coast based on _PhysicsProcess logic when _isNavigationActive is false
-    }
-
     #endregion
     #region COMPONENT_HELPER
     public DriverBehavior GetDriverBehavior()
     {
-        throw new NotImplementedException();
-    }
-
-    public void SetDriverBehavior(DriverBehavior driverBehavior)
-    {
-        throw new NotImplementedException();
+        return _driverBehavior;
     }
     public void Park()
     {
@@ -433,6 +354,15 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
     }
     public void Drive()
     {
+        DriverBehavior driveBehavior;
+        if (Debug)
+        {
+            driveBehavior = _debugDriverApt;
+        }
+        else
+        {
+            driveBehavior = _driver.GetDriverBehavior();
+        }
         Vector3 forwardDir = -Transform.Basis.X.Normalized(); // Assuming -X is forward
         var forwardFacingDir = -Transform.Basis.X.Normalized();
         //GD.Print($"\nForward Dir: {forwardFacingDir}" +
@@ -451,7 +381,7 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
         var forwardDesDot = forwardFacingDir.Dot(_desiredDir);
 
         var baseBrakeSpeed = 3f;
-        var needBrakeSpeed = baseBrakeSpeed / _debugDriverApt.DriverAggression;
+        var needBrakeSpeed = baseBrakeSpeed / driveBehavior.DriverAggression;
         if (_desiredDir == Vector3.Zero ||
             (forwardDesDot < 0f && LinearVelocity.Length() > needBrakeSpeed))
         {
@@ -510,10 +440,10 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
         var minDot = 0.65f;
         var clampedDot = Mathf.Clamp(forwardDesDot, minDot, 1f);
         //var speedMult = Mathf.Clamp(forwardDesDot, 0.7f, 1f);
-        var minSpeedMult = 0.65f * _debugDriverApt.DriverAggression;
+        var minSpeedMult = 0.65f * driveBehavior.DriverAggression;
         minSpeedMult = Mathf.Clamp(minSpeedMult, 0.5f, 1f);
 
-        var maxSpeedMult = 1f;// * _debugDriverApt.DriverAggression;
+        var maxSpeedMult = 1f;// * driveBehavior.DriverAggression;
 
         //0.5f is 90 degree turn, so clamp speed min at that
         var speedMult = Global.Remap(clampedDot, minDot, 1f, minSpeedMult, maxSpeedMult);
@@ -522,7 +452,7 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
         //    $"\nspeed Mult: {speedMult}");
 
         // only allow driving in slight arc
-        var maxDrivingDegAng = 30f * _debugDriverApt.DriverAggression;
+        var maxDrivingDegAng = 30f * driveBehavior.DriverAggression;
         maxDrivingDegAng = Mathf.Clamp(maxDrivingDegAng, 15f, 90f);
         var maxDrivingTurnAngle = Mathf.DegToRad(maxDrivingDegAng);
 
@@ -582,6 +512,44 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
     #endregion
     #region SIGNAL_LISTENERS
     private void OnOccupantsChanged(object sender, List<VehicleSeat> e)
+    {
+        throw new NotImplementedException();
+
+    }
+    private void OnDriverEmbarked(object sender, IDriver driver)
+    {
+        _driver = driver;
+        _driverBehavior = driver.GetDriverBehavior();
+        if (_driver.WantsDrive())
+        {
+            _aiNav.SetTarget(_driver.GetDesiredDriveLoc(), true);
+            _aiNav.EnableNavigation();
+        }
+        else
+        {
+            _aiNav.DisableNavigation();
+        }
+    }
+    private void OnDriverDisembarked(object sender, EventArgs e)
+    {
+        _driver = null;
+        _driverBehavior = null;
+        _aiNav.DisableNavigation();
+    }
+
+    public void SetDriveTargetLocation(Vector3 targetPosition)
+    {
+        _aiNav.SetTarget(targetPosition, true);
+    }
+    public void SetDriveTargetRotation(Vector3 targetRotation)
+    {
+        throw new NotImplementedException();
+    }
+    public Vector3 GetDriveTargetLocation()
+    {
+        return _aiNav.GetTargetPosition();
+    }
+    public Vector3 GetDriveTargetRotation()
     {
         throw new NotImplementedException();
     }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 
 [Tool]
-public partial class EmbarkInVehicle : BehaviorAction
+public partial class DisembarkFromVehicle : BehaviorAction
 {
+	//TEMPLATE FOR BEHAVIOR TASKS
 	#region TASK_VARIABLES
-
 	#endregion
 	#region TASK_UPDATES
 	public override void Init(Node agent, IBlackboard bb)
@@ -16,24 +16,24 @@ public partial class EmbarkInVehicle : BehaviorAction
 	public override void Enter()
 	{
 		base.Enter();
-		var rider = (Agent as Node3D);
-        var targetVehicle = BB.GetVar<VehicleOccupantsComponent>(BBDataSig.TargetVehicle);
-		var targetSeat = BB.GetVar<VehicleSeat>(BBDataSig.TargetVehicleSeat);
-        if (!targetVehicle.CloseEnoughToEmbark(rider, targetSeat))
-		{
-			Status = TaskStatus.FAILURE;
+        var rider = BB.GetVar<OccupantComponent3D>(BBDataSig.OccupantComp);
+        var vehicle = BB.GetVar<VehicleOccupantsComponent>(BBDataSig.TargetVehicle);
+        var targetSeat = BB.GetVar<VehicleSeat>(BBDataSig.TargetVehicleSeat);
+        if (!vehicle.CloseEnoughToEmbark(rider, targetSeat))
+        {
+            Status = TaskStatus.FAILURE;
         }
 
-		var embarked = targetVehicle.EmbarkOccupant(rider, targetSeat);
-		if (!embarked)
-		{
-			GD.PrintErr($"EmbarkInVehicle: {Agent.Name} failed to embark on vehicle {targetVehicle.Name} at seat {targetSeat.EntrancePosition}.");
+        var embarked = vehicle.EmbarkOccupant(rider, targetSeat);
+        if (!embarked)
+        {
+            GD.PrintErr($"EmbarkInVehicle: {Agent.Name} failed to embark on vehicle {vehicle.Name} at seat {targetSeat.EntrancePosition}.");
             Status = TaskStatus.FAILURE;
-		}
-		else
-		{
-			Status = TaskStatus.SUCCESS;
-		}
+        }
+        else
+        {
+            Status = TaskStatus.SUCCESS;
+        }
     }
 	public override void Exit()
 	{
