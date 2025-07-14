@@ -22,7 +22,7 @@ public partial class VehicleOccupantsComponent : Node
 {
     #region COMPONENT_VARIABLES
 
-    private IVehicleComponent3D _vehicleVelComp;
+    public IVehicleComponent3D VehicleVelComp { get; private set; }
     [Export]
     public MeshInstance3D VehicleGeometry { get; private set; }
 
@@ -112,8 +112,8 @@ public partial class VehicleOccupantsComponent : Node
 	{
 		base._Ready();
 
-        _vehicleVelComp = GetOwner<IVehicleComponent3D>();
-        if (_vehicleVelComp == null)
+        VehicleVelComp = GetOwner<IVehicleComponent3D>();
+        if (VehicleVelComp == null)
         {
             GD.PrintErr("VehicleOccupantComponent requires an owner that implements IVelocity3DComponent.");
             return;
@@ -327,7 +327,7 @@ public partial class VehicleOccupantsComponent : Node
                 }
                 seat.Occupant = occupant;
                 CurrentOccupants.Add(occupant);
-                occupant.Embarking(_vehicleVelComp, this);
+                occupant.Embarking(VehicleVelComp, this);
                 OccupantEmbarked?.Invoke(this, seat);
                 DriverEmbarked?.Invoke(this, driver);
             }
@@ -335,7 +335,7 @@ public partial class VehicleOccupantsComponent : Node
             {
                 seat.Occupant = occupant;
                 CurrentOccupants.Add(occupant);
-                occupant.Embarking(_vehicleVelComp, this);
+                occupant.Embarking(VehicleVelComp, this);
                 OccupantEmbarked?.Invoke(this, seat);
             }
             return true;

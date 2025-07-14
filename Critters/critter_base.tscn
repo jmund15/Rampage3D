@@ -34,7 +34,7 @@
 [ext_resource type="Script" uid="uid://cv6shm5h5xorv" path="res://Critters/AISM/Conditions/TargetVehicleEmbarkableCondition.cs" id="24_xil08"]
 [ext_resource type="Script" uid="uid://dvmrucmpl6f1d" path="res://Critters/AISM/Actions/EmbarkInVehicle.cs" id="25_aa7kd"]
 [ext_resource type="Script" uid="uid://dh6v7s4ew2bvm" path="res://Critters/AISM/Actions/SetDriveNavigation.cs" id="25_xil08"]
-[ext_resource type="Script" uid="uid://bd3j6goedpiu0" path="res://Critters/AISM/Actions/DriveToRandomPosition.cs" id="26_cauu0"]
+[ext_resource type="Script" uid="uid://ciykp5l1olohs" path="res://Critters/AISM/Actions/VehicleToNavPoint.cs" id="26_cauu0"]
 [ext_resource type="Resource" uid="uid://ey0yeq282cxt" path="res://Critters/AISM/critter_wall_aiconsid.tres" id="26_wxm0o"]
 [ext_resource type="Script" uid="uid://dlqx1f7843q3j" path="res://Critters/AISM/Actions/DisembarkFromVehicle.cs" id="28_mhjlt"]
 [ext_resource type="Script" uid="uid://b0q0d621ob2j6" path="res://BaseComponents/OccupantComponent.cs" id="34_lm8bi"]
@@ -323,12 +323,8 @@ metadata/_custom_type_script = "uid://cfahexo6jy6c5"
 script = ExtResource("25_aa7kd")
 metadata/_custom_type_script = "uid://bko4f8scnfuxd"
 
-[node name="BehaviorAction" type="Node" parent="AISM/NavTestBT/BehaviorTree/DriveSeq"]
-script = ExtResource("26_cauu0")
-metadata/_custom_type_script = "uid://bko4f8scnfuxd"
-
 [node name="SetRandomNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/DriveSeq"]
-script = ExtResource("15_b1q00")
+script = ExtResource("26_cauu0")
 metadata/_custom_type_script = "uid://bb3mfjludhtb8"
 
 [node name="TravelToNavPoint2" type="Node" parent="AISM/NavTestBT/BehaviorTree/DriveSeq"]

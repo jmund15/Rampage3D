@@ -1,81 +1,89 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\",
+  "WorkspaceRootPath": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\AISM\\Actions\\DriveToRandomPosition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Critters\\AISM\\Actions\\DriveToRandomPosition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\basecomponents\\vehicleoccupantscomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\vehicleoccupantscomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\basecomponents\\groundvehiclecomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\groundvehiclecomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\baseinterfaces\\idriver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:baseinterfaces\\idriver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\baseresources\\driverbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:baseresources\\driverbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\baseinterfaces\\ivehiclecomponent3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:baseinterfaces\\ivehiclecomponent3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\basecomponents\\occupantcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\basecomponents\\occupantcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\occupantcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\basecomponents\\ainav3dcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\AISM\\Actions\\VehicleToNavPoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Critters\\AISM\\Actions\\VehicleToNavPoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\basecomponents\\groundvehiclecomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\groundvehiclecomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\basecomponents\\vehicleoccupantscomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\vehicleoccupantscomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\critters\\aism\\actions\\findanyvehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:critters\\aism\\actions\\findanyvehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\critters\\aism\\actions\\embarkinvehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:critters\\aism\\actions\\embarkinvehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmoai\\blackboard\\blackboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmoai\\blackboard\\blackboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\critters\\aism\\actions\\drivetorandomposition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:critters\\aism\\actions\\drivetorandomposition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\baseinterfaces\\idriver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:baseinterfaces\\idriver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\baseresources\\driverbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:baseresources\\driverbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\baseinterfaces\\ivehiclecomponent3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:baseinterfaces\\ivehiclecomponent3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\basecomponents\\ainav3dcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\ainav3dcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\jmund\\AppData\\Local\\Temp\\VSGeneratedDocuments\\c7999822-d11a-41dd-a41c-f588b7fb6ec9\\AINav3DComponent_ScriptMethods.generated.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\critters\\critter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\critters\\critter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:critters\\critter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\AISM\\Actions\\DisembarkFromVehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Critters\\AISM\\Actions\\DisembarkFromVehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\jmoai\\blackboard\\blackboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmoai\\blackboard\\blackboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\baseresources\\vehicleseat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\baseresources\\vehicleseat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:baseresources\\vehicleseat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\basecomponents\\locatorcomponent3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\basecomponents\\locatorcomponent3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\locatorcomponent3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\baseinterfaces\\istatmodifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\baseinterfaces\\istatmodifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:baseinterfaces\\istatmodifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\critters\\aism\\actions\\findanyvehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:critters\\aism\\actions\\findanyvehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\critters\\aism\\actions\\setrandomnavpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\critters\\aism\\actions\\setrandomnavpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:critters\\aism\\actions\\setrandomnavpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\critters\\aism\\conditions\\targetvehicleembarkablecondition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\critters\\aism\\conditions\\targetvehicleembarkablecondition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:critters\\aism\\conditions\\targetvehicleembarkablecondition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game development\\godot projects\\rampage3d\\jmoai\\bt\\decorators\\cooldown.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmoai\\bt\\decorators\\cooldown.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmoai\\bt\\decorators\\cooldown.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\critters\\aism\\actions\\disembarkfromvehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:critters\\aism\\actions\\disembarkfromvehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -85,17 +93,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "VehicleOccupantsComponent.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\VehicleOccupantsComponent.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseComponents\\VehicleOccupantsComponent.cs",
               "RelativeDocumentMoniker": "BaseComponents\\VehicleOccupantsComponent.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\VehicleOccupantsComponent.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseComponents\\VehicleOccupantsComponent.cs",
               "RelativeToolTip": "BaseComponents\\VehicleOccupantsComponent.cs",
-              "ViewState": "AgIAAE8BAAAAAAAAAAAAwFsBAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAtwBgAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-01T18:30:26.384Z",
               "IsPinned": true,
@@ -105,11 +113,11 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "GroundVehicleComponent.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\GroundVehicleComponent.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseComponents\\GroundVehicleComponent.cs",
               "RelativeDocumentMoniker": "BaseComponents\\GroundVehicleComponent.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\GroundVehicleComponent.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseComponents\\GroundVehicleComponent.cs",
               "RelativeToolTip": "BaseComponents\\GroundVehicleComponent.cs",
-              "ViewState": "AgIAAAkCAAAAAAAAAAAhwBACAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAACAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-01T18:33:49.131Z",
               "IsPinned": true,
@@ -117,154 +125,172 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "VehicleToNavPoint.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\AISM\\Actions\\VehicleToNavPoint.cs",
+              "RelativeDocumentMoniker": "Critters\\AISM\\Actions\\VehicleToNavPoint.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\AISM\\Actions\\VehicleToNavPoint.cs",
+              "RelativeToolTip": "Critters\\AISM\\Actions\\VehicleToNavPoint.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBwAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-14T22:44:02.285Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EmbarkInVehicle.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\AISM\\Actions\\EmbarkInVehicle.cs",
+              "RelativeDocumentMoniker": "Critters\\AISM\\Actions\\EmbarkInVehicle.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\AISM\\Actions\\EmbarkInVehicle.cs",
+              "RelativeToolTip": "Critters\\AISM\\Actions\\EmbarkInVehicle.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwBMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-14T22:39:00.939Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "DriveToRandomPosition.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\AISM\\Actions\\DriveToRandomPosition.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\AISM\\Actions\\DriveToRandomPosition.cs",
               "RelativeDocumentMoniker": "Critters\\AISM\\Actions\\DriveToRandomPosition.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\AISM\\Actions\\DriveToRandomPosition.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\AISM\\Actions\\DriveToRandomPosition.cs",
               "RelativeToolTip": "Critters\\AISM\\Actions\\DriveToRandomPosition.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBIAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwA4AAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-12T21:07:08.086Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "IVehicleComponent3D.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseInterfaces\\IVehicleComponent3D.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseInterfaces\\IVehicleComponent3D.cs",
               "RelativeDocumentMoniker": "BaseInterfaces\\IVehicleComponent3D.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseInterfaces\\IVehicleComponent3D.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseInterfaces\\IVehicleComponent3D.cs",
               "RelativeToolTip": "BaseInterfaces\\IVehicleComponent3D.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T20:44:24.107Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-12T20:44:24.107Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AINav3DComponent_ScriptMethods.generated.cs [generated]",
+              "DocumentIndex": 12,
+              "Title": "AINav3DComponent_ScriptMethods.generated.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\AppData\\Local\\Temp\\VSGeneratedDocuments\\c7999822-d11a-41dd-a41c-f588b7fb6ec9\\AINav3DComponent_ScriptMethods.generated.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\AppData\\Local\\Temp\\VSGeneratedDocuments\\c7999822-d11a-41dd-a41c-f588b7fb6ec9\\AINav3DComponent_ScriptMethods.generated.cs",
               "ToolTip": "AINav3DComponent_ScriptMethods.generated.cs [generated by Godot.SourceGenerators.ScriptMethodsGenerator]",
               "ViewState": "AgIAAIEAAAAAAAAAAAAEwIoAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "OverriddenToolTip": "AINav3DComponent_ScriptMethods.generated.cs [generated by Godot.SourceGenerators.ScriptMethodsGenerator]",
-              "WhenOpened": "2025-07-12T20:34:16.011Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-12T20:34:16.011Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 6,
               "Title": "Blackboard.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\JmoAI\\Blackboard\\Blackboard.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoAI\\Blackboard\\Blackboard.cs",
               "RelativeDocumentMoniker": "JmoAI\\Blackboard\\Blackboard.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\JmoAI\\Blackboard\\Blackboard.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoAI\\Blackboard\\Blackboard.cs",
               "RelativeToolTip": "JmoAI\\Blackboard\\Blackboard.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAawAkAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-12T20:26:14.199Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "DriverBehavior.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseResources\\DriverBehavior.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseResources\\DriverBehavior.cs",
               "RelativeDocumentMoniker": "BaseResources\\DriverBehavior.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseResources\\DriverBehavior.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseResources\\DriverBehavior.cs",
               "RelativeToolTip": "BaseResources\\DriverBehavior.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAgAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T20:19:20.93Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-12T20:19:20.93Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "IStatModifier.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseInterfaces\\IStatModifier.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseInterfaces\\IStatModifier.cs",
               "RelativeDocumentMoniker": "BaseInterfaces\\IStatModifier.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseInterfaces\\IStatModifier.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseInterfaces\\IStatModifier.cs",
               "RelativeToolTip": "BaseInterfaces\\IStatModifier.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T19:58:59.21Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-12T19:58:59.21Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 20,
               "Title": "DisembarkFromVehicle.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\AISM\\Actions\\DisembarkFromVehicle.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\AISM\\Actions\\DisembarkFromVehicle.cs",
               "RelativeDocumentMoniker": "Critters\\AISM\\Actions\\DisembarkFromVehicle.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\AISM\\Actions\\DisembarkFromVehicle.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\AISM\\Actions\\DisembarkFromVehicle.cs",
               "RelativeToolTip": "Critters\\AISM\\Actions\\DisembarkFromVehicle.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAAABIAAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T19:51:00.115Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-12T19:51:00.115Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "IDriver.cs",
-              "DocumentMoniker": "C:\\USERS\\JMUND\\GAME DEVELOPMENT\\GODOT PROJECTS\\RAMPAGE3D\\BaseInterfaces\\IDriver.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseInterfaces\\IDriver.cs",
               "RelativeDocumentMoniker": "BaseInterfaces\\IDriver.cs",
-              "ToolTip": "C:\\USERS\\JMUND\\GAME DEVELOPMENT\\GODOT PROJECTS\\RAMPAGE3D\\BaseInterfaces\\IDriver.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseInterfaces\\IDriver.cs",
               "RelativeToolTip": "BaseInterfaces\\IDriver.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAuwA4AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T19:27:10.248Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-12T19:27:10.248Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
               "Title": "OccupantComponent.cs",
-              "DocumentMoniker": "C:\\USERS\\JMUND\\GAME DEVELOPMENT\\GODOT PROJECTS\\RAMPAGE3D\\BaseComponents\\OccupantComponent.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseComponents\\OccupantComponent.cs",
               "RelativeDocumentMoniker": "BaseComponents\\OccupantComponent.cs",
-              "ToolTip": "C:\\USERS\\JMUND\\GAME DEVELOPMENT\\GODOT PROJECTS\\RAMPAGE3D\\BaseComponents\\OccupantComponent.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseComponents\\OccupantComponent.cs",
               "RelativeToolTip": "BaseComponents\\OccupantComponent.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAASwC8AAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAADMAAAAAAAAAAAA4wD8AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-12T19:26:00.921Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "SetRandomNavPoint.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\AISM\\Actions\\SetRandomNavPoint.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\AISM\\Actions\\SetRandomNavPoint.cs",
               "RelativeDocumentMoniker": "Critters\\AISM\\Actions\\SetRandomNavPoint.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\AISM\\Actions\\SetRandomNavPoint.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\AISM\\Actions\\SetRandomNavPoint.cs",
               "RelativeToolTip": "Critters\\AISM\\Actions\\SetRandomNavPoint.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-12T19:48:49.864Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-12T19:48:49.864Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "Critter.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\Critter.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\Critter.cs",
               "RelativeDocumentMoniker": "Critters\\Critter.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\Critter.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\Critter.cs",
               "RelativeToolTip": "Critters\\Critter.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-30T01:15:59.92Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-30T01:15:59.92Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "TargetVehicleEmbarkableCondition.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\AISM\\Conditions\\TargetVehicleEmbarkableCondition.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\AISM\\Conditions\\TargetVehicleEmbarkableCondition.cs",
               "RelativeDocumentMoniker": "Critters\\AISM\\Conditions\\TargetVehicleEmbarkableCondition.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\AISM\\Conditions\\TargetVehicleEmbarkableCondition.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\AISM\\Conditions\\TargetVehicleEmbarkableCondition.cs",
               "RelativeToolTip": "Critters\\AISM\\Conditions\\TargetVehicleEmbarkableCondition.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -272,11 +298,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "Cooldown.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\JmoAI\\BT\\Decorators\\Cooldown.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoAI\\BT\\Decorators\\Cooldown.cs",
               "RelativeDocumentMoniker": "JmoAI\\BT\\Decorators\\Cooldown.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\JmoAI\\BT\\Decorators\\Cooldown.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoAI\\BT\\Decorators\\Cooldown.cs",
               "RelativeToolTip": "JmoAI\\BT\\Decorators\\Cooldown.cs",
               "ViewState": "AgIAAAsAAAAAAAAAAAAAwAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -284,55 +310,52 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 4,
               "Title": "FindAnyVehicle.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\AISM\\Actions\\FindAnyVehicle.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\AISM\\Actions\\FindAnyVehicle.cs",
               "RelativeDocumentMoniker": "Critters\\AISM\\Actions\\FindAnyVehicle.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\Critters\\AISM\\Actions\\FindAnyVehicle.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\AISM\\Actions\\FindAnyVehicle.cs",
               "RelativeToolTip": "Critters\\AISM\\Actions\\FindAnyVehicle.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAHQAAAAAAAAAAAAMwIMAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-14T21:10:04.803Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
               "Title": "LocatorComponent3D.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\LocatorComponent3D.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseComponents\\LocatorComponent3D.cs",
               "RelativeDocumentMoniker": "BaseComponents\\LocatorComponent3D.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\LocatorComponent3D.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseComponents\\LocatorComponent3D.cs",
               "RelativeToolTip": "BaseComponents\\LocatorComponent3D.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-14T18:32:41.679Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-14T18:32:41.679Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "AINav3DComponent.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\AINav3DComponent.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseComponents\\AINav3DComponent.cs",
               "RelativeDocumentMoniker": "BaseComponents\\AINav3DComponent.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseComponents\\AINav3DComponent.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseComponents\\AINav3DComponent.cs",
               "RelativeToolTip": "BaseComponents\\AINav3DComponent.cs",
               "ViewState": "AgIAAJYBAAAAAAAAAAAawJ8BAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-08T01:35:32.145Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-08T01:35:32.145Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "VehicleSeat.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseResources\\VehicleSeat.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseResources\\VehicleSeat.cs",
               "RelativeDocumentMoniker": "BaseResources\\VehicleSeat.cs",
-              "ToolTip": "C:\\Users\\jmund\\GAME DEVELOPMENT\\Godot Projects\\Rampage3D\\BaseResources\\VehicleSeat.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseResources\\VehicleSeat.cs",
               "RelativeToolTip": "BaseResources\\VehicleSeat.cs",
               "ViewState": "AgIAADAAAAAAAAAAAAAuwDYAAABXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-07T18:41:41.381Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-07T18:41:41.381Z"
             }
           ]
         }

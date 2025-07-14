@@ -49,6 +49,10 @@ public partial class OccupantComponent3D : Node3D, IDriver
     {
         return _driverAI.WeightedNextPathDirection;
     }
+    public bool WantsDrive()
+    {
+        throw new System.NotImplementedException();
+    }
     #endregion
     #region COMPONENT_HELPER
     public void Embarking(IVehicleComponent3D vehicle, VehicleOccupantsComponent occComp)
@@ -65,6 +69,7 @@ public partial class OccupantComponent3D : Node3D, IDriver
         _driver.Show();
         _driver.Reparent(_originalDriverParent);
     }
+
     #endregion
     #region SIGNAL_LISTENERS
     #endregion

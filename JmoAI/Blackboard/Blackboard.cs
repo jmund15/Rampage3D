@@ -51,6 +51,7 @@ public enum BBDataSig
     OwnedVehicle,
     TargetVehicle,
     TargetVehicleSeat,
+    OccupiedVehicle,
     #endregion
 }
 [GlobalClass, Tool]

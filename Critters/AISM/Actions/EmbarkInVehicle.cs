@@ -16,9 +16,9 @@ public partial class EmbarkInVehicle : BehaviorAction
 	public override void Enter()
 	{
 		base.Enter();
-		var rider = (Agent as Node3D);
-        var targetVehicle = BB.GetVar<VehicleOccupantsComponent>(BBDataSig.TargetVehicle);
+		var rider = BB.GetVar<OccupantComponent3D>(BBDataSig.OccupantComp);//(Agent as Node3D);
 		var targetSeat = BB.GetVar<VehicleSeat>(BBDataSig.TargetVehicleSeat);
+		var targetVehicle = targetSeat.VOccupantComp;
         if (!targetVehicle.CloseEnoughToEmbark(rider, targetSeat))
 		{
 			Status = TaskStatus.FAILURE;
@@ -32,7 +32,8 @@ public partial class EmbarkInVehicle : BehaviorAction
 		}
 		else
 		{
-			Status = TaskStatus.SUCCESS;
+			BB.SetVar(BBDataSig.OccupiedVehicle, targetVehicle.VehicleVelComp);
+            Status = TaskStatus.SUCCESS;
 		}
     }
 	public override void Exit()

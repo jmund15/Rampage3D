@@ -129,7 +129,6 @@ public partial class FindAnyVehicle : BehaviorAction
         //}
 
         GD.Print($"Set vehicle entrance target Sucessfully!!");
-        BB.SetVar(BBDataSig.TargetVehicle, _vehicleOccupants);
         BB.SetVar(BBDataSig.TargetVehicleSeat, _vehicleSeat);
         Status = TaskStatus.SUCCESS;
     }
