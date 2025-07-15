@@ -327,7 +327,7 @@ public partial class VehicleOccupantsComponent : Node
                 }
                 seat.Occupant = occupant;
                 CurrentOccupants.Add(occupant);
-                occupant.Embarking(VehicleVelComp, this);
+                occupant.Embarking(VehicleVelComp, seat);
                 OccupantEmbarked?.Invoke(this, seat);
                 DriverEmbarked?.Invoke(this, driver);
             }
@@ -335,7 +335,7 @@ public partial class VehicleOccupantsComponent : Node
             {
                 seat.Occupant = occupant;
                 CurrentOccupants.Add(occupant);
-                occupant.Embarking(VehicleVelComp, this);
+                occupant.Embarking(VehicleVelComp, seat);
                 OccupantEmbarked?.Invoke(this, seat);
             }
             return true;

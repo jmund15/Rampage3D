@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bd0dotu3315d"]
+[gd_scene load_steps=18 format=3 uid="uid://bd0dotu3315d"]
 
 [ext_resource type="PackedScene" uid="uid://bk2raes43i7w6" path="res://Vehicles/Implementation/base_vehicle_ground.tscn" id="1_br7v3"]
 [ext_resource type="Script" uid="uid://bds5ojs2wkd4a" path="res://BaseResources/ImpulseIDResource.cs" id="2_4bqeu"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bn16l4dur84r7" path="res://Vehicles/Implementation/Wheels/4x2_black.tscn" id="4_erehq"]
 [ext_resource type="Script" uid="uid://dygwyddjwbtfu" path="res://BaseResources/Char3DVelocityProperties.cs" id="4_gl2g4"]
 [ext_resource type="Resource" uid="uid://ci08j22roogiq" path="res://Vehicles/VelocityProps/sedan_vel.tres" id="4_ngt3q"]
+[ext_resource type="Script" uid="uid://bsfupmwgt5bmp" path="res://BaseResources/VehicleSeat.cs" id="7_7u2ev"]
 [ext_resource type="Script" uid="uid://blj3ptsh0s6pu" path="res://BaseComponents/VehicleOccupantsComponent.cs" id="8_7u2ev"]
 
 [sub_resource type="Resource" id="Resource_ngt3q"]
@@ -15,6 +16,30 @@ script = ExtResource("4_gl2g4")
 ImpulseIds = Array[ExtResource("2_4bqeu")]([])
 VelocityIds = Array[ExtResource("3_ngt3q")]([ExtResource("4_ngt3q")])
 metadata/_custom_type_script = "uid://dygwyddjwbtfu"
+
+[sub_resource type="Resource" id="Resource_6nc7e"]
+script = ExtResource("7_7u2ev")
+IsDriverSeat = true
+EntrancePosition = Vector2(-0.1, 0.25)
+metadata/_custom_type_script = "uid://bsfupmwgt5bmp"
+
+[sub_resource type="Resource" id="Resource_kfdts"]
+script = ExtResource("7_7u2ev")
+IsDriverSeat = false
+EntrancePosition = Vector2(0.4, 0.25)
+metadata/_custom_type_script = "uid://bsfupmwgt5bmp"
+
+[sub_resource type="Resource" id="Resource_mwa77"]
+script = ExtResource("7_7u2ev")
+IsDriverSeat = false
+EntrancePosition = Vector2(-0.1, -0.375)
+metadata/_custom_type_script = "uid://bsfupmwgt5bmp"
+
+[sub_resource type="Resource" id="Resource_36jqa"]
+script = ExtResource("7_7u2ev")
+IsDriverSeat = false
+EntrancePosition = Vector2(0.4, -0.375)
+metadata/_custom_type_script = "uid://bsfupmwgt5bmp"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xo8uu"]
 albedo_texture = ExtResource("2_ynqi2")
@@ -28,33 +53,36 @@ mass = 500.0
 angular_damp = 10.0
 VelocityProperties = SubResource("Resource_ngt3q")
 
-[node name="VehicleMesh" parent="." index="0"]
+[node name="VehicleOccupantsComponent" type="Node" parent="." index="1" node_paths=PackedStringArray("VehicleGeometry")]
+script = ExtResource("8_7u2ev")
+VehicleGeometry = NodePath("../VehicleMesh")
+VehicleSeats = Array[ExtResource("7_7u2ev")]([SubResource("Resource_6nc7e"), SubResource("Resource_kfdts"), SubResource("Resource_mwa77"), SubResource("Resource_36jqa")])
+metadata/_custom_type_script = "uid://blj3ptsh0s6pu"
+
+[node name="VehicleMesh" parent="." index="2"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.0625, -0.0125, 0.0625)
 material_override = SubResource("StandardMaterial3D_xo8uu")
 mesh = ExtResource("3_oatel")
 
-[node name="OccupantsComponent" parent="." index="1"]
-script = ExtResource("8_7u2ev")
-
-[node name="AINav3DComponent" parent="." index="2"]
+[node name="AINav3DComponent" parent="." index="3"]
 path_max_distance = 3.01
 
-[node name="BehaviorTree" parent="." index="3"]
+[node name="BehaviorTree" parent="." index="4"]
 Enabled = false
 SelfSuffecient = false
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="7"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="8"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_767aj")
 
-[node name="BLWheel" parent="." index="8" instance=ExtResource("4_erehq")]
+[node name="BLWheel" parent="." index="9" instance=ExtResource("4_erehq")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.6875, 0.125, 0.25)
 
-[node name="BRWheel" parent="." index="9" instance=ExtResource("4_erehq")]
+[node name="BRWheel" parent="." index="10" instance=ExtResource("4_erehq")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.6875, 0.125, -0.25)
 
-[node name="FRWheel" parent="." index="10" instance=ExtResource("4_erehq")]
+[node name="FRWheel" parent="." index="11" instance=ExtResource("4_erehq")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5625, 0.125, -0.25)
 
-[node name="FLWheel" parent="." index="11" instance=ExtResource("4_erehq")]
+[node name="FLWheel" parent="." index="12" instance=ExtResource("4_erehq")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5625, 0.125, 0.25)

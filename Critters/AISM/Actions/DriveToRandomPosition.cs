@@ -1,5 +1,6 @@
 ﻿using BaseInterfaces;
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,7 +11,8 @@ public partial class DriveToRandomPosition : BehaviorAction
 	private IVehicleComponent3D _vehicleComp;
 	private IDriver _driver;
 	
-
+    private Vector3 _navPoint;
+    private bool _mapLoaded;
     #endregion
     #region TASK_UPDATES
     public override void Init(Node agent, IBlackboard bb)
@@ -20,8 +22,20 @@ public partial class DriveToRandomPosition : BehaviorAction
 	public override void Enter()
 	{
 		base.Enter();
-	}
-	public override void Exit()
+		_vehicleComp = BB.GetVar<IVehicleComponent3D>(BBDataSig.OccupiedVehicle);
+        if (NavigationServer3D.MapGetIterationId(_vehicleComp.GetNavigationMap()) == 0) // not setup yet
+        {
+            _mapLoaded = false;
+            NavigationServer3D.MapChanged += OnMapChanged;
+        }
+        else
+        {
+            _mapLoaded = true;
+            GetRandomPoint();
+        }
+    }
+
+    public override void Exit()
 	{
 		base.Exit();
 	}
@@ -33,9 +47,27 @@ public partial class DriveToRandomPosition : BehaviorAction
 	{
 		base.ProcessPhysics(delta);
 	}
-	#endregion
-	#region TASK_HELPER
-	public override string[] _GetConfigurationWarnings()
+    #endregion
+    #region TASK_HELPER
+    private void OnMapChanged(Rid map)
+    {
+        if (map == _vehicleComp.GetNavigationMap())
+        {
+            GetRandomPoint();
+        }
+    }
+    private void GetRandomPoint()
+    {
+        do
+        {
+            _navPoint = NavigationServer3D.MapGetRandomPoint(_vehicleComp.GetNavigationMap(), _vehicleComp.GetNavigationLayers(), true);
+            GD.Print("calc'd nav point: ", _navPoint);
+        } while (_navPoint.Y >= 1);
+        _vehicleComp.SetDriveTargetLocation(_navPoint); //, true);
+        //GD.Print("Nav point found: ", _navPoint);
+        Status = TaskStatus.SUCCESS;
+    }
+    public override string[] _GetConfigurationWarnings()
 	{
 		var warnings = new List<string>();
 

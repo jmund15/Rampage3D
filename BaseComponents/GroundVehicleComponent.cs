@@ -4,7 +4,6 @@ using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BaseInterfaces;
 
 /* VEHICLE TODO: 
  * 1. Braking sfx volume directly corresponding with negative acceleration
@@ -18,11 +17,13 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
     [Export]
     public bool Debug { get; set; } = false;
 
+    public VehicleGear Gear { get; set; } = VehicleGear.Park;
 
-	private CollisionShape3D _collShape;
+
+    private CollisionShape3D _collShape;
 	private List<Node3D> _wheels = new List<Node3D>();
 
-    public VehicleOccupantsComponent? OccupantComp { get; private set; }
+    //public VehicleOccupantsComponent? OccupantComp { get; private set; }
 	private IBlackboard _bb;
 	private AINav3DComponent _aiNav;
 
@@ -77,17 +78,17 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
 		base._Ready();
         _bb = this.GetFirstChildOfInterface<IBlackboard>();
         _aiNav = this.GetFirstChildOfType<AINav3DComponent>();
-        OccupantComp = this.GetFirstChildOfType<VehicleOccupantsComponent>();
-        if (OccupantComp != null)
-        {
-            OccupantComp.OccupantsChanged += OnOccupantsChanged;
-            OccupantComp.DriverEmbarked += OnDriverEmbarked;
-            OccupantComp.DriverDisembarked += OnDriverDisembarked;
-        }
-        else
-        {
-            IsParked = false;
-        }
+        //OccupantComp = this.GetFirstChildOfType<VehicleOccupantsComponent>();
+        //if (OccupantComp != null)
+        //{
+        //    OccupantComp.OccupantsChanged += OnOccupantsChanged;
+        //    OccupantComp.DriverEmbarked += OnDriverEmbarked;
+        //    OccupantComp.DriverDisembarked += OnDriverDisembarked;
+        //}
+        //else
+        //{
+        //    IsParked = false;
+        //}
 
 
         _bb.SetVar(BBDataSig.AINavComp, _aiNav);
@@ -337,11 +338,6 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
     {
         throw new System.NotImplementedException();
     }
-
-    public Node GetInterfaceNode()
-    {
-        return this;
-    }
     #endregion
     #region COMPONENT_HELPER
     public DriverBehavior GetDriverBehavior()
@@ -511,39 +507,41 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
     }
     #endregion
     #region SIGNAL_LISTENERS
-    private void OnOccupantsChanged(object sender, List<VehicleSeat> e)
+    //private void OnOccupantsChanged(object sender, List<VehicleSeat> e)
+    //{
+    //    throw new NotImplementedException();
+    //}
+    //private void OnDriverEmbarked(object sender, IDriver driver)
+    //{
+    //    _driver = driver;
+    //    _driverBehavior = driver.GetDriverBehavior();
+    //    if (_driver.WantsDrive())
+    //    {
+    //        //_aiNav.SetTarget(_driver.GetDesiredDriveLoc(), true);
+    //        _aiNav.EnableNavigation();
+    //    }
+    //    else
+    //    {
+    //        _aiNav.DisableNavigation();
+    //    }
+    //}
+    //private void OnDriverDisembarked(object sender, EventArgs e)
+    //{
+    //    _driver = null;
+    //    _driverBehavior = null;
+    //    _aiNav.DisableNavigation();
+    //}
+    public bool SetDriveTargetLocation(Vector3 targetPosition)
+    {
+        return _aiNav.SetTarget(targetPosition, true);
+    }
+    public bool SetDriveTargetRotation(Vector3 targetRotation)
     {
         throw new NotImplementedException();
-
     }
-    private void OnDriverEmbarked(object sender, IDriver driver)
+    public void SetDriverBehavior(DriverBehavior driverBehavior)
     {
-        _driver = driver;
-        _driverBehavior = driver.GetDriverBehavior();
-        if (_driver.WantsDrive())
-        {
-            _aiNav.SetTarget(_driver.GetDesiredDriveLoc(), true);
-            _aiNav.EnableNavigation();
-        }
-        else
-        {
-            _aiNav.DisableNavigation();
-        }
-    }
-    private void OnDriverDisembarked(object sender, EventArgs e)
-    {
-        _driver = null;
-        _driverBehavior = null;
-        _aiNav.DisableNavigation();
-    }
-
-    public void SetDriveTargetLocation(Vector3 targetPosition)
-    {
-        _aiNav.SetTarget(targetPosition, true);
-    }
-    public void SetDriveTargetRotation(Vector3 targetRotation)
-    {
-        throw new NotImplementedException();
+        _driverBehavior = driverBehavior;
     }
     public Vector3 GetDriveTargetLocation()
     {
@@ -552,6 +550,23 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
     public Vector3 GetDriveTargetRotation()
     {
         throw new NotImplementedException();
+    }
+    Node3D IVehicleComponent3D.GetInterfaceNode()
+    {
+        return this;
+    }
+    Node IVelocity3DComponent.GetInterfaceNode()
+    {
+        return this;
+    }
+
+    public Rid GetNavigationMap()
+    {
+        return _aiNav.GetNavigationMap();
+    }
+    public uint GetNavigationLayers()
+    {
+        return _aiNav.NavigationLayers;
     }
     #endregion
 

@@ -11,7 +11,15 @@ namespace BaseInterfaces
         public DriverBehavior GetDriverBehavior();
         public IVehicleComponent3D? GetVehicleComponent();
         public VehicleOccupantsComponent? GetVehicleOccupantsComponent();
-        public Vector3 GetDesiredDriveLoc();
+        public VehicleSeat? GetOccupiedSeat();
+        public void SetDriveTargetLocation(Vector3 targetPosition);
+        public void SetDriveTargetRotation(Vector3 targetRotation);
+        public Vector3 GetDriveTargetLocation();
+        public Vector3 GetDriveTargetRotation();
         public bool WantsDrive();
+
+        public event EventHandler<bool> WantsDriveChanged;
+        public event EventHandler<Vector3> DriveTargetLocationChanged;
+        public event EventHandler<Vector3> DriveTargetRotationChanged;
     }
 }
