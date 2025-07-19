@@ -1,12 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://db3qdmpdrqbwh"]
+[gd_scene load_steps=25 format=3 uid="uid://db3qdmpdrqbwh"]
 
 [ext_resource type="Script" uid="uid://ddbtl401bp0b0" path="res://Areas/City.cs" id="1_eelal"]
 [ext_resource type="PackedScene" uid="uid://bilhgl6nubni8" path="res://Areas/All/Buildings/Complete/1x1x2_base_reference.tscn" id="2_0gng7"]
 [ext_resource type="PackedScene" uid="uid://bd0dotu3315d" path="res://Vehicles/Implementation/sedan_navy.tscn" id="2_0teqx"]
 [ext_resource type="PackedScene" uid="uid://w1mve7x43xck" path="res://Monsters/rambucho.tscn" id="2_eelal"]
 [ext_resource type="PackedScene" uid="uid://roik0rft634m" path="res://Areas/All/Buildings/Complete/1x1x3_base_reference.tscn" id="3_ow0rb"]
+[ext_resource type="PackedScene" uid="uid://bgrnqh6ibmvyk" path="res://Critters/critter_moose.tscn" id="3_yyvsh"]
 [ext_resource type="PackedScene" uid="uid://dsvmcd5mkuj1" path="res://Areas/All/Buildings/Complete/1x2x3_base_reference.tscn" id="4_aqd0w"]
-[ext_resource type="Script" uid="uid://gfxc50ilk8g0" path="res://BaseResources/DriverBehavior.cs" id="4_yyvsh"]
+[ext_resource type="Resource" uid="uid://dxm311nsjksd2" path="res://Critters/Velocities/critter_vel_props.tres" id="4_cwoqm"]
 [ext_resource type="PackedScene" uid="uid://djo53nhfpike4" path="res://Areas/All/Buildings/Complete/2x2x2_base_reference.tscn" id="6_byd3a"]
 [ext_resource type="PackedScene" uid="uid://n8t3lf385ue3" path="res://BaseComponents/multiplayer_camera_3d_component.tscn" id="8_6pwtu"]
 [ext_resource type="PackedScene" uid="uid://de1wt6ynyguqg" path="res://Areas/All/Buildings/Complete/1x2x2_base_reference.tscn" id="8_jjwty"]
@@ -17,13 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://jnpro4t0hqig" path="res://Areas/SanFrancisco/CityFloor/Textures/floor_sanfrancisco_background.png" id="13_br338"]
 [ext_resource type="PackedScene" uid="uid://blojdtas0s7vn" path="res://Areas/SanFrancisco/Environmental/Breakables/Complete/tree_01.tscn" id="13_k637o"]
 [ext_resource type="PackedScene" uid="uid://biya3bal2bv5q" path="res://Areas/All/Buildings/Complete/1x1x2_roof_reference.tscn" id="13_yh2gs"]
-
-[sub_resource type="Resource" id="Resource_cwoqm"]
-script = ExtResource("4_yyvsh")
-DriverAggression = 2.0
-DriverAwareness = 0.8
-WantsDrive = true
-metadata/_custom_type_script = "uid://bbkoy6o4ajsnw"
+[ext_resource type="Script" uid="uid://dvms7jwowdg1g" path="res://BaseComponents/LocatorComponent3D.cs" id="19_cwoqm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3whln"]
 
@@ -91,22 +86,29 @@ geometry_collision_mask = 4294967270
 geometry_source_geometry_mode = 1
 geometry_source_group_name = &"FullNav"
 
-[node name="Sanfrancisco" type="Node3D"]
+[node name="Sanfrancisco" type="Node3D" node_paths=PackedStringArray("LocatorComp")]
 script = ExtResource("1_eelal")
+LocatorComp = NodePath("LocatorComponent3D")
+
+[node name="LocatorComponent3D" type="Node3D" parent="."]
+script = ExtResource("19_cwoqm")
+metadata/_custom_type_script = "uid://dvms7jwowdg1g"
 
 [node name="Players" type="Node3D" parent="."]
 
 [node name="Rambucho" parent="Players" instance=ExtResource("2_eelal")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.64596, 0, -5.70363)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -3.14596, 0, -8.20363)
 
 [node name="NPCs" type="Node3D" parent="."]
 
+[node name="CritterMoose" parent="NPCs" instance=ExtResource("3_yyvsh")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.5, 0, -13)
+VelocityProperties = ExtResource("4_cwoqm")
+
 [node name="Vehicles" type="Node3D" parent="."]
 
-[node name="SedanNavy4" parent="Vehicles" instance=ExtResource("2_0teqx")]
-transform = Transform3D(1, 0, 1.49012e-08, 0, 1, 0, -1.49012e-08, 0, 1, -4, 0, -5.65)
-_debugDriverApt = SubResource("Resource_cwoqm")
-_allWheelDrive = false
+[node name="SedanNavy" parent="Vehicles" instance=ExtResource("2_0teqx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -5)
 
 [node name="Buildings" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)

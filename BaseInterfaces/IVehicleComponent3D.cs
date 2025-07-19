@@ -8,6 +8,7 @@ public enum VehicleGear
     Park,
     Neutral,
     Drive,
+    Topsided
     //Reverse ?
 }
 
@@ -17,6 +18,7 @@ namespace BaseInterfaces
     public interface IVehicleComponent3D
     {
         public VehicleGear Gear { get; set; }
+        public event EventHandler<VehicleGear> GearChanged;
         public bool SetDriveTargetLocation(Vector3 targetPosition);
         public bool SetDriveTargetRotation(Vector3 targetRotation);
         public void SetDriverBehavior(DriverBehavior driverBehavior);

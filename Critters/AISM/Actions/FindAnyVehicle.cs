@@ -38,6 +38,7 @@ public partial class FindAnyVehicle : BehaviorAction
 		base.Enter();
         if (_vehicleLocator == null)
         {
+            GD.Print($"Current City {Global.CurrentCity.Name} has no LocatorComponent3D!");
             Status = TaskStatus.FAILURE;
             return;
         }

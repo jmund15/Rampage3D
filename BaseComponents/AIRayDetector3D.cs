@@ -35,8 +35,9 @@ public partial class AIRayDetector3D : Node3D, IAIDetector3D
 	{
 		base._Ready();
         Raycasts = this.GetChildrenOfType<RayCast3D>().ToDictionary(rc => rc.TargetPosition.Normalized());
-        GD.Print(Raycasts.Count);
+        GD.Print($"Owner '{GetOwner().Name}' has {Raycasts.Count} number of raycasts");
         Directions = Raycasts.Keys.ToList();
+        GD.Print($"Owner '{GetOwner().Name}' has {Directions.Count} number of directions");
         Rays = Raycasts.Values.ToList();
         //RayU = GetNode<RayCast3D>("RayUp");
         //RayUUR = GetNode<RayCast3D>("RayUUR");

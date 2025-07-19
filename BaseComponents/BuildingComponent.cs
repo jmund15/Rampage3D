@@ -1050,7 +1050,7 @@ public partial class BuildingComponent : RigidBody3D
             // check if property is same as current value
             if (_buildingLocDirIdx == value.AsInt32())
             {
-                GD.Print("Building Location Dir is already set to: ", value.AsInt32(), "; not setting, returning...");
+                //GD.Print("Building Location Dir is already set to: ", value.AsInt32(), "; not setting, returning...");
                 return true;
             }
             else
@@ -1097,12 +1097,12 @@ public partial class BuildingComponent : RigidBody3D
             // check if property is same as current value
             if (_buildingTypeDirIdx == value.AsInt32())
             {
-                GD.Print("Building Type Dir is already set to: ", value.AsInt32(), "; not setting, returning...");
+                //GD.Print("Building Type Dir is already set to: ", value.AsInt32(), "; not setting, returning...");
                 return true;
             }
             else
             {
-                GD.Print($"Setting Building Type Dir to: {value.AsInt32()} for building: {Name}");
+                //GD.Print($"Setting Building Type Dir to: {value.AsInt32()} for building: {Name}");
             }
 
             if (!_buildingTypeDirMap.ContainsKey(value.AsInt32()))
@@ -1115,7 +1115,7 @@ public partial class BuildingComponent : RigidBody3D
 
             _floorTextureIdxMap.Clear();
             _floorTextureMap.Clear();
-            GD.Print("On BuildingType Set, Clearing floor texture map and idx map for building: ", Name);
+            //GD.Print("On BuildingType Set, Clearing floor texture map and idx map for building: ", Name);
             _roofTexture = string.Empty;
             _roofTextureIdx = 0;
 

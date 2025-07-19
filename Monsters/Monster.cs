@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 using Godot.Collections;
 
@@ -132,13 +132,13 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
             VelocityMap[velProp.VelocityType] = velProp.GetVelocityID();
             VelAddModMap[velProp.VelocityType] = new VelocityID();
             VelMultModMap[velProp.VelocityType] = new VelocityID(1, 1, 1);
-            GD.Print($"set vel prop for {velProp.VelocityType}");
+            //GD.Print($"set vel prop for {velProp.VelocityType}");
         }
         foreach (var impProp in VelocityProperties.ImpulseIds)
         {
             ImpulseMap[impProp.ImpulseType] = impProp.ImpulseForce;
             ImpulseModMap[impProp.ImpulseType] = 0f;
-            GD.Print($"set impulse prop for {impProp.ImpulseType}");
+            //GD.Print($"set impulse prop for {impProp.ImpulseType}");
         }
 
 

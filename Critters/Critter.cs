@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 using System.Collections.Generic;
 using TimeRobbers.Interfaces;
@@ -13,6 +13,7 @@ public partial class Critter : CharacterBody3D, IMovementComponent, IVelocityCha
     public HealthComponent HealthComp { get; protected set; }
     public HurtboxComponent3D HurtboxComp { get; protected set; }
     public EatableComponent EatableComp { get; protected set; }
+    public OccupantComponent3D OccupantComp { get; protected set; }
 
     private CompoundState _csm;
     private Godot.Collections.Dictionary<State, bool> _parallelStateMachines = 
@@ -49,13 +50,13 @@ public partial class Critter : CharacterBody3D, IMovementComponent, IVelocityCha
             VelocityMap[velProp.VelocityType] = velProp.GetVelocityID();
             VelAddModMap[velProp.VelocityType] = new VelocityID();
             VelMultModMap[velProp.VelocityType] = new VelocityID(1, 1, 1);
-            GD.Print($"set vel prop for {velProp.VelocityType}");
+            //GD.Print($"set vel prop for {velProp.VelocityType}");
         }
         foreach (var impProp in VelocityProperties.ImpulseIds)
         {
             ImpulseMap[impProp.ImpulseType] = impProp.ImpulseForce;
             ImpulseModMap[impProp.ImpulseType] = 0f;
-            GD.Print($"set impulse prop for {impProp.ImpulseType}");
+            //GD.Print($"set impulse prop for {impProp.ImpulseType}");
         }
 
         AINavComp = this.GetFirstChildOfType<AINav3DComponent>();
@@ -106,6 +107,9 @@ public partial class Critter : CharacterBody3D, IMovementComponent, IVelocityCha
         EatableComp = HurtboxComp.GetFirstChildOfType<EatableComponent>();
         BB.SetVar(BBDataSig.HurtboxComp, HurtboxComp);
         BB.SetVar(BBDataSig.EatableComp, EatableComp);
+
+        OccupantComp = this.GetFirstChildOfType<OccupantComponent3D>();
+        BB.SetVar(BBDataSig.OccupantComp, OccupantComp);
 
 
         _csm = GetNode<CompoundState>("CSM");

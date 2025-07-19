@@ -90,7 +90,7 @@ public partial class AINav3DComponent : NavigationAgent3D
 
     [Export]
     public bool ResponbsibleForDetection { get; private set; } = true;
-    private IMovementComponent _moveComp;
+    //private IMovementComponent _moveComp;
     private IBlackboard _bb;
     public NavType NavMethod 
     {
@@ -210,22 +210,7 @@ public partial class AINav3DComponent : NavigationAgent3D
     public override void _Ready()
     {
         base._Ready();
-        if (!Engine.IsEditorHint())
-        {
-            if (!ParentAgent.IsValid() || ParentAgent is not IMovementComponent)
-            {
-                GD.PrintErr("AINAVCOMP ERROR || INVALID PARENT FOR NAVIGATION!");
-            }
-            _debugTimer = GetNode<Timer>("DebugTimer");
-            _debugTimer.Timeout += OnDebugTimeout;
-            _debugTimer.Start(1.0f);
-        }
-        //foreach (var dir in Global.GetEnumValues<Dir16>())
-        //{
-        //    ConsiderationWeights.Add(dir, 0f);
-        //}
-        
-        _moveComp = ParentAgent as IMovementComponent;
+        //_moveComp = ParentAgent as IMovementComponent;
         _bb = ParentAgent.GetFirstChildOfInterface<IBlackboard>();
 
         NavMethod = _navMethod;
@@ -236,7 +221,23 @@ public partial class AINav3DComponent : NavigationAgent3D
         PathTimer.Timeout += OnPathTimeout;
 
         NavigationEnabled = false;
-        CallDeferred(MethodName.InitNavigation);
+
+        if (!Engine.IsEditorHint())
+        {
+            if (!ParentAgent.IsValid()) //|| ParentAgent is not IMovementComponent)
+            {
+                GD.PrintErr("AINAVCOMP ERROR || INVALID PARENT FOR NAVIGATION!");
+            }
+            _debugTimer = GetNode<Timer>("DebugTimer");
+            _debugTimer.Timeout += OnDebugTimeout;
+            _debugTimer.Start(1.0f);
+
+            CallDeferred(MethodName.InitNavigation);
+        }
+        //foreach (var dir in Global.GetEnumValues<Dir16>())
+        //{
+        //    ConsiderationWeights.Add(dir, 0f);
+        //}
         //EnableNavigation();
     }
 
@@ -285,7 +286,7 @@ public partial class AINav3DComponent : NavigationAgent3D
         //    $"UpLeft: {DirectionWeights[Dir8.UpLeft]:F2} "
         //    );
 
-        GD.Print($"Chosen Dirction: {ChooseDirection()}");
+        //GD.Print($"Chosen Dirction: {ChooseDirection()}");
 
         //foreach (var pair in _rays.Raycasts)
         //{
@@ -387,16 +388,25 @@ public partial class AINav3DComponent : NavigationAgent3D
     #region COMPONENT_FUNCTIONS
     public void InitNavigation()
     {
+        if (AIRayDetector == null)
+        {
+            GD.PrintErr($"{ParentAgent.Name} AI NAV ERROR | AI RAY DETECTOR IS NULL");
+        }
+        if (AIAreaDetector == null)
+        {
+            GD.PrintErr($"{ParentAgent.Name} AI NAV ERROR | AI AREA DETECTOR IS NULL");
+        }
+
         foreach (var entityConsid in EntityConsiderations)
         {
             entityConsid.InitializeResources(_bb);
         }
-
+        
         foreach (var dir in AIRayDetector.Directions)
         {
             ConsiderationWeights.Add(dir, 0f);
             DirectionWeights.Add(dir, 0f);
-            GD.Print("AINav Added Direction: ", dir);
+            //GD.Print("AINav Added Direction: ", dir);
         }
 
         EnableNavigation();

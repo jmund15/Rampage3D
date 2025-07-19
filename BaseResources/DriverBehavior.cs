@@ -12,6 +12,9 @@ public partial class DriverBehavior : Resource
     public float DriverAggression { get; set; } = 1.0f; // 1.0 = normal, >1 more aggressive, <1 more cautious
     [Export(PropertyHint.Range, "0.0,1.0,0.1")]
     public float DriverAwareness { get; private set; } = 0.8f; // 1.0 = perfect (no mistakes), 0.0 = oblivious
+
+    // Add vehicle time to eject here? tie to Driver awareness?
+
     //[Export]
     //public bool WantsDrive { get; private set; } = true;
 

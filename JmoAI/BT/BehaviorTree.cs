@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 public partial class BehaviorTree : Node
 {
     #region TREE_VARIABLES
-    public string TreeName { get; protected set; }
+    public string TreeName { get; protected set; } = string.Empty;
     public bool Initialized { get; protected set; } = false;
 
     [Export]
@@ -78,6 +78,10 @@ public partial class BehaviorTree : Node
 
             CallDeferred(MethodName.InitTreeAndEnter);
         }
+        else
+        {
+
+        }
     }
     private void InitTreeAndEnter()
     {
@@ -109,6 +113,10 @@ public partial class BehaviorTree : Node
     public virtual void Init(Node agent, IBlackboard bb)
     {
         AgentNode = agent; BB = bb;
+        if (TreeName == string.Empty)
+        {
+            TreeName = AgentNode.Name + "'s Behavior Tree";
+        }
         var rt = this.GetFirstChildOfType<BehaviorTask>();
         if (!rt.IsValid())
         {

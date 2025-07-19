@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -23,7 +23,8 @@ public partial class DebugBTComponent : Tree
 	//private Tree _tree;
 	public override void _Ready()
 	{
-		SetColumnExpand(0, true);
+        Columns = 2;
+        SetColumnExpand(0, true);
 		SetColumnExpandRatio(0, 1);
         SetColumnExpand(1, true);
         SetColumnExpandRatio(1, 0);
@@ -36,7 +37,11 @@ public partial class DebugBTComponent : Tree
 			return;
         }
         _bt.TreeInitialized += OnTreeInitialized;
+		_bt.TreeEnabled += OnTreeEntered;
+		_bt.TreeDisabled += OnTreeExited;
         _bt.TreeFinishedLoop += OnBehaviorTreeReset;
+
+		Hide();
     }
     public override void _Process(double delta)
 	{
@@ -65,11 +70,22 @@ public partial class DebugBTComponent : Tree
         root.SetText(0, rootTask.TaskName);
         _btMap.Add(rootTask, root);
         _taskRunTime.Add(rootTask, 0.0f);
-		_runningTasks.Add(rootTask);
         //root.SetCustomBgColor(1, new Color(Colors.Yellow, _bgAlpha));
 
         CreateBranchesRecursive(root, rootTask);
 		ResetTree();
+    }
+    private void OnTreeEntered()
+    {
+        var rootTask = _bt.RootTask;
+        _runningTasks.Add(rootTask);
+		Show();
+    }
+    private void OnTreeExited()
+    {
+        var rootTask = _bt.RootTask;
+        _runningTasks.Add(rootTask);
+		Hide();
     }
     public void CreateBranchesRecursive(TreeItem item, BehaviorTask task)
 	{
@@ -89,7 +105,7 @@ public partial class DebugBTComponent : Tree
 			_taskRunTime.Add(subTask, 0.0f);
 			if (subTask.Status == TaskStatus.RUNNING)
 			{
-                _runningTasks.Add(task);
+                _runningTasks.Add(subTask);
 				branch.SetCustomBgColor(1, new Color(Colors.Yellow, _bgAlpha));
 			}
             subTask.TaskStatusChanged += (newStatus) => OnTaskStatusChange(subTask, newStatus);
@@ -98,9 +114,9 @@ public partial class DebugBTComponent : Tree
 
 	private void OnTaskStatusChange(BehaviorTask task, TaskStatus newStatus)
 	{
-
-		// TODO: ADD A FLASH WHEN A TASK SUCCEEDS/FAILS OF THE TASK ITSELF BEFORE RETURNING TO GREY!!
-		FlashItem(_btMap[task], newStatus);
+		GD.Print("Task Status Changed: ", task.TaskName, " | New Status: ", newStatus);
+        // TODO: ADD A FLASH WHEN A TASK SUCCEEDS/FAILS OF THE TASK ITSELF BEFORE RETURNING TO GREY!!
+        FlashItem(_btMap[task], newStatus);
 
 
         if (_resettingTree && newStatus != TaskStatus.RUNNING)

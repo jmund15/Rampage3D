@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using Godot.Collections;
 using System;
 
@@ -28,7 +28,9 @@ public abstract partial class State : Node
     }
     public virtual void Enter(Dictionary<State, bool> parallelStates)
     {
-        GD.Print($"{Name} entered by {Agent.Name}");
+        // TODO: ADD PRINT TO DEBUG COMP ONLY
+        //GD.Print($"{Name} entered by {Agent.Name}");
+
         ParallelStates = parallelStates;
         switch (SelfInteruptible)
         {

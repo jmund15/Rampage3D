@@ -70,6 +70,7 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
     private VelocityIDResource _currVelProps;
 
     public event EventHandler<bool> ParkedStatusChanged;
+    public event EventHandler<VehicleGear> GearChanged;
 
     #endregion
     #region COMPONENT_UPDATES
@@ -112,10 +113,12 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
 
         _baseVelProp = VelocityProperties.VelocityIds[0].Duplicate() as VelocityIDResource;
 
+        GearChanged += OnGearChanged;
 
         GD.Print("VEHICLE determined center of mass: ", CenterOfMass);
 		GD.Print("Front Wheel drive determined loc: ", new Vector3(_frontWheelXPos, CenterOfMass.Y, CenterOfMass.Z));
     }
+
     public override void _Process(double delta)
 	{
 		base._Process(delta);
@@ -132,6 +135,7 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
         }
         if (!_aiNav.NavigationEnabled)
         {
+            // TODO: change this to park or neutral behavior
             return;
         }
 
@@ -176,27 +180,15 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
             //GD.Print($"Vehicle Acceleration: {velProps.Acceleration}");
             _desiredDir = _aiNav.WeightedNextPathDirection.Normalized();
 
-            if (IsParked)
-            {
-                // Apply strong braking if park brake is on and vehicle is moving
-                if (LinearVelocity.LengthSquared() > 0.01f)
-                {
-                    // Use CenterOfMassOffset or a specific point for brake force
-                    ApplyForce(-LinearVelocity.Normalized() * _currVelProps.Acceleration * 0.5f /*strong brake multiplier*/, _forceLoc);
-                }
-                return;
-            }
-            else
+            if (_aiNav.IsTargetReached())
             {
                 Park();
             }
+            else
+            {
+                Drive();
+            }
         }
-        else {
-            Drive();
-        }// VEHICLE DRIVING LOGIC
-
-
-        
     }
     public static Vector3 GetClampedDrivingDirection(Vector3 forwardDir, Vector3 desiredDir, float maxTurnAngleRad)
     {
@@ -217,6 +209,14 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
     }
     public override void _IntegrateForces(PhysicsDirectBodyState3D state)
     {
+        if (Gear == VehicleGear.Park)
+        {
+            return;
+        }
+        if (_driver == null)
+        {
+            return;
+        }
         // Convert global velocity to local
         Vector3 localVelocity = Transform.Basis.Inverse() * state.LinearVelocity;
         var lateralVelocity = localVelocity.Z;
@@ -227,7 +227,7 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
         //GD.Print($"lateral damping: {lateralDamping}" +
         //    $"curr vel: {localVelocity.Length()}");
 
-        if (_debugDriverApt.DriverAggression > 1f)
+        if (_driverBehavior.DriverAggression > 1f)
         {
             return;
             //lateralDamping = 1f;
@@ -346,10 +346,20 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
     }
     public void Park()
     {
-
+        // Apply strong braking if park brake is on and vehicle is moving
+        if (LinearVelocity.LengthSquared() > 0.01f)
+        {
+            // Use CenterOfMassOffset or a specific point for brake force
+            ApplyForce(-LinearVelocity.Normalized() * _currVelProps.Acceleration * 0.5f /*strong brake multiplier*/, _forceLoc);
+        }
+        else
+        {
+            Gear = VehicleGear.Park;
+        }
     }
     public void Drive()
     {
+        Gear = VehicleGear.Drive;
         DriverBehavior driveBehavior;
         if (Debug)
         {
@@ -507,6 +517,14 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
     }
     #endregion
     #region SIGNAL_LISTENERS
+    private void OnGearChanged(object sender, VehicleGear gear)
+    {
+        if (gear == VehicleGear.Park)
+        {
+            _aiNav.DisableNavigation();
+        }
+        // others?
+    }
     //private void OnOccupantsChanged(object sender, List<VehicleSeat> e)
     //{
     //    throw new NotImplementedException();
@@ -533,7 +551,9 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
     //}
     public bool SetDriveTargetLocation(Vector3 targetPosition)
     {
-        return _aiNav.SetTarget(targetPosition, true);
+        _aiNav.EnableNavigation();
+        var setTarget = _aiNav.SetTarget(targetPosition, true);
+        return setTarget;
     }
     public bool SetDriveTargetRotation(Vector3 targetRotation)
     {

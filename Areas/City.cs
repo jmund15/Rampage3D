@@ -7,7 +7,8 @@ using System.Linq;
 public partial class City : Node3D
 {
 	#region COMPONENT_VARIABLES
-	public LocatorComponent3D? LocatorComp { get; private set; }
+	[Export]
+    public LocatorComponent3D? LocatorComp { get; private set; }
     public List<BuildingComponent> Buildings { get; private set; }
     public List<VehicleOccupantsComponent> OccupiableVehicles { get; private set; }
 
@@ -22,8 +23,8 @@ public partial class City : Node3D
     public override void _Ready()
 	{
 		base._Ready();
-
-		LocatorComp = this.GetFirstChildOfType<LocatorComponent3D>(true);
+		//LocatorComp = this.GetFirstChildOfType<LocatorComponent3D>(true);
+		//GD.Print($"City LocatorComponent3D: {LocatorComp?.Name ?? "None"}");
 
         //GetTree().CallGroup(Global.BUILDING_GROUP_NAME, MethodName."");
         //GetTree().GetNodesInGroup

@@ -17,10 +17,16 @@ public partial class Global : Node
     public const string NAV_OBSTACLE_GROUP_NAME = "FullNav";
     public override void _Ready()
 	{
-	}
+        SetCurrentCity();
+    }
 	public override void _Process(double delta)
 	{
 	}
+    private void SetCurrentCity()
+    {
+        CurrentCity = GetTree().CurrentScene as City;
+        GD.Print($"Set current city to {CurrentCity.Name}!");
+    }
     public static float Remap(float value, float inMin, float inMax, float outMin, float outMax)
     {
         return outMin + (outMax - outMin) * ((value - inMin) / (inMax - inMin));

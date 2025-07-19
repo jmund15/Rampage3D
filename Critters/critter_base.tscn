@@ -1,7 +1,6 @@
-[gd_scene load_steps=47 format=3 uid="uid://cqbbrnjnrh7n2"]
+[gd_scene load_steps=43 format=3 uid="uid://cqbbrnjnrh7n2"]
 
 [ext_resource type="Script" uid="uid://jurk16vjiid6" path="res://Critters/Critter.cs" id="1_inyqc"]
-[ext_resource type="Resource" uid="uid://dxm311nsjksd2" path="res://Critters/Velocities/critter_vel_props.tres" id="2_05jnq"]
 [ext_resource type="Script" uid="uid://bdrd1amqp41cn" path="res://BaseComponents/HurtboxComponent3D.cs" id="3_wj2f5"]
 [ext_resource type="PackedScene" uid="uid://6qu40cqm10xy" path="res://BaseComponents/eatable_component.tscn" id="4_uq2js"]
 [ext_resource type="Script" uid="uid://k7vlckf1wnwh" path="res://Critters/CSM/CSM.cs" id="5_uxy06"]
@@ -25,7 +24,6 @@
 [ext_resource type="Script" uid="uid://dcaudso7ekyle" path="res://JmoAI/BT/Decorators/TimeLimitRange.cs" id="17_43q6s"]
 [ext_resource type="PackedScene" uid="uid://dahmcs8u2k547" path="res://BaseComponents/ai_nav_3d_component.tscn" id="18_1kdwb"]
 [ext_resource type="PackedScene" uid="uid://cagbph7q2t0rv" path="res://Critters/AISM/nav_to_enterable_building.tscn" id="18_cf1hs"]
-[ext_resource type="Script" uid="uid://rrs5n122ojpk" path="res://BaseResources/VelocityBody3DAIConsideration.cs" id="19_3cdey"]
 [ext_resource type="PackedScene" uid="uid://cqs6mpegfeb2d" path="res://BaseComponents/ai_rays_16dir.tscn" id="19_58r4k"]
 [ext_resource type="Script" uid="uid://cb2bwkwoscf4k" path="res://Critters/FindOwnedVehicle.cs" id="19_cf1hs"]
 [ext_resource type="Script" uid="uid://cnkqxsah2t4f1" path="res://JmoAI/BT/Decorators/BTCondition.cs" id="19_xkbna"]
@@ -35,46 +33,17 @@
 [ext_resource type="Script" uid="uid://dvmrucmpl6f1d" path="res://Critters/AISM/Actions/EmbarkInVehicle.cs" id="25_aa7kd"]
 [ext_resource type="Script" uid="uid://dh6v7s4ew2bvm" path="res://Critters/AISM/Actions/SetDriveNavigation.cs" id="25_xil08"]
 [ext_resource type="Script" uid="uid://ciykp5l1olohs" path="res://Critters/AISM/Actions/VehicleToNavPoint.cs" id="26_cauu0"]
+[ext_resource type="Script" uid="uid://cksf7bfad7dke" path="res://Critters/AISM/Actions/FindVehiclePoi.cs" id="26_ltbp0"]
 [ext_resource type="Resource" uid="uid://ey0yeq282cxt" path="res://Critters/AISM/critter_wall_aiconsid.tres" id="26_wxm0o"]
 [ext_resource type="Script" uid="uid://dlqx1f7843q3j" path="res://Critters/AISM/Actions/DisembarkFromVehicle.cs" id="28_mhjlt"]
-[ext_resource type="Script" uid="uid://b0q0d621ob2j6" path="res://BaseComponents/OccupantComponent.cs" id="34_lm8bi"]
-[ext_resource type="Script" uid="uid://gfxc50ilk8g0" path="res://BaseResources/DriverBehavior.cs" id="35_qms6x"]
+[ext_resource type="Script" uid="uid://cks63fd4a6esg" path="res://JmoAI/Debug/DebugBTComponent.cs" id="32_xl2o6"]
+[ext_resource type="Script" uid="uid://dji6aro6yab52" path="res://BaseComponents/OccupantComponent3D.cs" id="34_ltbp0"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_aew1h"]
 radius = 0.2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6for4"]
 radius = 0.2
-
-[sub_resource type="CSharpScript" id="CSharpScript_tl06x"]
-script/source = "using Godot;
-using Godot.Collections;
-
-[GlobalClass, Tool]
-public partial class VehicleOccupantComponent : Node
-{
-	#region COMPONENT_VARIABLES
-	#endregion
-	#region COMPONENT_UPDATES
-	public override void _Ready()
-	{
-		base._Ready();
-	}
-	public override void _Process(double delta)
-	{
-		base._Process(delta);
-	}
-	public override void _PhysicsProcess(double delta)
-	{
-		base._PhysicsProcess(delta);
-	}
-	#endregion
-	#region COMPONENT_HELPER
-	#endregion
-	#region SIGNAL_LISTENERS
-	#endregion
-}
-"
 
 [sub_resource type="Resource" id="Resource_aa7kd"]
 script = ExtResource("24_xil08")
@@ -87,26 +56,11 @@ LimitMin = 1.5
 LimitMax = 3.0
 SucceedTaskOnExit = true
 
-[sub_resource type="Resource" id="Resource_b50nw"]
-script = ExtResource("35_qms6x")
-DriverAggression = 1.0
-DriverAwareness = 0.8
-metadata/_custom_type_script = "uid://gfxc50ilk8g0"
-
-[sub_resource type="Resource" id="Resource_uev8w"]
-script = ExtResource("19_3cdey")
-_collLayer = 1
-_positionVelocityBalance = 0.4
-_hasVerticalMovement = false
-Consideration = 0.0
-PreferredDetector = 1
-
 [node name="Critter" type="CharacterBody3D"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
 collision_layer = 8
 collision_mask = 63
 script = ExtResource("1_inyqc")
-VelocityProperties = ExtResource("2_05jnq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
@@ -122,9 +76,6 @@ shape = SubResource("SphereShape3D_6for4")
 [node name="EatableComponent" parent="HurtboxComponent3D" node_paths=PackedStringArray("Body", "_hurtboxComp") instance=ExtResource("4_uq2js")]
 Body = NodePath("../..")
 _hurtboxComp = NodePath("..")
-
-[node name="VehicleOccupantComponent" type="Node" parent="."]
-script = SubResource("CSharpScript_tl06x")
 
 [node name="CSM" type="Node" parent="." node_paths=PackedStringArray("_onGrabbedState", "InitialSubState")]
 script = ExtResource("5_uxy06")
@@ -161,7 +112,7 @@ script = ExtResource("10_tkq50")
 
 [node name="AISM" type="Node" parent="." node_paths=PackedStringArray("InitialSubState")]
 script = ExtResource("10_egcvc")
-InitialSubState = NodePath("NavToBuilding")
+InitialSubState = NodePath("NavTestBT")
 
 [node name="NormalBehavior" type="Node" parent="AISM"]
 script = ExtResource("11_slmta")
@@ -300,57 +251,74 @@ metadata/_custom_type_script = "uid://bko4f8scnfuxd"
 
 [node name="NavTestBT" type="Node" parent="AISM" node_paths=PackedStringArray("OnTreeSuccessState", "OnTreeFailureState")]
 script = ExtResource("11_slmta")
-OnTreeSuccessState = NodePath("../NavToBuilding")
-OnTreeFailureState = NodePath("../NavToBuilding")
+OnTreeSuccessState = NodePath(".")
+OnTreeFailureState = NodePath(".")
 
 [node name="BehaviorTree" type="Node" parent="AISM/NavTestBT"]
 script = ExtResource("12_g80jc")
 
-[node name="DriveSeq" type="Node" parent="AISM/NavTestBT/BehaviorTree"]
+[node name="TestSequence" type="Node" parent="AISM/NavTestBT/BehaviorTree"]
 script = ExtResource("13_ec5hv")
 metadata/_custom_type_script = "uid://cn8me6e5muwxv"
 
-[node name="FindAnyVehicle" type="Node" parent="AISM/NavTestBT/BehaviorTree/DriveSeq"]
+[node name="DriveSeq" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence"]
+script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
+
+[node name="FindAnyVehicle" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence/DriveSeq"]
 script = ExtResource("22_aa7kd")
 metadata/_custom_type_script = "uid://bko4f8scnfuxd"
 
-[node name="TravelToNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/DriveSeq"]
+[node name="TravelToNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence/DriveSeq"]
 script = ExtResource("15_xxhh0")
 Conditions = Array[ExtResource("19_xkbna")]([SubResource("Resource_aa7kd")])
 metadata/_custom_type_script = "uid://cfahexo6jy6c5"
 
-[node name="EmbarkInVehicle" type="Node" parent="AISM/NavTestBT/BehaviorTree/DriveSeq"]
+[node name="EmbarkInVehicle" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence/DriveSeq"]
 script = ExtResource("25_aa7kd")
 metadata/_custom_type_script = "uid://bko4f8scnfuxd"
 
-[node name="SetRandomNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/DriveSeq"]
+[node name="FindVehiclePOI" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence/DriveSeq"]
+script = ExtResource("26_ltbp0")
+metadata/_custom_type_script = "uid://bko4f8scnfuxd"
+
+[node name="VehicleNavToPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence/DriveSeq"]
 script = ExtResource("26_cauu0")
 metadata/_custom_type_script = "uid://bb3mfjludhtb8"
 
-[node name="TravelToNavPoint2" type="Node" parent="AISM/NavTestBT/BehaviorTree/DriveSeq"]
-script = ExtResource("15_xxhh0")
-metadata/_custom_type_script = "uid://cfahexo6jy6c5"
-
-[node name="DisembarkFromVehicle" type="Node" parent="AISM/NavTestBT/BehaviorTree/DriveSeq"]
+[node name="DisembarkFromVehicle" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence/DriveSeq"]
 script = ExtResource("28_mhjlt")
 metadata/_custom_type_script = "uid://bko4f8scnfuxd"
 
-[node name="Sequence" type="Node" parent="AISM/NavTestBT/BehaviorTree"]
+[node name="WalkSequence" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence"]
 script = ExtResource("13_ec5hv")
+metadata/_custom_type_script = "uid://cn8me6e5muwxv"
 
-[node name="SetNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/Sequence"]
+[node name="SetNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence/WalkSequence"]
 script = ExtResource("14_xx6wd")
 _navPoint = Vector3(10.515, 0.5, -14)
 
-[node name="SetRandomNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/Sequence"]
+[node name="SetRandomNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence/WalkSequence"]
 script = ExtResource("15_b1q00")
 
-[node name="TravelToNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/Sequence"]
+[node name="TravelToNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence/WalkSequence"]
 script = ExtResource("15_xxhh0")
 
-[node name="WaitIdle" type="Node" parent="AISM/NavTestBT/BehaviorTree/Sequence"]
+[node name="WaitIdle" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence/WalkSequence"]
 script = ExtResource("16_pm0hc")
 Conditions = Array[ExtResource("19_xkbna")]([SubResource("Resource_gx6x8")])
+
+[node name="DebugBTComponent" type="Tree" parent="AISM/NavTestBT" node_paths=PackedStringArray("_bt")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -350.0
+offset_bottom = 648.0
+grow_horizontal = 0
+columns = 2
+script = ExtResource("32_xl2o6")
+_bt = NodePath("../BehaviorTree")
+metadata/_custom_type_script = "uid://cks63fd4a6esg"
 
 [node name="NavToBuilding" type="Node" parent="AISM" node_paths=PackedStringArray("OnTreeSuccessState", "OnTreeFailureState")]
 script = ExtResource("11_slmta")
@@ -392,20 +360,20 @@ metadata/_custom_type_script = "uid://cn8me6e5muwxv"
 script = ExtResource("17_7labu")
 metadata/_custom_type_script = "uid://bko4f8scnfuxd"
 
+[node name="OccupantComponent3D" type="Node3D" parent="."]
+script = ExtResource("34_ltbp0")
+metadata/_custom_type_script = "uid://dji6aro6yab52"
+
 [node name="AIRays16Dir" parent="." instance=ExtResource("19_58r4k")]
 
-[node name="OccupantComponent" type="Node" parent="."]
-script = ExtResource("34_lm8bi")
-DriverBehavior = SubResource("Resource_b50nw")
-metadata/_custom_type_script = "uid://b0q0d621ob2j6"
-
-[node name="AINav3DComponent" parent="." node_paths=PackedStringArray("ParentAgent") instance=ExtResource("18_1kdwb")]
+[node name="AINav3DComponent" parent="." node_paths=PackedStringArray("ParentAgent", "AIRayDetector") instance=ExtResource("18_1kdwb")]
 path_desired_distance = 1.0
 target_desired_distance = 0.5
 path_max_distance = 2.51
 path_postprocessing = 0
 ParentAgent = NodePath("..")
-EntityConsiderations = Array[Resource]([SubResource("Resource_uev8w"), ExtResource("26_wxm0o")])
+AIRayDetector = NodePath("../AIRays16Dir")
+EntityConsiderations = Array[Resource]([ExtResource("26_wxm0o")])
 
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("11_aa0n8")
