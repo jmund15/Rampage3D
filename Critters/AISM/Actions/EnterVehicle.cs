@@ -18,7 +18,7 @@ public partial class EnterVehicle : BehaviorAction
 		base.Enter();
         // Check if the vehicle is available
 		var currPosition = (Agent as Node3D).GlobalPosition;
-        var targetVehicle = BB.GetVar<VehicleOccupantsComponent>(BBDataSig.TargetVehicle);
+        var targetVehicle = BB.GetVar<VehicleOccupantsComponent>(BBDataSig.TargetOrOccupiedVehicle);
         if (targetVehicle == null )//|| !targetVehicle.CanEmbark())
         {
             Status = TaskStatus.FAILURE;

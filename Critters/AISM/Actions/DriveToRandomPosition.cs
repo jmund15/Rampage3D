@@ -22,7 +22,7 @@ public partial class DriveToRandomPosition : BehaviorAction
 	public override void Enter()
 	{
 		base.Enter();
-		_vehicleComp = BB.GetVar<IVehicleComponent3D>(BBDataSig.OccupiedVehicle);
+		_vehicleComp = BB.GetVar<IVehicleComponent3D>(BBDataSig.TargetOrOccupiedVehicle);
         if (NavigationServer3D.MapGetIterationId(_vehicleComp.GetNavigationMap()) == 0) // not setup yet
         {
             _mapLoaded = false;

@@ -271,23 +271,10 @@ metadata/_custom_type_script = "uid://bko4f8scnfuxd"
 
 [node name="TravelToNavPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence/DriveSeq"]
 script = ExtResource("15_xxhh0")
-Conditions = Array[ExtResource("19_xkbna")]([SubResource("Resource_aa7kd")])
 metadata/_custom_type_script = "uid://cfahexo6jy6c5"
 
 [node name="EmbarkInVehicle" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence/DriveSeq"]
 script = ExtResource("25_aa7kd")
-metadata/_custom_type_script = "uid://bko4f8scnfuxd"
-
-[node name="FindVehiclePOI" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence/DriveSeq"]
-script = ExtResource("26_ltbp0")
-metadata/_custom_type_script = "uid://bko4f8scnfuxd"
-
-[node name="VehicleNavToPoint" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence/DriveSeq"]
-script = ExtResource("26_cauu0")
-metadata/_custom_type_script = "uid://bb3mfjludhtb8"
-
-[node name="DisembarkFromVehicle" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence/DriveSeq"]
-script = ExtResource("28_mhjlt")
 metadata/_custom_type_script = "uid://bko4f8scnfuxd"
 
 [node name="WalkSequence" type="Node" parent="AISM/NavTestBT/BehaviorTree/TestSequence"]
@@ -309,6 +296,7 @@ script = ExtResource("16_pm0hc")
 Conditions = Array[ExtResource("19_xkbna")]([SubResource("Resource_gx6x8")])
 
 [node name="DebugBTComponent" type="Tree" parent="AISM/NavTestBT" node_paths=PackedStringArray("_bt")]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -319,6 +307,18 @@ columns = 2
 script = ExtResource("32_xl2o6")
 _bt = NodePath("../BehaviorTree")
 metadata/_custom_type_script = "uid://cks63fd4a6esg"
+
+[node name="FindVehiclePOI" type="Node" parent="AISM/NavTestBT/DebugBTComponent"]
+script = ExtResource("26_ltbp0")
+metadata/_custom_type_script = "uid://bko4f8scnfuxd"
+
+[node name="VehicleNavToPoint" type="Node" parent="AISM/NavTestBT/DebugBTComponent"]
+script = ExtResource("26_cauu0")
+metadata/_custom_type_script = "uid://bb3mfjludhtb8"
+
+[node name="DisembarkFromVehicle" type="Node" parent="AISM/NavTestBT/DebugBTComponent"]
+script = ExtResource("28_mhjlt")
+metadata/_custom_type_script = "uid://bko4f8scnfuxd"
 
 [node name="NavToBuilding" type="Node" parent="AISM" node_paths=PackedStringArray("OnTreeSuccessState", "OnTreeFailureState")]
 script = ExtResource("11_slmta")

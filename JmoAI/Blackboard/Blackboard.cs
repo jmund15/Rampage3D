@@ -49,9 +49,8 @@ public enum BBDataSig
     #endregion
     #region AI_SIGS
     OwnedVehicle,
-    TargetVehicle,
-    TargetVehicleSeat,
-    OccupiedVehicle,
+    TargetOrOccupiedVehicleSeat,
+    TargetOrOccupiedVehicle,
     #endregion
 }
 [GlobalClass, Tool]

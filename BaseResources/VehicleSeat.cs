@@ -21,8 +21,41 @@ public partial class VehicleSeat : Resource
     public Vector2 EntrancePosition { get; private set; }
     public Color SeatIndColor { get; set; }
     public VehicleOccupantsComponent VOccupantComp { get; set; } = null;
-    public OccupantComponent3D Occupant { get; set; } = null;
-    public bool QueuedForEntry { get; set; }
+    private OccupantComponent3D _occupant = null;
+    public OccupantComponent3D Occupant
+    {
+        get => _occupant;
+        set
+        {
+            if (_occupant != value)
+            {
+                var oldOccupant = _occupant;
+                _occupant = value;
+                if (Occupant == null)
+                {
+                    OccupancyChanged?.Invoke(this, new OccupancyChangedEventArgs(IsOccupied, oldOccupant));
+                }
+                else
+                {
+                    OccupancyChanged?.Invoke(this, new OccupancyChangedEventArgs(IsOccupied, Occupant));
+                }
+                AvailabilityChanged?.Invoke(this, Availability);
+            }
+        }
+    }
+    private bool _queuedForEntry = false;
+    public bool QueuedForEntry
+    {
+        get => _queuedForEntry;
+        set
+        {
+            if (_queuedForEntry != value)
+            {
+                _queuedForEntry = value;
+                AvailabilityChanged?.Invoke(this, Availability);
+            }
+        }
+    }
     public bool IsOccupied => Occupant != null;
     public SeatAvailability Availability
     {
@@ -36,6 +69,19 @@ public partial class VehicleSeat : Resource
         }
     }
 
+    public class OccupancyChangedEventArgs : EventArgs
+    {
+        public bool OccupantEntered { get; }
+        public OccupantComponent3D Occupant { get; }
+
+        public OccupancyChangedEventArgs(bool occEntered, OccupantComponent3D occupant)
+        {
+            OccupantEntered = occEntered;
+            Occupant = occupant;
+        }
+    }
+    public event EventHandler<SeatAvailability> AvailabilityChanged;
+    public event EventHandler<OccupancyChangedEventArgs> OccupancyChanged;
     public VehicleSeat()
     {
         IsDriverSeat = false;

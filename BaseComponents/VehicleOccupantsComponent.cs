@@ -1,9 +1,8 @@
-﻿using Godot;
+﻿using BaseInterfaces;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using BaseInterfaces;
 
 public enum VehiclePosition
 {
@@ -22,7 +21,7 @@ public partial class VehicleOccupantsComponent : Node
 {
     #region COMPONENT_VARIABLES
 
-    public IVehicleComponent3D VehicleVelComp { get; private set; }
+    public IVehicleComponent3D VehicleComp { get; private set; }
     [Export]
     public MeshInstance3D VehicleGeometry { get; private set; }
 
@@ -98,12 +97,12 @@ public partial class VehicleOccupantsComponent : Node
     public HashSet<OccupantComponent3D> CurrentOccupants { get; protected set; } = new();
 
     //public event EventHandler<bool> Parked?;
-    public event EventHandler<List<VehicleSeat>> OccupantsChanged;
-    public event EventHandler<VehicleSeat> OccupantEmbarked;
-    public event EventHandler<VehicleSeat> OccupantDisembarked;
+    public event EventHandler<List<VehicleSeat>> OccupantsChange;
+    public event EventHandler<VehicleSeat> OccupantEmbark;
+    public event EventHandler<VehicleSeat> OccupantDisembark;
 
-    public event EventHandler<IDriver> DriverEmbarked;
-    public event EventHandler DriverDisembarked;
+    public event EventHandler<IDriver> DriverEmbark;
+    public event EventHandler DriverDisembark;
 
     public event EventHandler<bool> EmbarkableStatusChanged;
     #endregion
@@ -112,8 +111,8 @@ public partial class VehicleOccupantsComponent : Node
 	{
 		base._Ready();
 
-        VehicleVelComp = GetOwner<IVehicleComponent3D>();
-        if (VehicleVelComp == null)
+        VehicleComp = GetOwner<IVehicleComponent3D>();
+        if (VehicleComp == null)
         {
             GD.PrintErr("VehicleOccupantComponent requires an owner that implements IVelocity3DComponent.");
             return;
@@ -130,6 +129,7 @@ public partial class VehicleOccupantsComponent : Node
                     GD.PrintErr("Multiple driver seats found in VehicleOccupantsComponent. Only one driver seat is allowed.");
                     continue; // Skip if multiple driver seats are defined
                 }
+                GD.Print("SET DRIVER SEAT!"); 
                 DriverSeat = seat; // Set the driver seat if it exists
                 foundDriversSeat = true;
             }
@@ -155,19 +155,26 @@ public partial class VehicleOccupantsComponent : Node
             if (seat.Availability == SeatAvailability.Available)
             {
                 AvailableSeats.Add(seat);
+                seat.AvailabilityChanged += OnSeatAvailabilityChanged;
+                seat.OccupancyChanged += OnSeatOccupancyChanged;
             }
         }
-        OccupantEmbarked += OnOccupantEmbarked;
-        OccupantDisembarked += OnOccupantDisembarked;
+        OccupantEmbark += OnOccupantEmbarked;
+        OccupantDisembark += OnOccupantDisembarked;
 
-        DriverEmbarked += (sender, driver) =>
+        DriverEmbark += (sender, driver) =>
         {
             HasDriver = true; // Update driver status when a driver embarks
         };
-        DriverDisembarked += (sender, e) =>
+        DriverDisembark += (sender, e) =>
         {
             HasDriver = false; // Update driver status when a driver disembarks
         };
+    }
+
+    private void Seat_OccupancyChanged(object sender, bool e)
+    {
+        throw new NotImplementedException();
     }
     public override void _Process(double delta)
 	{
@@ -268,84 +275,6 @@ public partial class VehicleOccupantsComponent : Node
     {
 
     }
-    public void DisembarkOccupant(OccupantComponent3D occupant, VehicleSeat seat)
-    {
-        if (seat.IsDriverSeat && !HasDriver)
-        {
-            GD.Print("Vehicle does not have a driver to disembark.");
-            return;
-        }
-        if (occupant == null || !CurrentOccupants.Contains(occupant))
-        {
-            GD.Print("Occupant not found or invalid for disembarking.");
-            return;
-        }
-
-        occupant.GlobalPosition = VehicleGeometry.GlobalPosition + seat.EntrancePosition.GetVector3();
-        CurrentOccupants.Remove(occupant);
-        //occupant.Reparent(Global.CurrentCity); // Remove from vehicle
-        occupant.Disembarking();
-        if (seat.IsDriverSeat)
-        {
-            DriverDisembarked?.Invoke(this, EventArgs.Empty);
-        }
-        OccupantDisembarked?.Invoke(this, seat);
-    }
-    public bool EmbarkOccupant(OccupantComponent3D occupant, VehicleSeat seat)
-    {
-        try
-        {
-            if (seat.IsDriverSeat && HasDriver)
-            {
-                //TODO: Throw out driver??
-                GD.Print("Vehicle already has a driver.");
-                return false;
-            }
-            if (CurrentOccupants.Count >= MaxOccupants ||
-                seat.IsOccupied)
-            {
-                GD.Print("Cannot embark more occupants, maximum reached.");
-                return false;
-            }
-            if (occupant == null || !occupant.IsValid())
-            {
-                GD.Print("Invalid occupant provided for embarking.");
-                return false;
-            }
-            if (!CloseEnoughToEmbark(occupant, seat))
-            {
-                GD.Print("Occupant is too far from the vehicle to embark.");
-                return false;
-            }
-            if (seat.IsDriverSeat)
-            {
-                var driver = occupant.GetFirstChildOfInterface<IDriver>();
-                if (driver == null)
-                {
-                    GD.Print("Occupant is not a valid driver.");
-                    return false;
-                }
-                seat.Occupant = occupant;
-                CurrentOccupants.Add(occupant);
-                occupant.Embarking(VehicleVelComp, seat);
-                OccupantEmbarked?.Invoke(this, seat);
-                DriverEmbarked?.Invoke(this, driver);
-            }
-            else
-            {
-                seat.Occupant = occupant;
-                CurrentOccupants.Add(occupant);
-                occupant.Embarking(VehicleVelComp, seat);
-                OccupantEmbarked?.Invoke(this, seat);
-            }
-            return true;
-        }
-        catch (Exception e)
-        {
-            GD.PrintErr($"Error during embarkation: {e.Message}");
-            return false;
-        }
-    }
     public (VehicleSeat, SeatAvailability?) GetDriverSeat()
     {
         foreach (var seat in VehicleSeats)
@@ -425,6 +354,41 @@ public partial class VehicleOccupantsComponent : Node
     }
     #endregion
     #region SIGNAL_LISTENERS
+
+    private void OnSeatAvailabilityChanged(object sender, SeatAvailability availability)
+    {
+        var seat = sender as VehicleSeat;
+    }
+    private void OnSeatOccupancyChanged(object sender, VehicleSeat.OccupancyChangedEventArgs occChangedArgs)
+    {
+        var seat = sender as VehicleSeat;
+        var occupant = occChangedArgs.Occupant;
+        if (occChangedArgs.OccupantEntered)
+        {
+            if (seat.IsDriverSeat)
+            {
+                var driver = occupant as IDriver;
+                CurrentOccupants.Add(occupant);
+                OccupantEmbark?.Invoke(this, seat);
+                DriverEmbark?.Invoke(this, driver);
+            }
+            else
+            {
+                seat.Occupant = occupant;
+                CurrentOccupants.Add(occupant);
+                OccupantEmbark?.Invoke(this, seat);
+            }
+        }
+        else
+        {
+            CurrentOccupants.Remove(occupant);
+            if (seat.IsDriverSeat)
+            {
+                DriverDisembark?.Invoke(this, EventArgs.Empty);
+            }
+            OccupantDisembark?.Invoke(this, seat);
+        }
+    }
     private void OnOccupantEmbarked(object sender, VehicleSeat e)
     {
         AvailableSeats.Remove(e);

@@ -17,17 +17,17 @@ public partial class DisembarkFromVehicle : BehaviorAction
 	{
 		base.Enter();
         var rider = BB.GetVar<OccupantComponent3D>(BBDataSig.OccupantComp);
-        var vehicle = BB.GetVar<VehicleOccupantsComponent>(BBDataSig.TargetVehicle);
-        var targetSeat = BB.GetVar<VehicleSeat>(BBDataSig.TargetVehicleSeat);
-        if (!vehicle.CloseEnoughToEmbark(rider, targetSeat))
+        var vehicleOccComp = BB.GetVar<VehicleOccupantsComponent>(BBDataSig.TargetOrOccupiedVehicle);
+        var targetSeat = BB.GetVar<VehicleSeat>(BBDataSig.TargetOrOccupiedVehicleSeat);
+        if (!vehicleOccComp.CloseEnoughToEmbark(rider, targetSeat))
         {
             Status = TaskStatus.FAILURE;
         }
 
-        var embarked = vehicle.EmbarkOccupant(rider, targetSeat);
+        var embarked = rider.DisembarkFromVehicle();
         if (!embarked)
         {
-            GD.PrintErr($"EmbarkInVehicle: {Agent.Name} failed to embark on vehicle {vehicle.Name} at seat {targetSeat.EntrancePosition}.");
+            GD.PrintErr($"EmbarkInVehicle: {Agent.Name} failed to embark on vehicle {vehicleOccComp.Name} at seat {targetSeat.EntrancePosition}.");
             Status = TaskStatus.FAILURE;
         }
         else

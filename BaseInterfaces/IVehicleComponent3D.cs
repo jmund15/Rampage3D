@@ -31,7 +31,6 @@ namespace BaseInterfaces
         //public void SetDriveTargetRotation(Vector3 targetRotation);
         public Vector3 GetDriveTargetLocation();
         public Vector3 GetDriveTargetRotation();
-        public bool IsParked { get; set; }
 
         public void Park();
         public void Drive();

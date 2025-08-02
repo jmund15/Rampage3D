@@ -129,8 +129,12 @@ public partial class FindAnyVehicle : BehaviorAction
         //    BB.SetVar(BBDataSig.TargetVehicleSeat, targetSeat);
         //}
 
+        _vehicleSeat.QueuedForEntry = true;
         GD.Print($"Set vehicle entrance target Sucessfully!!");
-        BB.SetVar(BBDataSig.TargetVehicleSeat, _vehicleSeat);
+        BB.SetVar(BBDataSig.TargetOrOccupiedVehicle, _vehicleOccupants.VehicleComp);
+        BB.SetVar(BBDataSig.TargetOrOccupiedVehicleSeat, _vehicleSeat);
+        _aiNav.SetTarget(_vehicleOccupants.GetSeatEntryPosition(_vehicleSeat), true);   
+        GD.Print("Seat Entry Position: ", _vehicleOccupants.GetSeatEntryPosition(_vehicleSeat));
         Status = TaskStatus.SUCCESS;
     }
     public override string[] _GetConfigurationWarnings()

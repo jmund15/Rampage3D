@@ -19,17 +19,14 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
 
     public VehicleGear Gear { get; set; } = VehicleGear.Park;
 
-
     private CollisionShape3D _collShape;
 	private List<Node3D> _wheels = new List<Node3D>();
 
-    //public VehicleOccupantsComponent? OccupantComp { get; private set; }
 	private IBlackboard _bb;
 	private AINav3DComponent _aiNav;
 
     private IDriver _driver;
     private DriverBehavior _driverBehavior;
-
 
     [Export]
     private DriverBehavior _debugDriverApt;
@@ -53,16 +50,9 @@ public partial class GroundVehicleComponent : RigidBody3D, IVehicleComponent3D, 
     public Vector2 ZRange { get; private set; } = new Vector2();
     public Vector3 Dimensions { get; private set; } = new Vector3(); // X width, z length, and y height
 
-    private bool _isParked = false;
     public bool IsParked 
     { 
-        get => _isParked;
-        set
-        {
-            if (_isParked == value) { return; }
-            _isParked = value;
-            ParkedStatusChanged?.Invoke(this, _isParked);
-        }
+        get => Gear == VehicleGear.Park;
     }
     //public bool ParkBrakeEngaged { get; private set; } = false; // Start with park brake off
 

@@ -111,14 +111,17 @@ public partial class Critter : CharacterBody3D, IMovementComponent, IVelocityCha
         OccupantComp = this.GetFirstChildOfType<OccupantComponent3D>();
         BB.SetVar(BBDataSig.OccupantComp, OccupantComp);
 
-
         _csm = GetNode<CompoundState>("CSM");
+        _aism = GetNode<CompoundState>("AISM");
+        CallDeferred(MethodName.InitStateMachines);
+    }
+    private void InitStateMachines()
+    {
         _csm.Init(this, BB);
         PrimaryState = _csm.InitialSubState;
         ParallelStates = _csm.ParallelSubStates;
         _csm.Enter(_parallelStateMachines);
 
-        _aism = GetNode<CompoundState>("AISM");
         _aism.Init(this, BB);
         AIPrimaryState = _aism.InitialSubState;
         AIParallelStates = _aism.ParallelSubStates;
@@ -128,16 +131,31 @@ public partial class Critter : CharacterBody3D, IMovementComponent, IVelocityCha
     {
         base._ExitTree();
         _csm.Exit();
+        _aism.Exit();
     }
     public override void _Process(double delta)
     {
         base._Process(delta);
-        _csm.ProcessFrame((float)delta);
+        if (_csm.Initialized)
+        {
+            _csm.ProcessFrame((float)delta);
+        }
+        if (_aism.Initialized)
+        {
+            _aism.ProcessFrame((float)delta);
+        }
     }
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        _csm.ProcessPhysics((float)delta);
+        if (_csm.Initialized)
+        {
+            _csm.ProcessPhysics((float)delta);
+        }
+        if (_aism.Initialized)
+        {
+            _aism.ProcessPhysics((float)delta);
+        }
     }
 
 

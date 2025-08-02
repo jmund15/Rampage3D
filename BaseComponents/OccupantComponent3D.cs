@@ -81,29 +81,71 @@ public partial class OccupantComponent3D : Node3D, IDriver
     }
     #endregion
     #region COMPONENT_HELPER
-    public void Embarking(IVehicleComponent3D vehicle, VehicleSeat occupiedSeat)
+    public bool EmbarkInVehicle(IVehicleComponent3D vehicle, VehicleSeat seat)
     {
-        VehicleComponent = vehicle;
-        VehicleOccupantsComponent = occupiedSeat.VOccupantComp;
-        OccupiedSeat = occupiedSeat;
-        _driver.Hide();
-        _driver.Reparent(VehicleOccupantsComponent);
-        _driverAI.DisableNavigation();
-        VehicleComponent.SetDriverBehavior(DriverBehavior);
-        //if (WantsDrive())
-        //{
-        //    VehicleComponent.SetDriveTargetLocation(DriveTargetLocation);
-        //    VehicleComponent.SetDriveTargetRotation(DriveTargetRotation);
-        //}
+        try
+        {
+            if (seat.IsOccupied)
+            {
+                if (seat.IsDriverSeat)
+                {
+                    GD.Print("Vehicle already has a driver.");
+                    return false;
+                }
+                else
+                {
+                    GD.Print("Seat is already occupied.");
+                    return false;
+                }
+            }
+            if (!seat.VOccupantComp.CloseEnoughToEmbark(this, seat))
+            {
+                GD.Print("Occupant is too far from the vehicle to embark.");
+                return false;
+            }
+            if (seat.IsDriverSeat)
+            {
+                if (!CanDrive)
+                {
+                    GD.Print("Occupant cannot drive this vehicle.");
+                    return false;
+                }
+
+                // more logic?
+            }
+
+
+            
+            _driver.Hide();
+            _driver.Reparent(VehicleOccupantsComponent);
+            _driverAI.DisableNavigation();
+            VehicleComponent.SetDriverBehavior(DriverBehavior);
+            VehicleComponent = vehicle;
+            VehicleOccupantsComponent = seat.VOccupantComp;
+            OccupiedSeat = seat;
+            OccupiedSeat.Occupant = this;
+            return true;
+        }
+        catch (Exception e)
+        {
+            GD.PrintErr($"Error during embarkation: {e.Message}");
+            return false;
+        }
     }
-    public void Disembarking()
+    public bool DisembarkFromVehicle()
     {
+        // Global Pos check for if it's possible to disembark
+        GlobalPosition = GlobalPosition + OccupiedSeat.EntrancePosition.GetVector3();
+
+        OccupiedSeat.Occupant = null;
         VehicleComponent = null;
         VehicleOccupantsComponent = null;
         OccupiedSeat = null;
         _driver.Show();
         _driver.Reparent(_originalDriverParent);
         _driverAI.EnableNavigation();
+
+        return true;
     }
 
     public VehicleSeat GetOccupiedSeat()

@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using Godot.Collections;
 using System;
 
@@ -14,8 +14,6 @@ public partial class CompoundState : State
     public Dictionary<State, bool> ParallelSubStates { get; protected set; } = new Dictionary<State, bool>();
 
     [Signal]
-    public delegate void InitializedCompoundStateEventHandler();
-    [Signal]
     public delegate void EnteredCompoundStateEventHandler();
     [Signal]
     public delegate void ExitedCompoundStateEventHandler();
@@ -30,12 +28,11 @@ public partial class CompoundState : State
     public override void Init(Node agent, IBlackboard bb)
     {
         GD.Print("compound state: ", this.Name, " entering init compound state for body: ", agent.Name);
-        base.Init(agent, bb);
         foreach (var child in GetChildren())
         {
             //GD.Print("parent state: ", Name, ", child state: ", child.Name);
             if (child is not State state) { continue; }
-            state.Init(Agent, BB);
+            state.Init(agent, bb);
             state.TransitionState += TransitionFiniteSubState;
             state.AddParallelState += AddParallelSubState;
             state.RemoveParallelState += RemoveParallelSubState;
@@ -49,7 +46,7 @@ public partial class CompoundState : State
                 FiniteSubStates.Add(state, false);
             }
         }
-        EmitSignal(SignalName.InitializedCompoundState);
+        base.Init(agent, bb);
     }
     public override void Enter(Dictionary<State, bool> parallelStates)
     {

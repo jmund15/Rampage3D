@@ -10,6 +10,7 @@ public abstract partial class State : Node
     protected InteruptibleChange SelfInteruptible = InteruptibleChange.NoChange;
     public IBlackboard BB { get; protected set; }
     public Node Agent { get; set; }
+    public bool Initialized { get; protected set; } = false;
 
     protected Dictionary<State, bool> ParallelStates = new Dictionary<State, bool>();
 
@@ -19,12 +20,15 @@ public abstract partial class State : Node
     public delegate void AddParallelStateEventHandler(State parallelState);
     [Signal]
     public delegate void RemoveParallelStateEventHandler(State parallelState);
+    public event EventHandler InitializedState;
     #endregion
     #region STATE_UPDATES
     public virtual void Init(Node agent, IBlackboard bb)
     {
         Agent = agent;
         BB = bb;
+        Initialized = true;
+        InitializedState?.Invoke(this, EventArgs.Empty);
     }
     public virtual void Enter(Dictionary<State, bool> parallelStates)
     {

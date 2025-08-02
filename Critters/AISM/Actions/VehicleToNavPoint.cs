@@ -26,9 +26,9 @@ public partial class VehicleToNavPoint : SetRandomNavPoint
 	public override void Enter()
 	{
 		base.Enter();
-		_occupiedVehicle = BB.GetVar<IVehicleComponent3D>(BBDataSig.OccupiedVehicle);
-		_vehVelComp = BB.GetVar<IVelocity3DComponent>(BBDataSig.OccupiedVehicle);
-        _currentSeat = BB.GetVar<VehicleSeat>(BBDataSig.TargetVehicleSeat);
+		_occupiedVehicle = BB.GetVar<IVehicleComponent3D>(BBDataSig.TargetOrOccupiedVehicle);
+		_vehVelComp = BB.GetVar<IVelocity3DComponent>(BBDataSig.TargetOrOccupiedVehicle);
+        _currentSeat = BB.GetVar<VehicleSeat>(BBDataSig.TargetOrOccupiedVehicleSeat);
         _occupantComp = BB.GetVar<OccupantComponent3D>(BBDataSig.OccupantComp);
 
         if (_occupiedVehicle == null || _currentSeat == null)

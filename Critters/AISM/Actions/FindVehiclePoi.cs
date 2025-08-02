@@ -22,8 +22,8 @@ public partial class FindVehiclePoi : BehaviorAction
 	public override void Enter()
 	{
 		base.Enter();
-        _occupiedVehicle = BB.GetVar<IVehicleComponent3D>(BBDataSig.OccupiedVehicle);
-        _occupiedSeat = BB.GetVar<VehicleSeat>(BBDataSig.TargetVehicleSeat);
+        _occupiedVehicle = BB.GetVar<IVehicleComponent3D>(BBDataSig.TargetOrOccupiedVehicle);
+        _occupiedSeat = BB.GetVar<VehicleSeat>(BBDataSig.TargetOrOccupiedVehicleSeat);
 		if (!_occupiedSeat.IsDriverSeat)
 		{
 			var occComp = _occupiedSeat.VOccupantComp;

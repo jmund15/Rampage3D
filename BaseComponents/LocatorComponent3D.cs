@@ -20,8 +20,8 @@ public partial class LocatorComponent3D : Node3D
     public float VehicleSearchRadius { get; set; } = 200.0f;
 
     // We define the collision layer for vehicles here. It must match the layer
-    // you set up in Project Settings (e.g., Layer 2).
-    private const int VehicleCollisionLayer = 2;
+    // you set up in Project Settings (e.g., Layer 5).
+    private const int VehicleCollisionLayer = 5;
 
     
     #endregion
@@ -43,7 +43,7 @@ public partial class LocatorComponent3D : Node3D
     // TODO: Adjust locator to have two separate methods:
     // 1. for Finding general vehicles with parameters (closest general, needs to be able to be occupied, etc.)
     // 2. for finding vehicle seats available based on parameters (driver, queued, etc.)
-
+    // 3. Make locator more modular? like instead of just for veicles, have user put in their own desired query parameters/collision layer
     public IVehicleComponent3D FindClosestAvailableVehicle(
         Vector3 callerPosition,
         bool needsParked = true
@@ -101,7 +101,7 @@ public partial class LocatorComponent3D : Node3D
             .Select(vehicle => vehicle as IVehicleComponent3D) // TODO: abstract this to base vehicle comp
 
             // Filter out driving vehicles if needsParked is true
-            .Where(vehicle => vehicle.IsParked || !needsParked)
+            .Where(vehicle => vehicle.Gear == VehicleGear.Park || !needsParked)
 
             .OrderBy(vehicle => vehicle.GlobalPosition.DistanceSquaredTo(callerPosition))
 
@@ -172,6 +172,35 @@ public partial class LocatorComponent3D : Node3D
             return null;
         }
 
+        //testing 
+        intersectingObjects
+            // The actual node is stored in the "collider" key of the result dictionary.
+            .Select(resultDict => resultDict["collider"].As<Node>())
+            //.ToList().ForEach(vehicle => GD.Print($"Found vehicle: {vehicle.Name}"));
+
+            // cast to Vehicle type and filter out any other objects that might
+            .Select(vehicle => vehicle as IVehicleComponent3D) // TODO: abstract this to base vehicle comp
+
+            //.ToList().ForEach(vehicle => GD.Print($"Found vehicle: {vehicle.GetInterfaceNode().Name} at position {vehicle.GlobalPosition}"));
+            
+            // Filter out driving vehicles if needsParked is true
+            .Where(vehicle => vehicle.Gear == VehicleGear.Park || !needsParked)
+
+            //.ToList().ForEach(vehicle => GD.Print($"Found vehicle: {vehicle.GetInterfaceNode().Name} at position {vehicle.GlobalPosition}"));
+
+            //.OfType<RigidBody3D>()
+            //.Where(vehicle => vehicle.GetFirstChildOfType<VehicleOccupantComponent>() is VehicleOccupantComponent voc)
+            .Select(vehicle => (vehicle as Node3D).GetFirstChildOfType<VehicleOccupantsComponent>(false))
+            .Where(voc => voc != null) // Filter out cases where vehicles can't be occupied
+
+            .ToList().ForEach(vehicle => GD.Print($"Found vehicle: {vehicle.Name} at position {vehicle.VehicleGeometry.GlobalPosition}"));
+
+
+            //// Driver checks
+            //.Where(voc => (voc.HasOpenDriverSeat(caresAboutQueue) || !needsToBeDriver) &&
+            //                voc.HasOpenSeat(caresAboutQueue))
+
+
         // --- Step 5: Process the results to find the best match ---
         // Now we have a small list of candidates. We can process this short list in C#.
         VehicleOccupantsComponent closestAvailableVehicle = intersectingObjects
@@ -182,7 +211,7 @@ public partial class LocatorComponent3D : Node3D
             .Select(vehicle => vehicle as IVehicleComponent3D) // TODO: abstract this to base vehicle comp
 
             // Filter out driving vehicles if needsParked is true
-            .Where(vehicle => vehicle.IsParked || !needsParked)
+            .Where(vehicle => vehicle.Gear == VehicleGear.Park || !needsParked)
 
             //.OfType<RigidBody3D>()
             //.Where(vehicle => vehicle.GetFirstChildOfType<VehicleOccupantComponent>() is VehicleOccupantComponent voc)
@@ -210,13 +239,18 @@ public partial class LocatorComponent3D : Node3D
             GD.Print("Found vehicles in radius, but none were available.");
             return null;
         }
+        else
+        {
+            GD.Print($"Found closeset available vehicle: {closestAvailableVehicle.Name} at position {closestAvailableVehicle.VehicleGeometry.GlobalPosition}");
+        }
 
         if (needsToBeDriver)
         {
             // we already know the driver seat is available, so we can return it directly
             return closestAvailableVehicle.DriverSeat;
         }
-        else {
+        else
+        {
             // If we don't need to be the driver, we can check all available seats
             return closestAvailableVehicle.GetClosestAvailableSeat(callerPosition, caresAboutQueue);
         }

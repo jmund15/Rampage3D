@@ -17,22 +17,22 @@ public partial class EmbarkInVehicle : BehaviorAction
 	{
 		base.Enter();
 		var rider = BB.GetVar<OccupantComponent3D>(BBDataSig.OccupantComp);//(Agent as Node3D);
-		var targetSeat = BB.GetVar<VehicleSeat>(BBDataSig.TargetVehicleSeat);
-		var targetVehicle = targetSeat.VOccupantComp;
-        if (!targetVehicle.CloseEnoughToEmbark(rider, targetSeat))
+		var targetSeat = BB.GetVar<VehicleSeat>(BBDataSig.TargetOrOccupiedVehicleSeat);
+		var targetVehicleOccComp = targetSeat.VOccupantComp;
+        if (!targetVehicleOccComp.CloseEnoughToEmbark(rider, targetSeat))
 		{
 			Status = TaskStatus.FAILURE;
         }
 
-		var embarked = targetVehicle.EmbarkOccupant(rider, targetSeat);
+		var embarked = rider.EmbarkInVehicle(targetVehicleOccComp.VehicleComp, targetSeat);
 		if (!embarked)
 		{
-			GD.PrintErr($"EmbarkInVehicle: {Agent.Name} failed to embark on vehicle {targetVehicle.Name} at seat {targetSeat.EntrancePosition}.");
+			GD.PrintErr($"EmbarkInVehicle: {Agent.Name} failed to embark on vehicle {targetVehicleOccComp.Name} at seat {targetSeat.EntrancePosition}.");
             Status = TaskStatus.FAILURE;
 		}
 		else
 		{
-			BB.SetVar(BBDataSig.OccupiedVehicle, targetVehicle.VehicleVelComp);
+			BB.SetVar(BBDataSig.TargetOrOccupiedVehicle, targetVehicleOccComp.VehicleComp);
             Status = TaskStatus.SUCCESS;
 		}
     }
