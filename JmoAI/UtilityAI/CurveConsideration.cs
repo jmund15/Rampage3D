@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TimeRobbers.JmoAI.UtilityAI
+namespace JmoAI.UtilityAI
 {
     [GlobalClass, Tool]
     public partial class CurveConsideration : UtilityConsideration
@@ -16,10 +16,7 @@ namespace TimeRobbers.JmoAI.UtilityAI
         protected Curve SampleCurve = new Curve();
         [Export]
         protected UtilityConsideration BaseConsideration;
-        public override void Init(UtilityContext context)
-        {
-        }
-        public override float Evaluate(UtilityContext context)
+        protected override float CalculateBaseScore(IBlackboard context)
         {
             if (!SampleCurve.IsValid() || !BaseConsideration.IsValid())
             {

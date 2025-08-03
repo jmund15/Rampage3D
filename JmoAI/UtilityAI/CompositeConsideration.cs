@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TimeRobbers.JmoAI.UtilityAI
+namespace JmoAI.UtilityAI
 {
     public enum ConsiderationOperator
     {
@@ -25,10 +25,8 @@ namespace TimeRobbers.JmoAI.UtilityAI
         protected Godot.Collections.Array<UtilityConsideration> Considerations = new Godot.Collections.Array<UtilityConsideration>();
         [Export]
         protected ConsiderationOperator Operator = ConsiderationOperator.Average;
-        public override void Init(UtilityContext context)
-        {     
-        }
-        public override float Evaluate(UtilityContext context)
+
+        protected override float CalculateBaseScore(IBlackboard context)
         {
             if (Considerations.Count == 0) { return 0f; }
 

@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// --- IUtilityTask.cs ---
+// This interface defines the contract for any BT action that can be used by the UtilitySelector.
 
-using Godot;
-
-namespace TimeRobbers.JmoAI.UtilityAI
+namespace JmoAI.UtilityAI
 {
     public interface IUtilityTask
     {
-        public UtilityConsideration Consideration { get; protected set; }
-
-        //// after how much time can the action be interrupted
-        //protected Timer InterruptibleTimer { get; set; }
-        public bool Interruptible { get; protected set; }
-
+        // The consideration resource that calculates this action's score.
+        public UtilityConsideration Consideration { get; }
+        
+        // Can this action be interrupted by a higher-scoring action?
+        public bool Interruptible { get; }
+        
+        // Used by the tie-breaker. Higher values win in case of a score tie.
+        public int Priority { get; }
     }
 }

@@ -1,45 +1,47 @@
+﻿// --- UtilityAction.cs ---
+// Your base action for all utility-based behaviors. It now implements the Priority property.
 using Godot;
+using JmoAI.UtilityAI;
 using System.Collections.Generic;
 using System.Linq;
-using TimeRobbers.JmoAI.UtilityAI;
 
 [GlobalClass, Tool]
 public partial class UtilityAction : BehaviorAction, IUtilityTask
 {
-	#region TASK_VARIABLES
-	[Export]
-	public UtilityConsideration Consideration { get; set; }
-	[Export] // = 0 always interruptible, < 0 never interruptible (USE WITH CAUTION)
-    public float NonInterruptTime { get; protected set; } 
-	public bool Interruptible { get; set; }
-	#endregion
-	#region TASK_UPDATES
+    #region TASK_VARIABLES
+    [Export]
+    public UtilityConsideration Consideration { get; set; }
+
+    [Export(PropertyHint.Range, "-1,100,1")] // -1 means never interruptible
+    public float NonInterruptibleTime { get; protected set; } = 0.25f; // Small delay by default
+
+    [Export]
+    public int Priority { get; private set; } = 0;
+    
+    public bool Interruptible { get; private set; } = true;
+
 	public override void Init(Node agent, IBlackboard bb)
 	{
 		base.Init(agent, bb);
 		TaskName += "_Utility";
 	}
-	public override void Enter()
-	{
-		base.Enter();
-		switch (NonInterruptTime)
-		{
-			case < 0f:
-				Interruptible = false;
-				break;
-			case 0f:
-				Interruptible = true;
-				break;
-			case > 0f:
-				Interruptible = false;
-				GetTree().CreateTimer(NonInterruptTime).Timeout += () =>
-				{
-					Interruptible = true;
-				};
-				break;
+    public override void Enter()
+    {
+        base.Enter();
+        if (NonInterruptibleTime < 0)
+        {
+            Interruptible = false;
         }
-		
-	}
+        else if (NonInterruptibleTime > 0)
+        {
+            Interruptible = false;
+            GetTree().CreateTimer(NonInterruptibleTime).Timeout += () => Interruptible = true;
+        }
+        else
+        {
+            Interruptible = true;
+        }
+    }
 	public override void Exit()
 	{
 		base.Exit();
@@ -82,4 +84,3 @@ public partial class UtilityAction : BehaviorAction, IUtilityTask
 	}
 	#endregion
 }
-

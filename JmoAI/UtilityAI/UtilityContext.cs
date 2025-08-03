@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TimeRobbers.JmoAI.UtilityAI
+namespace JmoAI.UtilityAI
 {
     [GlobalClass, Tool]
     public partial class UtilityContext : Resource

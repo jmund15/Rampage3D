@@ -52,11 +52,20 @@ public enum BBDataSig
     TargetOrOccupiedVehicleSeat,
     TargetOrOccupiedVehicle,
     #endregion
+    #region SQUAD_SIGS
+    ActiveSquadTag, // Holds the current StringName tag for the squad
+    HasSquadTag,    // Simple bool flag
+    SquadAverageHealth
+    #endregion
 }
 [GlobalClass, Tool]
 public partial class Blackboard : Node, IBlackboard//<BBDataSig>
 {
     #region TASK_VARIABLES
+    public void SetParent(IBlackboard parentBB)
+    {
+        ParentBB = parentBB;
+    }
     protected IBlackboard ParentBB { get; set; }
     protected IBlackboard ChildBB { get; set; }
     //[Export]

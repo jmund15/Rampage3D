@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TimeRobbers.JmoAI.UtilityAI
+namespace JmoAI.UtilityAI
 {
     [GlobalClass, Tool]
     public partial class ConstConsideration : UtilityConsideration
@@ -13,10 +13,7 @@ namespace TimeRobbers.JmoAI.UtilityAI
         [Export]
         protected float ConstEvalution;
 
-        public override void Init(UtilityContext context)
-        {
-        }
-        public override float Evaluate(UtilityContext context)
+        protected override float CalculateBaseScore(IBlackboard context)
         {
             return ConstEvalution;
         }

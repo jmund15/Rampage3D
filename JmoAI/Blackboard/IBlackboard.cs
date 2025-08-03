@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 public interface IBlackboard
 {
+    public void SetParent(IBlackboard parent);
     public T GetVar<T>(BBDataSig bbVar) where T : class;
     public Error SetVar<T>(BBDataSig bbVar, T value) where T : class;
 
