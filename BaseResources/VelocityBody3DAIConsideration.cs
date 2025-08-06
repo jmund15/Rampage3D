@@ -52,7 +52,7 @@ public partial class VelocityBody3DAIConsideration : AIEntityConsideration3D
             GD.PrintErr($"VelocityBody3DAIConsideration ERROR || Missing Agent Body or AINavComponent/AIRays on Blackboard.");
         }
     }
-    public override Dictionary<Vector3, float> GetConsiderationVector(IAIDetector3D detector)
+    public override Dictionary<Vector3, float> GetConsiderationVector(IAISensor3D detector)
     {
         //GD.Print("GETTING VELOCITY BODY CONSIDERATION");
         _agentPosition = Agent.GlobalPosition;
@@ -76,11 +76,11 @@ public partial class VelocityBody3DAIConsideration : AIEntityConsideration3D
         return considerVec;
     }
     // Helper to detect bodies using raycasts
-    private HashSet<IVelocity3DComponent> DetectRelevantBodies(IAIDetector3D detector)
+    private HashSet<IVelocity3DComponent> DetectRelevantBodies(IAISensor3D detector)
     {
         var detectedBodies = new HashSet<IVelocity3DComponent>(); // Use HashSet for efficient uniqueness check
 
-        foreach (var detectNode in detector.GetDetectedBodies())
+        foreach (var detectNode in detector.GetSensedBodies())
         {
             if (detectNode is not CollisionObject3D collObj) { continue; }
             if (detectNode == Agent) { continue; }

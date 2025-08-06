@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="AAAParameters" load_steps=2 format=3 uid="uid://djc64jpw2irnx"]
 
-[ext_resource type="Script" uid="uid://cf3rxscc6f0po" path="res://Base/AAAParameters.cs" id="1_j5kjl"]
+[ext_resource type="Script" uid="uid://cf3rxscc6f0po" path="res://JmoLibs/Core/AAAParameters.cs" id="1_j5kjl"]
 
 [resource]
 script = ExtResource("1_j5kjl")

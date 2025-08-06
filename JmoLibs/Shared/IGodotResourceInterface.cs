@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public interface IAIDetector3D
+namespace Jmo.Shared
 {
-    IEnumerable<Node3D> GetDetectedBodies();
-    IEnumerable<Vector3> GetDirectionsDetected();
+    public interface IGodotResourceInterface
+    {
+        public Resource GetInterfaceResource();
+    }
 }

@@ -1,4 +1,4 @@
-
+﻿
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Linq;
 /// environmental data, and emits signals for detection events.
 /// </summary>
 [GlobalClass]
-public partial class AISensors_gemini : Node
+public partial class AISensors3D : Node
 {
     // --- Signals ---
     [Signal]
@@ -26,6 +26,8 @@ public partial class AISensors_gemini : Node
     [Signal]
     public delegate void DetectableExitedEventHandler(DetectableComponent_gemini detectable);
 
+    [Export]
+    public Godot.Collections.Array<IAISensor3D> Sensors { get; private set; } = new Godot.Collections.Array<IAISensor3D>();
 
     // --- Exports ---
     [Export]

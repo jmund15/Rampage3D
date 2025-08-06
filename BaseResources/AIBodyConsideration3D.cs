@@ -21,7 +21,7 @@ public partial class AIBodyConsideration3D : AIEntityConsideration3D
         BB = bb;
         AINav = BB.GetVar<AINav3DComponent>(BBDataSig.AINavComp);
     }
-    public override Dictionary<Vector3, float> GetConsiderationVector(IAIDetector3D detector)
+    public override Dictionary<Vector3, float> GetConsiderationVector(IAISensor3D detector)
     {
         var rays = AINav.AIRayDetector;
         Dictionary<Vector3, float> considVec = new Dictionary<Vector3, float>();

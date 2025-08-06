@@ -37,7 +37,7 @@ public partial class StaticBody3DAIConsideration : AIEntityConsideration3D
         //    i++;
         //}
     }
-    public override Dictionary<Vector3, float> GetConsiderationVector(IAIDetector3D detector)
+    public override Dictionary<Vector3, float> GetConsiderationVector(IAISensor3D detector)
     {
         
         var rays = AINav.AIRayDetector;
@@ -45,7 +45,7 @@ public partial class StaticBody3DAIConsideration : AIEntityConsideration3D
         foreach (var dir in rays.Directions) { considerVec[dir] = 0f; }
 
 
-        foreach (var detected in detector.GetDetectedBodies())
+        foreach (var detected in detector.GetSensedBodies())
         {
             if (detected == Agent) continue;
             if (detected is not CollisionObject3D collisionObj) continue;

@@ -9,5 +9,5 @@ public interface IAIConsideration<VecT>
     public void InitializeResources(IBlackboard bb);
 
     //TODO: investigate, not all considerations will use a detector
-    public Dictionary<VecT, float> GetConsiderationVector(IAIDetector3D detector);
+    public Dictionary<VecT, float> GetConsiderationVector(IAISensor3D detector);
 }

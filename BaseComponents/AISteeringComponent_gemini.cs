@@ -1,4 +1,4 @@
-
+﻿
 using Godot;
 using System.Collections.Generic;
 
@@ -18,7 +18,7 @@ public partial class AISteeringComponent_gemini : Node
     public AINav3DComponent_gemini Navigation { get; private set; }
 
     [Export]
-    public AISensors_gemini Sensors { get; private set; }
+    public AISensors3D Sensors { get; private set; }
 
     [Export(PropertyHint.Range, "0.0, 1.0, 0.05")]
     public float PathFollowingStrength { get; set; } = 0.8f;

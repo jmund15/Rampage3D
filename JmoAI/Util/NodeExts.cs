@@ -2,6 +2,7 @@
 using Godot.Collections;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 public static partial class NodeExts
@@ -17,7 +18,7 @@ public static partial class NodeExts
     /// <summary>
     /// Extension that checks if the object is valid to use. See the "IsValid" extension for more information.
     /// </summary>  
-    public static T IfValid<T>(this T control) where T : GodotObject
+    public static T? IfValid<T>(this T control) where T : GodotObject
            => control.IsValid() ? control : null;
     public static void SafeQueueFree(this Node node)
     {
@@ -26,16 +27,17 @@ public static partial class NodeExts
     }
     #endregion
     #region SEARCH_EXTENSIONS
-    public static T GetFirstNodeOfTypeInScene<T>(bool includeScene = true, bool includeSubChildren = true) where T : Node
+    public static T? GetFirstNodeOfTypeInScene<T>(bool includeScene = true, bool includeSubChildren = true) where T : Node
     {
         var scene = (Engine.GetMainLoop() as SceneTree);
+        if (scene == null) { return null; } // why would scene tree be null? could be possible
         if (includeScene && scene.CurrentScene is T tScene)
         {
             return tScene;
         }
         return scene?.CurrentScene.GetFirstChildOfType<T>(includeSubChildren);
     }
-    public static T GetFirstChildOfTypeOldWArray<T>(this Node root, bool includeSubChildren = true) where T : Node
+    public static T? GetFirstChildOfTypeOldWArray<T>(this Node root, bool includeSubChildren = true) where T : Node
     {
         if (!includeSubChildren)
         {
@@ -58,10 +60,45 @@ public static partial class NodeExts
                 nodesToParse.AddRange(cursor.GetChildren());
             }
         }
-
         return null;
     }
-    public static T/*?*/ GetFirstChildOfType<T>(this Node root, bool includeSubChildren = true) where T : Node
+    public static bool TryGetNode<T>(this Node root, string nodePath, [MaybeNullWhen(false)] out T? result) where T : Node
+    {
+        result = null;
+        if (root.HasNode(nodePath))
+        {
+            var node = root.GetNode(nodePath);
+            if (node is T castedNode)
+            {
+                result = castedNode;
+            }
+        }
+        return result != null;
+    }
+    public static bool TryGetFirstChildOfType<T>(this Node root, [MaybeNullWhen(false)] out T? result) where T : Node
+    {
+        result = GetFirstChildOfType<T>(root, false);
+        return result != null;
+    }
+    public static bool TryGetFirstChildOfInterface<T>(this Node root, [MaybeNullWhen(false)] out T? result) where T : class
+    {
+        result = GetFirstChildOfInterface<T>(root, false);
+        return result != null;
+    }
+    public static bool TryGetChildOfInterface<T>(this Node root, string nodePath, [MaybeNullWhen(false)] out T? result) where T : class
+    {
+        result = null;
+        if (root.HasNode(nodePath))
+        {
+            var node = root.GetNode(nodePath);
+            if (node is T castedNode)
+            {
+                result = castedNode;
+            }
+        }
+        return result != null;
+    }
+    public static T? GetFirstChildOfType<T>(this Node root, bool includeSubChildren = true) where T : Node
     {
         if (!includeSubChildren)
         {
@@ -91,7 +128,7 @@ public static partial class NodeExts
         }
         return null;
     }
-    public static T GetFirstChildOfInterface<T>(this Node root, bool includeSubChildren = true) where T : class
+    public static T? GetFirstChildOfInterface<T>(this Node root, bool includeSubChildren = true) where T : class
     {
         if (!includeSubChildren)
         {
@@ -224,15 +261,15 @@ public static partial class NodeExts
     }
     public static Array<T> GetAllNodesOfTypeInScene<[MustBeVariant] T>(bool includeSubChildren = true) where T : Node
     {
-        Node currentScene = (Engine.GetMainLoop() as SceneTree)?.CurrentScene;
-        return currentScene == null ? null :
+        Node? currentScene = (Engine.GetMainLoop() as SceneTree)?.CurrentScene;
+        return currentScene == null ? new Array<T>() :
             currentScene.GetChildrenOfType<T>(includeSubChildren);
             //includeSubChildren ? currentScene.GetAllNodesOfType<T>() : currentScene.GetChildrenOfType<T>();
     }
     public static List<T> GetAllNodesOfInterfaceInScene<T>(bool includeSubChildren = true) where T : class
     {
-        Node currentScene = (Engine.GetMainLoop() as SceneTree)?.CurrentScene;
-        return currentScene == null ? null :
+        Node? currentScene = (Engine.GetMainLoop() as SceneTree)?.CurrentScene;
+        return currentScene == null ? new List<T>() :
             currentScene.GetChildrenOfInterface<T>(includeSubChildren);
         //includeSubChildren ? currentScene.GetAllNodesOfType<T>() : currentScene.GetChildrenOfType<T>();
     }

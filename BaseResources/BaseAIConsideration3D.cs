@@ -11,11 +11,11 @@ public abstract partial class BaseAIConsideration3D : Resource, IAIConsideration
     protected float Consideration; // negative values are danger, positive are interest
 
     protected IBlackboard BB;
-    protected IAIDetector3D Detector;
+    protected IAISensor3D Detector;
     protected Node3D Agent;
     public BaseAIConsideration3D()
     {
     }
     public abstract void InitializeResources(IBlackboard bb);
-    public abstract Dictionary<Vector3, float> GetConsiderationVector(IAIDetector3D detector);
+    public abstract Dictionary<Vector3, float> GetConsiderationVector(IAISensor3D detector);
 }
