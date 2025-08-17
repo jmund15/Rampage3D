@@ -13,7 +13,7 @@ namespace Jmo.Core.Modifiers
         public T BaseValue { get; set; }
         public virtual T Value => GetValue();
 
-        protected readonly List<IModifier<T>> _modifiers = new();
+        private readonly List<IModifier<T>> _modifiers = new();
         protected bool _isDirty = true;
         protected T _cachedValue;
 
@@ -59,7 +59,22 @@ namespace Jmo.Core.Modifiers
     /// </summary>
     public class ModifiableFloatProperty: ModifiableProperty<float>
     {
+        private readonly List<IFloatModifier> _floatModifiers = new();
+
         public ModifiableFloatProperty(float baseValue) : base(baseValue) { }
+
+        // Override Add/Remove to work with the specific list
+        public override void AddModifier(IFloatModifier modifier)
+        {
+            _floatModifiers.Add(modifier);
+            _isDirty = true;
+        }
+
+        public override void RemoveModifier(IFloatModifier modifier)
+        {
+            _floatModifiers.Remove(modifier);
+            _isDirty = true;
+        }
         protected override float GetValue()
         {
             if (!_isDirty) return _cachedValue;
@@ -74,7 +89,7 @@ namespace Jmo.Core.Modifiers
 
             // Sort all modifiers by priority once to handle cancellations correctly.
             // Higher numeric value means higher priority.
-            var sortedModifiers = _modifiers.OrderByDescending(m => m.Priority).ToList();
+            var sortedModifiers = _floatModifiers.OrderByDescending(m => m.Priority).ToList();
 
             var tagsToCancel = new HashSet<string>();
             foreach (var mod in sortedModifiers)
@@ -88,9 +103,7 @@ namespace Jmo.Core.Modifiers
             // Filter out any modifiers that possess a cancelled tag.
             var finalModifiers = sortedModifiers.Where(mod =>
                 !(mod.Tags?.Any(tagsToCancel.Contains) ?? false)
-            )
-            .OfType<IFloatModifier>() // HACK: don't like this implementation
-            .ToList();
+            ).ToList();
 
             // --- Step 1: The Calculation Pipeline ---
             float currentFloatValue = BaseValue;
