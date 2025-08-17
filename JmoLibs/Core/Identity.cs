@@ -6,14 +6,19 @@ namespace Jmo.Core
     /// <summary>
     /// A data-driven Resource that defines the specific identity of an object in the game world.
     /// Its meaning and relationships are defined by the list of Category resources it belongs to.
-    /// This decouples the "what" an object is from the systems that interact with it.
     /// </summary>
+    /// <remarks>
+    /// This decouples the "what" an object is from the systems that interact with it.
+    /// It acts as a "character sheet" for what an object *is*, defined by the collection
+    /// of Category resources it belongs to.
+    /// </remarks>
     [GlobalClass]
-    public partial class Identity : Resource
+    public sealed partial class Identity : Resource
     {
         /// <summary>
         /// The user-friendly name of the specific identity (e.g., "Elite Grunt", "Health Potion").
         /// </summary>
+        
         [Export] public string IdentityName { get; private set; } = "Unnamed Identity";
 
         /// <summary>

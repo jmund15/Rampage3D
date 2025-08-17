@@ -3,11 +3,15 @@
 namespace Jmo.Core
 {
     /// <summary>
-    /// A data-driven Resource representing a high-level, abstract category.
-    /// This is a cornerstone of the world's semantic system, allowing for broad-level grouping.
+    /// A data-driven Resource representing a high-level, abstract category or "tag".
+    /// This is a cornerstone of the world's semantic system, allowing for broad-level grouping and querying.
     /// For example, this allows an AI to ask "is there an Enemy nearby?" and get a match for any
     /// object whose Identity belongs to the "Enemy" category.
     /// </summary>
+    /// <remarks>
+    /// Crucially, because it is a Resource, it can contain its own data, such as default relationships
+    /// to other categories, which a simple string tag (like a Godot Group) cannot do.
+    /// </remarks>
     [GlobalClass]
     public partial class Category : Resource
     {

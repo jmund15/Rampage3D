@@ -1,23 +1,21 @@
-﻿// In "Jmo/Core/Input/IIntentSource.cs"
-using Godot;
+﻿using System;
 using System.Collections.Generic;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Jmo.Core.Input
 {
     /// <summary>
     /// Defines a contract for a component that provides player or AI intent.
-    /// Its single responsibility is to translate raw input (from a player's controller or an AI's brain)
-    /// into a standardized collection of abstract InputActions and their corresponding values.
-    /// </summary>
+    /// Its single responsibility is to translate raw input into a standardized
+    -/// and easily consumable collection of abstract InputActions and their values.
+    -/// </summary>
     public interface IIntentSource
     {
         /// <summary>
-        /// Populates the provided dictionary with the active intents for the current frame.
+        /// Gets a read-only collection of all active intents for the current frame.
+        /// This is the primary method for any system to query what an entity wants to do.
         /// </summary>
-        /// <param name="intentCollection">
-        /// A dictionary to be filled. The key is the InputAction resource, and the value is the
-        /// action's state (e.g., a bool for a button press, a Vector2 for a stick, a float for a trigger).
-        /// </param>
-        void QueryIntent(Dictionary<InputAction, object> intentCollection);
+        /// <returns>A read-only dictionary of InputAction keys and their corresponding IntentData values.</returns>
+        IReadOnlyDictionary<InputAction, IntentData> GetIntents();
     }
 }

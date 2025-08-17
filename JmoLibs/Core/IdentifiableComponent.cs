@@ -3,25 +3,27 @@ using Jmo.AI.Perception.Strategies;
 
 namespace Jmo.Core
 {
-    /// <summary>
-    /// A crucial component that should be attached to any Node that needs to be semantically identifiable
-    /// within the game world. It acts as the bridge between a physical object and the game engine's
-    /// abstract understanding of that object, providing essential semantic data for any system to query.
-    /// </summary>
+    // In "Jmo/Core/IdentifiableComponent.cs"
+    // This component is now much simpler.
     [GlobalClass]
-    public partial class IdentifiableComponent : Node
+    public partial class IdentifiableComponent : Node, IIdentifiable
     {
-        /// <summary>
-        /// The primary Identity of this object (e.g., "HealthPotion.tres"). This is the core piece of
-        /// information systems like AI, UI, or Inventory will use to make decisions.
-        /// </summary>
-        [Export] public Identity Identity { get; private set; }
+        // A designer drags "Rubble.tres" or "TriggerZone.tres" here.
+        [Export] public Identity SimpleIdentity { get; private set; }
 
-        /// <summary>
-        /// Optional. When exported as a Resource that implements IMemoryDecayStrategy, this will override a sensor's
-        /// default decay logic for any AI memory of this object. Useful for creating important objects whose memory
-        /// should not fade, or fleeting ones that should be forgotten quickly.
-        /// </summary>
-        [Export] public Resource OverrideDecayStrategy { get; private set; }
+        public Array<Category> GetCategories() => SimpleIdentity?.Categories;
+        public Resource GetIdentityResource() => SimpleIdentity;
+    }
+
+    // In "Jmo/Items/ItemComponent.cs"
+    // This component now implements the interface directly.
+    [GlobalClass]
+    public partial class ItemComponent : Node, IIdentifiable
+    {
+        // A designer drags "HealthPotion_ItemData.tres" here.
+        [Export] public ItemData Data { get; private set; }
+
+        public Array<Category> GetCategories() => Data?.Categories;
+        public Resource GetIdentityResource() => Data;
     }
 }
