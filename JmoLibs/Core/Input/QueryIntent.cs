@@ -1,6 +1,6 @@
 ﻿using Godot;
 using System.Collections.Generic;
-using Jmo.Core.Input;
+using Jmo.Core.IntentInput;
 using System;
 using System.Runtime.Intrinsics.X86;
 [GlobalClass]

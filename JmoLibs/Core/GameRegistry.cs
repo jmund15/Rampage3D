@@ -21,7 +21,7 @@ namespace Jmo.Core
         [Export] public Identity PlayerIdentity { get; private set; }
 
         [ExportGroup("Core Input Actions")]
-        [Export] public Input.InputAction MoveAction { get; private set; }
-        [Export] public Input.InputAction JumpAction { get; private set; }
+        [Export] public IntentInput.InputAction MoveAction { get; private set; }
+        [Export] public IntentInput.InputAction JumpAction { get; private set; }
     }
 }

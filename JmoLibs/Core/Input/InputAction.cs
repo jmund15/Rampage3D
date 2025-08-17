@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace Jmo.Core.Input
+namespace Jmo.Core.IntentInput
 {
     /// <summary>
     /// A data-driven Resource that represents a unique, abstract input action.

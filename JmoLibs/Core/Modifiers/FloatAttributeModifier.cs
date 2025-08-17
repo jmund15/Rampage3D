@@ -1,0 +1,54 @@
+﻿
+#### **File 3: `addons/Jmo/Core/Modifiers/FloatAttributeModifier.cs`**
+```csharp
+using Godot;
+using Godot.Collections;
+
+namespace Jmo.Core.Modifiers
+{
+    /// <summary>
+    /// The definitive, data-driven Resource for modifying a float value. This is the primary tool
+    /// a designer will use to create all standard buffs, debuffs, and equipment bonuses in the editor.
+    /// It fully implements the IModifier contract, including stages, priority, and tags.
+    /// </summary>
+    [GlobalClass]
+    public partial class FloatAttributeModifier : Resource, IModifier<float>
+    {
+        [Export] public CalculationStage Stage { get; private set; } = CalculationStage.BaseAdd;
+        [Export] public int Priority { get; private set; } = 0;
+
+        [ExportGroup("Tags & Cancellation")]
+        [Export] public Array<string> Tags { get; private set; } = new();
+        [Export] public Array<string> CancelsTags { get; private set; } = new();
+
+        [ExportGroup("Modification Value")]
+        /// <summary>
+        /// The value to use for the modification. How this is interpreted depends on the Stage.
+        /// For BaseAdd: A flat value (e.g., 10 for +10).
+        /// For PercentAdd: A percentage (e.g., 0.1 for +10%).
+        /// For FinalMultiply: A multiplier (e.g., 2.0 for x2).
+        /// </summary>
+        [Export] public float Value { get; private set; } = 0f;
+
+        public float Modify(float currentValue)
+        {
+            // The Modify method knows how to interpret its own Value based on its Stage.
+            return Stage switch
+            {
+                // For the BaseAdd stage, it applies its value additively.
+                CalculationStage.BaseAdd => currentValue + Value,
+
+                // For the PercentAdd stage, it simply returns its own percentage value (e.g., 0.1)
+                // for the pipeline to sum up with other percentage bonuses.
+                CalculationStage.PercentAdd => Value,
+
+                // For the FinalMultiply stage, it applies its value multiplicatively.
+                CalculationStage.FinalMultiply => currentValue * Value,
+
+                // Default case should never be hit but ensures safety.
+                // TODO: error logging could be added here.
+                _ => currentValue
+            };
+        }
+    }
+}

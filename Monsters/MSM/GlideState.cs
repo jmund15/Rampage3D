@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using Jmo.Shared;
 using System;
 
 [Tool]
