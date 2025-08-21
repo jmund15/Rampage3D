@@ -1,4 +1,7 @@
 ﻿using Godot;
+using Godot.Collections;
+
+using Jmo.Gameplay.Stats;
 
 namespace Jmo.Core.Movement
 {
@@ -10,30 +13,13 @@ namespace Jmo.Core.Movement
     [GlobalClass]
     public sealed partial class VelocityProfile : Resource
     {
-        /// <summary>
-        /// Name for UI and debugging purposes.
-        /// </summary>
         [Export] public string VelocityProfileName { get; private set; } = "Unnamed Velocity Profile";
 
-        /// <summary>The maximum speed in units per second.</summary>
-        [Export(PropertyHint.Range, "0,100,0.1")]
-        public float MaxSpeed { get; set; } = 10.0f;
-
-        /// <summary>The rate at which the character's speed builds toward MaxSpeed.</summary>
-        [Export(PropertyHint.Range, "0,200,0.1")]
-        public float Acceleration { get; set; } = 80.0f;
-
-        /// <summary>The rate at which the character slows down when there is no input.</summary>
-        [Export(PropertyHint.Range, "0,200,0.1")]
-        public float Friction { get; set; } = 50.0f;
-
         /// <summary>
-        /// A multiplier applied to friction when braking (e.g., inputting the opposite direction).
-        /// A value > 1 provides more responsive, "tighter" stops.
+        /// A library of all physics attributes for this profile. Movement Strategies
+        /// will query this dictionary for the specific attributes they need to perform
+        /// their calculations.
         /// </summary>
-        [Export(PropertyHint.Range, "1.0,10.0,0.1")]
-        public float BrakingMultiplier { get; set; } = 2.0f;
-
-        //NOTE: could consider adding more in the future, such as: turn speed curve, etc.
+        [Export] public Dictionary<Attribute, Variant> Attributes { get; private set; } = new();
     }
 }

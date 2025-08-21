@@ -10,7 +10,7 @@ namespace Jmo.Core.Movement
     /// gameplay logic or complex state buffering, acting as a standardized adapter for any
     /// 3D physics node.
     /// </summary>
-    public interface IMovementController3D : IGodotNodeInterface
+    public interface ICharacterController3D : IGodotNodeInterface
     {
         // --- Core State (Read-Only) ---
 

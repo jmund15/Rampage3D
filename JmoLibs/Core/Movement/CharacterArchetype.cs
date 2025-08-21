@@ -1,6 +1,8 @@
 ﻿using Godot;
 using Godot.Collections;
 
+using Jmo.Gameplay.Stats;
+
 namespace Jmo.Core.Movement
 {
     /// <summary>
@@ -11,15 +13,20 @@ namespace Jmo.Core.Movement
     [GlobalClass]
     public partial class CharacterArchetype : Resource
     {
+        [ExportGroup("Universal Attributes")]
+        [Export] public Dictionary<Attribute, Variant> UniversalAttributes { get; private set; } = new();
+
         /// <summary>
         /// A dictionary mapping the character's available movement modes to their physics profiles.
         /// </summary>
+        [ExportGroup("Contextual Movement")]
         [Export] public Dictionary<MovementMode, VelocityProfile> MovementProfiles { get; private set; } = new();
 
         /// <summary>
         /// A list of all impulses (like jumps or dashes) this character is capable of performing.
         /// A State Machine will query this list to find the data for a specific mechanic.
         /// </summary>
-        [Export] public Dictionary<MechanicType, ImpulseData> ImpulseLibrary { get; private set; } = new();
+        [ExportGroup("Mechanics")]
+        [Export] public Dictionary<MechanicType, MechanicData> ImpulseLibrary { get; private set; } = new();
     }
 }

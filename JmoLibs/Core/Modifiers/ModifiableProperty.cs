@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Jmo.Core.Modifiers.CalculationStrategy;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Jmo.Core.Modifiers
@@ -14,10 +15,16 @@ namespace Jmo.Core.Modifiers
         public virtual T Value => GetValue();
 
         private readonly List<IModifier<T>> _modifiers = new();
+        private readonly ICalculationStrategy<T> _calculationStrategy;
         protected bool _isDirty = true;
         protected T _cachedValue;
 
-        public ModifiableProperty(T baseValue) { BaseValue = baseValue; _cachedValue = baseValue; }
+        public ModifiableProperty(T baseValue, ICalculationStrategy<T> calculationStrategy) 
+        { 
+            BaseValue = baseValue; 
+            _cachedValue = baseValue;
+            _calculationStrategy = calculationStrategy;
+        }
 
         public virtual void AddModifier(IModifier<T> modifier) { _modifiers.Add(modifier); _isDirty = true; }
         public virtual void RemoveModifier(IModifier<T> modifier) { _modifiers.Remove(modifier); _isDirty = true; }
@@ -28,13 +35,9 @@ namespace Jmo.Core.Modifiers
 
             var finalModifiers = GetFinalModifiers(); // Use the powerful filtering helper
 
-            T currentValue = BaseValue;
-            foreach (var modifier in finalModifiers)
-            {
-                currentValue = modifier.Modify(currentValue);
-            }
+            // Delegate the calculation to the strategy
+            _cachedValue = _calculationStrategy.Calculate(BaseValue, finalModifiers);
 
-            _cachedValue = currentValue;
             _isDirty = false;
             return _cachedValue;
         }
@@ -45,6 +48,7 @@ namespace Jmo.Core.Modifiers
 
             var sortedModifiers = _modifiers.OrderByDescending(m => m.Priority).ToList();
             var tagsToCancel = new HashSet<string>();
+            _calculationStrategy.
             foreach (var mod in sortedModifiers)
                 if (mod.CancelsTags != null)
                     foreach (var tag in mod.CancelsTags) tagsToCancel.Add(tag);

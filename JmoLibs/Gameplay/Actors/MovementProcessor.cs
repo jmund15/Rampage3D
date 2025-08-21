@@ -16,11 +16,11 @@ namespace Jmo.Gameplay.Actors
     /// </summary>
     public class MovementProcessor
     {
-        private readonly IMovementController3D _controller;
+        private readonly ICharacterController3D _controller;
 
         // --- Live Data References ---
         private readonly Dictionary<MovementMode, ModifiableProperty<VelocityProfile>> _movementProfiles;
-        private readonly Dictionary<MechanicType, ModifiableProperty<ImpulseData>> _impulses;
+        private readonly Dictionary<MechanicType, ModifiableProperty<MechanicData>> _impulses;
 
         // --- External Systems ---
         private readonly ExternalForceReceiver _forceReceiver;
@@ -29,9 +29,9 @@ namespace Jmo.Gameplay.Actors
         private readonly Vector3 _gravity = Vector3.Down * 9.8f;
 
         public MovementProcessor(
-            IMovementController3D controller,
+            ICharacterController3D controller,
             Dictionary<MovementMode, ModifiableProperty<VelocityProfile>> movementProfiles,
-            Dictionary<MechanicType, ModifiableProperty<ImpulseData>> impulses,
+            Dictionary<MechanicType, ModifiableProperty<MechanicData>> impulses,
             ExternalForceReceiver forceReceiver,
             Node3D owner)
         {
@@ -76,7 +76,7 @@ namespace Jmo.Gameplay.Actors
         {
             if (_impulses.TryGetValue(mechanic, out var modifiableImpulse))
             {
-                ImpulseData finalImpulse = modifiableImpulse.Value;
+                MechanicData finalImpulse = modifiableImpulse.Value;
                 _controller.ApplyImpulse(impulseDirection * finalImpulse.Strength);
             }
         }
@@ -88,6 +88,7 @@ namespace Jmo.Gameplay.Actors
                 _controller.AddVelocity(_gravity * delta);
             }
 
+            // TODO: this force receiver should also handle gravity, instead of being hardcoded above.
             var externalForce = _forceReceiver.GetTotalForce(_owner);
             _controller.AddVelocity(externalForce * delta);
         }
