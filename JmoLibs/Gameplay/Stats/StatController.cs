@@ -11,7 +11,7 @@ namespace Jmo.Gameplay.Stats
     /// <summary>
     /// The definitive runtime "character sheet" and single source of truth for all of an entity's
     /// dynamic properties. This class manages both universal stats (like Max Health) and contextual
-    // stats (like Ground Speed), applying modifiers and calculating the final values on demand.
+    /// stats (like Ground Speed), applying modifiers and calculating the final values on demand.
     /// It is initialized from a CharacterArchetype and serves as the central hub for any system
     /// needing to query or modify character data.
     /// </summary>
@@ -116,7 +116,7 @@ namespace Jmo.Gameplay.Stats
         /// <param name="attribute">The attribute to retrieve the property for.</param>
         /// <param name="context">Optional: The current MovementMode. If provided, will search for a contextual stat first.</param>
         /// <returns>The ModifiableProperty object, or null if the entity does not have the specified attribute.</returns>
-        public ModifiableProperty<Variant> GetStat(Attribute attribute, MovementMode context = null)
+        public ModifiableProperty<Variant>? GetStat(Attribute attribute, MovementMode? context = null)
         {
             // First, attempt to find the most specific, contextual version of the stat.
             if (context != null &&
@@ -152,7 +152,7 @@ namespace Jmo.Gameplay.Stats
             if (prop != null)
             {
                 // Runtime Type Check: Ensure the requested type matches the stored Variant's type.
-                if (prop.Value.VariantType == Variant.Type.From<T>())
+                if (prop.Value.Obj is T) //.Value.VariantType == Variant.Type.From<T>())
                 {
                     return prop.Value.As<T>();
                 }

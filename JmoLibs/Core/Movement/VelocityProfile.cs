@@ -1,6 +1,6 @@
 ﻿using Godot;
 using Godot.Collections;
-
+using Jmo.Core.Modifiers.CalculationStrategy;
 using Jmo.Gameplay.Stats;
 
 namespace Jmo.Core.Movement

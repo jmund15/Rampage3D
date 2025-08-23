@@ -29,7 +29,7 @@ public partial class Blackboard : Node, IBlackboard
     /// <typeparam name="T">The expected object type, must be a class.</typeparam>
     /// <param name="key">The StringName identifier for the data.</param>
     /// <returns>The requested object, or null if it does not exist or has a mismatched type.</returns>
-    public T GetVar<T>(StringName key) where T : class
+    public T? GetVar<T>(StringName key) where T : class
     {
         if (BBData.TryGetValue(key, out var val))
         {

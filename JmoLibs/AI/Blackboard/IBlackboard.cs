@@ -22,7 +22,7 @@ public interface IBlackboard
     /// <typeparam name="T">The expected type of the variable. Must be a class.</typeparam>
     /// <param name="key">The StringName key of the variable to retrieve.</param>
     /// <returns>The variable as type T, or null if not found or if the type does not match.</returns>
-    public T GetVar<T>(StringName key) where T : class;
+    public T? GetVar<T>(StringName key) where T : class;
 
     /// <summary>
     /// Sets a reference type (class) variable in the blackboard.

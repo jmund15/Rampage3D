@@ -17,7 +17,6 @@
     <None Include="script_templates\State\BaseStateTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="JmoLibs\AI\Core\" />
     <Folder Include="Police\" />
     <Folder Include="Vehicles\Implementation\" />
   </ItemGroup>

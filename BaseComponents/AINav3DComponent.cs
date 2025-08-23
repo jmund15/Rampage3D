@@ -34,25 +34,6 @@ public enum AIFacing
     Distant,
     Opposite
 }
-public enum DetectionTypes
-{
-    Enterable,
-    Vehicle,
-    Monster,
-    Military,
-}
-
-public class AIDetectionArgs : EventArgs
-{
-    public GodotObject Detectable;
-    public List<DetectionTypes> DetectTypes;
-    public AIDetectionArgs(GodotObject detectable, List<DetectionTypes> types = null)
-    {
-        Detectable = detectable;
-        if (types == null) { DetectTypes = new  List<DetectionTypes>(); }
-        else { DetectTypes = types; }
-    }
-}
 /* TODO:
  * Look into using Area3D instead of Raycasts, 
  * ESPECIALLY for 3D, as having a bunch of rays going up into the Y may cause performance issues
