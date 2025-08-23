@@ -4,10 +4,10 @@ namespace Jmo.Core.IntentInput
 {
     /// <summary>
     /// A lightweight, type-safe container for a single piece of input intent data.
-    -/// It acts as a "Tagged Union", holding one of several possible data types.
-    -/// This revised design removes the explicit enum, relying on the safer and cleaner
+    /// It acts as a "Tagged Union", holding one of several possible data types.
+    /// This revised design removes the explicit enum, relying on the safer and cleaner
     /// "TryGet" pattern for value access.
-    -/// </summary>
+    /// </summary>
     public readonly struct IntentData
     {
         // Internal fields to hold the data. Using a "private readonly" field is a C# pattern

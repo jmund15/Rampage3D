@@ -4,10 +4,11 @@ using Godot;
 using System.Collections.Generic;
 
 using Jmo.Core.Movement;
-using Jmo.Core.Attributes;
 using Jmo.Core.Modifiers;
+using Sys = System;
+using Jmo.Core.Modifiers.CalculationStrategy;
 
-namespace Jmo.Gameplay.Actors
+namespace Jmo.Gameplay.Stats
 {
     [GlobalClass]
     public partial class StatController : Node
@@ -15,14 +16,15 @@ namespace Jmo.Gameplay.Actors
         private readonly Dictionary<Attribute, ModifiableProperty<Variant>> _universalStats = new();
         private readonly Dictionary<MovementMode, Dictionary<Attribute, ModifiableProperty<Variant>>> _contextualStats = new();
 
-        public event Action<Attribute, Variant> OnStatChanged;
+        public event Sys.Action<Attribute, Variant> OnStatChanged;
 
         public void InitializeFromArchetype(CharacterArchetype archetype)
         {
             // Initialize Universal Stats
             foreach (var entry in archetype.UniversalAttributes)
             {
-                _universalStats[entry.Key] = new ModifiableProperty(entry.Value);
+                // TODO: oh dear
+                _universalStats[entry.Key] = new ModifiableProperty<Variant>(entry.Value.Value, entry.Value.CalculationStrategy);
             }
 
             // Initialize Contextual Movement Stats
@@ -30,11 +32,11 @@ namespace Jmo.Gameplay.Actors
             {
                 var mode = modeEntry.Key;
                 var profile = modeEntry.Value;
-                _contextualStats[mode] = new Dictionary<Attribute, ModifiableVariantProperty>();
+                _contextualStats[mode] = new Dictionary<Attribute, ModifiableProperty<Variant>>();
 
                 foreach (var attrEntry in profile.Attributes)
                 {
-                    _contextualStats[mode][attrEntry.Key] = new ModifiableVariantProperty(attrEntry.Value);
+                    _contextualStats[mode][attrEntry.Key] = new ModifiableProperty<Variant>(attrEntry.Value, new FloatCalculationStrategy());
                 }
             }
 
@@ -52,7 +54,7 @@ namespace Jmo.Gameplay.Actors
             return prop ?? null;
         }
 
-        public ModifiableProperty GetStat(MovementMode mode, Attribute attribute)
+        public ModifiableProperty<Variant>? GetStat(MovementMode mode, Attribute attribute)
         {
             if (_contextualStats.TryGetValue(mode, out var stats) && stats.TryGetValue(attribute, out var prop))
             {
@@ -61,7 +63,7 @@ namespace Jmo.Gameplay.Actors
             return null;
         }
 
-        public T GetStatValue<T>(Attribute attribute, T defaultValue = default)
+        public T GetStatValue<[MustBeVariant]T>(Attribute attribute, T defaultValue = default)
         {
             var prop = GetStat(attribute);
             if (prop != null)
@@ -71,7 +73,7 @@ namespace Jmo.Gameplay.Actors
             return defaultValue;
         }
 
-        public T GetStatValue<T>(MovementMode mode, Attribute attribute, T defaultValue = default)
+        public T GetStatValue<[MustBeVariant] T>(MovementMode mode, Attribute attribute, T defaultValue = default)
         {
             var prop = GetStat(mode, attribute);
             if (prop != null)

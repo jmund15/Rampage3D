@@ -14,7 +14,12 @@ namespace Jmo.Core.Movement
     public partial class CharacterArchetype : Resource
     {
         [ExportGroup("Universal Attributes")]
+        // The dictionary holds the raw base value.
         [Export] public Dictionary<Attribute, Variant> UniversalAttributes { get; private set; } = new();
+
+        // a separate dictionary to explicitly assign strategies.
+        // This is more verbose but architecturally 100% correct and flexible.
+        [Export] public Dictionary<Attribute, VariantDefaultCalculationStrategy> UniversalAttributeStrategies { get; private set; } = new();
 
         /// <summary>
         /// A dictionary mapping the character's available movement modes to their physics profiles.
@@ -22,6 +27,7 @@ namespace Jmo.Core.Movement
         [ExportGroup("Contextual Movement")]
         [Export] public Dictionary<MovementMode, VelocityProfile> MovementProfiles { get; private set; } = new();
 
+        
         /// <summary>
         /// A list of all impulses (like jumps or dashes) this character is capable of performing.
         /// A State Machine will query this list to find the data for a specific mechanic.
