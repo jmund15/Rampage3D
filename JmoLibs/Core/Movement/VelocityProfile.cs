@@ -21,5 +21,8 @@ namespace Jmo.Core.Movement
         /// their calculations.
         /// </summary>
         [Export] public Dictionary<Attribute, Variant> Attributes { get; private set; } = new();
+        // OPTIONAL: Override the calculation strategy for specific attributes in this profile.
+        // If an attribute is not in this dictionary, the StatController will use a default.
+        [Export] public Dictionary<Attribute, VariantDefaultCalculationStrategy> AttributeStrategies { get; private set; } = new();
     }
 }
