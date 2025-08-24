@@ -1,6 +1,7 @@
 ﻿using Godot;
 using Jmo.Core;
 using Jmo.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,6 +22,9 @@ namespace Jmo.AI.Perception
         private readonly Dictionary<Node3D, PerceptionInfo> _memoryByTarget = new();
         private readonly Dictionary<Category, HashSet<PerceptionInfo>> _memoryByCategory = new();
 
+        public event EventHandler<PerceptionInfo> MemoryAddedEventHandler;
+        public event EventHandler<PerceptionInfo> MemoryUpdatedEventHandler;
+        public event EventHandler<PerceptionInfo> MemoryForgottenEventHandler;
         public override void _Ready()
         {
             foreach (var node in _sensors) if (node is IAISensor sensor) sensor.PerceptUpdated += OnPerceptUpdated;
@@ -31,17 +35,19 @@ namespace Jmo.AI.Perception
             var percept = args.Percept;
             if (percept.Target == null || percept.Identity == null) return;
 
-            if (_memoryByTarget.TryGetValue(percept.Target, out PerceptionInfo info))
+            if (_memoryByTarget.TryGetValue(percept.Target, out PerceptionInfo? info))
             {
                 RemoveFromCategoryCache(info);
                 info.Update(percept);
                 AddToCategoryCache(info);
+                MemoryUpdatedEventHandler?.Invoke(this, info);
             }
             else
             {
                 var newInfo = new PerceptionInfo(percept);
                 _memoryByTarget.Add(percept.Target, newInfo);
                 AddToCategoryCache(newInfo);
+                MemoryAddedEventHandler?.Invoke(this, newInfo);
             }
         }
 
@@ -77,6 +83,7 @@ namespace Jmo.AI.Perception
             foreach (var key in forgottenKeys)
             {
                 if (!_memoryByTarget.TryGetValue(key, out var info)) continue;
+                MemoryForgottenEventHandler?.Invoke(this, info);
                 RemoveFromCategoryCache(info);
                 _memoryByTarget.Remove(key);
             }

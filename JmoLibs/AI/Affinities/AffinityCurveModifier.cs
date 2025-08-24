@@ -1,5 +1,7 @@
 ﻿// --- This ONE class replaces all previous modifiers like FearAffinityModifier.cs ---
 using Godot;
+using Jmo.;
+using Jmo.Shared;
 using JmoAI.UtilityAI;
 
 namespace Jmo.AI.Affinities;
@@ -30,7 +32,11 @@ public partial class AffinityCurveModifier : ConsiderationModifier
         // A missing curve is a configuration error, so we fail gracefully and log it.
         if (_responseCurve == null)
         {
-            GD.PrintErr($"AffinityCurveModifier is missing a ResponseCurve resource.");
+            Logger.Warning(
+                this, 
+                blackboard.GetVar<Node>(BBDataSig.Agent), 
+                "AffinityCurveModifier on {0} is missing a ResponseCurve resource. Returning base score unmodified.", 
+                blackboard.GetVar<Node>(BBDataSig.Agent).Name);
             return baseScore;
         }
 
@@ -38,12 +44,26 @@ public partial class AffinityCurveModifier : ConsiderationModifier
         var affinities = blackboard.GetVar<AIAffinitiesComponent>(BBDataSig.Affinities);
         if (affinities == null)
         {
+            Logger.Warning(
+                this, 
+                blackboard.GetVar<Node>(BBDataSig.Agent), 
+                "AffinityCurveModifier on {0} could not find an AIAffinitiesComponent in the blackboard. Returning base score unmodified.", 
+                blackboard.GetVar<Node>(BBDataSig.Agent).Name);
             // If this AI has no affinities, there's nothing to measure, so we don't modify.
             return baseScore;
         }
 
         // 1. Get the current value of the chosen affinity (e.g., Fear = 0.8).
-        float affinityValue = affinities.GetAffinity(_affinityToMeasure)!.Value;
+        if (!affinities.TryGetAffinity(_affinityToMeasure, out float affinityValue))
+        {
+            Logger.Warning(
+                this, 
+                blackboard.GetVar<Node>(BBDataSig.Agent), 
+                "AffinityCurveModifier on {0} could not find the affinity '{1}' in the AIAffinitiesComponent. Returning base score unmodified.", 
+                blackboard.GetVar<Node>(BBDataSig.Agent).Name,
+                _affinityToMeasure.AffinityName);
+            return baseScore;
+        }
 
         // 2. Sample the curve at that value to get the multiplier.
         //    The curve's X-axis should be designed to be read from 0 to 1.

@@ -29,6 +29,17 @@ public partial class AIAffinitiesComponent : Node
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="affinity"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public bool TryGetAffinity(Affinity affinity, out float value)
+    {
+        return _affinities.TryGetValue(affinity, out value);
+    }
+
+    /// <summary>
     /// Sets the value of an affinity at runtime (e.g., an effect could temporarily increase Fear).
     /// </summary>
     public void SetAffinity(Affinity affinity, float value)

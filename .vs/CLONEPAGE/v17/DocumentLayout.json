@@ -3,24 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\affinities\\affinitycurvemodifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\ai\\affinities\\affinitycurvemodifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\navigation\\ainavigator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\ai\\navigation\\ainavigator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\core\\baseaiconsideration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\ai\\core\\baseaiconsideration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\navigation\\navigationprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\ai\\navigation\\navigationprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\affinities\\filename.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\ai\\affinities\\filename.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\navigation\\aiagent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\ai\\navigation\\aiagent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\affinities\\steeringconsiderationmodifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\ai\\affinities\\steeringconsiderationmodifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\perception\\aiperceptionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\ai\\perception\\aiperceptionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\core\\aisteeringprocessor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\ai\\core\\aisteeringprocessor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\basecomponents\\ainav3dcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\ainav3dcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\navigation\\steeringconsiderationmodifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\ai\\navigation\\steeringconsiderationmodifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\navigation\\baseaiconsideration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\ai\\navigation\\baseaiconsideration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\navigation\\decisioncontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\ai\\navigation\\decisioncontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\navigation\\aisteeringprocessor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\ai\\navigation\\aisteeringprocessor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\baseresources\\baseaiconsideration3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:baseresources\\baseaiconsideration3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\shared\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\shared\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\affinities\\aiaffinitiescomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,18 +53,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\affinities\\affinity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\ai\\affinities\\affinity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\critters\\critter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:critters\\critter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\core\\aiagent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:jmolibs\\ai\\core\\aiagent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\basecomponents\\ainav3dcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|solutionrelative:basecomponents\\ainav3dcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{16AD3654-F241-42BC-9057-B1E3D056CE6B}|Clonepage.csproj|c:\\users\\jmund\\game_dev\\godot_projects\\rampage3d\\jmolibs\\ai\\blackboard\\blackboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -130,63 +142,115 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AffinityCurveModifier.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Affinities\\AffinityCurveModifier.cs",
-              "RelativeDocumentMoniker": "JmoLibs\\AI\\Affinities\\AffinityCurveModifier.cs",
-              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Affinities\\AffinityCurveModifier.cs",
-              "RelativeToolTip": "JmoLibs\\AI\\Affinities\\AffinityCurveModifier.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAC0AAABQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-24T16:52:23.077Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FileName.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Affinities\\FileName.cs",
-              "RelativeDocumentMoniker": "JmoLibs\\AI\\Affinities\\FileName.cs",
-              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Affinities\\FileName.cs",
-              "RelativeToolTip": "JmoLibs\\AI\\Affinities\\FileName.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-24T16:49:49.986Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "SteeringConsiderationModifier.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Affinities\\SteeringConsiderationModifier.cs",
-              "RelativeDocumentMoniker": "JmoLibs\\AI\\Affinities\\SteeringConsiderationModifier.cs",
-              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Affinities\\SteeringConsiderationModifier.cs",
-              "RelativeToolTip": "JmoLibs\\AI\\Affinities\\SteeringConsiderationModifier.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Title": "AIPerceptionManager.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Perception\\AIPerceptionManager.cs",
+              "RelativeDocumentMoniker": "JmoLibs\\AI\\Perception\\AIPerceptionManager.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Perception\\AIPerceptionManager.cs",
+              "RelativeToolTip": "JmoLibs\\AI\\Perception\\AIPerceptionManager.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABoAAABOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-24T16:49:30.323Z",
+              "WhenOpened": "2025-08-24T21:46:18.227Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NavigationProfile.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Navigation\\NavigationProfile.cs",
+              "RelativeDocumentMoniker": "JmoLibs\\AI\\Navigation\\NavigationProfile.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Navigation\\NavigationProfile.cs",
+              "RelativeToolTip": "JmoLibs\\AI\\Navigation\\NavigationProfile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T21:44:44.441Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AINavigator.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Navigation\\AINavigator.cs",
+              "RelativeDocumentMoniker": "JmoLibs\\AI\\Navigation\\AINavigator.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Navigation\\AINavigator.cs",
+              "RelativeToolTip": "JmoLibs\\AI\\Navigation\\AINavigator.cs",
+              "ViewState": "AgIAAIgAAAAAAAAAAAAgwJ4AAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T21:05:10.408Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DecisionContext.cs",
+              "DocumentMoniker": "C:\\USERS\\JMUND\\GAME_DEV\\GODOT_PROJECTS\\RAMPAGE3D\\JmoLibs\\AI\\Navigation\\DecisionContext.cs",
+              "RelativeDocumentMoniker": "JmoLibs\\AI\\Navigation\\DecisionContext.cs",
+              "ToolTip": "C:\\USERS\\JMUND\\GAME_DEV\\GODOT_PROJECTS\\RAMPAGE3D\\JmoLibs\\AI\\Navigation\\DecisionContext.cs",
+              "RelativeToolTip": "JmoLibs\\AI\\Navigation\\DecisionContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T21:04:09.478Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "BaseAIConsideration3D.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseResources\\BaseAIConsideration3D.cs",
+              "RelativeDocumentMoniker": "BaseResources\\BaseAIConsideration3D.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseResources\\BaseAIConsideration3D.cs",
+              "RelativeToolTip": "BaseResources\\BaseAIConsideration3D.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T21:00:11.669Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "SteeringConsiderationModifier.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Navigation\\SteeringConsiderationModifier.cs",
+              "RelativeDocumentMoniker": "JmoLibs\\AI\\Navigation\\SteeringConsiderationModifier.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Navigation\\SteeringConsiderationModifier.cs",
+              "RelativeToolTip": "JmoLibs\\AI\\Navigation\\SteeringConsiderationModifier.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T20:59:52.618Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Logger.cs",
+              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Shared\\Logger.cs",
+              "RelativeDocumentMoniker": "JmoLibs\\Shared\\Logger.cs",
+              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Shared\\Logger.cs",
+              "RelativeToolTip": "JmoLibs\\Shared\\Logger.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-24T20:54:37.432Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "AIAffinitiesComponent.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Affinities\\AIAffinitiesComponent.cs",
               "RelativeDocumentMoniker": "JmoLibs\\AI\\Affinities\\AIAffinitiesComponent.cs",
               "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Affinities\\AIAffinitiesComponent.cs",
               "RelativeToolTip": "JmoLibs\\AI\\Affinities\\AIAffinitiesComponent.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAA/AAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACQAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-24T16:44:38.965Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "Affinity.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Affinities\\Affinity.cs",
               "RelativeDocumentMoniker": "JmoLibs\\AI\\Affinities\\Affinity.cs",
@@ -199,70 +263,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Critter.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\Critter.cs",
-              "RelativeDocumentMoniker": "Critters\\Critter.cs",
-              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\Critters\\Critter.cs",
-              "RelativeToolTip": "Critters\\Critter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-24T16:43:24.981Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "BaseAIConsideration.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Core\\BaseAIConsideration.cs",
-              "RelativeDocumentMoniker": "JmoLibs\\AI\\Core\\BaseAIConsideration.cs",
-              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Core\\BaseAIConsideration.cs",
-              "RelativeToolTip": "JmoLibs\\AI\\Core\\BaseAIConsideration.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAARAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\USERS\\JMUND\\GAME_DEV\\GODOT_PROJECTS\\RAMPAGE3D\\JmoLibs\\AI\\Navigation\\BaseAIConsideration.cs",
+              "RelativeDocumentMoniker": "JmoLibs\\AI\\Navigation\\BaseAIConsideration.cs",
+              "ToolTip": "C:\\USERS\\JMUND\\GAME_DEV\\GODOT_PROJECTS\\RAMPAGE3D\\JmoLibs\\AI\\Navigation\\BaseAIConsideration.cs",
+              "RelativeToolTip": "JmoLibs\\AI\\Navigation\\BaseAIConsideration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-23T19:52:01.589Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
               "Title": "AIAgent.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Core\\AIAgent.cs",
-              "RelativeDocumentMoniker": "JmoLibs\\AI\\Core\\AIAgent.cs",
-              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Core\\AIAgent.cs",
-              "RelativeToolTip": "JmoLibs\\AI\\Core\\AIAgent.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\USERS\\JMUND\\GAME_DEV\\GODOT_PROJECTS\\RAMPAGE3D\\JmoLibs\\AI\\Navigation\\AIAgent.cs",
+              "RelativeDocumentMoniker": "JmoLibs\\AI\\Navigation\\AIAgent.cs",
+              "ToolTip": "C:\\USERS\\JMUND\\GAME_DEV\\GODOT_PROJECTS\\RAMPAGE3D\\JmoLibs\\AI\\Navigation\\AIAgent.cs",
+              "RelativeToolTip": "JmoLibs\\AI\\Navigation\\AIAgent.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAowFcAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-23T19:51:26.416Z"
+              "WhenOpened": "2025-08-23T19:51:26.416Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "AISteeringProcessor.cs",
-              "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Core\\AISteeringProcessor.cs",
-              "RelativeDocumentMoniker": "JmoLibs\\AI\\Core\\AISteeringProcessor.cs",
-              "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Core\\AISteeringProcessor.cs",
-              "RelativeToolTip": "JmoLibs\\AI\\Core\\AISteeringProcessor.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAgwCUAAAAmAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\USERS\\JMUND\\GAME_DEV\\GODOT_PROJECTS\\RAMPAGE3D\\JmoLibs\\AI\\Navigation\\AISteeringProcessor.cs",
+              "RelativeDocumentMoniker": "JmoLibs\\AI\\Navigation\\AISteeringProcessor.cs",
+              "ToolTip": "C:\\USERS\\JMUND\\GAME_DEV\\GODOT_PROJECTS\\RAMPAGE3D\\JmoLibs\\AI\\Navigation\\AISteeringProcessor.cs",
+              "RelativeToolTip": "JmoLibs\\AI\\Navigation\\AISteeringProcessor.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAwwBsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-23T19:44:57.778Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 4,
               "Title": "AINav3DComponent.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseComponents\\AINav3DComponent.cs",
               "RelativeDocumentMoniker": "BaseComponents\\AINav3DComponent.cs",
               "ToolTip": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\BaseComponents\\AINav3DComponent.cs",
               "RelativeToolTip": "BaseComponents\\AINav3DComponent.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwA4AAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAJEAAAAAAAAAAAAawKUAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-23T18:48:24.335Z"
+              "WhenOpened": "2025-08-23T18:48:24.335Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "Blackboard.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Blackboard\\Blackboard.cs",
               "RelativeDocumentMoniker": "JmoLibs\\AI\\Blackboard\\Blackboard.cs",
@@ -274,7 +327,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "IBlackboard.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\AI\\Blackboard\\IBlackboard.cs",
               "RelativeDocumentMoniker": "JmoLibs\\AI\\Blackboard\\IBlackboard.cs",
@@ -286,7 +339,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "FloatCalculationStrategy.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\Modifiers\\CalculationStrategy\\FloatCalculationStrategy.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\Modifiers\\CalculationStrategy\\FloatCalculationStrategy.cs",
@@ -298,7 +351,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "CalculationStrategyBaseResource.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\Modifiers\\CalculationStrategy\\CalculationStrategyBaseResource.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\Modifiers\\CalculationStrategy\\CalculationStrategyBaseResource.cs",
@@ -310,7 +363,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "FloatAttributeModifier.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\Modifiers\\FloatAttributeModifier.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\Modifiers\\FloatAttributeModifier.cs",
@@ -322,7 +375,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "ModifiableProperty.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\Modifiers\\ModifiableProperty.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\Modifiers\\ModifiableProperty.cs",
@@ -334,7 +387,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 26,
               "Title": "IModifier.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\Modifiers\\IModifier.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\Modifiers\\IModifier.cs",
@@ -346,7 +399,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "StandardFloatCalculationStrategy.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\Modifiers\\CalculationStrategy\\StandardFloatCalculationStrategy.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\Modifiers\\CalculationStrategy\\StandardFloatCalculationStrategy.cs",
@@ -358,7 +411,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "ICalculationStrategy.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\Modifiers\\CalculationStrategy\\ICalculationStrategy.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\Modifiers\\CalculationStrategy\\ICalculationStrategy.cs",
@@ -370,7 +423,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "Attribute.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Gameplay\\Stats\\Attribute.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Gameplay\\Stats\\Attribute.cs",
@@ -382,7 +435,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 27,
               "Title": "IRigidController3D.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\Movement\\IRigidController3D.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\Movement\\IRigidController3D.cs",
@@ -394,7 +447,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "Registry.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\Registry.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\Registry.cs",
@@ -406,7 +459,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "GameRegistry.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\GameRegistry.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\GameRegistry.cs",
@@ -418,7 +471,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 30,
               "Title": "PlayerIntentSource.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\Input\\PlayerIntentSource.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\Input\\PlayerIntentSource.cs",
@@ -430,7 +483,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "IntentData.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\Input\\IntentData.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\Input\\IntentData.cs",
@@ -442,7 +495,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 31,
               "Title": "InputAction.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\Input\\InputAction.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\Input\\InputAction.cs",
@@ -454,7 +507,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 25,
               "Title": "IIntentSource.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\Input\\IIntentSource.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\Input\\IIntentSource.cs",
@@ -466,7 +519,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 32,
               "Title": "IMovementModifier.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\Movement\\IMovementModifier.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\Movement\\IMovementModifier.cs",
@@ -478,7 +531,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 28,
               "Title": "ICharacterController3D.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Core\\Movement\\ICharacterController3D.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Core\\Movement\\ICharacterController3D.cs",
@@ -490,7 +543,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 29,
               "Title": "MovementProcessor.cs",
               "DocumentMoniker": "C:\\Users\\jmund\\Game_Dev\\Godot_Projects\\Rampage3D\\JmoLibs\\Gameplay\\Actors\\MovementProcessor.cs",
               "RelativeDocumentMoniker": "JmoLibs\\Gameplay\\Actors\\MovementProcessor.cs",
