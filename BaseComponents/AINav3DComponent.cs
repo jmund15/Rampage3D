@@ -34,10 +34,7 @@ public enum AIFacing
     Distant,
     Opposite
 }
-/* TODO:
- * Look into using Area3D instead of Raycasts, 
- * ESPECIALLY for 3D, as having a bunch of rays going up into the Y may cause performance issues
- */
+
 [GlobalClass, Tool]
 public partial class AINav3DComponent : NavigationAgent3D
 {

@@ -4,6 +4,7 @@ using Jmo.AI.Navigation;
 using Jmo.Shared;
 using SysCol =  System.Collections.Generic;
 using System.Linq;
+using Jmo.Core.World;
 
 namespace Jmo.AI.Navigation;
 
@@ -16,21 +17,30 @@ namespace Jmo.AI.Navigation;
 [GlobalClass]
 public partial class AISteeringProcessor : Node
 {
+    private Node3D _ownerAgent;
+
     [ExportGroup("Configuration")]
+    [Export] private bool _snapToDirectionSet = false;
     [Export] private Array<BaseAIConsideration3D> _considerations = new();
+
+    public IOrderedEnumerable<BaseAIConsideration3D> SortedConsiderations { get; private set; } = null!;
 
     /// <summary>
     /// A list of normalized vectors representing the directions the AI can choose to move in (e.g., 8 or 16 directions).
     /// </summary>
-    [Export] public Array<Vector3> MovementDirections { get; private set; } = new();
+    [Export] public DirectionSet3D MovementDirections { get; private set; } = null!;
 
-    private SysCol.Dictionary<Vector3, float> _scores;
+    [ExportGroup("Debug")]
+    private bool _showNavigationDebugArrows = false;
+
+    private SysCol.Dictionary<Vector3, float> _scores = new();
+    public Vector3 DesiredDirection { get; private set; }
 
     public override string[] _GetConfigurationWarnings()
     {
-        var warnings = new List<string>();
+        var warnings = new SysCol.List<string>();
         if (_considerations.Count == 0) warnings.Add("No considerations are assigned. The AI will have no environmental awareness.");
-        if (MovementDirections.Count == 0) warnings.Add("No movement directions are defined. The AI will not know how to score potential moves.");
+        if (MovementDirections == null || !MovementDirections.Directions.Any()) warnings.Add("No movement directions are defined. The AI will not know how to score potential moves.");
         return warnings.ToArray();
     }
 
@@ -39,12 +49,65 @@ public partial class AISteeringProcessor : Node
     /// </summary>
     public void Initialize()
     {
-        if (MovementDirections == null || MovementDirections.Count == 0)
+        // HACK: bad, fix later
+        _ownerAgent = GetOwner<Node3D>();
+
+        if (MovementDirections == null || !MovementDirections.Directions.Any())
         {
-            Logger.Error(this, "MovementDirections array is null or empty. The steering processor cannot function.");
+            Logger.Error(this, null, "MovementDirections array is null or empty. The steering processor cannot function.");
             return;
         }
-        _scores = MovementDirections.ToDictionary(dir => dir, dir => 0f);
+        _scores = MovementDirections.Directions.ToDictionary(dir => dir, dir => 0f);
+
+        SortedConsiderations = _considerations.OrderBy(consid => consid.Priority);
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        base._PhysicsProcess(delta);
+
+        if (!_showNavigationDebugArrows)
+        {
+            return;
+        }
+        var _time = Time.GetTicksMsec() / 1000.0f;
+        var arrowSize = 4f;
+        var arrowheadSize = 0.1f;
+
+
+        foreach (var dirWeight in _scores)
+        {
+            var weight = dirWeight.Value;
+            var arrowColor = Colors.Yellow;
+            if (weight < 0.2f)
+            {
+                weight = 0.2f;
+                arrowColor = Colors.Red;
+            }
+            else if (weight > 0.5f)
+            {
+                arrowColor = Colors.Green;
+            }
+            var dirArrow = dirWeight.Key * weight * arrowSize;
+            DebugDraw3D.DrawArrow(_ownerAgent.GlobalPosition,
+                _ownerAgent.GlobalPosition + dirArrow,
+                arrowColor,
+                arrowheadSize,
+                true);
+        }
+        var chosenDirArrow = DesiredDirection * 0.1f * arrowSize;
+        chosenDirArrow.Y = 0;
+        DebugDraw3D.DrawArrow(_ownerAgent.GlobalPosition,
+                _ownerAgent.GlobalPosition + chosenDirArrow,
+                Colors.Black,
+                arrowheadSize,
+                true);
+
+        //DebugDraw3D.DrawLine(line_begin, line_end, new Color(1, 1, 0));
+        DebugDraw2D.SetText("Time", _time);
+        DebugDraw2D.SetText("Frames drawn", Engine.GetFramesDrawn());
+        DebugDraw2D.SetText("FPS", Engine.GetFramesPerSecond());
+        DebugDraw2D.SetText("delta", delta);
     }
 
     /// <summary>
@@ -59,22 +122,21 @@ public partial class AISteeringProcessor : Node
         foreach (var key in _scores.Keys.ToList()) _scores[key] = 0f;
 
         // --- 2. Score the High-Level Goal ---
-        if (context.HighLevelTarget != context.AgentPosition)
+        if (!context.NextPathPointDirection.IsZeroApprox())
         {
-            Vector3 toTarget = (context.HighLevelTarget - context.AgentPosition).Normalized();
-            foreach (var dir in MovementDirections)
+            foreach (var dir in MovementDirections.Directions)
             {
-                float dot = dir.Dot(toTarget);
+                float dot = dir.Dot(context.NextPathPointDirection);
                 // Score is higher for directions that align with the target direction.
                 if (dot > 0) _scores[dir] += dot;
             }
         }
 
         // --- 3. Score Environmental Considerations ---
-        foreach (var consideration in _considerations)
+        foreach (var consideration in SortedConsiderations)
         {
             if (consideration == null) continue;
-            consideration.Evaluate(context, blackboard, ref _scores);
+            consideration.Evaluate(context, blackboard, MovementDirections, ref _scores);
         }
 
         // --- 4. Choose the Best Direction ---
@@ -86,7 +148,9 @@ public partial class AISteeringProcessor : Node
             // Avoidance is simply the absence of interest in a given direction.
             finalDirection += score.Key * Mathf.Max(0, score.Value);
         }
+        DesiredDirection = finalDirection.IsZeroApprox() ? Vector3.Zero :
+            _snapToDirectionSet ? MovementDirections.GetClosestDirection(finalDirection.Normalized()) : finalDirection.Normalized();
 
-        return finalDirection.IsZeroApprox() ? Vector3.Zero : finalDirection.Normalized();
+        return DesiredDirection;
     }
 }

@@ -17,11 +17,12 @@ public static class Logger
     /// that prevent the Node from functioning as intended.
     /// </summary>
     /// <param name="context">The Node that is the source of the error.</param>
+    /// <param name="owner">Optional. The Node that owns or is using this Resource, for crucial context.</param>
     /// <param name="message">The error message, which can contain format specifiers (e.g., "{0}").</param>
     /// <param name="args">Optional arguments to format into the message string.</param>
-    public static void Error(Node context, string message, params object[] args)
+    public static void Error(Node context, Node? owner, string message, params object[] args)
     {
-        string formattedMessage = BuildLogMessage("ERROR", context, null, message, args);
+        string formattedMessage = BuildLogMessage("ERROR", context, owner ?? context.GetOwnerOrNull<Node>(), message, args);
         GD.PushError(formattedMessage);
     }
 
@@ -33,7 +34,7 @@ public static class Logger
     /// <param name="owner">Optional. The Node that owns or is using this Resource, for crucial context.</param>
     /// <param name="message">The error message, which can contain format specifiers.</param>
     /// <param name="args">Optional arguments to format into the message string.</param>
-    public static void Error(Resource context, Node owner, string message, params object[] args)
+    public static void Error(Resource context, Node? owner, string message, params object[] args)
     {
         string formattedMessage = BuildLogMessage("ERROR", context, owner, message, args);
         GD.PushError(formattedMessage);
@@ -114,13 +115,24 @@ public static class Logger
         GD.PushError(formattedMessage);
         throw ex;
     }
+    /// <summary>
+    /// Logs a caught exception with full context and then re-throws it. Use in a catch block
+    /// when you want to add context to an exception before it propagates up the stack.
+    /// </summary>
+    public static void Exception(Exception ex, Resource context)
+    {
+        string message = $"Caught Exception: {ex.Message}\n{ex.StackTrace}";
+        string formattedMessage = BuildLogMessage("EXCEPTION", context, null, message);
+        GD.PushError(formattedMessage);
+        throw ex;
+    }
 
     #endregion
 
     /// <summary>
     /// The core private helper that builds the standardized log message string.
     /// </summary>
-    private static string BuildLogMessage(string level, object context, Node owner, string message, params object[] args)
+    private static string BuildLogMessage(string level, object context, Node? owner, string message, params object[] args)
     {
         string contextStr;
         if (context is Node node)

@@ -1,7 +1,8 @@
 ﻿using Godot;
 using Godot.Collections;
 using Jmo.AI.Affinities;
-using System.Collections.Generic;
+using Jmo.Core.World;
+using SysCol = System.Collections.Generic;
 
 namespace Jmo.AI.Navigation;
 
@@ -13,6 +14,10 @@ namespace Jmo.AI.Navigation;
 [GlobalClass]
 public abstract partial class BaseAIConsideration3D : Resource
 {
+    /// <summary>
+    /// Highest consideration priorities get calculated first
+    /// </summary>
+    [Export] public int Priority { get; protected set; } = 1;
     [Export] private Array<SteeringConsiderationModifier> _modifiers = new();
 
     /// <summary>
@@ -22,12 +27,11 @@ public abstract partial class BaseAIConsideration3D : Resource
     /// <param name="context">A snapshot of the current world and agent state.</param>
     /// <param name="blackboard">The AI's blackboard for accessing core components.</param>
     /// <param name="finalScores">The master score dictionary from the steering processor.</param>
-    public void Evaluate(DecisionContext context, IBlackboard blackboard, ref Dictionary<Vector3, float> finalScores)
+    public void Evaluate(DecisionContext context, IBlackboard blackboard,
+        DirectionSet3D directions, ref SysCol.Dictionary<Vector3, float> finalScores)
     {
-        var agentNode = blackboard.GetVar<Node>(BBDataSig.Agent);
-
         // 1. Calculate the raw, objective scores for this consideration.
-        var baseScores = CalculateBaseScores(context, blackboard);
+        var baseScores = CalculateBaseScores(directions, context, blackboard);
         if (baseScores == null) return;
 
         // 2. Apply all subjective modifiers to the base scores.
@@ -37,7 +41,7 @@ public abstract partial class BaseAIConsideration3D : Resource
             {
                 if (modifier == null) continue;
                 // Pass the agent node as the owner for better logging context.
-                modifier.Modify(ref baseScores, context, blackboard, agentNode);
+                modifier.Modify(ref baseScores, context, blackboard);
             }
         }
 
@@ -55,5 +59,6 @@ public abstract partial class BaseAIConsideration3D : Resource
     /// Child classes must implement this to provide the raw directional scores
     /// before any personality-driven modifications are applied.
     /// </summary>
-    protected abstract Dictionary<Vector3, float> CalculateBaseScores(DecisionContext context, IBlackboard blackboard);
+    protected abstract SysCol.Dictionary<Vector3, float> CalculateBaseScores(
+        DirectionSet3D directions, DecisionContext context, IBlackboard blackboard);
 }

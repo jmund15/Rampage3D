@@ -13,16 +13,19 @@ public readonly struct DecisionContext
 {
     public readonly AIPerceptionManager Memory;
     public readonly Vector3 AgentPosition;
-    public readonly Vector3 AgentForwardVector;
+    public readonly Vector3 AgentFacingDirection;
     public readonly Vector3 AgentVelocity;
-    public readonly Vector3 HighLevelTarget; // The goal provided by the Behavior Tree
+    public readonly Vector3 NextPathPointDirection;
+    public readonly Vector3 TargetPosition;
 
-    public DecisionContext(AIPerceptionManager memory, Vector3 agentPosition, Vector3 agentForward, Vector3 agentVelocity, Vector3 highLevelTarget)
+    public DecisionContext(AIPerceptionManager memory, 
+        Vector3 agentPosition, Vector3 agentFacing, Vector3 agentVelocity, Vector3 nextPathPointDirection, Vector3 targetPosition)
     {
         Memory = memory;
         AgentPosition = agentPosition;
-        AgentForwardVector = agentForward;
+        AgentFacingDirection = agentFacing;
         AgentVelocity = agentVelocity;
-        HighLevelTarget = highLevelTarget;
+        NextPathPointDirection = nextPathPointDirection;
+        TargetPosition = targetPosition;
     }
 }

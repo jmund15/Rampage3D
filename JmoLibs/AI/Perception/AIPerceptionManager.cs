@@ -111,6 +111,11 @@ namespace Jmo.AI.Perception
             return bestMatch;
         }
 
+        public IEnumerable<PerceptionInfo> GetSensedByCollLayer(int collLayer) =>
+            _memoryByTarget.Keys.OfType<CollisionObject3D>()
+            .Where(obj => obj.GetCollisionLayerValue(collLayer))
+            .Select(obj => _memoryByTarget[obj])
+            ;
         public Node GetInterfaceNode() => this;
         #endregion
     }

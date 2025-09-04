@@ -1,6 +1,9 @@
 ﻿using Godot;
 using Godot.Collections;
+using Jmo.Shared;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using static Godot.TextServer;
@@ -64,7 +67,7 @@ namespace Jmo.Core.World
         /// <summary>
         /// Directions should always be normalized vectors.
         /// </summary>
-        public Array<Vector3> Directions { get; protected set; } = new();
+        public IEnumerable<Vector3> Directions { get; protected set; } = null!;
 
         //TODO: see if needed for godot editor to allow export of resource
         //public DirectionSet3D() { }
@@ -75,43 +78,62 @@ namespace Jmo.Core.World
         /// </summary>
         /// <param name="targetDirection">The continuous, normalized direction to check against.</param>
         /// <returns>The index of the closest vector in the Directions array.</returns>
-        public int GetClosestDirectionIndex(Vector3 targetDirection)
+        //public int GetClosestDirectionIndex(Vector3 targetDirection)
+        //{
+        //    if (Directions == null || !Directions.Any())
+        //    {
+        //        GD.PrintErr($"DirectionSet3D '{ResourceName}' has no directions defined.");
+        //        return -1; //TODO: throw exception instead? -1 should not be expected to be handled normally
+        //    }
+        //    if (Directions.Any(dir => dir.Length() == 0 || !dir.IsNormalized()))
+        //    {
+        //        GD.PrintErr($"DirectionSet3D '{ResourceName}' contains invalid directions. All directions must be normalized and non-zero.");
+        //        return -1; //TODO: throw exception instead? -1 should not be expected to be handled normally
+        //    }
+        //    int bestIdx = 0;
+        //    float maxDot = float.MinValue;
+        //    var normalizedTarget = targetDirection.Normalized();
+            
+        //    for (int i = 0; i < Directions.Count; i++)
+        //    {
+        //        // The dot product of two normalized vectors gives the cosine of the angle between them.
+        //        // A higher dot product means a smaller angle.
+        //        float dot = Directions[i].Dot(normalizedTarget);
+        //        if (dot > maxDot)
+        //        {
+        //            maxDot = dot;
+        //            bestIdx = i;
+        //        }
+        //    }
+        //    return bestIdx;
+        //}
+        public Vector3 GetClosestDirection(Vector3 targetDirection)
         {
-            if (Directions == null || Directions.Count == 0)
-            {
-                GD.PrintErr($"DirectionSet3D '{ResourceName}' has no directions defined.");
-                return -1; //TODO: throw exception instead? -1 should not be expected to be handled normally
-            }
-            if (Directions.Any(dir => dir.Length() == 0 || !dir.IsNormalized()))
-            {
-                GD.PrintErr($"DirectionSet3D '{ResourceName}' contains invalid directions. All directions must be normalized and non-zero.");
-                return -1; //TODO: throw exception instead? -1 should not be expected to be handled normally
-            }
-            int bestIdx = 0;
+            //int index = GetClosestDirectionIndex(targetDirection);
+            //if (index >= 0 && index < Directions.Count)
+            //{
+            //    return Directions[index];
+            //}
+            Vector3? closestDir = null;
             float maxDot = float.MinValue;
             var normalizedTarget = targetDirection.Normalized();
-            for (int i = 0; i < Directions.Count; i++)
+            foreach (var dir in Directions)
             {
                 // The dot product of two normalized vectors gives the cosine of the angle between them.
                 // A higher dot product means a smaller angle.
-                float dot = Directions[i].Dot(normalizedTarget);
+                float dot = dir.Dot(normalizedTarget);
                 if (dot > maxDot)
                 {
                     maxDot = dot;
-                    bestIdx = i;
+                    closestDir = dir;
                 }
             }
-            return bestIdx;
-        }
-        public Vector3 GetClosestDirection(Vector3 targetDirection)
-        {
-            int index = GetClosestDirectionIndex(targetDirection);
-            if (index >= 0 && index < Directions.Count)
+            if (closestDir == null)
             {
-                return Directions[index];
+                Logger.Error(this, null, $"No valid direction found for {targetDirection} within the DirectionSet3D '{ResourceName}'.");
             }
-            // TODO: print out all directios in direction set
-            throw new IndexOutOfRangeException($"No valid direction found for {targetDirection} within the DirectionSet3D '{ResourceName}'.");
+            // TODO: print out all directios in direction set for error case
+            return closestDir ?? Vector3.Zero;
         }
     }
 }

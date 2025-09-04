@@ -1,5 +1,5 @@
 ﻿using Godot;
-using Jmo.AI.Core;
+using Jmo.AI.Blackboard;
 using Jmo.AI.Perception;
 using Jmo.Shared;
 using System.Collections.Generic;
@@ -19,9 +19,8 @@ public partial class AIAgent : Node3D
     [Export] private Blackboard _blackboard;
     [Export] private AIPerceptionManager _perceptionManager;
     [Export] private AISteeringProcessor _steeringProcessor;
-    [Export] private AINavigator _navigator;
+    [Export] private AINavigator3D _navigator;
     [Export] private AIAffinitiesComponent _affinities;
-
     public override string[] _GetConfigurationWarnings()
     {
         var warnings = new List<string>();
@@ -61,16 +60,20 @@ public partial class AIAgent : Node3D
     public override void _PhysicsProcess(double delta)
     {
         // High-level logic (e.g., a Behavior Tree) is assumed to have run, updating the blackboard.
-        _blackboard.GetPrimVar<Vector3>(BBDataSig.TargetPosition, out var highLevelTarget);
+        //_blackboard.GetPrimVar<Vector3>(BBDataSig.TargetPosition, out var highLevelTarget);
+
+        var targetDirection = _navigator.GetIdealDirection();
 
         // --- 1. ASSEMBLE the context for this frame's decision. ---
         // This creates an immutable snapshot of the world state for consistent calculations.
         var context = new DecisionContext(
             _perceptionManager,
             this.GlobalPosition,
-            -this.GlobalBasis.Z, // Standard forward vector in Godot
+            // TODO: replace with sprite facing direction if applicable (for eyesight dir simulation)
+            -this.GlobalBasis.Z, // Standard forward vector in Godot 
             _navigator.Velocity,
-            highLevelTarget
+            targetDirection,
+            _navigator.TargetPosition
         );
 
         // --- 2. DECIDE: The steering processor calculates the best direction. ---
@@ -79,11 +82,21 @@ public partial class AIAgent : Node3D
         // --- 3. ACT: The navigator executes the movement. ---
         _navigator.SetMovementDirection(desiredDirection);
     }
-
-    public void EnableAgent(bool enable)
+    // TODO: do some things here that, when disabled, sets variables to default. i.e. navigation would set curr desired direciton to Vector3.Zero, etc.
+    public void EnableAgentFull(bool enable)
     {
         SetPhysicsProcess(enable);
         _navigator.ProcessMode = enable ? ProcessModeEnum.Inherit : ProcessModeEnum.Disabled;
-        // You could also disable perception here if the AI is truly "off".
+        _perceptionManager.ProcessMode = enable ? ProcessModeEnum.Inherit : ProcessModeEnum.Disabled;
     }
+
+    public void EnableAgentNavigation(bool enable)
+    {
+        _navigator.ProcessMode = enable ? ProcessModeEnum.Inherit : ProcessModeEnum.Disabled;
+    }
+    public void EnableAgentPerception(bool enable)
+    {
+        _perceptionManager.ProcessMode = enable ? ProcessModeEnum.Inherit : ProcessModeEnum.Disabled;
+    }
+    // any others below
 }
