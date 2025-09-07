@@ -14,11 +14,4 @@ namespace Jmo.Gameplay.Stats
     {
         [Export] public string AttributeName { get; private set; } = "Unnamed Attribute";
     }
-
-    [GlobalClass]
-    public partial class AttributeValue : Resource
-    {
-        [Export] public Variant Value { get; private set; } = 0f;
-        [Export] public VariantDefaultCalculationStrategy CalculationStrategy { get; private set; } = new();
-    }
 }

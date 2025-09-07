@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace Jmo.Core.Movement
+namespace Jmo.Gameplay.Stats
 {
     /// <summary>
     /// A data-driven Resource that defines a mechanic (fromally one-time physics impulse). It contains the raw

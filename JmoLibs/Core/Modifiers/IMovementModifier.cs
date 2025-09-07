@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Jmo.Core.Movement
+namespace Clonepage.JmoLibs.Core.Modifiers
 {
     // --- The Modifier Interface ---
     public interface IMovementModifier

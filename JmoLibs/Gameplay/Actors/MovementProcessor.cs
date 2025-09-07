@@ -1,9 +1,8 @@
 ﻿using Godot;
-using Jmo.Core;
 using Jmo.Core.Movement;
 using Jmo.Core.Modifiers;
 using System.Collections.Generic;
-using Jmo.Gameplay.Actors;
+using Jmo.Gameplay.Stats;
 
 namespace Jmo.Gameplay.Actors
 {
@@ -60,7 +59,7 @@ namespace Jmo.Gameplay.Actors
 
             // --- 2. Calculate Character-Driven Velocity via the Strategy ---
             Vector3 characterVelocity = strategy.CalculateVelocity(_controller.Velocity, desiredDirection, finalProfile, _controller.IsOnFloor, delta);
-            _controller.SetVelocity(new Vector3(characterVelocity.x, _controller.Velocity.y, characterVelocity.z));
+            _controller.SetVelocity(new Vector3(characterVelocity.X, _controller.Velocity.Y, characterVelocity.Z));
 
             // --- 3. Apply External Forces (Gravity, Environment) ---
             ApplyExternalForces(delta);
@@ -77,7 +76,7 @@ namespace Jmo.Gameplay.Actors
             if (_impulses.TryGetValue(mechanic, out var modifiableImpulse))
             {
                 MechanicData finalImpulse = modifiableImpulse.Value;
-                _controller.ApplyImpulse(impulseDirection * finalImpulse.Strength);
+                _controller.AddVelocity(impulseDirection * finalImpulse.Strength);
             }
         }
 

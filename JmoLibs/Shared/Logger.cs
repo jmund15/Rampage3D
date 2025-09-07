@@ -34,7 +34,7 @@ public static class Logger
     /// <param name="owner">Optional. The Node that owns or is using this Resource, for crucial context.</param>
     /// <param name="message">The error message, which can contain format specifiers.</param>
     /// <param name="args">Optional arguments to format into the message string.</param>
-    public static void Error(Resource context, Node? owner, string message, params object[] args)
+    public static void Error(Resource context, string message, Node? owner = null, params object[] args)
     {
         string formattedMessage = BuildLogMessage("ERROR", context, owner, message, args);
         GD.PushError(formattedMessage);
@@ -51,9 +51,9 @@ public static class Logger
     /// <param name="context">The Node that is the source of the warning.</param>
     /// <param name="message">The warning message, which can contain format specifiers.</param>
     /// <param name="args">Optional arguments to format into the message string.</param>
-    public static void Warning(Node context, string message, params object[] args)
+    public static void Warning(Node context, string message, Node? custOwner = null, params object[] args)
     {
-        string formattedMessage = BuildLogMessage("WARNING", context, null, message, args);
+        string formattedMessage = BuildLogMessage("WARNING", context, message, custOwner, args);
         GD.PushWarning(formattedMessage);
     }
 
@@ -64,9 +64,9 @@ public static class Logger
     /// <param name="owner">Optional. The Node that owns or is using this Resource.</param>
     /// <param name="message">The warning message, which can contain format specifiers.</param>
     /// <param name="args">Optional arguments to format into the message string.</param>
-    public static void Warning(Resource context, Node owner, string message, params object[] args)
+    public static void Warning(Resource context, string message, Node? owner = null, params object[] args)
     {
-        string formattedMessage = BuildLogMessage("WARNING", context, owner, message, args);
+        string formattedMessage = BuildLogMessage("WARNING", context, message, owner, args);
         GD.PushWarning(formattedMessage);
     }
 
@@ -108,10 +108,10 @@ public static class Logger
     /// Logs a caught exception with full context and then re-throws it. Use in a catch block
     /// when you want to add context to an exception before it propagates up the stack.
     /// </summary>
-    public static void Exception(Exception ex, Node context)
+    public static void Exception(Exception ex, Node context, Node? custOwner = null)
     {
         string message = $"Caught Exception: {ex.Message}\n{ex.StackTrace}";
-        string formattedMessage = BuildLogMessage("EXCEPTION", context, null, message);
+        string formattedMessage = BuildLogMessage("EXCEPTION", context, message, custOwner);
         GD.PushError(formattedMessage);
         throw ex;
     }
@@ -119,10 +119,10 @@ public static class Logger
     /// Logs a caught exception with full context and then re-throws it. Use in a catch block
     /// when you want to add context to an exception before it propagates up the stack.
     /// </summary>
-    public static void Exception(Exception ex, Resource context)
+    public static void Exception(Exception ex, Resource context, Node? owner = null)
     {
         string message = $"Caught Exception: {ex.Message}\n{ex.StackTrace}";
-        string formattedMessage = BuildLogMessage("EXCEPTION", context, null, message);
+        string formattedMessage = BuildLogMessage("EXCEPTION", context, message, owner);
         GD.PushError(formattedMessage);
         throw ex;
     }
@@ -132,12 +132,13 @@ public static class Logger
     /// <summary>
     /// The core private helper that builds the standardized log message string.
     /// </summary>
-    private static string BuildLogMessage(string level, object context, Node? owner, string message, params object[] args)
+    private static string BuildLogMessage(string level, object context, string message, Node? owner = null, params object[] args)
     {
         string contextStr;
         if (context is Node node)
         {
-            contextStr = $"[{node.GetType().Name} @ '{node.GetPath()}']";
+            string ownerStr = (owner != null) ? $" (Owner: {owner.GetPath()})" : node.GetOwner() != null ? $" (Owner: {node.GetOwner().GetPath()})" : "";
+            contextStr = $"[{node.GetType().Name} @ '{node.GetPath()}']{ownerStr}";
         }
         else if (context is Resource resource)
         {

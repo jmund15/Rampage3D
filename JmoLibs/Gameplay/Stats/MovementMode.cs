@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace Jmo.Core.Movement
+namespace Jmo.Gameplay.Stats
 {
     /// <summary>
     /// A simple, data-driven "tag" Resource that represents a state of movement

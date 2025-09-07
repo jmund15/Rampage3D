@@ -3,7 +3,7 @@ using Godot.Collections;
 using Jmo.Core.Modifiers.CalculationStrategy;
 using Jmo.Gameplay.Stats;
 
-namespace Jmo.Core.Movement
+namespace Jmo.Gameplay.Stats
 {
     /// <summary>
     /// A comprehensive, data-driven "character sheet" that acts as a library of all available

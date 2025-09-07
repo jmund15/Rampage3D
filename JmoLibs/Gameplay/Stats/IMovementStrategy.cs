@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace Jmo.Core.Movement
+namespace Jmo.Gameplay.Stats
 {
     /// <summary>
     /// Defines a contract for a swappable, stateless calculation strategy. Its sole responsibility
@@ -12,6 +12,6 @@ namespace Jmo.Core.Movement
     /// </remarks>
     public interface IMovementStrategy
     {
-        Vector3 CalculateVelocity(Vector3 currentVelocity, Vector3 desiredDirection, VelocityProfile profile, float delta);
+        Vector3 CalculateVelocity(Vector3 currentVelocity, Vector3 desiredDirection, StatController statContoller, float delta);
     }
 }

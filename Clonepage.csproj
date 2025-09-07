@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="JmoLibs\AI\Core\" />
+    <Folder Include="JmoLibs\Gameplay\Stats\Attributes\" />
     <Folder Include="Police\" />
     <Folder Include="Vehicles\Implementation\" />
   </ItemGroup>

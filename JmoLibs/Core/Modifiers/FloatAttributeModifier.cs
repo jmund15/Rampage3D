@@ -5,7 +5,7 @@ using Godot.Collections;
 namespace Jmo.Core.Modifiers
 {
     /// <summary>
-    /// The definitive, data-driven Resource for modifying a float value. This is the primary tool
+    /// Resource for modifying a float value. This is the primary tool
     /// a designer will use to create all standard buffs, debuffs, and equipment bonuses in the editor.
     /// It fully implements the IModifier contract, including stages, priority, and tags.
     /// </summary>

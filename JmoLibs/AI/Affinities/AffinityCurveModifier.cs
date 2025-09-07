@@ -1,6 +1,5 @@
 ﻿// --- This ONE class replaces all previous modifiers like FearAffinityModifier.cs ---
 using Godot;
-using Jmo.;
 using Jmo.Shared;
 using JmoAI.UtilityAI;
 

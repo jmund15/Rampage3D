@@ -1,9 +1,9 @@
 ﻿using Godot;
+using Jmo.Core.Movement;
 using System;
 using System.Collections.Generic;
-using TimeRobbers.Interfaces;
 
-public partial class Critter : CharacterBody3D, IMovementComponent, IVelocityChar3DComponent
+public partial class Critter : CharacterBody3D, IMovementComponent, ICharacterController3D
 {
     public IBlackboard BB { get; protected set; }
     public AINav3DComponent AINavComp { get; protected set; }
@@ -242,6 +242,8 @@ public partial class Critter : CharacterBody3D, IMovementComponent, IVelocityCha
     [Export]
     public float MaxLandVelocity { get; set; }
 
+    bool ICharacterController3D.IsOnFloor => throw new NotImplementedException();
+
     public Node GetInterfaceNode()
     {
         return this;
@@ -325,14 +327,6 @@ public partial class Critter : CharacterBody3D, IMovementComponent, IVelocityCha
         //}
         Velocity = velocity;
         //GD.Print("Set Velocity: ", Velocity);
-    }
-    public void ApplyGravity(float delta)
-    {
-        Velocity += this.GetWeightedGravity() * delta;
-    }
-    public void ApplyCustomGravity(float delta, Vector3 customGrav, float weightPercentage = 0)
-    {
-        Velocity += this.GetCustomWeightedGravity(customGrav, weightPercentage) * delta;
     }
     public void ApplyImpulse(Vector3 direction, ImpulseType impulseType)
     {
@@ -488,6 +482,16 @@ public partial class Critter : CharacterBody3D, IMovementComponent, IVelocityCha
     }
 
     public void SetMultMod(float mod)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AddVelocity(Vector3 additiveVelocity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Teleport(Vector3 newGlobalPosition)
     {
         throw new NotImplementedException();
     }

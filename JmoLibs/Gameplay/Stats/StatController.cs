@@ -1,8 +1,6 @@
 ﻿using Godot;
-using Jmo.Core.Movement;
 using Jmo.Core.Modifiers;
 using Jmo.Core.Modifiers.CalculationStrategy;
-using Jmo.Gameplay.Stats;
 using System.Collections.Generic;
 using Sys = System; // Alias to prevent conflict with Godot.System
 
@@ -16,6 +14,7 @@ namespace Jmo.Gameplay.Stats
     /// needing to query or modify character data.
     /// </summary>
     [GlobalClass]
+    // TODO: MAKE THIS A INTERFACE for better dependency injection and scalability
     public partial class StatController : Node
     {
         // --- Private State ---
