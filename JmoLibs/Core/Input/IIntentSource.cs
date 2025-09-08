@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Jmo.Core.IntentInput
+namespace Jmo.Core.Input
 {
     /// <summary>
     /// Defines a contract for a component that provides player or AI intent.

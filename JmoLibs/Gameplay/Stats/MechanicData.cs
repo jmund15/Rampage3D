@@ -3,17 +3,14 @@
 namespace Jmo.Gameplay.Stats
 {
     /// <summary>
-    /// A data-driven Resource that defines a mechanic (fromally one-time physics impulse). It contains the raw
-    /// physics data for an action like a jump or a dash. The link to what *triggers* this
-    /// impulse is defined contextually by the character's State Machine.
+    /// The abstract base class for all mechanic data resources. Its sole purpose is to
+    /// provide a common, type-safe contract for different types of character actions.
+    /// Concrete implementations (e.g., ImpulseMechanicData, DashMechanicData) will
+    /// define the specific properties for each action.
     /// </summary>
     [GlobalClass]
-    public partial class MechanicData : Resource
+    public abstract partial class MechanicData : Resource
     {
-        /// <summary>
-        /// Name for UI and debugging purposes.
-        /// </summary>
-        [Export] public string ImpulseName { get; private set; } = "Unnamed Impulse";
-        [Export] public float Strength { get; private set; } = 15.0f;
+        // This class is intentionally empty. It's a "marker" base class.
     }
 }

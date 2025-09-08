@@ -16,27 +16,20 @@ namespace Jmo.Gameplay.Actors
     public class MovementProcessor
     {
         private readonly ICharacterController3D _controller;
-
-        // --- Live Data References ---
-        private readonly Dictionary<MovementMode, ModifiableProperty<VelocityProfile>> _movementProfiles;
-        private readonly Dictionary<MechanicType, ModifiableProperty<MechanicData>> _impulses;
-
-        // --- External Systems ---
+        private readonly IStatProvider _stats; // Now it needs a reference to the StatController
         private readonly ExternalForceReceiver _forceReceiver;
         private readonly Node3D _owner;
 
-        private readonly Vector3 _gravity = Vector3.Down * 9.8f;
+        //private readonly Vector3 _gravity = Vector3.Down * 9.8f;
 
         public MovementProcessor(
             ICharacterController3D controller,
-            Dictionary<MovementMode, ModifiableProperty<VelocityProfile>> movementProfiles,
-            Dictionary<MechanicType, ModifiableProperty<MechanicData>> impulses,
+            IStatProvider statsProvider,
             ExternalForceReceiver forceReceiver,
             Node3D owner)
         {
             _controller = controller;
-            _movementProfiles = movementProfiles;
-            _impulses = impulses;
+            _stats = statsProvider;
             _forceReceiver = forceReceiver;
             _owner = owner;
         }
@@ -47,44 +40,50 @@ namespace Jmo.Gameplay.Actors
         /// </summary>
         public void ProcessMovement(IMovementStrategy strategy, MovementMode activeMode, Vector3 desiredDirection, float delta)
         {
-            // --- 1. Get Final, Modified Velocity Profile ---
-            if (!_movementProfiles.TryGetValue(activeMode, out var modifiableProfile))
-            {
-                // This character has no defined physics for this mode. Apply external forces only.
-                ApplyExternalForces(delta);
-                _controller.Move();
-                return;
-            }
-            VelocityProfile finalProfile = modifiableProfile.Value;
+            // --- 1. Calculate Character-Driven Velocity via the Strategy ---
+            // The strategy does the heavy lifting of getting stats.
+            Vector3 characterVelocity = strategy.CalculateVelocity(_controller.Velocity, desiredDirection, _stats, activeMode, delta);
+            _controller.SetVelocity(characterVelocity); // The strategy now returns the full vector including Y
 
-            // --- 2. Calculate Character-Driven Velocity via the Strategy ---
-            Vector3 characterVelocity = strategy.CalculateVelocity(_controller.Velocity, desiredDirection, finalProfile, _controller.IsOnFloor, delta);
-            _controller.SetVelocity(new Vector3(characterVelocity.X, _controller.Velocity.Y, characterVelocity.Z));
-
-            // --- 3. Apply External Forces (Gravity, Environment) ---
+            // --- 2. Apply External Forces (Gravity, Environment) ---
             ApplyExternalForces(delta);
 
-            // --- 4. Execute the Final Move ---
+            // --- 3. Execute the Final Move ---
             _controller.Move();
         }
 
         /// <summary>
-        /// Executes a discrete, one-time impulse mechanic. This is called by the State in response to an intent.
+        /// An update loop for states where the character is passive (e.g., stunned, interacting).
+        /// It does not run a movement strategy but still applies gravity and other external forces.
         /// </summary>
-        public void ProcessImpulse(MechanicType mechanic, Vector3 impulseDirection)
+        public void ProcessExternalForcesOnly(float delta)
         {
-            if (_impulses.TryGetValue(mechanic, out var modifiableImpulse))
-            {
-                MechanicData finalImpulse = modifiableImpulse.Value;
-                _controller.AddVelocity(impulseDirection * finalImpulse.Strength);
-            }
+            // 1. No strategy is run. We respect the velocity set by other systems (e.g., knockback impulse).
+
+            // 2. Apply external forces
+            ApplyExternalForces(delta);
+
+            // 3. Execute the move
+            _controller.Move();
         }
 
+        /// <summary>
+        /// Applies an instantaneous change in velocity to the character controller.
+        /// This is the primary method for all impulse-based mechanics.
+        /// </summary>
+        /// <param name="impulse">The velocity vector to add to the character's current velocity.</param>
+        public void ApplyImpulse(Vector3 impulse)
+        {
+            _controller.AddVelocity(impulse);
+        }
         private void ApplyExternalForces(float delta)
         {
             if (!_controller.IsOnFloor)
             {
-                _controller.AddVelocity(_gravity * delta);
+                // A better way to get gravity settings, still bad, should be used by ForceReceiver too.
+                var gravityVec = ProjectSettings.GetSetting("physics/3d/default_gravity_vector").AsVector3();
+                var gravityMag = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+                _controller.AddVelocity(gravityVec * gravityMag * delta);
             }
 
             // TODO: this force receiver should also handle gravity, instead of being hardcoded above.

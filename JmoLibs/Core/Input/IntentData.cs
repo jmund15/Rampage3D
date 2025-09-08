@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace Jmo.Core.IntentInput
+namespace Jmo.Core.Input
 {
     /// <summary>
     /// A lightweight, type-safe container for a single piece of input intent data.

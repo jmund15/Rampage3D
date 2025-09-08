@@ -1,6 +1,6 @@
 ﻿using Godot;
 using Jmo.AI.Affinities;
-using Jmo.Core.IntentInput;
+using Jmo.Core.Input;
 using Jmo.Gameplay.Stats;
 using Jmo.Shared;
 using System.Collections.Generic;

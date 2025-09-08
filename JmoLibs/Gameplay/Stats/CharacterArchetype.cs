@@ -29,10 +29,10 @@ namespace Jmo.Gameplay.Stats
 
         
         /// <summary>
-        /// A list of all impulses (like jumps or dashes) this character is capable of performing.
+        /// A list of all mechanics (like jumps or dashes) this character is capable of performing.
         /// A State Machine will query this list to find the data for a specific mechanic.
         /// </summary>
         [ExportGroup("Mechanics")]
-        [Export] public Dictionary<MechanicType, MechanicData> ImpulseLibrary { get; private set; } = new();
+        [Export] public Dictionary<MechanicType, MechanicData> MechanicLibrary { get; private set; } = new();
     }
 }

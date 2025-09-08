@@ -1,6 +1,10 @@
 ﻿using Godot;
-using System;
 using Godot.Collections;
+using Jmo.Core.Input;
+using Jmo.Core.Movement;
+using Jmo.Gameplay.Actors;
+using Jmo.Gameplay.Stats;
+using System;
 
 public class OrthogDirChangedArgs : EventArgs
 {
@@ -21,6 +25,18 @@ public class OrthogDirChangedArgs : EventArgs
  */
 public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityChar3DComponent
 {
+    // --- EXPORTED CONFIGURATION ---
+    [Export] private CharacterArchetype _archetype = null!;
+    [Export] private NodePath _stateMachinePath = null!;
+
+    // --- CORE SYSTEMS (The new way) ---
+    public StatController StatController { get; private set; } = null!;
+    public MovementProcessor MovementProcessor { get; private set; } = null!;
+    public IIntentSource IntentSource { get; private set; } = null!;
+    public ICharacterController3D Controller { get; private set; } = null!;
+    public ExternalForceReceiver ForceReceiver { get; private set; } = null!; // Assuming you have this node (where would it be, probably on specific environemnts and objects right?)
+
+
     public int PlayerNumber { get; set; }
     public bool InputAllowed { get; set; } = true;
     public Vector2 InputDirection { get; private set; }
@@ -127,19 +143,26 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
     public override void _Ready()
     {
         base._Ready();
-        foreach (var velProp in VelocityProperties.VelocityIds)
-        {
-            VelocityMap[velProp.VelocityType] = velProp.GetVelocityID();
-            VelAddModMap[velProp.VelocityType] = new VelocityID();
-            VelMultModMap[velProp.VelocityType] = new VelocityID(1, 1, 1);
-            //GD.Print($"set vel prop for {velProp.VelocityType}");
-        }
-        foreach (var impProp in VelocityProperties.ImpulseIds)
-        {
-            ImpulseMap[impProp.ImpulseType] = impProp.ImpulseForce;
-            ImpulseModMap[impProp.ImpulseType] = 0f;
-            //GD.Print($"set impulse prop for {impProp.ImpulseType}");
-        }
+        // --- 1. INITIALIZE CORE SYSTEMS ---
+
+        // Stat Controller: The source of truth for all character data.
+        StatController = new StatController();
+        StatController.InitializeFromArchetype(_archetype);
+        AddChild(StatController); // Good practice to add controllers as children
+
+        // Intent Source: Provides player/AI input.
+        IntentSource = new BASICPlayerIntentSource(); // In a real game, you might switch this for an AIIntentSource
+
+        // Character Controller: The low-level physics driver.
+        Controller = new CharacterBodyController3D(this);
+
+        // External Force Receiver (assuming it's a child node)
+        // ForceReceiver = GetNode<ExternalForceReceiver>("ExternalForceReceiver");
+
+        // Movement Processor: The high-level calculation engine.
+        // We are passing null for collections because the processor no longer needs them.
+        // This constructor should be updated.
+        MovementProcessor = new MovementProcessor(Controller, null, null, null, this); // UPDATE THIS CONSTRUCTOR
 
 
         //GD.Print($"Ground Velocity MAP ID: \n{VelocityMap[VelocityType.Ground]}");

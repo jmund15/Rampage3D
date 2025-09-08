@@ -15,7 +15,7 @@ namespace Jmo.Gameplay.Stats
     /// </summary>
     [GlobalClass]
     // TODO: MAKE THIS A INTERFACE for better dependency injection and scalability
-    public partial class StatController : Node
+    public partial class StatController : Node, IStatProvider
     {
         // --- Private State ---
 
@@ -30,7 +30,11 @@ namespace Jmo.Gameplay.Stats
         /// overrides and properties needed for different states of motion.
         /// Example: Ground Max Speed, Air Acceleration, Swim Friction.
         /// </summary>
-        private readonly Dictionary<MovementMode, Dictionary<Attribute, ModifiableProperty<Variant>>> _contextualStats = new();
+        private readonly Dictionary<MovementMode, Dictionary<Attribute, ModifiableProperty<Variant>>> _movementModeStats = new();
+
+        // A dedicated library for mechanics. The value is a ModifiableProperty
+        // so that buffs/debuffs can change a mechanic's data at runtime (e.g., a "Super Jump" power-up).
+        private readonly Dictionary<MechanicType, ModifiableProperty<MechanicData>> _mechanics = new();
 
         // --- Public Events ---
 
@@ -42,7 +46,7 @@ namespace Jmo.Gameplay.Stats
         /// </summary>
         /// <param name="attribute">The attribute whose value has changed.</param>
         /// <param name="newValue">The new final calculated value.</param>
-        public event Sys.Action<Attribute, Variant> OnStatChanged;
+        public event Sys.Action<Attribute, Variant> OnStatChanged = null!;
 
         // --- Initialization ---
 
@@ -80,7 +84,7 @@ namespace Jmo.Gameplay.Stats
             {
                 var mode = modeEntry.Key;
                 var profile = modeEntry.Value;
-                _contextualStats[mode] = new Dictionary<Attribute, ModifiableProperty<Variant>>();
+                _movementModeStats[mode] = new Dictionary<Attribute, ModifiableProperty<Variant>>();
 
                 foreach (var attrEntry in profile.Attributes)
                 {
@@ -93,7 +97,7 @@ namespace Jmo.Gameplay.Stats
                     // Use the override if it exists; otherwise, use the default for movement stats.
                     var strategyToUse = specificStrategy ?? defaultMovementStrategy;
 
-                    _contextualStats[mode][attribute] = new ModifiableProperty<Variant>(baseValue, strategyToUse);
+                    _movementModeStats[mode][attribute] = new ModifiableProperty<Variant>(baseValue, strategyToUse);
                 }
             }
 
@@ -119,7 +123,7 @@ namespace Jmo.Gameplay.Stats
         {
             // First, attempt to find the most specific, contextual version of the stat.
             if (context != null &&
-                _contextualStats.TryGetValue(context, out var modeStats) &&
+                _movementModeStats.TryGetValue(context, out var modeStats) &&
                 modeStats.TryGetValue(attribute, out var contextualProp))
             {
                 return contextualProp;
@@ -145,7 +149,7 @@ namespace Jmo.Gameplay.Stats
         /// <param name="context">Optional: The current MovementMode for contextual lookups.</param>
         /// <param name="defaultValue">The value to return if the stat doesn't exist or if a type mismatch occurs.</param>
         /// <returns>The final calculated value of the stat, or the default value on failure.</returns>
-        public T GetStatValue<[MustBeVariant] T>(Attribute attribute, MovementMode context = null, T defaultValue = default)
+        public T GetStatValue<[MustBeVariant] T>(Attribute attribute, MovementMode? context = null, T defaultValue = default)
         {
             var prop = GetStat(attribute, context);
             if (prop != null)
@@ -168,6 +172,27 @@ namespace Jmo.Gameplay.Stats
 
             // The stat was not found in any context.
             return defaultValue;
+        }
+
+        public MechanicData? GetMechanicData(MechanicType mechanicType)
+        {
+            if (mechanicType != null && _mechanics.TryGetValue(mechanicType, out var modifiableData))
+            {
+                // Return the final, potentially modified value.
+                return modifiableData.Value;
+            }
+
+            GD.PrintErr($"Entity does not have mechanic data for '{mechanicType?.MechanicName ?? "NULL"}'");
+            return null;
+        }
+
+        public ModifiableProperty<MechanicData>? GetMechanic(MechanicType mechanicType)
+        {
+            if (mechanicType != null && _mechanics.TryGetValue(mechanicType, out var modifiableData))
+            {
+                return modifiableData;
+            }
+            return null;
         }
     }
 }

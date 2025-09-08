@@ -1,17 +1,20 @@
-﻿using Godot;
+﻿using Jmo.Core.Stats;
+using Jmo.Gameplay.Stats;
+using Godot;
 
-namespace Jmo.Gameplay.Stats
+namespace Jmo.Core.Movement
 {
-    /// <summary>
-    /// Defines a contract for a swappable, stateless calculation strategy. Its sole responsibility
-    /// is to interpret the data from a VelocityProfile to calculate a new velocity based on input.
-    /// It is a pure mathematical function, completely independent of character state.
-    /// </summary>
-    /// <remarks>
-    /// Exmaples of different strategies could include instantaneous velocity changes, or using the terminal velocity formula
-    /// </remarks>
     public interface IMovementStrategy
     {
-        Vector3 CalculateVelocity(Vector3 currentVelocity, Vector3 desiredDirection, StatController statContoller, float delta);
+        /// <summary>
+        /// Calculates the character-driven portion of velocity based on a specific movement context.
+        /// </summary>
+        /// <param name="currentVelocity">The controller's current velocity.</param>
+        /// <param name="desiredDirection">The normalized direction the character wants to move in.</param>
+        /// <param name="stats">The stat provider to query for physics properties.</param>
+        /// <param name="activeMode">The definitive movement context. This is NOT optional.</param>
+        /// <param name="delta">The physics frame delta time.</param>
+        /// <returns>The new velocity vector reflecting character-driven movement.</returns>
+        Vector3 CalculateVelocity(Vector3 currentVelocity, Vector3 desiredDirection, IStatProvider stats, MovementMode activeMode, float delta);
     }
 }
