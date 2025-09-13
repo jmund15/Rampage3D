@@ -27,7 +27,6 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
 {
     // --- EXPORTED CONFIGURATION ---
     [Export] private CharacterArchetype _archetype = null!;
-    [Export] private NodePath _stateMachinePath = null!;
 
     // --- CORE SYSTEMS (The new way) ---
     public StatController StatController { get; private set; } = null!;
@@ -146,7 +145,7 @@ public partial class Monster : CharacterBody3D, IMovementComponent, IVelocityCha
         // --- 1. INITIALIZE CORE SYSTEMS ---
 
         // Stat Controller: The source of truth for all character data.
-        StatController = new StatController();
+        StatController = this.GetFirstChildOfType<StatController>();
         StatController.InitializeFromArchetype(_archetype);
         AddChild(StatController); // Good practice to add controllers as children
 

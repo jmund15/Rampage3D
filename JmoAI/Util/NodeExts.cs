@@ -1,5 +1,6 @@
 ﻿using Godot;
 using Godot.Collections;
+using Jmo.Shared;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -75,13 +76,46 @@ public static partial class NodeExts
         }
         return result != null;
     }
-    public static bool TryGetFirstChildOfType<T>(this Node root, [MaybeNullWhen(false)] out T? result) where T : Node
+    public static bool TryGetFirstChildOfType<T>(this Node root, [MaybeNullWhen(false)] out T? result, bool includeSubChildren = false) where T : Node
     {
-        result = GetFirstChildOfType<T>(root, false);
-        return result != null;
+        if (!includeSubChildren)
+        {
+            Array<Node> children = root.GetChildren();
+            foreach (var node in children)
+            {
+                if (node is T castedNode)
+                { 
+                    result = castedNode;
+                    return true;
+                }
+            }
+        }
+        else
+        {
+            var nodesToParse = new Queue<Node>(root.GetChildren());
+
+            while (nodesToParse.Count > 0)
+            {
+                // Dequeue is an O(1) operation - very fast!
+                var cursor = nodesToParse.Dequeue();
+                if (cursor is T castedNode)
+                { 
+                    result = castedNode;
+                    return true;
+                }
+                // Enqueue each child to be processed later.
+                foreach (var child in cursor.GetChildren())
+                {
+                    nodesToParse.Enqueue(child);
+                }
+            }
+        }
+        result = null;
+        return false;
     }
     public static bool TryGetFirstChildOfInterface<T>(this Node root, [MaybeNullWhen(false)] out T? result) where T : class
     {
+
         result = GetFirstChildOfInterface<T>(root, false);
         return result != null;
     }
@@ -98,35 +132,13 @@ public static partial class NodeExts
         }
         return result != null;
     }
-    public static T? GetFirstChildOfType<T>(this Node root, bool includeSubChildren = true) where T : Node
+    public static T GetFirstChildOfType<T>(this Node root, bool includeSubChildren = true) where T : Node
     {
-        if (!includeSubChildren)
+        if (root.TryGetFirstChildOfType(out T? result, includeSubChildren))
         {
-            Array<Node> children = root.GetChildren();
-            foreach (var node in children)
-            {
-                if (node is T castedNode)
-                    { return castedNode; }
-            }
+            return result!;
         }
-        else
-        {
-            var nodesToParse = new Queue<Node>(root.GetChildren());
-
-            while (nodesToParse.Count > 0)
-            {
-                // Dequeue is an O(1) operation - very fast!
-                var cursor = nodesToParse.Dequeue();
-                if (cursor is T castedNode)
-                    { return castedNode; }
-                // Enqueue each child to be processed later.
-                foreach (var child in cursor.GetChildren())
-                {
-                    nodesToParse.Enqueue(child);
-                }
-            }
-        }
-        return null;
+        throw new InvalidDataException($"Couldn't find a child of type {typeof(T).Name} in node {root.Name}");
     }
     public static T? GetFirstChildOfInterface<T>(this Node root, bool includeSubChildren = true) where T : class
     {
